@@ -83,7 +83,6 @@ const cdns = (function () {
   Promise.all(cdnArr.map(loadCDN))
     .then(() => {
       console.log("React Loaded");
-      console.log(typeof ReactDOM);
       if (typeof React !== "undefined" && typeof ReactDOM !== "undefined") {
         console.log("React and ReactDOM Loaded");
 
