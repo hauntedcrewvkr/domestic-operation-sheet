@@ -1,64 +1,64 @@
 function createDocumentHeader() {
-  //!------------------------ header
+  //------------------------- header
   let header = document.createElement(`header`);
   header.classList.add(`header`);
 
-  //!------------------------ logo-div
+  //------------------------- logo-div
   let logoDiv = document.createElement(`div`);
   logoDiv.classList.add(`logo`);
 
-  //!------------------------ logo-img
+  //------------------------- logo-img
   let logoImg = document.createElement(`img`);
   logoImg.classList.add(`logo-img`);
   logoImg.src = `https://i.postimg.cc/hGGkfhm2/mediseller-Logo.png`;
   logoImg.alt = `Mediseller Logo`;
   logoImg.title = `Medisellers India`;
 
-  //!------------------------ logo-span
+  //------------------------- logo-span
   let logoSpan = document.createElement(`span`);
   logoSpan.classList.add(`logo-name`);
   logoSpan.insertAdjacentHTML(`beforeend`, `Domestic Operation Sheet`);
 
-  //!------------------------ add-order-span
+  //------------------------- add-order-span
   let addOrderSpan = document.createElement(`span`);
   addOrderSpan.classList.add(`pr-icon`, `add-order-span`);
   addOrderSpan.addEventListener(`click`, addNewOrder);
   addOrderSpan.title = `Add New Order`;
 
-  //!------------------------ add-order-icon
+  //------------------------- add-order-icon
   let addOrderIcon = document.createElement(`i`);
   addOrderIcon.classList.add(`ph`, `ph-user-circle-plus`);
   addOrderIcon.title = `Add Order`;
 
-  //!------------------------ create-order-span
+  //------------------------- create-order-span
   let createOrderSpan = document.createElement(`span`);
   createOrderSpan.classList.add(`pr-icon`, `create-order-span`);
   createOrderSpan.addEventListener(`click`, createOrder);
   createOrderSpan.title = `Create Orders`;
 
-  //!------------------------ create-orders-icon
+  //------------------------- create-orders-icon
   let createOrdersIcon = document.createElement(`i`);
   createOrdersIcon.classList.add(`ph`, `ph-webhooks-logo`);
   createOrdersIcon.title = `Create Orders`;
   createOrdersIcon.addEventListener(`click`, createOrder);
 
-  //!------------------------ pr-actions-div
+  //------------------------- pr-actions-div
   let prActionDiv = document.createElement(`div`);
   prActionDiv.classList.add(`pr-actions`);
 
-  //!------------------------ primary-filter-span
+  //------------------------- primary-filter-span
   let prFilterSpan = document.createElement(`span`);
   prFilterSpan.classList.add(`pr-icon`, `primary-action-filter-span`);
   prFilterSpan.title = `Create Orders`;
 
-  //!------------------------ create-orders-icon
+  //------------------------- create-orders-icon
   let prFilterIcon = document.createElement(`i`);
   prFilterIcon.classList.add(`ph`, `ph-funnel`);
   prFilterIcon.title = `Primary Filter`;
   prFilterSpan.append(prFilterIcon);
   // prFilterIcon.addEventListener(`click`, createOrder);
 
-  //!------------------------ company-name-span
+  //------------------------- company-name-span
   let companyNameSpan = document.createElement(`span`);
   companyNameSpan.classList.add(`pr-icon`, `company-name-span`);
   companyNameSpan.addEventListener(`click`, changeCompany);
@@ -74,11 +74,11 @@ function createDocumentHeader() {
   });
   companyNameSpan.title = `Change Account`;
 
-  //!------------------------ company-name-icon
+  //------------------------- company-name-icon
   let companyNameIcon = document.createElement(`i`);
   companyNameIcon.classList.add(`ph`, `ph-buildings`);
 
-  //!------------------------ useremail-span
+  //------------------------- useremail-span
   let useremailSpan = document.createElement(`span`);
   useremailSpan.classList.add(`pr-icon`);
   useremailSpan.addEventListener(`click`, changeEmail);
@@ -94,21 +94,21 @@ function createDocumentHeader() {
   });
   useremailSpan.title = `change email`;
 
-  //!------------------------ useremail-icon
+  //------------------------- useremail-icon
   let useremailIcon = document.createElement(`i`);
   useremailIcon.classList.add(`ph`, `ph-at`);
 
-  //!------------------------ sync-span
+  //------------------------- sync-span
   let syncSpan = document.createElement(`span`);
   syncSpan.classList.add(`pr-icon`, `sync-span`);
   syncSpan.addEventListener(`click`, syncData);
   syncSpan.title = `Sync`;
 
-  //!------------------------ sync-icon
+  //------------------------- sync-icon
   let syncIcon = document.createElement(`i`);
   syncIcon.classList.add(`ph`, `ph-arrows-clockwise`);
 
-  //!------------------------ apeend-all
+  //------------------------- apeend-all
   addOrderSpan.append(addOrderIcon);
   createOrderSpan.append(createOrdersIcon);
   logoDiv.append(logoImg, logoSpan, addOrderSpan, createOrderSpan);
@@ -129,11 +129,11 @@ function createDocumentHeader() {
 
 function createDocumentNav() {
   const viewData = sheet.Database.view_access.jsonData;
-  ///------------------------ view-nav
+  //------------------------- view-nav
   const nav = document.createElement(`nav`);
   nav.classList.add(`view-nav`);
 
-  ///------------------------ nav-list
+  //------------------------- nav-list
   let navUl = document.createElement(`ul`);
   navUl.classList.add(`nav-list`);
 
@@ -144,18 +144,6 @@ function createDocumentNav() {
     const element = fx.text2el(views.script);
     element.title = views.view_name;
 
-    element.addEventListener(`mouseenter`, function (e) {
-      let icon = fx.$(`i`, e.target);
-      e.target.append(icon, views.view_name);
-    });
-
-    element.addEventListener(`mouseleave`, function (e) {
-      let target = e.target;
-      let icon = fx.$(`i`, target);
-      target.innerHTML = ``;
-      target.append(icon);
-    });
-
     element.addEventListener(`click`, function (e) {
       getTableRows(1, e.target.title);
     });
@@ -163,40 +151,40 @@ function createDocumentNav() {
     navUl.append(element);
   }
 
-  ///------------------------ append-all
+  //------------------------- append-all
   nav.append(navUl);
   document.body.append(nav);
 }
 
 function createDocumentMain() {
-  //!------------------------ main
+  //------------------------- main
   let main = document.createElement(`main`);
   main.classList.add(`main`);
 
-  //!------------------------ table-container
+  //------------------------- table-container
   let tableContainer = document.createElement(`div`);
   tableContainer.classList.add(`table-container`);
 
-  //!------------------------ append-all
+  //------------------------- append-all
   tableContainer.append(createDocumentTable());
   main.append(tableContainer, createDocumentExtraViews());
   document.body.append(main);
 }
 
 function createDocumentTable() {
-  //!------------------------ table
+  //------------------------- table
   let table = document.createElement(`table`);
   table.classList.add(`table`);
 
-  //!------------------------ thead
+  //------------------------- thead
   let thead = document.createElement(`thead`);
   thead.classList.add(`thead`);
 
-  //!------------------------ thead-row
+  //------------------------- thead-row
   let theadRow = document.createElement(`tr`);
   theadRow.classList.add(`table-headings`);
 
-  //!------------------------ thead-row-th
+  //------------------------- thead-row-th
   let Actionth = document.createElement(`th`);
   let orderDetailsth = document.createElement(`th`);
   let cutomerDetailsth = document.createElement(`th`);
@@ -234,51 +222,51 @@ function createDocumentTable() {
 
   thead.append(theadRow);
 
-  //!------------------------ tbody
+  //------------------------- tbody
   let tbody = document.createElement(`tbody`);
   tbody.classList.add(`tbody`);
 
-  //!------------------------ append-all
+  //------------------------- append-all
   table.append(thead, tbody);
   return table;
 }
 
 function createDocumentExtraViews() {
-  //!------------------------ extra-views
+  //------------------------- extra-views
   let extraViews = document.createElement(`section`);
   extraViews.classList.add(`extra-views`);
 
-  //!------------------------ loader-div
+  //------------------------- loader-div
   let loaderDiv = document.createElement(`div`);
   loaderDiv.classList.add(`loader-div`);
 
-  //!------------------------ loader-span
+  //------------------------- loader-span
   let loaderSpan = document.createElement(`span`);
   loaderSpan.classList.add(`loader`);
   loaderSpan.textContent = `Loading`;
   loaderDiv.append(loaderSpan);
 
-  //!------------------------ append-all
+  //------------------------- append-all
   extraViews.append(loaderDiv);
 
   return extraViews;
 }
 
 function createDocumentFooter() {
-  //!------------------------ footer
+  //------------------------- footer
   let footer = document.createElement(`footer`);
   footer.classList.add(`footer`);
 
-  //!------------------------ entries-per-page-div
+  //------------------------- entries-per-page-div
   let eppDiv = document.createElement(`div`);
   eppDiv.classList.add(`epp`);
-  //!------------------------ entrie-per-page-select
+  //------------------------- entrie-per-page-select
   let entriesPerPageSelect = document.createElement(`select`);
   entriesPerPageSelect.setAttribute(`id`, `entries-per-page`);
   entriesPerPageSelect.setAttribute(`name`, `entries-per-page`);
   entriesPerPageSelect.setAttribute(`title`, `Entries Per Page`);
 
-  //!------------------------ entries-per-page-option
+  //------------------------- entries-per-page-option
   let option1 = document.createElement(`option`);
   let option2 = document.createElement(`option`);
   let option3 = document.createElement(`option`);
@@ -298,11 +286,11 @@ function createDocumentFooter() {
   entriesPerPageSelect.append(option1, option2, option3, option4);
   eppDiv.append(entriesPerPageSelect);
 
-  //!------------------------ pagination-div
+  //------------------------- pagination-div
   let paginationDiv = document.createElement(`div`);
   paginationDiv.classList.add(`pagination`);
 
-  //!------------------------ pagination-actions
+  //------------------------- pagination-actions
   let firstAction = document.createElement(`i`);
   let backAction = document.createElement(`i`);
   let pageInput = document.createElement(`input`);
@@ -338,13 +326,13 @@ function createDocumentFooter() {
     lastAction
   );
 
-  //!------------------------ current-view-div
+  //------------------------- current-view-div
   let currentViewDiv = document.createElement(`div`);
   currentViewDiv.classList.add(`current-view`);
   currentViewDiv.innerHTML = `Orders`;
-  //!------------------------ append-all
+  //------------------------- append-all
   footer.append(eppDiv, paginationDiv, currentViewDiv);
-  //!------------------------ append to body
+  //------------------------- append to body
   document.body.append(footer);
 
   {

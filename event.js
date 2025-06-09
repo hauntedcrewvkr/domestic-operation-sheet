@@ -1,4 +1,4 @@
-///------------------------ escape-btn-event
+//------------------------- escape-btn-event
 document.addEventListener(`keydown`, function (event) {
   if (event.key === `Escape`) {
     const detailsView = fx.$$(`.details`);
@@ -9,52 +9,76 @@ document.addEventListener(`keydown`, function (event) {
   }
 });
 
-///------------------------ add-new-order-event-listener
+//------------------------- add-new-order-event-listener
 function addNewOrder(e) {
   e.stopPropagation();
-  const extraViews = fx.$(`.extra-views`);
+  const extraViews = fx.$(".extra-views");
   const htmlViews = sheet.Database.domestic_html_views.jsonData.slice();
   const addOrderView = htmlViews[0].add_new_order_form;
   const addOrderHtml = fx.text2el(addOrderView);
+
   const pocDropdowns = getPocDropdowns();
-  const mopDropdowns = getDropdowns(`Mode of payment`);
-  const stateDropdowns = getDropdowns(`State`);
-  const pocSelect = fx.$(`#poc-select`, addOrderHtml);
-  const mopSelect = fx.$(`#payment-mode-select`, addOrderHtml);
-  const stateSelect = fx.$(`#state-select`, addOrderHtml);
+  const mopDropdowns = getDropdowns("Mode of payment");
+  const stateDropdowns = getDropdowns("State");
+
+  const pocSelect = fx.$("#poc-select", addOrderHtml);
+  const mopSelect = fx.$("#payment-mode-select", addOrderHtml);
+  const stateSelect = fx.$("#state-select", addOrderHtml);
 
   pocDropdowns.forEach(function (dropdown) {
     pocSelect.append(dropdown);
   });
-
   mopDropdowns.forEach(function (dropdown) {
     mopSelect.append(dropdown);
   });
-
   stateDropdowns.forEach(function (dropdown) {
     stateSelect.append(dropdown);
   });
 
   extraViews.append(addOrderHtml);
+
+  addOrderHtml.addEventListener("submit", function (e) {
+    e.preventDefault();
+    const formData = new FormData(addOrderHtml);
+    const dataObject = Object.fromEntries(formData.entries());
+    dataObject.ID ??= `ORDR-${Date.now()}`;
+    dataObject.Timestamp ??= nowStr();
+    dataObject.Email ??= user.email;
+    dataObject[`Order ID`] ??= getOrderNo();
+    dataObject.MONTH ??= Date(dataObject.DATE).toLocaleString(`default`, {
+      month: `long`,
+    });
+    dataObject[`Order No`] ??= `MS${dataObject[`Order ID`] + 1}`;
+    dataObject[`Balance Amount (To be paid) (INR)`] ??=
+      dataObject[`Total Amount  (INR)`] -
+      dataObject[`Prepaid Amount (If any) (INR)`];
+
+    appendData(dataObject);
+  });
+
+  const cancelBtn = fx.$(".cancel", addOrderHtml);
+  cancelBtn.addEventListener("click", function () {
+    addOrderHtml.remove();
+  });
 }
 
-///------------------------ create-order-event-listener
+//------------------------- create-order-event-listener
 function createOrder() {}
 
 function executeFilterAndAction() {}
 
-///------------------------ change-company-event-listener
+//------------------------- change-company-event-listener
 function changeCompany() {}
 
-///------------------------ change-email-event-listener
+//------------------------- change-email-event-listener
 function changeEmail() {}
 
-///------------------------ sync-data-event-listener
+//------------------------- sync-data-event-listener
 function syncData() {
   location.reload();
 }
 
-///------------------------ see-details-event-listener
+//------------------------- see-details-event-listener
 function seeDetails(e) {
   const target = e.target.closest(`tr`);
   const extraViews = fx.$(`.extra-views`);
@@ -98,7 +122,7 @@ function seeDetails(e) {
   extraViews.append(detailsForm);
 }
 
-///------------------------ raise-issue-event-listener
+//------------------------- raise-issue-event-listener
 function raiseIssue(e) {
   e.stopPropagation();
   const extraViews = fx.$(`.extra-views`);
@@ -115,7 +139,7 @@ function raiseIssue(e) {
   extraViews.append(cxIssueHtml);
 }
 
-///------------------------ change-dispatch-status-event-listener
+//------------------------- change-dispatch-status-event-listener
 function changeDispatchStatus(e) {
   e.stopPropagation();
   const extraViews = fx.$(`.extra-views`);
@@ -132,7 +156,7 @@ function changeDispatchStatus(e) {
   extraViews.append(changeDispatchStatusHtml);
 }
 
-///------------------------ add-remarks-event-listener
+//------------------------- add-remarks-event-listener
 function addRemarks(e) {
   e.stopPropagation();
   const extraViews = fx.$(`.extra-views`);
@@ -143,7 +167,7 @@ function addRemarks(e) {
   extraViews.append(addRemarksHtml);
 }
 
-///------------------------ payment-confirm-event-listener
+//------------------------- payment-confirm-event-listener
 function paymentConfirm(e) {
   e.stopPropagation();
   const extraViews = fx.$(`.extra-views`);
@@ -154,7 +178,7 @@ function paymentConfirm(e) {
   extraViews.append(paymentConfirmHtml);
 }
 
-///------------------------ payment-unconfirm-event-listener
+//------------------------- payment-unconfirm-event-listener
 function paymentUnconfirm(e) {
   e.stopPropagation();
   const extraViews = fx.$(`.extra-views`);
@@ -165,7 +189,7 @@ function paymentUnconfirm(e) {
   extraViews.append(paymentUnconfirmHtml);
 }
 
-///------------------------ initial-confirmation-event-listener
+//------------------------- initial-confirmation-event-listener
 function initialConfirmation(e) {
   let master = DATA.Master.slice();
   let headers = master.shift();
@@ -188,7 +212,7 @@ function initialConfirmation(e) {
   createTableRows(1);
 }
 
-///------------------------ fist-page-event
+//------------------------- fist-page-event
 function firstPage(e) {
   const currentView = fx.$(`.current-view`);
   const pageInput = fx.$(`.page-input`);
@@ -199,7 +223,7 @@ function firstPage(e) {
   getTableRows(1, viewname);
 }
 
-///------------------------ go-back-event
+//------------------------- go-back-event
 function goBack(e) {
   const currentView = fx.$(`.current-view`);
   const pageInput = fx.$(`.page-input`);
@@ -210,7 +234,7 @@ function goBack(e) {
   getTableRows(inputValue - 1, viewname);
 }
 
-///------------------------ epp-select-event
+//------------------------- epp-select-event
 function eppSelect(e) {
   const currentView = fx.$(`.current-view`);
   const pagenum = fx.$(`.page-input`).value;
@@ -218,7 +242,7 @@ function eppSelect(e) {
   getTableRows(pagenum, viewname);
 }
 
-///------------------------ page-input-event
+//------------------------- page-input-event
 function pageInputE(e) {
   const currentView = fx.$(`.current-view`);
   const pagenum = fx.num(e.target.value);
@@ -226,7 +250,7 @@ function pageInputE(e) {
   getTableRows(pagenum, viewname);
 }
 
-///------------------------ next-page-event
+//------------------------- next-page-event
 function nextPage(e) {
   const currentView = fx.$(`.current-view`);
   const lastPage = fx.num(fx.$(`.total-pages`).value);
@@ -240,7 +264,7 @@ function nextPage(e) {
   getTableRows(inputValue + 1, viewname);
 }
 
-///------------------------ last-page-event
+//------------------------- last-page-event
 function lastPage(e) {
   const currentView = fx.$(`.current-view`);
   const lastPage = fx.$(`.total-pages`).value;
@@ -253,7 +277,7 @@ function lastPage(e) {
   getTableRows(lastPage, viewname);
 }
 
-///------------------------ generate-orders-event
+//------------------------- generate-orders-event
 function createOrder(e) {
   const data = sheet[tool.name]["Generate Orders"].jsonData;
   const orderOutput = [];

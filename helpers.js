@@ -2,7 +2,7 @@
  * @description This consists all the helper functions
  */
 
-///------------------------ toggle-loader-helper-function()
+//------------------------- toggle-loader-helper-function()
 function toggleLoader() {
   /**
    * @description This function toggles the loader div
@@ -18,7 +18,7 @@ function toggleLoader() {
   }
 }
 
-///------------------------ distribute-data-helper-function()
+//------------------------- distribute-data-helper-function()
 function distributeData(ss, sheetname, data) {
   /**
    * @description This function distributes the data to be stored in variable accordingly
@@ -28,7 +28,7 @@ function distributeData(ss, sheetname, data) {
    */
 
   data = data.slice(); //make-copy-of-data-so-that-original-will-be-safe
-  ///------------------------ initialize-if-data-not-found
+  //------------------------- initialize-if-data-not-found
   sheet[ss] ??= {}; //level-1
   sheet[ss][sheetname] = {}; //level-2
   sheet[ss][sheetname].indexes = {}; //level-3
@@ -42,11 +42,11 @@ function distributeData(ss, sheetname, data) {
     sheet[ss][sheetname].indexes[header] = index; //set-sheet-header-indexes
   });
 
-  ///------------------------ set-sheet-json-data
+  //------------------------- set-sheet-json-data
   if (ss == `Domestic Operation Sheet` && sheetname == `Master`) {
     data = data.reverse();
     const indexes = sheet[ss].Master.indexes; //get-master-index-json
-    ///------------------------ store-views-to-variables
+    //------------------------- store-views-to-variables
     [
       `Medisellers COD`,
       `Medicare COD`,
@@ -73,7 +73,7 @@ function distributeData(ss, sheetname, data) {
 
     for (let row of data) {
       let json = { rowNo: rowNum-- };
-      ///------------------------ get-conditional-values
+      //------------------------- get-conditional-values
       const values = {
         orderConfirmationStatus: row[indexes[`Order Confirmation Status`]],
         deliveryType: row[indexes[`Delivery Type`]],
@@ -93,7 +93,7 @@ function distributeData(ss, sheetname, data) {
         cxIssueStatus: row[indexes[`CX Issue Status`]],
       };
 
-      ///------------------------ medisellers-cod-conditionals
+      //------------------------- medisellers-cod-conditionals
       if (
         values.orderType == `COD` &&
         values.bookingCompany == `Medicare India` &&
@@ -105,7 +105,7 @@ function distributeData(ss, sheetname, data) {
           viewsJson(row, headers, rowNum)
         );
       }
-      ///------------------------ payment-not-received-conditionals
+      //------------------------- payment-not-received-conditionals
       if (
         values.prepaidAmount > 0 &&
         values.isPaymentConfirmed == `No` &&
@@ -117,7 +117,7 @@ function distributeData(ss, sheetname, data) {
           viewsJson(row, headers, rowNum)
         );
       }
-      ///------------------------ payment-received-conditionals
+      //------------------------- payment-received-conditionals
       if (
         values.prepaidAmount > 0 &&
         values.isPaymentConfirmed == `Yes` &&
@@ -129,19 +129,19 @@ function distributeData(ss, sheetname, data) {
           viewsJson(row, headers, rowNum)
         );
       }
-      ///------------------------ dispatch-+-manifest-conditionals
+      //------------------------- dispatch-+-manifest-conditionals
       {
       }
-      ///------------------------ t-1-orders-conditionals
+      //------------------------- t-1-orders-conditionals
       {
       }
-      ///------------------------ dispatch-+-rto-conditionals
+      //------------------------- dispatch-+-rto-conditionals
       {
       }
-      ///------------------------ rto-delivered-conditionals
+      //------------------------- rto-delivered-conditionals
       {
       }
-      ///------------------------ pending-orders-conditionals
+      //------------------------- pending-orders-conditionals
       if (
         values.dispatchStatus == `Yet to be Dispatched` &&
         values.orderConfirmationStatus != `Good to Go` &&
@@ -152,10 +152,10 @@ function distributeData(ss, sheetname, data) {
           viewsJson(row, headers, rowNum)
         );
       }
-      ///------------------------ unconfirmed-returns-conditionals
+      //------------------------- unconfirmed-returns-conditionals
       {
       }
-      ///------------------------ to-check-conditionals
+      //------------------------- to-check-conditionals
       if (
         values.orderConfirmationStatus == `To Check` &&
         (values.dispatchStatus != `Cancelled` ||
@@ -164,7 +164,7 @@ function distributeData(ss, sheetname, data) {
         sheet[ss][`To Check`].arrayData.push(row);
         sheet[ss][`To Check`].jsonData.push(viewsJson(row, headers, rowNum));
       }
-      ///------------------------ get-initial-confirmation-conditionals
+      //------------------------- get-initial-confirmation-conditionals
       if (
         values.orderConfirmationStatus != `To Check` &&
         !values.deliveryType &&
@@ -176,7 +176,7 @@ function distributeData(ss, sheetname, data) {
           viewsJson(row, headers, rowNum)
         );
       }
-      ///------------------------ confirm-payments-conditionals
+      //------------------------- confirm-payments-conditionals
       if (
         values.prepaidAmount > 0 &&
         !values.isPaymentConfirmed &&
@@ -188,7 +188,7 @@ function distributeData(ss, sheetname, data) {
           viewsJson(row, headers, rowNum)
         );
       }
-      ///------------------------ generate-orders-conditionals
+      //------------------------- generate-orders-conditionals
       if (
         values.orderConfirmationStatus == `Good to Go` &&
         values.deliveryType == `Regular Delivery` &&
@@ -201,19 +201,19 @@ function distributeData(ss, sheetname, data) {
           viewsJson(row, headers, rowNum)
         );
       }
-      ///------------------------ raised-issues-conditionals
+      //------------------------- raised-issues-conditionals
       if (!values.cxIssue && values.cxIssueStatus != `Closed`) {
         sheet[ss][`Raised Issues`].arrayData.push(row);
         sheet[ss][`Raised Issues`].jsonData.push(
           viewsJson(row, headers, rowNum)
         );
       }
-      ///------------------------ cod-conditionals
+      //------------------------- cod-conditionals
       if (values[`orderType`] == `COD`) {
         sheet[ss].COD.arrayData.push(row);
         sheet[ss].COD.jsonData.push(viewsJson(row, headers, rowNum));
       }
-      ///------------------------ processed-orders-conditionals
+      //------------------------- processed-orders-conditionals
       if (
         values.trackingNumber &&
         values.dispatchStatus == `Yet to be Dispatched`
@@ -243,7 +243,7 @@ function distributeData(ss, sheetname, data) {
   }
 }
 
-///------------------------ views-json-helper-function()
+//------------------------- views-json-helper-function()
 function viewsJson(data, header, row) {
   /**
    * @description This function creates a JSON object from the data and header
@@ -266,7 +266,7 @@ function viewsJson(data, header, row) {
   return json;
 }
 
-///------------------------ set-routes-helper-function()
+//------------------------- set-routes-helper-function()
 function setRoutes() {
   /**
    * @description This function set all the function to be run in serial
@@ -281,7 +281,7 @@ function setRoutes() {
   setTimeout(ghostSync, 5 * 60 * 1000);
 }
 
-///------------------------ get-table-rows-helper-function()
+//------------------------- get-table-rows-helper-function()
 function getTableRows(pagenum = 1, viewname = `Master`) {
   /**
    * @description This function create and set the rows to the table
@@ -313,13 +313,13 @@ function getTableRows(pagenum = 1, viewname = `Master`) {
     tr.setAttribute(`row-num`, row.rowNo);
     tr.addEventListener(`click`, seeDetails);
 
-    ///------------------------ sub-action-td
+    //------------------------- sub-action-td
     let sa = document.createElement(`td`);
     sa.classList.add(`sub-actions`);
     sa.append(subAction);
     tr.append(sa);
 
-    ///------------------------ order-td
+    //------------------------- order-td
     let orderTd = document.createElement(`td`);
     let orderUl = document.createElement(`ul`);
     let orderDiv = document.createElement(`div`);
@@ -327,7 +327,7 @@ function getTableRows(pagenum = 1, viewname = `Master`) {
     orderTd.classList.add(`order-dt`);
     orderUl.classList.add(`order`);
 
-    ///------------------------ customer-td
+    //------------------------- customer-td
     let customerTd = document.createElement(`td`);
     let customerUl = document.createElement(`ul`);
     let customerDiv = document.createElement(`div`);
@@ -335,7 +335,7 @@ function getTableRows(pagenum = 1, viewname = `Master`) {
     customerTd.classList.add(`customer-dt`);
     customerUl.classList.add(`customer`);
 
-    ///------------------------ requirement-td
+    //------------------------- requirement-td
     let requirementTd = document.createElement(`td`);
     let requirementUl = document.createElement(`ul`);
     let requirementDiv = document.createElement(`div`);
@@ -343,7 +343,7 @@ function getTableRows(pagenum = 1, viewname = `Master`) {
     requirementTd.classList.add(`requirement-dt`);
     requirementUl.classList.add(`requirement`);
 
-    ///------------------------ amount-td
+    //------------------------- amount-td
     let amountTd = document.createElement(`td`);
     let amountUl = document.createElement(`ul`);
     let amountDiv = document.createElement(`div`);
@@ -351,7 +351,7 @@ function getTableRows(pagenum = 1, viewname = `Master`) {
     amountTd.classList.add(`amount-dt`);
     amountUl.classList.add(`amount`);
 
-    ///------------------------ shipping-td
+    //------------------------- shipping-td
     let shippingTd = document.createElement(`td`);
     let shippingUl = document.createElement(`ul`);
     let shippingDiv = document.createElement(`div`);
@@ -359,7 +359,7 @@ function getTableRows(pagenum = 1, viewname = `Master`) {
     shippingTd.classList.add(`shipping-dt`);
     shippingUl.classList.add(`shipping`);
 
-    ///------------------------ logistic-td
+    //------------------------- logistic-td
     let logisticTd = document.createElement(`td`);
     let logisticUl = document.createElement(`ul`);
     let logisticDiv = document.createElement(`div`);
@@ -981,7 +981,7 @@ function getTableRows(pagenum = 1, viewname = `Master`) {
   totalPages.disabled = true;
 }
 
-///------------------------ create-sub-actions-function()
+//------------------------- create-sub-actions-function()
 function subActions() {
   /**
    * @description This function returns the sub-action-ul
@@ -999,7 +999,7 @@ function subActions() {
   return subAction;
 }
 
-///------------------------ get-dropdowns-helper-function()
+//------------------------- get-dropdowns-helper-function()
 function getDropdowns(colname) {
   /**
    * @description This function returns the dropdowns for the given column name
@@ -1027,7 +1027,7 @@ function getDropdowns(colname) {
   return dropdowns;
 }
 
-///------------------------ get-poc-dropdowns-function()
+//------------------------- get-poc-dropdowns-function()
 function getPocDropdowns() {
   /**
    * @description This function returns the POC options
@@ -1054,7 +1054,7 @@ function getPocDropdowns() {
   return dropdowns;
 }
 
-///------------------------ ghost-sync-helper-function()
+//------------------------- ghost-sync-helper-function()
 async function ghostSync() {
   /**
    * @description This function works in background to sync realtime data
@@ -1067,4 +1067,45 @@ async function ghostSync() {
   );
   distributeData(tool.name, `Master`, masterData);
   setTimeout(ghostSync, 5 * 60 * 1000);
+}
+
+//------------------------- now-str-helper-function()
+function nowStr() {
+  const d = new Date();
+  const pad = (n) => (n < 10 ? "0" + n : n);
+  return `${d.getMonth() + 1}/${d.getDate()}/${d.getFullYear()} ${pad(
+    d.getHours()
+  )}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`;
+}
+
+//------------------------- get-order-number-helper-function()
+function getOrderNo(condition) {
+  let data = sheet[tool.name].Master.jsonData.slice();
+  let orders = data.filter(function (value) {
+    return value.DATE == condition;
+  });
+  return orders.length + 1;
+}
+
+//------------------------- append-data-helper-function()
+function appendData(object = {}) {
+  const indexes = sheet[tool.name].Master.indexes;
+  let data = { type: `append`, data: [] };
+
+  for (let key in object) {
+    data.data.push({
+      index: indexes[key] + 1,
+      value: object[key],
+    });
+  }
+
+  data.data = data.data
+    .sort(function (a, b) {
+      return a.index - b.index;
+    })
+    .map(function (value) {
+      return value.value;
+    });
+
+  console.log(data);
 }

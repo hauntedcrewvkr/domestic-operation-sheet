@@ -1,4 +1,4 @@
-///------------------------ get-user's-api-key
+//------------------------- get-user's-api-key
 async function getapikey() {
   let apiKeys = await sheet.getData(
     sheet.Database.ssid,
@@ -19,7 +19,7 @@ async function getapikey() {
   await getRequirements();
 }
 
-///------------------------ get-requirement-data
+//------------------------- get-requirement-data
 async function getRequirements() {
   let requirements = await sheet.getData(
     sheet.Database.ssid,
@@ -31,13 +31,13 @@ async function getRequirements() {
 
   if (requirements.length === 0) return; //return-if-data-not-found
 
-  ///------------------------ initial-variables
+  //------------------------- initial-variables
   let headers = requirements.shift(); //requirement-data-headers
   let tool_index = headers.indexOf(`tool`); //tool-column-index
   let ss_index = headers.indexOf(`spreadsheet`); //spreadsheet-column-indes
   let sheet_index = headers.indexOf(`sheet`); //sheet-column-index
 
-  ///------------------------ set-requirement-data
+  //------------------------- set-requirement-data
   for (let req of requirements) {
     let toolName = req[tool_index]; //tool-name
 
@@ -81,32 +81,32 @@ async function createNav() {
 }
 
 function createDocumentHeader() {
-  //!------------------------ header
+  //------------------------- header
   let header = document.createElement(`header`);
   header.classList.add(`header`);
 
-  //!------------------------ logo-div
+  //------------------------- logo-div
   let logoDiv = document.createElement(`div`);
   logoDiv.classList.add(`logo`);
 
-  //!------------------------ logo-img
+  //------------------------- logo-img
   let logoImg = document.createElement(`img`);
   logoImg.classList.add(`logo-img`);
   logoImg.src = `https://i.postimg.cc/hGGkfhm2/mediseller-Logo.png`;
   logoImg.alt = `Mediseller Logo`;
   logoImg.title = `Medisellers India`;
 
-  //!------------------------ logo-span
+  //------------------------- logo-span
   let logoSpan = document.createElement(`span`);
   logoSpan.classList.add(`logo-name`);
   logoSpan.insertAdjacentHTML(`beforeend`, `Domestic Operation Sheet`);
 
-  //!------------------------ add-order-span
+  //------------------------- add-order-span
   let addOrderSpan = document.createElement(`span`);
   addOrderSpan.classList.add(`pr-icon`);
   addOrderSpan.addEventListener(`click`, createNewOrder);
 
-  //!------------------------ add-order-icon
+  //------------------------- add-order-icon
   let addOrderIcon = document.createElement(`i`);
   addOrderIcon.classList.add(
     `ph`,
@@ -116,7 +116,7 @@ function createDocumentHeader() {
   );
   addOrderIcon.addEventListener(`click`, createNewOrder);
 
-  //!------------------------ create-orders-icon
+  //------------------------- create-orders-icon
   let createOrdersIcon = document.createElement(`i`);
   createOrdersIcon.classList.add(
     `ph`,
@@ -126,53 +126,53 @@ function createDocumentHeader() {
   );
   createOrdersIcon.addEventListener(`click`, createOrder);
 
-  //!------------------------ pr-actions-div
+  //------------------------- pr-actions-div
   let prActionDiv = document.createElement(`div`);
   prActionDiv.classList.add(`pr-actions`);
 
-  //!------------------------ pr-action-select
+  //------------------------- pr-action-select
   let prActionSelect = document.createElement(`select`);
   prActionSelect.classList.add(`pr-action-select`);
   prActionSelect.title = `Filter & Actions`;
   prActionSelect.addEventListener(`change`, executeFilterAndAction);
 
-  //!------------------------ pr-action-option
+  //------------------------- pr-action-option
   let prActionOption = document.createElement(`option`);
   prActionOption.innerHTML = `&#9776; &nbsp;`;
   prActionOption.selected = true;
   prActionOption.disabled = true;
 
-  //!------------------------ company-name-span
+  //------------------------- company-name-span
   let companyNameSpan = document.createElement(`span`);
   companyNameSpan.classList.add(`pr-icon`);
   companyNameSpan.addEventListener(`click`, changeCompany);
   companyNameSpan.title = `Change Account`;
 
-  //!------------------------ company-name-icon
+  //------------------------- company-name-icon
   let companyNameIcon = document.createElement(`i`);
   companyNameIcon.classList.add(`ph`, `ph-buildings`);
 
-  //!------------------------ useremail-span
+  //------------------------- useremail-span
   let useremailSpan = document.createElement(`span`);
   useremailSpan.classList.add(`pr-icon`);
   useremailSpan.addEventListener(`click`, changeEmail);
   useremailSpan.innerText = USER.email;
 
-  //!------------------------ useremail-icon
+  //------------------------- useremail-icon
   let useremailIcon = document.createElement(`i`);
   useremailIcon.classList.add(`ph`, `ph-at`);
 
-  //!------------------------ sync-span
+  //------------------------- sync-span
   let syncSpan = document.createElement(`span`);
   syncSpan.classList.add(`pr-icon`);
   syncSpan.addEventListener(`click`, syncData);
   syncSpan.title = `Sync`;
 
-  //!------------------------ sync-icon
+  //------------------------- sync-icon
   let syncIcon = document.createElement(`i`);
   syncIcon.classList.add(`ph`, `ph-arrows-clockwise`);
 
-  //!------------------------ apeend-all
+  //------------------------- apeend-all
   logoDiv.append(logoImg, logoSpan, addOrderIcon, createOrdersIcon) &&
     prActionSelect.append(prActionOption) &&
     companyNameSpan.append(companyNameIcon) &&

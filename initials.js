@@ -1,6 +1,6 @@
-///======================== custom=variables
+//-======================== custom=variables
 const fx = {
-  ///------------------------ query-selector
+  //------------------------- query-selector
   $(sel, scope = document) {
     /**
      * @description This function is used instead of document.querySelector()
@@ -11,7 +11,7 @@ const fx = {
     return scope.querySelector(sel);
   },
 
-  ///------------------------ query-selectorall
+  //------------------------- query-selectorall
   $$(sel, scope = document) {
     /**
      * @description This function can be used instead of document.querySelectorAll()
@@ -22,7 +22,7 @@ const fx = {
     return scope.querySelectorAll(sel);
   },
 
-  ///------------------------ stringify
+  //------------------------- stringify
   str(value) {
     /**
      * @description This function converts the value to a string type
@@ -34,7 +34,7 @@ const fx = {
     return value;
   },
 
-  ///------------------------ numify
+  //------------------------- numify
   num(value) {
     /**
      * @description This funciton converts the value to a number if possible
@@ -45,7 +45,7 @@ const fx = {
     return Number(value);
   },
 
-  ///------------------------ indexer
+  //------------------------- indexer
   indexer(obj, value) {
     /**
      * @description This function returns the value of the index or key
@@ -58,7 +58,7 @@ const fx = {
     return obj[value];
   },
 
-  ///------------------------ get-index
+  //------------------------- get-index
   getIndex(arr = [], value) {
     /**
      * @description This function returns the index of a value in the object
@@ -71,7 +71,7 @@ const fx = {
     return arr.indexOf(value);
   },
 
-  ///------------------------ create-element-from-text
+  //------------------------- create-element-from-text
   text2el(text) {
     /**
      * @description This function create an html element from the text
@@ -90,7 +90,7 @@ const fx = {
     return parser.parseFromString(text, "text/html");
   },
 
-  ///------------------------ remove-inner-html
+  //------------------------- remove-inner-html
   removeInnerHTML(element) {
     /**
      * @description This function removes inner html of an element
@@ -104,13 +104,13 @@ const fx = {
 
 const tool = {
   name: `Domestic Operation Sheet`,
-  ///------------------------ get-the-loader-element
+  //------------------------- get-the-loader-element
   get loader() {
-    ///------------------------ loader-div
+    //------------------------- loader-div
     let loaderDiv = document.createElement(`div`);
     loaderDiv.classList.add(`loader-div`);
 
-    ///------------------------ loader-span
+    //------------------------- loader-span
     let loaderSpan = document.createElement(`span`);
     loaderSpan.classList.add(`loader`);
 
@@ -127,7 +127,7 @@ const sheet = {
     ssid: `18eSZsnft1RrkX5w6N8mBzDPBUfOsTrlMPvtREiKrQRM`, //database-spreadsheet-id
   },
 
-  ///------------------------ getData
+  //------------------------- getData
   getData: async function (spreadsheetId, sheetName, apiKey) {
     let endpoint = `${sheet.baseUrl}/${spreadsheetId}/values/${sheetName}?key=${apiKey}`;
 
