@@ -62,19 +62,16 @@ function addNewOrder(e) {
   });
 }
 
-//------------------------- create-order-event-listener
-function createOrder() {}
-
 function executeFilterAndAction() {}
 
 //------------------------- change-company-event-listener
-function changeCompany() {}
+function changeCompany(e) {}
 
 //------------------------- change-email-event-listener
-function changeEmail() {}
+function changeEmail(e) {}
 
 //------------------------- sync-data-event-listener
-function syncData() {
+function syncData(e) {
   location.reload();
 }
 
@@ -212,7 +209,7 @@ function initialConfirmation(e) {
   createTableRows(1);
 }
 
-//------------------------- fist-page-event
+//------------------------- first-page-event
 function firstPage(e) {
   const currentView = fx.$(`.current-view`);
   const pageInput = fx.$(`.page-input`);
@@ -307,204 +304,4 @@ function createOrder(e) {
       });
     }
   });
-}
-
-function responseAdjust(results = [], data = []) {
-  const indexes = sheet[tool.name].Master.indexes;
-  let arr = [];
-
-  results.forEach(function (result) {
-    const row = data.find((r) => r[`ID`] == result.id);
-    console.log(row);
-
-    arr.push({
-      row_number: row?.rowNum || null,
-      indexes: {
-        tracking_status: indexes[`Tracking Status`],
-        tracking_number: indexes[`Tracking Number`],
-        order_creation_error_type: indexes[`Order Creation Error Type`],
-        logistic_name: indexes[`Logistic Name`],
-        tracking_url: indexes[`Tracking Url`],
-        dispatch_status: indexes[`Dispatch Status`],
-        booking_company: indexes[`Booking Company`],
-      },
-      tracking_status: result.tracking_status,
-      tracking_number: result.tracking_number,
-      order_creation_error_type: result.order_creation_error_type,
-      logistic_name: result.logistic_name,
-      tracking_url: result.tracking_url,
-      dispatch_status: result.dispatch_status,
-      booking_company: result.booking_company,
-    });
-  });
-
-  return arr;
-}
-
-function fetchApi(data = [], company) {
-  const url = `https://my.ithinklogistics.com/api_v3/order/add.json`;
-  const arr = [];
-
-  const pickupAddressId = Object.values(user.company).find(function (c) {
-    return c.name == company;
-  })?.pickupAddressId;
-
-  const returnAddressId = Object.values(user.company).find(function (c) {
-    return c.name == company;
-  })?.returnAddressId;
-
-  const accessToken = Object.values(user.company).find(function (c) {
-    return c.name == company;
-  })?.accessToken;
-
-  const secretKey = Object.values(user.company).find(function (c) {
-    return c.name == company;
-  })?.secretKey;
-
-  const payload = {
-    data: {
-      shipments: [],
-      pickup_address_id: `${pickupAddressId}`,
-      access_token: `${accessToken}`,
-      secret_key: `${secretKey}`,
-      logistics: ``,
-      s_type: ``,
-      order_type: `forward`,
-    },
-  };
-
-  for (row of data) {
-    payload.data.shipments.push(payloadHelper(row, returnAddressId));
-  }
-
-  const option = {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "Cache-Control": "no-cache",
-    },
-    body: JSON.stringify(payload),
-  };
-
-  const baseTrack = `https://www.ithinklogistics.co.in/postship/tracking/`;
-
-  const result = fetch(url, option)
-    .then((response) => response.json())
-    .then(function (json) {
-      if (json.status == `success`) {
-        Object.keys(json.data).forEach(function (key) {
-          arr.push({
-            id: json?.data[key]?.refnum,
-            tracking_status: json?.data[key]?.waybill ? `Manifested` : ``,
-            tracking_number: json?.data[key]?.waybill || ``,
-            order_creation_error_type: json?.data[key]?.remark || ``,
-            logistic_name: json?.data[key]?.logistic_name || ``,
-            tracking_url: json?.data[key]?.waybill
-              ? baseTrack + json?.data[key]?.waybill
-              : ``,
-            dispatch_status: json?.data[key]?.waybill
-              ? `Yet to be Dispatched`
-              : ``,
-            booking_company: company,
-          });
-        });
-      } else {
-        arr.push({
-          id: ``,
-          tracking_status: ``,
-          tracking_number: ``,
-          order_creation_error_type: json.html_message || ``,
-          logistic_name: ``,
-          tracking_url: ``,
-          dispatch_status: ``,
-          booking_company: company,
-        });
-
-        console.log(json.html_message);
-      }
-    });
-
-  return arr;
-}
-
-function payloadHelper(data = {}, returnAddressId = ``) {
-  return {
-    waybill: ``,
-    order: data[`ID`],
-    sub_order: ``,
-    order_date: convertDate(data[`DATE`]),
-    total_amount:
-      data[`Order Type`] == `COD`
-        ? data[`Balance Amount (To be paid) (INR)`]
-        : data[`Total Amount  (INR)`],
-    name: data[`Client Name`],
-    company_name: ``,
-    add: data[`Shipping Address`],
-    add2: data[`Shipping Address_2`],
-    add3: ``,
-    pin: data[`Pincode`],
-    city: ``,
-    state: data[`State`],
-    country: `INDIA`,
-    phone: data[`Contact Number`],
-    alt_phone: data[`Alternate Contact Number`],
-    email: ``,
-    is_billing_same_as_shipping: `yes`,
-    billing_name: ``,
-    billing_company_name: ``,
-    billing_add: ``,
-    billing_add2: ``,
-    billing_add3: ``,
-    billing_pin: ``,
-    billing_city: ``,
-    billing_state: ``,
-    billing_country: ``,
-    billing_phone: ``,
-    billing_alt_phone: ``,
-    billing_email: ``,
-    products: [
-      {
-        product_name: `HEALTHCARE HERBAL PRODUCTS`,
-        product_sku: ``,
-        product_quantity: 1,
-        product_price:
-          data[`Order Type`] == `COD`
-            ? data[`Balance Amount (To be paid) (INR)`]
-            : data[`Total Amount  (INR)`],
-        product_tax_rate: ``,
-        product_hsn_code: ``,
-        product_discount: ``,
-        product_img_url: ``,
-      },
-    ],
-    shipment_length: 10,
-    shipment_width: 8,
-    shipment_height: 6,
-    weight: 0.5,
-    shipping_charges: ``,
-    giftwrap_charges: ``,
-    transaction_charges: ``,
-    total_discount: ``,
-    first_attemp_discount: ``,
-    cod_charges: ``,
-    advance_amount: ``,
-    cod_amount: data[`Balance Amount (To be paid) (INR)`],
-    payment_mode: data[`Order Type`],
-    reseller_name: ``,
-    eway_bill_number: ``,
-    gst_number: ``,
-    what3words: ``,
-    return_address_id: returnAddressId,
-    api_source: ``,
-    store_id: ``,
-  };
-}
-
-function convertDate(date) {
-  date = new Date(date);
-  const day = String(date.getDate()).padStart(2, 0);
-  const month = String(date.getMonth() + 1).padStart(2, 0);
-  const year = date.getFullYear();
-
-  return `${day}-${month}-${year}`;
 }
