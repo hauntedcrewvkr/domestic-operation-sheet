@@ -49,7 +49,7 @@ function createDocumentHeader() {
   //------------------------- primary-filter-span
   let prFilterSpan = document.createElement(`span`);
   prFilterSpan.classList.add(`pr-icon`, `primary-action-filter-span`);
-  prFilterSpan.title = `Create Orders`;
+  prFilterSpan.title = `Filter`;
 
   //------------------------- create-orders-icon
   let prFilterIcon = document.createElement(`i`);
@@ -65,7 +65,7 @@ function createDocumentHeader() {
   companyNameSpan.addEventListener(`mouseenter`, function (e) {
     let target = e.target;
     let icon = target.querySelector(`i`);
-    target.append(icon, user.company);
+    target.append(icon, user.company.COD.name);
 
     target.addEventListener(`mouseleave`, function () {
       target.innerHTML = ``;
@@ -80,7 +80,7 @@ function createDocumentHeader() {
 
   //------------------------- useremail-span
   let useremailSpan = document.createElement(`span`);
-  useremailSpan.classList.add(`pr-icon`);
+  useremailSpan.classList.add(`pr-icon`, `useremail-span`);
   useremailSpan.addEventListener(`click`, changeEmail);
   useremailSpan.addEventListener(`mouseenter`, function (e) {
     let target = e.target;
