@@ -224,6 +224,28 @@ input[type="number"] {
   border: 1px solid var(--neutral-gray);
   border-radius: var(--radius-big);
   box-shadow: var(--table-shadow);
+  scrollbar-width: thin;
+  scrollbar-color: var(--neutral-dark) var(--neutral-light);
+}
+
+.table-container::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.table-container::-webkit-scrollbar-track {
+  background: #f0f0f0;
+  border-radius: 10px;
+}
+
+.table-container::-webkit-scrollbar-thumb {
+  background-color: #888;
+  border-radius: 10px;
+  border: 2px solid #f0f0f0;
+}
+
+.table-container::-webkit-scrollbar-thumb:hover {
+  background-color: #555;
 }
 
 .table {
@@ -255,6 +277,10 @@ input[type="number"] {
   z-index: 2;
 }
 
+.tbody tr {
+  border-bottom: 1px solid var(--neutral-dark);
+}
+
 .tbody tr:nth-child(even) {
   background: #f1f5f9;
 }
@@ -269,8 +295,12 @@ input[type="number"] {
 .tbody td:first-child {
   position: sticky;
   left: 0;
-  background: var(--neutral-light);
+  background: var(--neutral-dark);
   z-index: 0;
+}
+
+.tbody td div {
+  max-width: 5ch;
 }
 
 .sub-actions ul {
@@ -292,7 +322,7 @@ input[type="number"] {
 }
 
 .sub-action:hover i {
-  color: var(--primary-color);
+  color: var(--neutral-light);
 }
 
 .contact-number:hover,
