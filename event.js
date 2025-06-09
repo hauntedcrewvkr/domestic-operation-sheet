@@ -57,9 +57,7 @@ function addNewOrder(e) {
   });
 
   const cancelBtn = fx.$(".cancel", addOrderHtml);
-  cancelBtn.addEventListener("click", function () {
-    addOrderHtml.remove();
-  });
+  cancelBtn.addEventListener("click", removeForm);
 }
 
 function executeFilterAndAction() {}
@@ -122,6 +120,8 @@ function seeDetails(e) {
 //------------------------- raise-issue-event-listener
 function raiseIssue(e) {
   e.stopPropagation();
+  const row = e.target.closest(`tr`);
+  const rownum = fx.num(row.getAttribute(`row-num`));
   const extraViews = fx.$(`.extra-views`);
   const htmlViews = sheet.Database.domestic_html_views.jsonData.slice();
   const cxIssueView = htmlViews[0].cx_issue_form;
@@ -134,6 +134,17 @@ function raiseIssue(e) {
   });
 
   extraViews.append(cxIssueHtml);
+
+  cxIssueHtml.addEventListener(`submit`, function (e) {
+    e.preventDefault();
+    const formData = new FormData(cxIssueHtml);
+    const dataObject = Object.fromEntries(formData.entries());
+
+    updateData(dataObject, rownum);
+  });
+
+  const cancelBtn = fx.$(`.cancel`, cxIssueHtml);
+  cancelBtn.addEventListener(`click`, removeForm);
 }
 
 //------------------------- change-dispatch-status-event-listener
@@ -305,3 +316,5 @@ function createOrder(e) {
     }
   });
 }
+
+function editRow(e) {}

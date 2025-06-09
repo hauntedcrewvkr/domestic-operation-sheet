@@ -296,6 +296,7 @@ function getTableRows(pagenum = 1, viewname = `Master`) {
   const tbody = fx.$(`.tbody`);
   const currentView = fx.$(`.current-view`);
   const totalPages = fx.$(`footer .total-pages`);
+  console.log(viewname);
   let data = sheet[tool.name][viewname].jsonData;
   const dataLength = data.length;
   const access = sheet.Database.column_access.jsonData;
@@ -1107,7 +1108,7 @@ function appendData(object = {}) {
       return value.value;
     });
 
-  console.log(data);
+  script.run(toSheet, data, tool.name, `Master`);
 }
 
 //------------------------- response-adjust-helper-function()
@@ -1312,4 +1313,24 @@ function convertDate(date) {
   const year = date.getFullYear();
 
   return `${day}-${month}-${year}`;
+}
+//------------------------- update-data-helper-function()
+function updateData(object = {}, rownumber = 0) {
+  const indexes = sheet[tool.name].Master.indexes;
+  let data = { type: `update`, row: rownumber, data: [] };
+
+  for (let key in object) {
+    data.data.push({
+      index: indexes[key] + 1,
+      value: object[key],
+    });
+  }
+
+  script.run(toSheet, data, tool.name, `Master`);
+}
+
+//------------------------- remove-form-helper-function()
+function removeForm() {
+  const form = fx.$(`.form-base`);
+  form.remove();
 }
