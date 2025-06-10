@@ -1333,3 +1333,23 @@ function removeForm() {
   const form = fx.$(`.form-base`);
   form.remove();
 }
+
+function getFilterActions() {
+  const data = sheet.Database.action_access.jsonData.slice();
+  const list = document.createElement(`ul`);
+
+  for (let json of data) {
+    if (
+      json.tool_name == tool.name &&
+      json.type == `Filter Action` &&
+      json.access.includes(user.email)
+    ) {
+      const li = document.createElement(`li`);
+
+      li.append(fx.text2el(json.script), json.action);
+      list.append(li);
+    }
+  }
+
+  return list;
+}

@@ -48,14 +48,24 @@ function createDocumentHeader() {
 
   //------------------------- primary-filter-span
   let prFilterSpan = document.createElement(`span`);
+  const prFilterDiv = document.createElement(`div`);
+  prFilterDiv.append(getFilterActions());
   prFilterSpan.classList.add(`pr-icon`, `primary-action-filter-span`);
   prFilterSpan.title = `Filter`;
+  prFilterDiv.classList.add(`pr-filter-options`, `hidden`);
+
+  prFilterSpan.addEventListener(`click`, function (e) {
+    let target = e.target;
+    let div = fx.$(`div`, target);
+    console.log(div);
+    div.classList.toggle(`hidden`);
+  });
 
   //------------------------- create-orders-icon
   let prFilterIcon = document.createElement(`i`);
   prFilterIcon.classList.add(`ph`, `ph-funnel`);
   prFilterIcon.title = `Primary Filter`;
-  prFilterSpan.append(prFilterIcon);
+  prFilterSpan.append(prFilterIcon, prFilterDiv);
   // prFilterIcon.addEventListener(`click`, createOrder);
 
   //------------------------- company-name-span

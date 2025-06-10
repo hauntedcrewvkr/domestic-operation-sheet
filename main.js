@@ -57,29 +57,6 @@ async function getRequirements() {
   // toggleLoader();
 }
 
-async function createNav() {
-  let data = DATA.view_access;
-
-  if (data.length === 0) return;
-
-  const headers = data.shift();
-  const tool_in = headers.indexOf(`tool_name`);
-  const access_in = headers.indexOf(`access`);
-  const script_in = headers.indexOf(`script`);
-  let html = ``;
-  const navlist = document.querySelector(`.nav-list`);
-
-  for (let dat of data) {
-    let tool = dat[tool_in];
-    let access = dat[access_in];
-
-    if (tool !== TOOL || !access.includes(USER.email)) continue;
-
-    html += dat[script_in];
-  }
-  navlist.innerHTML = html;
-}
-
 function createDocumentHeader() {
   //------------------------- header
   let header = document.createElement(`header`);

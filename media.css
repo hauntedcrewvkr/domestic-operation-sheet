@@ -153,6 +153,45 @@ input[type="number"] {
   font-size: var(--font-size-base);
 }
 
+.pr-icon {
+  position: relative;
+  cursor: pointer;
+}
+
+.pr-filter-options {
+  display: flex;
+  position: absolute;
+  top: 110%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--primary-color);
+  border-radius: var(--radius-big);
+  padding: 0.75rem;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  min-width: 220px;
+  flex-direction: column;
+  z-index: 3;
+}
+
+.pr-filter-options ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.pr-filter-options li {
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.pr-filter-options li:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
 /*------------------------- Navigation */
 .view-nav {
   display: flex;
@@ -685,4 +724,8 @@ td ul {
     width: 30px;
     height: 30px;
   }
+}
+
+.hidden {
+  display: none !important;
 }
