@@ -492,6 +492,58 @@ td ul {
   border-bottom: 1px solid var(--neutral-gray);
 }
 
+.message-parent {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: fit-content;
+  height: fit-content;
+  color: var(--neutral-dark);
+  gap: var(--spacing-sm);
+  z-index: 2;
+}
+
+.message-child-border {
+  background: var(--neutral-dark);
+  padding: 1px;
+  clip-path: polygon(100% 0, 91% 10%, 91% 100%, 0 100%, 0 0);
+  display: inline-block;
+  border-radius: var(--radius-big);
+}
+
+.message-child {
+  padding: var(--spacing-md) calc(var(--spacing-lg) * 3) var(--spacing-md)
+    var(--spacing-lg);
+  background: var(--neutral-light);
+  clip-path: polygon(100% 0, 91% 10%, 91% 100%, 0 100%, 0 0);
+  position: relative;
+  border-radius: var(--radius-big);
+}
+
+.message-parent span {
+  position: relative;
+  color: var(--neutral-light);
+  height: fit-content;
+  width: fit-content;
+  padding: var(--spacing-sm);
+  align-self: self-end;
+  right: var(--spacing-lg);
+  cursor: pointer;
+}
+
+.message-parent .ph {
+  background: var(--neutral-dark);
+  height: calc(var(--spacing-lg) * 2);
+  width: calc(var(--spacing-lg) * 2);
+  padding: var(--spacing-sm);
+  border-radius: 50%;
+  font-size: 1rem;
+  margin-right: var(--spacing-md);
+}
+
 /*------------------------- Footer */
 .footer {
   grid-area: footer;

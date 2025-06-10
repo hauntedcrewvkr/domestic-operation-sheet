@@ -366,3 +366,78 @@ function createOrder(e) {
 }
 
 function editRow(e) {}
+
+function sendOrderConfirmationMessage(e) {
+  e.stopPropagation();
+  const extraViews = fx.$(`.extra-views`);
+  let count = 0;
+  const row = e.target.closest(`tr`);
+  const phoneNumber = fx.$(`#contact-number a`, row).textContent;
+
+  const template = sheet.Database.whatsapp_templates.arrayData.filter(function (
+    value
+  ) {
+    return value[0] == `Domestic Order Confirmation`;
+  });
+
+  if (!template.length) return;
+
+  const messageText = template[0][1];
+  const messageTemplate = messageText
+    .replaceAll(`\n`, `<br>`)
+    .replace(/\*/g, () => {
+      count++;
+      return count % 2 === 1 ? "<b>" : "</b>";
+    });
+
+  const messageParent = document.createElement(`div`);
+  const messageChild = document.createElement(`div`);
+  const helperChild = document.createElement(`div`);
+  const btnSpan = document.createElement(`span`);
+  const sendBtn = document.createElement(`i`);
+  const cancelBtn = document.createElement(`i`);
+
+  messageParent.classList.add(`message-parent`);
+  messageChild.classList.add(`message-child`);
+  helperChild.classList.add(`message-child-border`);
+  messageChild.contentEditable = true;
+  sendBtn.classList.add(`ph`, `ph-paper-plane-right`, `send-message`);
+  cancelBtn.classList.add(`ph`, `ph-prohibit`, `cancel-message`);
+
+  sendBtn.addEventListener(`click`, function (e) {
+    let message = messageChild.innerHTML
+      .replaceAll(`<b>`, `*`)
+      .replaceAll(`</b>`, `*`)
+      .replaceAll(`<br>`, `\n`);
+
+    sendWhatsapp(message, phoneNumber);
+  });
+
+  cancelBtn.addEventListener(`click`, function (e) {
+    messageParent.remove();
+  });
+
+  messageChild.innerHTML = messageTemplate;
+  btnSpan.append(cancelBtn, sendBtn);
+  helperChild.append(messageChild);
+  messageParent.append(helperChild, btnSpan);
+
+  extraViews.append(messageParent); // append to DOM
+}
+
+function sendWhatsapp(message = ``, phone = 0) {
+  window.open(
+    `https://wa.me/${phone}?text=${encodeURIComponent(message)}`,
+    `_blank`
+  );
+}
+
+function markResolved(e) {
+  const target = e.target;
+  const rownum = fx.num(target.closest(`tr`).getAttribute(`row-num`));
+  const obj = {
+    "CX Issue Status": `Closed`,
+  };
+
+  updateData(obj, rownum);
+}
