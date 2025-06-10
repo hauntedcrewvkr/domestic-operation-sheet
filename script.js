@@ -145,7 +145,7 @@ function createDocumentNav() {
     element.title = views.view_name;
 
     element.addEventListener(`click`, function (e) {
-      getTableRows(1, e.target.title);
+      getTableRows(1, e.target.title || e.target.closest(`li`).title);
     });
 
     navUl.append(element);

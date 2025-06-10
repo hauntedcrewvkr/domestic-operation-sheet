@@ -296,7 +296,6 @@ function getTableRows(pagenum = 1, viewname = `Master`) {
   const tbody = fx.$(`.tbody`);
   const currentView = fx.$(`.current-view`);
   const totalPages = fx.$(`footer .total-pages`);
-  console.log(viewname);
   let data = sheet[tool.name][viewname].jsonData;
   const dataLength = data.length;
   const access = sheet.Database.column_access.jsonData;

@@ -403,10 +403,9 @@ td ul {
 }
 
 .form-base header {
-  background: var(--neutral-light);
-  color: var(--neutral-dark);
+  color: var(--neutral-light);
+  text-decoration: underline;
   padding: var(--spacing-sm);
-  border-radius: var(--radius-small);
   text-align: center;
   font-weight: 600;
   text-transform: uppercase;

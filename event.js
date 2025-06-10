@@ -150,6 +150,7 @@ function raiseIssue(e) {
 //------------------------- change-dispatch-status-event-listener
 function changeDispatchStatus(e) {
   e.stopPropagation();
+  const row = e.target.closest(`tr`);
   const extraViews = fx.$(`.extra-views`);
   const htmlViews = sheet.Database.domestic_html_views.jsonData.slice();
   const changeDispatchStatusView = htmlViews[0].change_dispatch_status_form;
@@ -162,39 +163,86 @@ function changeDispatchStatus(e) {
   });
 
   extraViews.append(changeDispatchStatusHtml);
+
+  cxIssueHtml.addEventListener(`submit`, function (e) {
+    e.preventDefault();
+    const formData = new FormData(changeDispatchStatusHtml);
+    const dataObject = Object.fromEntries(formData.entries());
+
+    updateData(dataObject, rownum);
+  });
+
+  const cancelBtn = fx.$(`.cancel`, changeDispatchStatusHtml);
+  cancelBtn.addEventListener(`click`, removeForm);
 }
 
 //------------------------- add-remarks-event-listener
 function addRemarks(e) {
   e.stopPropagation();
+  const row = e.target.closest(`tr`);
   const extraViews = fx.$(`.extra-views`);
   const htmlViews = sheet.Database.domestic_html_views.jsonData.slice();
   const addRemarksView = htmlViews[0].add_remarks_form;
   const addRemarksHtml = fx.text2el(addRemarksView);
 
   extraViews.append(addRemarksHtml);
+
+  addRemarksHtml.addEventListener(`submit`, function (e) {
+    e.preventDefault();
+    const formData = new FormData(addRemarksHtml);
+    const dataObject = Object.fromEntries(formData.entries());
+
+    updateData(dataObject, rownum);
+  });
+
+  const cancelBtn = fx.$(`.cancel`, addRemarksHtml);
+  cancelBtn.addEventListener(`click`, removeForm);
 }
 
 //------------------------- payment-confirm-event-listener
 function paymentConfirm(e) {
   e.stopPropagation();
+  const row = e.target.closest(`tr`);
   const extraViews = fx.$(`.extra-views`);
   const htmlViews = sheet.Database.domestic_html_views.jsonData.slice();
   const paymentConfirmView = htmlViews[0].payment_confirmation_yes_form;
   const paymentConfirmHtml = fx.text2el(paymentConfirmView);
 
   extraViews.append(paymentConfirmHtml);
+
+  paymentConfirmHtml.addEventListener(`submit`, function (e) {
+    e.preventDefault();
+    const formData = new FormData(paymentConfirmHtml);
+    const dataObject = Object.fromEntries(formData.entries());
+
+    updateData(dataObject, rownum);
+  });
+
+  const cancelBtn = fx.$(`.cancel`, paymentConfirmHtml);
+  cancelBtn.addEventListener(`click`, removeForm);
 }
 
 //------------------------- payment-unconfirm-event-listener
 function paymentUnconfirm(e) {
   e.stopPropagation();
+  const row = e.target.closest(`tr`);
   const extraViews = fx.$(`.extra-views`);
   const htmlViews = sheet.Database.domestic_html_views.jsonData.slice();
   const paymentUnconfirmView = htmlViews[0].payment_confirmation_no_form;
   const paymentUnconfirmHtml = fx.text2el(paymentUnconfirmView);
 
   extraViews.append(paymentUnconfirmHtml);
+
+  paymentUnconfirmHtml.addEventListener(`submit`, function (e) {
+    e.preventDefault();
+    const formData = new FormData(paymentUnconfirmHtml);
+    const dataObject = Object.fromEntries(formData.entries());
+
+    updateData(dataObject, rownum);
+  });
+
+  const cancelBtn = fx.$(`.cancel`, paymentUnconfirmHtml);
+  cancelBtn.addEventListener(`click`, removeForm);
 }
 
 //------------------------- initial-confirmation-event-listener
