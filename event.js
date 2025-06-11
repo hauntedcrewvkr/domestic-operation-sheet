@@ -441,3 +441,47 @@ function markResolved(e) {
 
   updateData(obj, rownum);
 }
+
+function download() {
+  const currentView = fx.$(`.current-view`);
+  let csvString = ``;
+  let viewname = currentView.innerHTML.split(` (`)[0];
+
+  if (viewname == `Orders`) viewname = `Master`;
+
+  const data = sheet[tool.name][viewname].jsonData;
+  if (!Array.isArray(data) || data.length === 0) return ``;
+
+  const userEmail = user.email;
+  const accessList = sheet.Database.column_access.jsonData;
+  const accessibleColumns = new Set();
+
+  for (const row of accessList) {
+    if (row.tool_name === tool.name && row.access?.includes(userEmail)) {
+      accessibleColumns.add(row.column_name);
+    }
+  }
+
+  const headers = Object.keys(data[0]).filter((col) =>
+    accessibleColumns.has(col)
+  );
+  csvString += headers.join(",") + "\n";
+
+  const rows = data.map((row) =>
+    headers
+      .map((h) => `"${(row[h] ?? "").toString().replace(/"/g, '""')}"`)
+      .join(",")
+  );
+
+  csvString += rows.join("\n") + "\n";
+
+  const blob = new Blob([csvString], { type: `text/csv` });
+  const link = document.createElement(`a`);
+
+  link.href = URL.createObjectURL(blob);
+  link.download = `${currentView.innerHTML}.csv`;
+  link.click();
+  link.remove();
+}
+
+function myOrders() {}

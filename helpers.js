@@ -93,7 +93,7 @@ function distributeData(ss, sheetname, data) {
         cxIssueStatus: row[indexes[`CX Issue Status`]],
       };
 
-      //------------------------- medisellers-cod-conditionals
+      //------------------------- medicare-cod-conditionals
       if (
         values.orderType == `COD` &&
         values.bookingCompany == `Medicare India` &&
@@ -102,6 +102,18 @@ function distributeData(ss, sheetname, data) {
       ) {
         sheet[ss][`Medicare COD`].arrayData.push(row);
         sheet[ss][`Medicare COD`].jsonData.push(
+          viewsJson(row, headers, rowNum)
+        );
+      }
+      //------------------------- medisellers-cod-conditionals
+      if (
+        values.orderType == `COD` &&
+        values.bookingCompany == `Mediseller India` &&
+        (values.trackingStatus != `Cancelled` ||
+          values.dispatchStatus != `Cancelled`)
+      ) {
+        sheet[ss][`Medisellers COD`].arrayData.push(row);
+        sheet[ss][`Medisellers COD`].jsonData.push(
           viewsJson(row, headers, rowNum)
         );
       }
@@ -130,16 +142,37 @@ function distributeData(ss, sheetname, data) {
         );
       }
       //------------------------- dispatch-+-manifest-conditionals
-      {
+      if (
+        values.dispatchStatus == `Dispatched` &&
+        values.trackingStatus == `Manifested`
+      ) {
+        sheet[ss][`Dispatch + Menifest`].arrayData.push(row);
+        sheet[ss][`Dispatch + Menifest`].jsonData.push(
+          viewsJson(row, headers, rowNum)
+        );
       }
       //------------------------- t-1-orders-conditionals
       {
       }
       //------------------------- dispatch-+-rto-conditionals
-      {
+      if (
+        values.dispatchStatus == `Dispatched` &&
+        values.trackingStatus.includes(`RTO`)
+      ) {
+        sheet[ss][`Dispatch + RTO`].arrayData.push(row);
+        sheet[ss][`Dispatch + RTO`].jsonData.push(
+          viewsJson(row, headers, rowNum)
+        );
       }
       //------------------------- rto-delivered-conditionals
-      {
+      if (
+        values.dispatchStatus == `Dispatched` &&
+        values.trackingStatus == `RTO Delivered`
+      ) {
+        sheet[ss][`RTO Delivered`].arrayData.push(row);
+        sheet[ss][`RTO Delivered`].jsonData.push(
+          viewsJson(row, headers, rowNum)
+        );
       }
       //------------------------- pending-orders-conditionals
       if (
@@ -153,7 +186,14 @@ function distributeData(ss, sheetname, data) {
         );
       }
       //------------------------- unconfirmed-returns-conditionals
-      {
+      if (
+        values.dispatchStatus != `Returned` &&
+        values.trackingStatus == `RTO Delivered`
+      ) {
+        sheet[ss][`Pending Orders`].arrayData.push(row);
+        sheet[ss][`Pending Orders`].jsonData.push(
+          viewsJson(row, headers, rowNum)
+        );
       }
       //------------------------- to-check-conditionals
       if (
@@ -1345,6 +1385,11 @@ function getFilterActions() {
       json.access.includes(user.email)
     ) {
       const li = document.createElement(`li`);
+      li.title = json.action;
+
+      li.addEventListener(`click`, function (e) {
+        getTableRows(1, li.title);
+      });
 
       li.append(fx.text2el(json.script), json.action);
       list.append(li);
@@ -1352,4 +1397,26 @@ function getFilterActions() {
   }
 
   return list;
+}
+
+function getHeaderActions(condition = ``) {
+  const data = sheet.Database.action_access.jsonData.slice();
+  const arr = [];
+
+  for (let json of data) {
+    if (
+      json.tool_name == tool.name &&
+      json.type == condition &&
+      json.access.includes(user.email)
+    ) {
+      const span = document.createElement(`span`);
+      span.classList.add(`pr-icon`);
+      span.title = json.action;
+      span.append(fx.text2el(json.script));
+
+      arr.push(span);
+    }
+  }
+
+  return arr;
 }

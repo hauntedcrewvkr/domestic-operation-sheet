@@ -13,34 +13,35 @@ function createDocumentHeader() {
   logoImg.src = `https://i.postimg.cc/hGGkfhm2/mediseller-Logo.png`;
   logoImg.alt = `Mediseller Logo`;
   logoImg.title = `Medisellers India`;
+  logoDiv.append(logoImg);
 
   //------------------------- logo-span
   let logoSpan = document.createElement(`span`);
   logoSpan.classList.add(`logo-name`);
   logoSpan.insertAdjacentHTML(`beforeend`, `Domestic Operation Sheet`);
+  logoDiv.append(logoSpan);
 
-  //------------------------- add-order-span
-  let addOrderSpan = document.createElement(`span`);
-  addOrderSpan.classList.add(`pr-icon`, `add-order-span`);
-  addOrderSpan.addEventListener(`click`, addNewOrder);
-  addOrderSpan.title = `Add New Order`;
+  //------------------------- first-visible-actions
 
-  //------------------------- add-order-icon
-  let addOrderIcon = document.createElement(`i`);
-  addOrderIcon.classList.add(`ph`, `ph-user-circle-plus`);
-  addOrderIcon.title = `Add Order`;
+  const logoPrDiv = document.createElement(`div`);
+  const spanList = getHeaderActions(`First Visible Action`);
+  logoPrDiv.classList.add(`logo-pr-div`);
 
-  //------------------------- create-order-span
-  let createOrderSpan = document.createElement(`span`);
-  createOrderSpan.classList.add(`pr-icon`, `create-order-span`);
+  spanList.forEach(function (span) {
+    logoPrDiv.append(span);
+  });
+
+  // logoDiv.append(logoPrDiv);
+
+  const addNewOrderSpan = fx.$(`span[title="Add New Order"]`, logoPrDiv);
+  const createOrderSpan = fx.$(`span[title="Create Order"]`, logoPrDiv);
+  const downloadSpan = fx.$(`span[title="Download"]`, logoPrDiv);
+  const myOrdersSpan = fx.$(`span[title="My Orders"]`, logoPrDiv);
+
+  addNewOrderSpan.addEventListener(`click`, addNewOrder);
   createOrderSpan.addEventListener(`click`, createOrder);
-  createOrderSpan.title = `Create Orders`;
-
-  //------------------------- create-orders-icon
-  let createOrdersIcon = document.createElement(`i`);
-  createOrdersIcon.classList.add(`ph`, `ph-webhooks-logo`);
-  createOrdersIcon.title = `Create Orders`;
-  createOrdersIcon.addEventListener(`click`, createOrder);
+  downloadSpan.addEventListener(`click`, download);
+  myOrdersSpan.addEventListener(`click`, myOrders);
 
   //------------------------- pr-actions-div
   let prActionDiv = document.createElement(`div`);
@@ -54,10 +55,13 @@ function createDocumentHeader() {
   prFilterSpan.title = `Filter`;
   prFilterDiv.classList.add(`pr-filter-options`, `hidden`);
 
+  prFilterDiv.addEventListener(`mouseleave`, function (e) {
+    prFilterDiv.classList.add(`hidden`);
+  });
+
   prFilterSpan.addEventListener(`click`, function (e) {
     let target = e.target;
-    let div = fx.$(`div`, target);
-    console.log(div);
+    let div = fx.$(`.pr-filter-options`);
     div.classList.toggle(`hidden`);
   });
 
@@ -66,74 +70,27 @@ function createDocumentHeader() {
   prFilterIcon.classList.add(`ph`, `ph-funnel`);
   prFilterIcon.title = `Primary Filter`;
   prFilterSpan.append(prFilterIcon, prFilterDiv);
-  // prFilterIcon.addEventListener(`click`, createOrder);
+  prActionDiv.append(prFilterSpan);
 
-  //------------------------- company-name-span
-  let companyNameSpan = document.createElement(`span`);
-  companyNameSpan.classList.add(`pr-icon`, `company-name-span`);
-  companyNameSpan.addEventListener(`click`, changeCompany);
-  companyNameSpan.addEventListener(`mouseenter`, function (e) {
-    let target = e.target;
-    let icon = target.querySelector(`i`);
-    target.append(icon, user.company.COD.name);
-
-    target.addEventListener(`mouseleave`, function () {
-      target.innerHTML = ``;
-      target.append(icon);
+  //------------------------- second-visible-icon
+  {
+    const prActionList = getHeaderActions(`Second Visible Action`);
+    prActionList.forEach(function (span) {
+      prActionDiv.append(span);
     });
-  });
-  companyNameSpan.title = `Change Account`;
+  }
 
-  //------------------------- company-name-icon
-  let companyNameIcon = document.createElement(`i`);
-  companyNameIcon.classList.add(`ph`, `ph-buildings`);
+  const changeAccountSpan = fx.$(`span[title="Change Account"]`, prActionDiv);
+  const changeEmailSpan = fx.$(`span[title="Change Email"]`, prActionDiv);
+  const syncSpan = fx.$(`span[title="Sync"]`, prActionDiv);
 
-  //------------------------- useremail-span
-  let useremailSpan = document.createElement(`span`);
-  useremailSpan.classList.add(`pr-icon`, `useremail-span`);
-  useremailSpan.addEventListener(`click`, changeEmail);
-  useremailSpan.addEventListener(`mouseenter`, function (e) {
-    let target = e.target;
-    let icon = target.querySelector(`i`);
-    target.append(icon, user.email);
+  changeAccountSpan.title = user.company.COD.name;
+  changeEmailSpan.title = user.email;
 
-    target.addEventListener(`mouseleave`, function () {
-      target.innerHTML = ``;
-      target.append(icon);
-    });
-  });
-  useremailSpan.title = `change email`;
-
-  //------------------------- useremail-icon
-  let useremailIcon = document.createElement(`i`);
-  useremailIcon.classList.add(`ph`, `ph-at`);
-
-  //------------------------- sync-span
-  let syncSpan = document.createElement(`span`);
-  syncSpan.classList.add(`pr-icon`, `sync-span`);
+  changeAccountSpan.addEventListener(`click`, changeCompany);
   syncSpan.addEventListener(`click`, syncData);
-  syncSpan.title = `Sync`;
 
-  //------------------------- sync-icon
-  let syncIcon = document.createElement(`i`);
-  syncIcon.classList.add(`ph`, `ph-arrows-clockwise`);
-
-  //------------------------- apeend-all
-  addOrderSpan.append(addOrderIcon);
-  createOrderSpan.append(createOrdersIcon);
-  logoDiv.append(logoImg, logoSpan, addOrderSpan, createOrderSpan);
-  companyNameSpan.append(companyNameIcon);
-  useremailSpan.append(useremailIcon);
-  syncSpan.append(syncIcon);
-  prActionDiv.append(
-    logoDiv,
-    prFilterSpan,
-    companyNameSpan,
-    useremailSpan,
-    syncSpan
-  );
-  header.append(logoDiv, prActionDiv);
-
+  header.append(logoDiv, logoPrDiv, prActionDiv);
   document.body.append(header);
 }
 
@@ -304,7 +261,7 @@ function createDocumentFooter() {
   let firstAction = document.createElement(`i`);
   let backAction = document.createElement(`i`);
   let pageInput = document.createElement(`input`);
-  let delimeterInput = document.createElement(`input`);
+  // let delimeterInput = document.createElement(`input`);
   let totalInput = document.createElement(`input`);
   let nextAction = document.createElement(`i`);
   let lastAction = document.createElement(`i`);
@@ -314,10 +271,10 @@ function createDocumentFooter() {
   pageInput.setAttribute(`type`, `number`);
   pageInput.classList.add(`page-input`);
   pageInput.setAttribute(`value`, 1);
-  delimeterInput.setAttribute(`type`, `text`);
-  delimeterInput.classList.add(`pagination-delimeter`);
-  delimeterInput.setAttribute(`value`, `/`);
-  delimeterInput.setAttribute(`disabled`, true);
+  // delimeterInput.setAttribute(`type`, `text`);
+  // delimeterInput.classList.add(`pagination-delimeter`);
+  // delimeterInput.setAttribute(`value`, `|`);
+  // delimeterInput.setAttribute(`disabled`, true);
   totalInput.setAttribute(`type`, `number`);
   totalInput.classList.add(`total-pages`);
   totalInput.setAttribute(`value`, `1`);
@@ -330,7 +287,7 @@ function createDocumentFooter() {
     firstAction,
     backAction,
     pageInput,
-    delimeterInput,
+    // delimeterInput,
     totalInput,
     nextAction,
     lastAction
