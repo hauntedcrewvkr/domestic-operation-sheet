@@ -59,6 +59,14 @@ function createDocumentHeader() {
     prFilterDiv.classList.add(`hidden`);
   });
 
+  prFilterSpan.addEventListener(`mouseover`, function (e) {
+    prFilterDiv.classList.remove(`hidden`);
+  });
+
+  prFilterSpan.addEventListener(`mouseleave`, function (e) {
+    prFilterDiv.classList.add(`hidden`);
+  });
+
   prFilterSpan.addEventListener(`click`, function (e) {
     let target = e.target;
     let div = fx.$(`.pr-filter-options`);
@@ -168,7 +176,7 @@ function createDocumentTable() {
   shippingDetailsth.classList.add(`shipping-details-th`);
   logisticDetailsth.classList.add(`logistic-details-th`);
 
-  Actionth.textContent = `Actions`;
+  Actionth.append(fx.text2el(`<i class="ph-fill ph-sliders-horizontal"></i>`));
   orderDetailsth.textContent = `Order Details`;
   cutomerDetailsth.textContent = `Customer Details`;
   requirementsth.textContent = `Requirements`;
@@ -261,7 +269,6 @@ function createDocumentFooter() {
   let firstAction = document.createElement(`i`);
   let backAction = document.createElement(`i`);
   let pageInput = document.createElement(`input`);
-  // let delimeterInput = document.createElement(`input`);
   let totalInput = document.createElement(`input`);
   let nextAction = document.createElement(`i`);
   let lastAction = document.createElement(`i`);
@@ -271,10 +278,6 @@ function createDocumentFooter() {
   pageInput.setAttribute(`type`, `number`);
   pageInput.classList.add(`page-input`);
   pageInput.setAttribute(`value`, 1);
-  // delimeterInput.setAttribute(`type`, `text`);
-  // delimeterInput.classList.add(`pagination-delimeter`);
-  // delimeterInput.setAttribute(`value`, `|`);
-  // delimeterInput.setAttribute(`disabled`, true);
   totalInput.setAttribute(`type`, `number`);
   totalInput.classList.add(`total-pages`);
   totalInput.setAttribute(`value`, `1`);
@@ -287,7 +290,6 @@ function createDocumentFooter() {
     firstAction,
     backAction,
     pageInput,
-    // delimeterInput,
     totalInput,
     nextAction,
     lastAction
@@ -296,7 +298,8 @@ function createDocumentFooter() {
   //------------------------- current-view-div
   let currentViewDiv = document.createElement(`div`);
   currentViewDiv.classList.add(`current-view`);
-  currentViewDiv.innerHTML = `Orders`;
+  currentViewDiv.title = `Orders`;
+  currentViewDiv.append(fx.text2el(`<i class="ph-fill ph-eye"></i>`));
   //------------------------- append-all
   footer.append(eppDiv, paginationDiv, currentViewDiv);
   //------------------------- append to body

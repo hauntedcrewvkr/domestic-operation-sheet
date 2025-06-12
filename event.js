@@ -273,7 +273,7 @@ function firstPage(e) {
   const currentView = fx.$(`.current-view`);
   const pageInput = fx.$(`.page-input`);
   if (pageInput.value == 1) return;
-  const viewname = currentView.innerHTML.split(` (`)[0];
+  const viewname = currentView.title.split(` (`)[0];
   pageInput.value = 1;
 
   getTableRows(1, viewname);
@@ -285,7 +285,7 @@ function goBack(e) {
   const pageInput = fx.$(`.page-input`);
   const inputValue = fx.num(pageInput.value);
   if (inputValue == 1) return;
-  const viewname = currentView.innerHTML.split(` (`)[0];
+  const viewname = currentView.title.split(` (`)[0];
   pageInput.value = inputValue - 1;
   getTableRows(inputValue - 1, viewname);
 }
@@ -294,7 +294,7 @@ function goBack(e) {
 function eppSelect(e) {
   const currentView = fx.$(`.current-view`);
   const pagenum = fx.$(`.page-input`).value;
-  const viewname = currentView.innerHTML.split(` (`)[0];
+  const viewname = currentView.title.split(` (`)[0];
   getTableRows(pagenum, viewname);
 }
 
@@ -302,7 +302,7 @@ function eppSelect(e) {
 function pageInputE(e) {
   const currentView = fx.$(`.current-view`);
   const pagenum = fx.num(e.target.value);
-  const viewname = currentView.innerHTML.split(` (`)[0];
+  const viewname = currentView.title.split(` (`)[0];
   getTableRows(pagenum, viewname);
 }
 
@@ -315,7 +315,7 @@ function nextPage(e) {
 
   if (lastPage == inputValue) return;
 
-  const viewname = currentView.innerHTML.split(` (`)[0];
+  const viewname = currentView.title.split(` (`)[0];
   pageInput.value = inputValue + 1;
   getTableRows(inputValue + 1, viewname);
 }
@@ -327,7 +327,7 @@ function lastPage(e) {
   const pageInput = fx.$(`.page-input`);
   const inputValue = fx.num(pageInput.value);
   if (lastPage == inputValue) return;
-  const viewname = currentView.innerHTML.split(` (`)[0];
+  const viewname = currentView.title.split(` (`)[0];
   pageInput.value = lastPage;
 
   getTableRows(lastPage, viewname);
@@ -485,3 +485,7 @@ function download() {
 }
 
 function myOrders() {}
+
+// document.addEventListener(`click`, function (e) {
+//   console.log(e.target);
+// });

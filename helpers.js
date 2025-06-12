@@ -314,10 +314,11 @@ function setRoutes() {
   createDocumentHeader();
   createDocumentNav();
   createDocumentMain();
-  fx.$(`.loader-init-div`)?.remove();
-  fx.$(`.loader-div`)?.remove();
   createDocumentFooter();
   getTableRows();
+  fx.$(`.loader-init-div`)?.remove();
+  fx.$(`.loader-div`)?.remove();
+  toggleNotification(`Good to Go`, `info`);
   setTimeout(ghostSync, 5 * 60 * 1000);
 }
 
@@ -1013,7 +1014,7 @@ function getTableRows(pagenum = 1, viewname = `Master`) {
     tbody.append(tr);
   }
 
-  currentView.innerHTML = `${viewname == `Master` ? `Orders` : viewname} (${
+  currentView.title = `${viewname == `Master` ? `Orders` : viewname} (${
     start + 1 + ` - ` + end + `/ ` + dataLength
   })`;
   totalPages.disabled = false;
@@ -1026,15 +1027,37 @@ function subActions() {
   /**
    * @description This function returns the sub-action-ul
    */
-  const access = sheet.Database.sub_action_access.jsonData;
+  // const access = sheet.Database.sub_action_access.jsonData;
+  const access = sheet.Database.action_access.jsonData;
   let subAction = document.createElement(`ul`);
+  let toggle_sa = document.createElement(`li`);
+  let togleIcon = document.createElement(`i`);
+  toggle_sa.classList.add(`sub-action`);
+  togleIcon.classList.add(`ph`, `ph-arrow-right`);
+  toggle_sa.append(togleIcon);
+  subAction.append(toggle_sa);
 
   for (let acc of access) {
-    if (acc.tool_name == tool.name && acc.access.includes(user.email)) {
+    if (
+      acc.tool_name == tool.name &&
+      acc.type == `Sub Action` &&
+      acc.access.includes(user.email)
+    ) {
       const subaction = fx.text2el(acc.script);
+      subaction.classList.add(`hidden`);
       subAction.append(subaction);
     }
   }
+
+  toggle_sa.addEventListener(`click`, function (e) {
+    e.stopPropagation();
+    const ul = e.target.closest(`ul`);
+    const list = fx.$$(`li:not(:first-child)`, ul);
+    list.forEach(function (li) {
+      li.classList.toggle(`hidden`);
+      toggle_sa.classList.toggle(`back`);
+    });
+  });
 
   return subAction;
 }
@@ -1419,4 +1442,38 @@ function getHeaderActions(condition = ``) {
   }
 
   return arr;
+}
+
+function toggleNotification(message = ``, type = ``) {
+  if (![`info`, `warn`, `error`].includes(type)) return;
+
+  const extraViews = fx.$(`.extra-views`);
+  const alertDiv = document.createElement(`div`);
+  const infoSpan = document.createElement(`span`);
+  const msgSpan = document.createElement(`span`);
+  const icons = {
+    info: [`ph-fill`, `ph-info`, `alert-span`],
+    warn: [`ph-fill`, `ph-warning-circle`, `alert-span`],
+    error: [`ph-fill`, `ph-x-circle`, `alert-span`],
+  };
+
+  alertDiv.classList.add(type, `msg-div`, `hide`);
+  infoSpan.classList.add(...icons[type]);
+  msgSpan.classList.add(`msg-span`);
+
+  if (type == `info`) msgSpan.textContent = `Info: ${message}`;
+  if (type == `warn`) msgSpan.textContent = `Warning: ${message}`;
+  if (type == `error`) msgSpan.textContent = `Error: ${message}`;
+
+  alertDiv.append(infoSpan, msgSpan);
+  extraViews.append(alertDiv);
+
+  function toggleVisibility() {
+    alertDiv.classList.toggle(`hide`);
+    alertDiv.classList.toggle(`show`);
+    alertDiv.classList.toggle(`show-alert`);
+  }
+
+  toggleVisibility();
+  setTimeout(toggleVisibility, 5000);
 }
