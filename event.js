@@ -87,12 +87,7 @@ function seeDetails(e) {
   detailsForm.append(formHeader);
 
   tableDatas.forEach(function (td, index) {
-    if (index == 0) {
-      let subactions = fx.$(`ul`, td).cloneNode(true);
-      subactions.classList.add(`detail-actions`);
-      detailsForm.append(subactions);
-      return;
-    }
+    if (index == 0) return;
     const label = document.createElement(`label`);
     const textfield = document.createElement(`textfield`);
     let _class = td.classList[0];
@@ -114,6 +109,13 @@ function seeDetails(e) {
     detailsForm.append(label, textfield);
   });
 
+  const cancelBtn = fx.text2el(`<i class="ph-fill ph-x-circle"></i>`);
+  cancelBtn.classList.add(`detail-cancel-btn`);
+  cancelBtn.addEventListener(`click`, function (e) {
+    detailsForm.remove();
+  });
+
+  detailsForm.append(cancelBtn);
   extraViews.append(detailsForm);
 }
 
@@ -445,7 +447,7 @@ function markResolved(e) {
 function download() {
   const currentView = fx.$(`.current-view`);
   let csvString = ``;
-  let viewname = currentView.innerHTML.split(` (`)[0];
+  let viewname = currentView.title.split(` (`)[0];
 
   if (viewname == `Orders`) viewname = `Master`;
 

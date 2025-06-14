@@ -886,6 +886,28 @@ td ul {
   color: var(--error-text);
 }
 
+.detail-cancel-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+  aspect-ratio: 1/1;
+  background: var(--neutral-dark);
+  color: var(--neutral-light);
+  font-size: 40px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.detail-cancel-btn:hover {
+  background: color-mix(in srgb, currentcolor 80%, black 20%);
+}
+
 @keyframes loading {
   0% {
     top: -15px;

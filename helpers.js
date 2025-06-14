@@ -28,6 +28,9 @@ function distributeData(ss, sheetname, data) {
    */
 
   data = data.slice(); //make-copy-of-data-so-that-original-will-be-safe
+  if (!Array.isArray(data) || !data.length) {
+    toggleNotification(`No Data Found`, "error");
+  }
   //------------------------- initialize-if-data-not-found
   sheet[ss] ??= {}; //level-1
   sheet[ss][sheetname] = {}; //level-2
@@ -190,8 +193,8 @@ function distributeData(ss, sheetname, data) {
         values.dispatchStatus != `Returned` &&
         values.trackingStatus == `RTO Delivered`
       ) {
-        sheet[ss][`Pending Orders`].arrayData.push(row);
-        sheet[ss][`Pending Orders`].jsonData.push(
+        sheet[ss][`Unconfirmed Returns`].arrayData.push(row);
+        sheet[ss][`Unconfirmed Returns`].jsonData.push(
           viewsJson(row, headers, rowNum)
         );
       }
@@ -1027,7 +1030,6 @@ function subActions() {
   /**
    * @description This function returns the sub-action-ul
    */
-  // const access = sheet.Database.sub_action_access.jsonData;
   const access = sheet.Database.action_access.jsonData;
   let subAction = document.createElement(`ul`);
   let toggle_sa = document.createElement(`li`);
@@ -1049,16 +1051,18 @@ function subActions() {
     }
   }
 
-  toggle_sa.addEventListener(`click`, function (e) {
+  function toggleSubAction(e) {
     e.stopPropagation();
     const ul = e.target.closest(`ul`);
     const list = fx.$$(`li:not(:first-child)`, ul);
-    list.forEach(function (li) {
+
+    for (let li of list) {
       li.classList.toggle(`hidden`);
       toggle_sa.classList.toggle(`back`);
-    });
-  });
+    }
+  }
 
+  toggle_sa.addEventListener(`click`, toggleSubAction);
   return subAction;
 }
 
