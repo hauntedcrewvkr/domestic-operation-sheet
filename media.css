@@ -200,6 +200,10 @@ input[type="number"] {
   box-shadow: var(--shadow-above);
 }
 
+.logo-pr-div .pr-icon:hover {
+  filter: brightness(80%);
+}
+
 .pr-filter-options {
   display: flex;
   position: absolute;

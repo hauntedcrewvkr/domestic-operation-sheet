@@ -367,7 +367,30 @@ function createOrder(e) {
   });
 }
 
-function editRow(e) {}
+function editRow(e) {
+  e.stopPropagation();
+  const accessData = sheet.Database.column_access.jsonData.slice();
+  let form = document.createElement(`form`);
+
+  for (let json of accessData) {
+    if (json.tool_name == tool.name && json.editors.includes(user.email)) {
+      const btn = document.createElement(`button`);
+      btn.textContent = json.column_name;
+      btn.title = json.column_name;
+      btn.addEventListener(`click`, toggleEdit);
+    }
+  }
+
+  function toggleEdit(e) {
+    const target = e.target;
+    const form = target.closest(`form`);
+    const element = fx.$(`*[title=${target.title}]:not(button)`);
+
+    if (element) element.remove();
+    const 
+    
+  }
+}
 
 function sendOrderConfirmationMessage(e) {
   e.stopPropagation();
