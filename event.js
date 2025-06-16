@@ -12,18 +12,18 @@ document.addEventListener(`keydown`, function (event) {
 //------------------------- add-new-order-event-listener
 function addNewOrder(e) {
   e.stopPropagation();
-  const extraViews = fx.$(".extra-views");
+  const extraViews = fx.$('.extra-views');
   const htmlViews = sheet.Database.domestic_html_views.jsonData.slice();
   const addOrderView = htmlViews[0].add_new_order_form;
   const addOrderHtml = fx.text2el(addOrderView);
 
   const pocDropdowns = getPocDropdowns();
-  const mopDropdowns = getDropdowns("Mode of payment");
-  const stateDropdowns = getDropdowns("State");
+  const mopDropdowns = getDropdowns('Mode of payment');
+  const stateDropdowns = getDropdowns('State');
 
-  const pocSelect = fx.$("#poc-select", addOrderHtml);
-  const mopSelect = fx.$("#payment-mode-select", addOrderHtml);
-  const stateSelect = fx.$("#state-select", addOrderHtml);
+  const pocSelect = fx.$('#poc-select', addOrderHtml);
+  const mopSelect = fx.$('#payment-mode-select', addOrderHtml);
+  const stateSelect = fx.$('#state-select', addOrderHtml);
 
   pocDropdowns.forEach(function (dropdown) {
     pocSelect.append(dropdown);
@@ -37,7 +37,7 @@ function addNewOrder(e) {
 
   extraViews.append(addOrderHtml);
 
-  addOrderHtml.addEventListener("submit", function (e) {
+  addOrderHtml.addEventListener('submit', function (e) {
     e.preventDefault();
     const formData = new FormData(addOrderHtml);
     const dataObject = Object.fromEntries(formData.entries());
@@ -50,14 +50,13 @@ function addNewOrder(e) {
     });
     dataObject[`Order No`] ??= `MS${dataObject[`Order ID`] + 1}`;
     dataObject[`Balance Amount (To be paid) (INR)`] ??=
-      dataObject[`Total Amount  (INR)`] -
-      dataObject[`Prepaid Amount (If any) (INR)`];
+      dataObject[`Total Amount  (INR)`] - dataObject[`Prepaid Amount (If any) (INR)`];
 
     appendData(dataObject);
   });
 
-  const cancelBtn = fx.$(".cancel", addOrderHtml);
-  cancelBtn.addEventListener("click", removeForm);
+  const cancelBtn = fx.$('.cancel', addOrderHtml);
+  cancelBtn.addEventListener('click', removeForm);
 }
 
 function executeFilterAndAction() {}
@@ -337,20 +336,18 @@ function lastPage(e) {
 
 //------------------------- generate-orders-event
 function createOrder(e) {
-  const data = sheet[tool.name]["Generate Orders"].jsonData;
+  const data = sheet[tool.name]['Generate Orders'].jsonData;
   const orderOutput = [];
   const companies = {};
 
   data.forEach(function (row, index) {
-    const company = row["Booking Company"];
+    const company = row['Booking Company'];
 
     if (!companies[company]) companies[company] = [];
     companies[company].push(row);
 
     if (companies[company].length === 10) {
-      orderOutput.push(
-        responseAdjust(fetchApi(companies[company], company), data)
-      );
+      orderOutput.push(responseAdjust(fetchApi(companies[company], company), data));
 
       companies[company] = [];
     }
@@ -358,9 +355,7 @@ function createOrder(e) {
     if (index === data.length - 1) {
       Object.entries(companies).forEach(function ([compName, orders]) {
         if (orders.length > 0) {
-          orderOutput.push(
-            responseAdjust(fetchApi(companies[company], company), data)
-          );
+          orderOutput.push(responseAdjust(fetchApi(companies[company], company), data));
         }
       });
     }
@@ -387,8 +382,6 @@ function editRow(e) {
     const element = fx.$(`*[title=${target.title}]:not(button)`);
 
     if (element) element.remove();
-    const 
-    
   }
 }
 
@@ -399,21 +392,17 @@ function sendOrderConfirmationMessage(e) {
   const row = e.target.closest(`tr`);
   const phoneNumber = fx.$(`#contact-number a`, row).textContent;
 
-  const template = sheet.Database.whatsapp_templates.arrayData.filter(function (
-    value
-  ) {
+  const template = sheet.Database.whatsapp_templates.arrayData.filter(function (value) {
     return value[0] == `Domestic Order Confirmation`;
   });
 
   if (!template.length) return;
 
   const messageText = template[0][1];
-  const messageTemplate = messageText
-    .replaceAll(`\n`, `<br>`)
-    .replace(/\*/g, () => {
-      count++;
-      return count % 2 === 1 ? "<b>" : "</b>";
-    });
+  const messageTemplate = messageText.replaceAll(`\n`, `<br>`).replace(/\*/g, () => {
+    count++;
+    return count % 2 === 1 ? '<b>' : '</b>';
+  });
 
   const messageParent = document.createElement(`div`);
   const messageChild = document.createElement(`div`);
@@ -451,17 +440,14 @@ function sendOrderConfirmationMessage(e) {
 }
 
 function sendWhatsapp(message = ``, phone = 0) {
-  window.open(
-    `https://wa.me/${phone}?text=${encodeURIComponent(message)}`,
-    `_blank`
-  );
+  window.open(`https://wa.me/${phone}?text=${encodeURIComponent(message)}`, `_blank`);
 }
 
 function markResolved(e) {
   const target = e.target;
   const rownum = fx.num(target.closest(`tr`).getAttribute(`row-num`));
   const obj = {
-    "CX Issue Status": `Closed`,
+    'CX Issue Status': `Closed`,
   };
 
   updateData(obj, rownum);
@@ -487,18 +473,14 @@ function download() {
     }
   }
 
-  const headers = Object.keys(data[0]).filter((col) =>
-    accessibleColumns.has(col)
-  );
-  csvString += headers.join(",") + "\n";
+  const headers = Object.keys(data[0]).filter((col) => accessibleColumns.has(col));
+  csvString += headers.join(',') + '\n';
 
   const rows = data.map((row) =>
-    headers
-      .map((h) => `"${(row[h] ?? "").toString().replace(/"/g, '""')}"`)
-      .join(",")
+    headers.map((h) => `"${(row[h] ?? '').toString().replace(/"/g, '""')}"`).join(',')
   );
 
-  csvString += rows.join("\n") + "\n";
+  csvString += rows.join('\n') + '\n';
 
   const blob = new Blob([csvString], { type: `text/csv` });
   const link = document.createElement(`a`);

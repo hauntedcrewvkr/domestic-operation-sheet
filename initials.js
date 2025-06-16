@@ -74,20 +74,15 @@ const fx = {
   //------------------------- create-element-from-text
   text2el(text) {
     /**
-     * @description This function create an html element from the text
-     * @param {string} text
+     * @description Converts an HTML string into a proper DOM element.
+     * @param {string} text - a single html element as string
+     * @returns {HTMLElement}
      */
+    console.log(text);
+    const template = document.createElement(`template`);
+    template.innerHTML = text.trim();
 
-    text = text.trim();
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(text, `text/html`);
-
-    return doc.body.firstChild;
-  },
-
-  text2elfull(text) {
-    const parser = new DOMParser();
-    return parser.parseFromString(text, 'text/html');
+    return template.content.firstElementChild;
   },
 
   //------------------------- remove-inner-html
@@ -104,6 +99,7 @@ const fx = {
 
 const tool = {
   name: `Domestic Operation Sheet`,
+  logoSrc: `https://i.postimg.cc/hGGkfhm2/mediseller-Logo.png`,
   forms: {
     addNewOrderForm: `
     <form class="add-new-order-form form-base">
@@ -244,77 +240,43 @@ const tool = {
     </form>
     `,
   },
-  viewLi: {
-    'Orders': `
-    <li class=""nav-name"" title=""Orders"">
-      <i class=""fas fa-cart-shopping""></i>
-    </li>
-    `,
-
-    'Get Initial Confirmation': `
-    <li class="nav-name" title="Get Initial Confirmation">
-      <i class="fas fa-asterisk"></i>
-    </li>
-    `,
-
-    'Confirm Payments': `
-    <li class="nav-name" title="Confirm Payments">
-      <i class="fas fa-credit-card"></i>
-    </li>
-    `,
-
-    'Generate Orders': `
-    <li class="nav-name" title="Generate Orders">
-      <i class="fas fa-face-smile-beam"></i>
-    </li>
-    `,
-
-    'COD': `
-    <li class="nav-name" title="COD">
-      <i class="fas fa-money-bill-1-wave"></i>
-    </li>
-    `,
-
-    'Processed Orders': `
-    <li class="nav-name" title="Procesed Orders">
-      <i class="fas fa-microchip"></i>
-    </li>
-    `,
-  },
-  actionIcons: {
-    filterActions: {
-      'Add New Order': `<i class="ph ph-user-circle-plus" title="Add Order"></i>`,
-      'Create Order': `<i class="ph ph-webhooks-logo" title="Create Orders"></i>`,
-      'Change Account': `<i class="ph ph-buildings"></i>`,
-      'Change Email': `<i class="ph ph-at"></i>`,
-      'Sync': `<i class="ph ph-arrows-clockwise"></i>`,
-      'Download': `Download`,
-      'My Orders': `<i class="ph ph-user"></i>`,
-      'Medisellers COD': `<i class="ph ph-money"></i>`,
-      'Medicare COD': `<i class="ph ph-money-wavy"></i>`,
-      'Payment Not Received': `<i class="ph ph-not-equals"></i>`,
-      'Payment Received': `<i class="ph ph-equals"></i>`,
-      'Overview': `<i class="ph ph-chart-bar"></i>`,
-      'Dispatch + Menifest': `<i class="ph ph-truck"></i>`,
-      'T-1 Orders': `<i class="ph ph-number-one"></i>`,
-      'Dispatch + RTO': `<i class="ph ph-arrow-u-left-down"></i>`,
-      'RTO Delivered': `<i class="ph ph-hand-arrow-down"></i>`,
-      'Pending Orders': `<i class="ph ph-hourglass"></i>`,
-      'Unconfirmed Returns': `<i class="ph ph-not-subset-of"></i>`,
-      'To Check': `<i class="ph ph-list-checks"></i>`,
-      'Payments': `<i class="ph ph-currency-dollar-simple"></i>`,
-    },
-    subActions: {
-      'Raise Issue': `<i class="ph ph-warning raise-issue-action sa-icon"></i>`,
-      'See Followups': `<i class="ph ph-chat see-followups-action sa-icon"></i>`,
-      'Change Dispatch Status': `<i class="ph ph-cube change-dispatch-status-action sa-icon"></i>`,
-      'Add Remarks': `<i class="ph ph-file-plus add-remarks-action sa-icon"></i>`,
-      'Order Confirmation Message': `<i class="ph ph-whatsapp-logo send-order-confirmation-message-action sa-icon"></i>`,
-      'Mark Resolved': `<i class="ph ph-thumbs-up mark-resolved-action sa-icon"></i>`,
-      'Payment Confirmation Yes': `<i class="ph ph-check-circle payment-confirmed-action sa-icon"></i>`,
-      'Payment Confirmation No': `<i class="ph ph-x-circle payment-unconfirmed-action sa-icon"></i>`,
-      'Edit Row': `<i class="ph ph-pencil-simple-line edit-row-action sa-icon"></i>`,
-    },
+  icons: {
+    'Add New Order': `<i class="ph ph-user-circle-plus" title="Add Order"></i>`,
+    'Create Order': `<i class="ph ph-webhooks-logo" title="Create Orders"></i>`,
+    'Change Account': `<i class="ph ph-buildings"></i>`,
+    'Sync': `<i class="ph ph-arrows-clockwise"></i>`,
+    'Download': `<i class="ph ph-cloud-arrow-down"></i>`,
+    'Orders': `<i class="fas fa-cart-shopping"></i>`,
+    'Get Initial Confirmation': `<i class="fas fa-asterisk"></i>`,
+    'Confirm Payments': `<i class="fas fa-credit-card"></i>`,
+    'Generate Orders': `<i class="fas fa-face-smile-beam"></i>`,
+    'Raised Issues': `<i class="fas fa-hand"></i>`,
+    'COD': `<i class="fas fa-money-bill-1-wave"></i>`,
+    'Processed Orders': `<i class="fas fa-microchip"></i>`,
+    'Change Email': `<i class="ph ph-at"></i>`,
+    'My Orders': `<i class="ph ph-user"></i>`,
+    'Medisellers COD': `<i class="ph ph-money"></i>`,
+    'Medicare COD': `<i class="ph ph-money-wavy"></i>`,
+    'Payment Not Received': `<i class="ph ph-not-equals"></i>`,
+    'Payment Received': `<i class="ph ph-equals"></i>`,
+    'Overview': `<i class="ph ph-chart-bar"></i>`,
+    'Dispatch + Menifest': `<i class="ph ph-truck"></i>`,
+    'T-1 Orders': `<i class="ph ph-number-one"></i>`,
+    'Dispatch + RTO': `<i class="ph ph-arrow-u-left-down"></i>`,
+    'RTO Delivered': `<i class="ph ph-hand-arrow-down"></i>`,
+    'Pending Orders': `<i class="ph ph-hourglass"></i>`,
+    'Unconfirmed Returns': `<i class="ph ph-not-subset-of"></i>`,
+    'To Check': `<i class="ph ph-list-checks"></i>`,
+    'Payments': `<i class="ph ph-currency-dollar-simple"></i>`,
+    'Raise Issue': `<i class="ph ph-warning raise-issue-action sa-icon"></i>`,
+    'See Followups': `<i class="ph ph-chat see-followups-action sa-icon"></i>`,
+    'Change Dispatch Status': `<i class="ph ph-cube change-dispatch-status-action sa-icon"></i>`,
+    'Add Remarks': `<i class="ph ph-file-plus add-remarks-action sa-icon"></i>`,
+    'Order Confirmation Message': `<i class="ph ph-whatsapp-logo send-order-confirmation-message-action sa-icon"></i>`,
+    'Mark Resolved': `<i class="ph ph-thumbs-up mark-resolved-action sa-icon"></i>`,
+    'Payment Confirmation Yes': `<i class="ph ph-check-circle payment-confirmed-action sa-icon"></i>`,
+    'Payment Confirmation No': `<i class="ph ph-x-circle payment-unconfirmed-action sa-icon"></i>`,
+    'Edit Row': `<i class="ph ph-pencil-simple-line edit-row-action sa-icon"></i>`,
   },
   requirements: {
     'Database': [
@@ -328,18 +290,90 @@ const tool = {
     ],
     'Domestic Operation Sheet': [`Master`, `Dispatch_Ref`, `Account_Setting`],
   },
+  tableColumns: [
+    `Order Details`,
+    `Customer Details`,
+    `Requirements`,
+    `Amount`,
+    `Shipping Details`,
+    `Logistic Details`,
+  ],
   //------------------------- get-the-loader-element
   get loader() {
-    //------------------------- loader-div
     let loaderDiv = document.createElement(`div`);
-    loaderDiv.classList.add(`loader-div`);
-
-    //------------------------- loader-span
     let loaderSpan = document.createElement(`span`);
+
+    loaderDiv.classList.add(`loader-div`);
     loaderSpan.classList.add(`loader`);
 
     return loaderDiv.appendChild(loaderSpan);
   },
+};
+
+tool.doc = {
+  header: `
+    <header class="header">
+      <div class="logo" title="Medisellers India">
+        <img class="logo-img" src="${tool.logoSrc}" alt="Logo" />
+        <span class="logo-name">${tool.name}</span>
+      </div>
+      <div class="logo-pr-div"></div>
+      <div class="pr-actions">
+        <span class="pr-icon primary-action-filter-span" title="Filter">
+          <i class="ph ph-funnel" title="Primary Filter"></i>
+          <div class="pr-filter-options hidden"></div>
+        </span>
+      </div>
+    </header>
+    `,
+
+  nav: `
+    <nav class="view-nav"></nav>
+    `,
+
+  main: `
+    <main class="main">
+      <div class="table-container">
+        <table class="table">
+          <thead class="thead">
+            <tr class="table-headings">
+              <th colname="Actions" class="action-th">
+                <i class="ph-fill ph-sliders-horizontal"></i>
+              </th>
+            </tr>
+          </thead><tbody class="tbody"></tbody>
+        </table>
+      </div>
+      <section class="extra-views">
+        <div class="info msg-div hide">
+          <span class="ph-fill ph-info alert-span"></span>
+          <span class="msg-span">Info: Good to Go</span>
+        </div>
+      </section>
+    </main>
+    `,
+
+  footer: `
+    <footer class="footer">
+      <div class="epp">
+        <select id="entries-per-page" name="entries-per-page" title="Entries Per Page">
+          <option value="50" selected="true">50</option>
+          <option value="100">100</option>
+          <option value="150">150</option>
+          <option value="200">200</option>
+        </select>
+      </div>
+      <div class="pagination">
+        <i class="ph ph-caret-double-left"></i>
+        <i class="ph ph-caret-left"></i>
+        <input type="number" class="page-input" value="1" />
+        <input type="number" class="total-pages" value="1" disabled />
+        <i class="ph ph-caret-right"></i>
+        <i class="ph ph-caret-double-right"></i>
+      </div>
+      <div class="current-view"><i class="ph-fill ph-eye"></i></div>
+    </footer>
+    `,
 };
 
 const sheet = {

@@ -29,7 +29,7 @@ function distributeData(ss, sheetname, data) {
 
   data = data.slice(); //make-copy-of-data-so-that-original-will-be-safe
   if (!Array.isArray(data) || !data.length) {
-    toggleNotification(`No Data Found`, "error");
+    toggleNotification(`No Data Found`, 'error');
   }
   //------------------------- initialize-if-data-not-found
   sheet[ss] ??= {}; //level-1
@@ -87,9 +87,7 @@ function distributeData(ss, sheetname, data) {
         orderType: row[indexes[`Order Type`]],
         isPaymentConfirmed: row[indexes[`Is Payment Confirmed`]],
         prepaidAmount: fx.num(row[indexes[`Prepaid Amount (If any) (INR)`]]),
-        balanceAmount: fx.num(
-          row[indexes[`Balance Amount (To be paid) (INR)`]]
-        ),
+        balanceAmount: fx.num(row[indexes[`Balance Amount (To be paid) (INR)`]]),
         remittanceAmount: fx.num(row[indexes[`Remittance Amount`]]),
         bookingCompany: row[indexes[`Booking Company`]],
         cxIssue: row[indexes[`CX Issue`]],
@@ -100,82 +98,55 @@ function distributeData(ss, sheetname, data) {
       if (
         values.orderType == `COD` &&
         values.bookingCompany == `Medicare India` &&
-        (values.trackingStatus != `Cancelled` ||
-          values.dispatchStatus != `Cancelled`)
+        (values.trackingStatus != `Cancelled` || values.dispatchStatus != `Cancelled`)
       ) {
         sheet[ss][`Medicare COD`].arrayData.push(row);
-        sheet[ss][`Medicare COD`].jsonData.push(
-          viewsJson(row, headers, rowNum)
-        );
+        sheet[ss][`Medicare COD`].jsonData.push(viewsJson(row, headers, rowNum));
       }
       //------------------------- medisellers-cod-conditionals
       if (
         values.orderType == `COD` &&
         values.bookingCompany == `Mediseller India` &&
-        (values.trackingStatus != `Cancelled` ||
-          values.dispatchStatus != `Cancelled`)
+        (values.trackingStatus != `Cancelled` || values.dispatchStatus != `Cancelled`)
       ) {
         sheet[ss][`Medisellers COD`].arrayData.push(row);
-        sheet[ss][`Medisellers COD`].jsonData.push(
-          viewsJson(row, headers, rowNum)
-        );
+        sheet[ss][`Medisellers COD`].jsonData.push(viewsJson(row, headers, rowNum));
       }
       //------------------------- payment-not-received-conditionals
       if (
         values.prepaidAmount > 0 &&
         values.isPaymentConfirmed == `No` &&
-        (values.dispatchStatus != `Cancelled` ||
-          values.trackingStatus != `Cancelled`)
+        (values.dispatchStatus != `Cancelled` || values.trackingStatus != `Cancelled`)
       ) {
         sheet[ss][`Payment Not Received`].arrayData.push(row);
-        sheet[ss][`Payment Not Received`].jsonData.push(
-          viewsJson(row, headers, rowNum)
-        );
+        sheet[ss][`Payment Not Received`].jsonData.push(viewsJson(row, headers, rowNum));
       }
       //------------------------- payment-received-conditionals
       if (
         values.prepaidAmount > 0 &&
         values.isPaymentConfirmed == `Yes` &&
-        (values.dispatchStatus != `Cancelled` ||
-          values.trackingStatus != `Cancelled`)
+        (values.dispatchStatus != `Cancelled` || values.trackingStatus != `Cancelled`)
       ) {
         sheet[ss][`Payment Received`].arrayData.push(row);
-        sheet[ss][`Payment Received`].jsonData.push(
-          viewsJson(row, headers, rowNum)
-        );
+        sheet[ss][`Payment Received`].jsonData.push(viewsJson(row, headers, rowNum));
       }
       //------------------------- dispatch-+-manifest-conditionals
-      if (
-        values.dispatchStatus == `Dispatched` &&
-        values.trackingStatus == `Manifested`
-      ) {
+      if (values.dispatchStatus == `Dispatched` && values.trackingStatus == `Manifested`) {
         sheet[ss][`Dispatch + Menifest`].arrayData.push(row);
-        sheet[ss][`Dispatch + Menifest`].jsonData.push(
-          viewsJson(row, headers, rowNum)
-        );
+        sheet[ss][`Dispatch + Menifest`].jsonData.push(viewsJson(row, headers, rowNum));
       }
       //------------------------- t-1-orders-conditionals
       {
       }
       //------------------------- dispatch-+-rto-conditionals
-      if (
-        values.dispatchStatus == `Dispatched` &&
-        values.trackingStatus.includes(`RTO`)
-      ) {
+      if (values.dispatchStatus == `Dispatched` && values.trackingStatus.includes(`RTO`)) {
         sheet[ss][`Dispatch + RTO`].arrayData.push(row);
-        sheet[ss][`Dispatch + RTO`].jsonData.push(
-          viewsJson(row, headers, rowNum)
-        );
+        sheet[ss][`Dispatch + RTO`].jsonData.push(viewsJson(row, headers, rowNum));
       }
       //------------------------- rto-delivered-conditionals
-      if (
-        values.dispatchStatus == `Dispatched` &&
-        values.trackingStatus == `RTO Delivered`
-      ) {
+      if (values.dispatchStatus == `Dispatched` && values.trackingStatus == `RTO Delivered`) {
         sheet[ss][`RTO Delivered`].arrayData.push(row);
-        sheet[ss][`RTO Delivered`].jsonData.push(
-          viewsJson(row, headers, rowNum)
-        );
+        sheet[ss][`RTO Delivered`].jsonData.push(viewsJson(row, headers, rowNum));
       }
       //------------------------- pending-orders-conditionals
       if (
@@ -184,25 +155,17 @@ function distributeData(ss, sheetname, data) {
         values.trackingNumber
       ) {
         sheet[ss][`Pending Orders`].arrayData.push(row);
-        sheet[ss][`Pending Orders`].jsonData.push(
-          viewsJson(row, headers, rowNum)
-        );
+        sheet[ss][`Pending Orders`].jsonData.push(viewsJson(row, headers, rowNum));
       }
       //------------------------- unconfirmed-returns-conditionals
-      if (
-        values.dispatchStatus != `Returned` &&
-        values.trackingStatus == `RTO Delivered`
-      ) {
+      if (values.dispatchStatus != `Returned` && values.trackingStatus == `RTO Delivered`) {
         sheet[ss][`Unconfirmed Returns`].arrayData.push(row);
-        sheet[ss][`Unconfirmed Returns`].jsonData.push(
-          viewsJson(row, headers, rowNum)
-        );
+        sheet[ss][`Unconfirmed Returns`].jsonData.push(viewsJson(row, headers, rowNum));
       }
       //------------------------- to-check-conditionals
       if (
         values.orderConfirmationStatus == `To Check` &&
-        (values.dispatchStatus != `Cancelled` ||
-          values.trackingStatus != `Cancelled`)
+        (values.dispatchStatus != `Cancelled` || values.trackingStatus != `Cancelled`)
       ) {
         sheet[ss][`To Check`].arrayData.push(row);
         sheet[ss][`To Check`].jsonData.push(viewsJson(row, headers, rowNum));
@@ -211,25 +174,19 @@ function distributeData(ss, sheetname, data) {
       if (
         values.orderConfirmationStatus != `To Check` &&
         !values.deliveryType &&
-        (values.dispatchStatus != `Cancelled` ||
-          values.trackingStatus != `Cancelled`)
+        (values.dispatchStatus != `Cancelled` || values.trackingStatus != `Cancelled`)
       ) {
         sheet[ss][`Get Initial Confirmation`].arrayData.push(row);
-        sheet[ss][`Get Initial Confirmation`].jsonData.push(
-          viewsJson(row, headers, rowNum)
-        );
+        sheet[ss][`Get Initial Confirmation`].jsonData.push(viewsJson(row, headers, rowNum));
       }
       //------------------------- confirm-payments-conditionals
       if (
         values.prepaidAmount > 0 &&
         !values.isPaymentConfirmed &&
-        (values.trackingStatus != `Cancelled` ||
-          values.dispatchStatus != `Cancelled`)
+        (values.trackingStatus != `Cancelled` || values.dispatchStatus != `Cancelled`)
       ) {
         sheet[ss][`Confirm Payments`].arrayData.push(row);
-        sheet[ss][`Confirm Payments`].jsonData.push(
-          viewsJson(row, headers, rowNum)
-        );
+        sheet[ss][`Confirm Payments`].jsonData.push(viewsJson(row, headers, rowNum));
       }
       //------------------------- generate-orders-conditionals
       if (
@@ -240,16 +197,12 @@ function distributeData(ss, sheetname, data) {
         values.dispatchStatus != `Cancelled`
       ) {
         sheet[ss][`Generate Orders`].arrayData.push(row);
-        sheet[ss][`Generate Orders`].jsonData.push(
-          viewsJson(row, headers, rowNum)
-        );
+        sheet[ss][`Generate Orders`].jsonData.push(viewsJson(row, headers, rowNum));
       }
       //------------------------- raised-issues-conditionals
       if (!values.cxIssue && values.cxIssueStatus != `Closed`) {
         sheet[ss][`Raised Issues`].arrayData.push(row);
-        sheet[ss][`Raised Issues`].jsonData.push(
-          viewsJson(row, headers, rowNum)
-        );
+        sheet[ss][`Raised Issues`].jsonData.push(viewsJson(row, headers, rowNum));
       }
       //------------------------- cod-conditionals
       if (values[`orderType`] == `COD`) {
@@ -257,14 +210,9 @@ function distributeData(ss, sheetname, data) {
         sheet[ss].COD.jsonData.push(viewsJson(row, headers, rowNum));
       }
       //------------------------- processed-orders-conditionals
-      if (
-        values.trackingNumber &&
-        values.dispatchStatus == `Yet to be Dispatched`
-      ) {
+      if (values.trackingNumber && values.dispatchStatus == `Yet to be Dispatched`) {
         sheet[ss][`Processed Orders`].arrayData.push(row);
-        sheet[ss][`Processed Orders`].jsonData.push(
-          viewsJson(row, headers, rowNum)
-        );
+        sheet[ss][`Processed Orders`].jsonData.push(viewsJson(row, headers, rowNum));
       }
 
       for (let c = 0; c < row.length; c++) {
@@ -314,10 +262,12 @@ function setRoutes() {
   /**
    * @description This function set all the function to be run in serial
    */
-  createDocumentHeader();
-  createDocumentNav();
-  createDocumentMain();
-  createDocumentFooter();
+  createDocument();
+
+  // createDocumentHeader();
+  // createDocumentNav();
+  // createDocumentMain();
+  // createDocumentFooter();
   getTableRows();
   fx.$(`.loader-init-div`)?.remove();
   fx.$(`.loader-div`)?.remove();
@@ -904,13 +854,8 @@ function getTableRows(pagenum = 1, viewname = `Master`) {
             if (!value) paymentConfirmationTimestampLi.classList.add(`hidden`);
             paymentConfirmationTimestampLi.id = `payment-confirmation-timestamp`;
             paymentConfirmationTimestampLi.title = colname;
-            paymentConfirmationTimestampLi.classList.add(
-              `payment-confirmation-timestamp`
-            );
-            paymentConfirmationTimestampLi.insertAdjacentHTML(
-              `beforeend`,
-              value
-            );
+            paymentConfirmationTimestampLi.classList.add(`payment-confirmation-timestamp`);
+            paymentConfirmationTimestampLi.insertAdjacentHTML(`beforeend`, value);
 
             amountUl.append(paymentConfirmationTimestampLi);
           }
@@ -1005,14 +950,7 @@ function getTableRows(pagenum = 1, viewname = `Master`) {
     shippingTd.append(shippingDiv);
     logisticTd.append(logisticDiv);
 
-    tr.append(
-      orderTd,
-      customerTd,
-      requirementTd,
-      amountTd,
-      shippingTd,
-      logisticTd
-    );
+    tr.append(orderTd, customerTd, requirementTd, amountTd, shippingTd, logisticTd);
 
     tbody.append(tr);
   }
@@ -1040,11 +978,7 @@ function subActions() {
   subAction.append(toggle_sa);
 
   for (let acc of access) {
-    if (
-      acc.tool_name == tool.name &&
-      acc.type == `Sub Action` &&
-      acc.access.includes(user.email)
-    ) {
+    if (acc.tool_name == tool.name && acc.type == `Sub Action` && acc.access.includes(user.email)) {
       const subaction = fx.text2el(acc.script);
       subaction.classList.add(`hidden`);
       subAction.append(subaction);
@@ -1083,8 +1017,7 @@ function getDropdowns(colname) {
   dropdowns.push(selectedOption);
 
   for (let dropdown of dropdownData) {
-    if (dropdown.tool_name != tool.name || dropdown.column_name != colname)
-      continue;
+    if (dropdown.tool_name != tool.name || dropdown.column_name != colname) continue;
     let option = document.createElement(`option`);
     option.value = dropdown.value;
     option.textContent = dropdown.value;
@@ -1127,11 +1060,7 @@ async function ghostSync() {
    * @description This function works in background to sync realtime data
    */
 
-  const masterData = await sheet.getData(
-    sheet[tool.name].ssid,
-    `Master`,
-    user.apiKey
-  );
+  const masterData = await sheet.getData(sheet[tool.name].ssid, `Master`, user.apiKey);
   distributeData(tool.name, `Master`, masterData);
   setTimeout(ghostSync, 5 * 60 * 1000);
 }
@@ -1139,10 +1068,10 @@ async function ghostSync() {
 //------------------------- now-str-helper-function()
 function nowStr() {
   const d = new Date();
-  const pad = (n) => (n < 10 ? "0" + n : n);
-  return `${d.getMonth() + 1}/${d.getDate()}/${d.getFullYear()} ${pad(
-    d.getHours()
-  )}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`;
+  const pad = (n) => (n < 10 ? '0' + n : n);
+  return `${d.getMonth() + 1}/${d.getDate()}/${d.getFullYear()} ${pad(d.getHours())}:${pad(
+    d.getMinutes()
+  )}:${pad(d.getSeconds())}`;
 }
 
 //------------------------- get-order-number-helper-function()
@@ -1248,10 +1177,10 @@ function fetchApi(data = [], company) {
   }
 
   const option = {
-    method: "POST",
+    method: 'POST',
     headers: {
-      "Content-Type": "application/json",
-      "Cache-Control": "no-cache",
+      'Content-Type': 'application/json',
+      'Cache-Control': 'no-cache',
     },
     body: JSON.stringify(payload),
   };
@@ -1269,12 +1198,8 @@ function fetchApi(data = [], company) {
             tracking_number: json?.data[key]?.waybill || ``,
             order_creation_error_type: json?.data[key]?.remark || ``,
             logistic_name: json?.data[key]?.logistic_name || ``,
-            tracking_url: json?.data[key]?.waybill
-              ? baseTrack + json?.data[key]?.waybill
-              : ``,
-            dispatch_status: json?.data[key]?.waybill
-              ? `Yet to be Dispatched`
-              : ``,
+            tracking_url: json?.data[key]?.waybill ? baseTrack + json?.data[key]?.waybill : ``,
+            dispatch_status: json?.data[key]?.waybill ? `Yet to be Dispatched` : ``,
             booking_company: company,
           });
         });
@@ -1431,11 +1356,7 @@ function getHeaderActions(condition = ``) {
   const arr = [];
 
   for (let json of data) {
-    if (
-      json.tool_name == tool.name &&
-      json.type == condition &&
-      json.access.includes(user.email)
-    ) {
+    if (json.tool_name == tool.name && json.type == condition && json.access.includes(user.email)) {
       const span = document.createElement(`span`);
       span.classList.add(`pr-icon`);
       span.title = json.action;

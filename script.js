@@ -1,3 +1,56 @@
+function createDocument() {
+  const header = fx.text2el(tool.doc.header);
+  const logoPrDiv = fx.$(`.logo-pr-div`, header);
+  const prFilterOptions = fx.$(`.pr-filter-options`, header);
+  const prActions = fx.$(`.pr-actions`, header);
+
+  logoPrDiv.append(getActions(`First Visible Action`));
+  prFilterOptions.append(getActions(`Filter Action`));
+  prActions.append(getActions(`Second Visible Action`));
+
+  const nav = fx.text2el(tool.doc.nav);
+  nav.append(getActions(`View`));
+
+  const main = fx.text2el(tool.doc.main);
+  const thRow = fx.$(`.table-headings`, main);
+
+  tool.tableColumns.forEach(appendTheads);
+
+  const footer = fx.text2el(tool.doc.footer);
+
+  document.body.append(header, nav, main, footer);
+
+  function appendTheads(value) {
+    thRow.append(fx.text2el(`<th colname="${value}">${value}</th>`));
+  }
+}
+
+function getActions(type) {
+  /**
+   * @description This function creates the list of actions of the type mentioned
+   * @param {"First Visible Action", "Second Visible Action", "Filter Action", "Sub Action"} type
+   */
+
+  const actionAccess = sheet.Database.action_access.jsonData;
+  const ul = document.createElement(`ul`);
+
+  ul.setAttribute(`type`, type);
+
+  for (let json of actionAccess) {
+    if (!json.access || !json.tool_name) continue;
+    if (json.tool_name == tool.name && json.access.includes(user.email) && json.type == type) {
+      const li = document.createElement(`li`);
+      const i = fx.text2el(tool.icons[json.action]);
+
+      li.append(i);
+      li.title = json.action;
+      ul.append(li);
+    }
+  }
+
+  return ul;
+}
+
 function createDocumentHeader() {
   //------------------------- header
   let header = document.createElement(`header`);
@@ -286,14 +339,7 @@ function createDocumentFooter() {
   lastAction.classList.add(`ph`, `ph-caret-double-right`);
 
   /* append */
-  paginationDiv.append(
-    firstAction,
-    backAction,
-    pageInput,
-    totalInput,
-    nextAction,
-    lastAction
-  );
+  paginationDiv.append(firstAction, backAction, pageInput, totalInput, nextAction, lastAction);
 
   //------------------------- current-view-div
   let currentViewDiv = document.createElement(`div`);
