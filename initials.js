@@ -1,4 +1,7 @@
-//-======================== custom=variables
+/**
+ * - Consist all the custom functions
+ * - should be loaded first
+ */
 const fx = {
   //------------------------- query-selector
   $(sel, scope = document) {
@@ -78,7 +81,6 @@ const fx = {
      * @param {string} text - a single html element as string
      * @returns {HTMLElement}
      */
-    console.log(text);
     const template = document.createElement(`template`);
     template.innerHTML = text.trim();
 
@@ -95,63 +97,116 @@ const fx = {
     element.innerHTML = ``;
     return;
   },
+
+  //------------------------- create-kebab-case-of-a-text
+  kebabCase(str = ``) {
+    /**
+     * @description Converts text into kebab case
+     * @param {string} str
+     * @returns Text having kebab case
+     */
+    return str
+      .replace(/([a-z0-9])([A-Z])/g, '$1-$2')
+      .replace(/[\s_]+/g, '-')
+      .toLowerCase();
+  },
+
+  //------------------------- create-camel-case-of-a-text
+  camelCase(str = ``) {
+    /**
+     * @description Converts text into camel case
+     * @param {string} str
+     * @returns Text having camel case
+     */
+    return str
+      .toLowerCase()
+      .replace(/[-_\s]+(.)?/g, (_, c) => (c ? c.toUpperCase() : ''));
+  },
+
+  //------------------------- create-snake-case-of-a-text
+  snakeCase(str = '') {
+    /**
+     * @description Converts text into snake case
+     * @param {string} str
+     * @returns Text having snake case
+     */
+
+    return str
+      .replace(/([a-z0-9])([A-Z])/g, '$1_$2')
+      .replace(/[\s\-]+/g, '_')
+      .toLowerCase();
+  },
+
+  //------------------------- create-pascal-case-of-a-text
+  pascalCase(str = '') {
+    /**
+     * @description Converts text into pascal case
+     * @param {string} str
+     * @returns Text having pascal case
+     */
+
+    return str
+      .toLowerCase()
+      .replace(/[-_\s]+(.)?/g, (_, c) => (c ? c.toUpperCase() : ''))
+      .replace(/^[a-z]/, (match) => match.toUpperCase());
+  },
 };
 
 const tool = {
   name: `Domestic Operation Sheet`,
   logoSrc: `https://i.postimg.cc/hGGkfhm2/mediseller-Logo.png`,
   forms: {
-    addNewOrderForm: `
-    <form class="add-new-order-form form-base">
-      <header>
-        <h2 class="add-order-form-header">Add New Order</h2>
-      </header>
-      <label for="orders-field">Order Details</label>
-      <fieldset class="orders-field" id="orders-field">
-        <label for="date-input">Date:</label>
-        <input type="date" name="DATE" id="date-input" required />
-        <label for="poc-select">POC:</label>
-        <select name="POC" id="poc-select" required></select>
-        <label for="requirement-input">Requirement:</label>
-        <textarea name="Order Details" id="requirement-input" required></textarea>
-      </fieldset>
-      <label for="client-field">Customer Details</label>
-      <fieldset class="client-field" id="client-field">
-        <label for="name-input">Client Name:</label>
-        <input type="text" name="Client Name" id="name-input" required/>
-        <label for="contact-input">Contact Number:</label>
-        <input type="number" name="Contact Number" id="contact-input" required/>
-        <label for="alt-contact-input">Alt-Contact Number:</label>
-        <input type="number" name="Alternate Contact Number" id="alt-contact-input" />
-      </fieldset>
-      <label for="financial-field">Financial Details</label>
-      <fieldset class="financial-field" id="financial-field">
-        <label for="total-amount-input">Total Amount:</label>
-        <input type="number" value="0" name="Total Amount  (INR)" id="total-amount-input" required/>
-        <label for="prepaid-amount-input">Prepaid Amount:</label>
-        <input type="number" value="0" name="Prepaid Amount (If any) (INR)" id="prepaid-amount-input" required/>
-        <label for="payment-mode-select">Mode of Payment:</label>
-        <select name="Mode of payment" id="payment-mode-select" required></select>
-      </fieldset>
-      <label for="logistic-field">Logistic Details</label>
-      <fieldset class="logistic-field" id="logistic-field">
-        <label for="shipping-address-1-input">Address Line 1:</label>
-        <input type="text" maxlength="100" name="Shipping Address" id="shipping-address-1-input" required/>
-        <label for="shipping-address-2-input">Address Line 2:</label>
-        <input type="text" maxlength="100" name="Shipping Address_2" id="shipping-address-2-input"/>
-        <label for="state-select">State:</label>
-        <select name="State" id="state-select" required></select>
-        <label for="pincode-input">Pincode:</label>
-        <input type="number" min="100000" max="999999" name="Pincode" id="pincode-input" required/>
-      </fieldset>
-      <div class="actions">
-        <button type="submit" class="submit">Submit</button>
-        <button type="button" class="cancel">Cancel</button>
-      </div>
-    </form>
-    `,
+    addNewOrderForm: fx.text2el(
+      `<form class="add-new-order-form form-base">
+        <header>
+          <h2 class="add-order-form-header">Add New Order</h2>
+        </header>
+        <label for="orders-field">Order Details</label>
+        <fieldset class="orders-field" id="orders-field">
+          <label for="date-input">Date:</label>
+          <input type="date" name="DATE" id="date-input" required />
+          <label for="poc-select">POC:</label>
+          <select name="POC" id="poc-select" required></select>
+          <label for="requirement-input">Requirement:</label>
+          <textarea name="Order Details" id="requirement-input" required></textarea>
+        </fieldset>
+        <label for="client-field">Customer Details</label>
+        <fieldset class="client-field" id="client-field">
+          <label for="name-input">Client Name:</label>
+          <input type="text" name="Client Name" id="name-input" required/>
+          <label for="contact-input">Contact Number:</label>
+          <input type="number" name="Contact Number" id="contact-input" required/>
+          <label for="alt-contact-input">Alt-Contact Number:</label>
+          <input type="number" name="Alternate Contact Number" id="alt-contact-input" />
+        </fieldset>
+        <label for="financial-field">Financial Details</label>
+        <fieldset class="financial-field" id="financial-field">
+          <label for="total-amount-input">Total Amount:</label>
+          <input type="number" value="0" name="Total Amount  (INR)" id="total-amount-input" required/>
+          <label for="prepaid-amount-input">Prepaid Amount:</label>
+          <input type="number" value="0" name="Prepaid Amount (If any) (INR)" id="prepaid-amount-input" required/>
+          <label for="payment-mode-select">Mode of Payment:</label>
+          <select name="Mode of payment" id="payment-mode-select" required></select>
+        </fieldset>
+        <label for="logistic-field">Logistic Details</label>
+        <fieldset class="logistic-field" id="logistic-field">
+          <label for="shipping-address-1-input">Address Line 1:</label>
+          <input type="text" maxlength="100" name="Shipping Address" id="shipping-address-1-input" required/>
+          <label for="shipping-address-2-input">Address Line 2:</label>
+          <input type="text" maxlength="100" name="Shipping Address_2" id="shipping-address-2-input"/>
+          <label for="state-select">State:</label>
+          <select name="State" id="state-select" required></select>
+          <label for="pincode-input">Pincode:</label>
+          <input type="number" min="100000" max="999999" name="Pincode" id="pincode-input" required/>
+        </fieldset>
+        <div class="actions">
+          <button type="submit" class="submit">Submit</button>
+          <button type="button" class="cancel">Cancel</button>
+        </div>
+      </form>`
+    ),
 
-    cxIssueForm: `
+    cxIssueForm: fx.text2el(`
     <form class="cx-issue-form form-base">
       <header>
         <h2 class="raise-issue-heading">Raise Issue Form</h2>
@@ -170,9 +225,9 @@ const tool = {
         <button type="button" class="cancel">Cancel</button>
       </div>
     </form>
-    `,
+    `),
 
-    paymentConfirmForm: `
+    paymentConfirmForm: fx.text2el(`
     <form class="payment-yes-form form-base">
       <header>
         <h2 class="payment-yes-heading">Payment Confirmation Form</h2>
@@ -190,9 +245,9 @@ const tool = {
         <button type="button" class="cancel">Cancel</button>
       </div>
     </form>
-    `,
+    `),
 
-    paymentUnconfirmForm: `
+    paymentUnconfirmForm: fx.text2el(`
     <form class="payment-no-form form-base">
       <header>
         <h2 class="payment-no-heading">Payment Confirmation Form</h2>
@@ -206,9 +261,9 @@ const tool = {
         <button type="button" class="cancel">Cancel</button>
       </div>
     </form>
-    `,
+    `),
 
-    changeDispatchStatusForm: `
+    changeDispatchStatusForm: fx.text2el(`
     <form class="change-dispatch-form form-base">
       <header>
         <h2 class="change-dispatch-heading">Change Dispatch Form</h2>
@@ -222,9 +277,9 @@ const tool = {
         <button type="button" class="cancel">Cancel</button>
       </div>
     </form>
-    `,
+    `),
 
-    addRemarksForm: `
+    addRemarksForm: fx.text2el(`
     <form class="remarks-form form-base">
       <header>
         <h2 class="remarks-form-heading">Add Remarks</h2>
@@ -238,46 +293,151 @@ const tool = {
         <button type="button" class="cancel">Cancel</button>
       </div>
     </form>
-    `,
+    `),
   },
-  icons: {
-    'Add New Order': `<i class="ph ph-user-circle-plus" title="Add Order"></i>`,
-    'Create Order': `<i class="ph ph-webhooks-logo" title="Create Orders"></i>`,
-    'Change Account': `<i class="ph ph-buildings"></i>`,
-    'Sync': `<i class="ph ph-arrows-clockwise"></i>`,
-    'Download': `<i class="ph ph-cloud-arrow-down"></i>`,
-    'Orders': `<i class="fas fa-cart-shopping"></i>`,
-    'Get Initial Confirmation': `<i class="fas fa-asterisk"></i>`,
-    'Confirm Payments': `<i class="fas fa-credit-card"></i>`,
-    'Generate Orders': `<i class="fas fa-face-smile-beam"></i>`,
-    'Raised Issues': `<i class="fas fa-hand"></i>`,
-    'COD': `<i class="fas fa-money-bill-1-wave"></i>`,
-    'Processed Orders': `<i class="fas fa-microchip"></i>`,
-    'Change Email': `<i class="ph ph-at"></i>`,
-    'My Orders': `<i class="ph ph-user"></i>`,
-    'Medisellers COD': `<i class="ph ph-money"></i>`,
-    'Medicare COD': `<i class="ph ph-money-wavy"></i>`,
-    'Payment Not Received': `<i class="ph ph-not-equals"></i>`,
-    'Payment Received': `<i class="ph ph-equals"></i>`,
-    'Overview': `<i class="ph ph-chart-bar"></i>`,
-    'Dispatch + Menifest': `<i class="ph ph-truck"></i>`,
-    'T-1 Orders': `<i class="ph ph-number-one"></i>`,
-    'Dispatch + RTO': `<i class="ph ph-arrow-u-left-down"></i>`,
-    'RTO Delivered': `<i class="ph ph-hand-arrow-down"></i>`,
-    'Pending Orders': `<i class="ph ph-hourglass"></i>`,
-    'Unconfirmed Returns': `<i class="ph ph-not-subset-of"></i>`,
-    'To Check': `<i class="ph ph-list-checks"></i>`,
-    'Payments': `<i class="ph ph-currency-dollar-simple"></i>`,
-    'Raise Issue': `<i class="ph ph-warning raise-issue-action sa-icon"></i>`,
-    'See Followups': `<i class="ph ph-chat see-followups-action sa-icon"></i>`,
-    'Change Dispatch Status': `<i class="ph ph-cube change-dispatch-status-action sa-icon"></i>`,
-    'Add Remarks': `<i class="ph ph-file-plus add-remarks-action sa-icon"></i>`,
-    'Order Confirmation Message': `<i class="ph ph-whatsapp-logo send-order-confirmation-message-action sa-icon"></i>`,
-    'Mark Resolved': `<i class="ph ph-thumbs-up mark-resolved-action sa-icon"></i>`,
-    'Payment Confirmation Yes': `<i class="ph ph-check-circle payment-confirmed-action sa-icon"></i>`,
-    'Payment Confirmation No': `<i class="ph ph-x-circle payment-unconfirmed-action sa-icon"></i>`,
-    'Edit Row': `<i class="ph ph-pencil-simple-line edit-row-action sa-icon"></i>`,
+
+  actions: {
+    'Add New Order': {
+      icon: fx.text2el(`<i class="ph ph-user-circle-plus"></i>`),
+      event: {
+        click: function (e) {
+          e.stopPropagation();
+          const extraViews = fx.$('.extra-views');
+          const form = fx.text2el(tool.forms.addNewOrderForm);
+          const pocSelect = fx.$(`#poc-select`, form);
+          const mopSelect = fx.$(`#payment-mode-select`, form);
+          const stateSelect = fx.$(`#state-select`, form);
+          const pocDropdowns = getPocDropdowns();
+          const mopDropdowns = getDropdowns(`Mode of payment`);
+          const stateDropdowns = getDropdowns(`State`);
+
+          pocDropdowns.forEach(function (dropdown) {
+            pocSelect.append(dropdown);
+          });
+          mopDropdowns.forEach(function (dropdown) {
+            mopSelect.append(dropdown);
+          });
+          stateDropdowns.forEach(function (dropdown) {
+            stateSelect.append(dropdown);
+          });
+
+          extraViews.append(addOrderHtml);
+        },
+      },
+    },
+    'Create Order': {
+      icon: fx.text2el(`<i class="ph ph-webhooks-logo"></i>`),
+    },
+    'Change Account': {
+      icon: fx.text2el(`<i class="ph ph-buildings"></i>`),
+    },
+    'Sync': {
+      icon: fx.text2el(`<i class="ph ph-arrows-clockwise"></i>`),
+    },
+    'Download': {
+      icon: fx.text2el(`<i class="ph ph-cloud-arrow-down"></i>`),
+    },
+    'Orders': {
+      icon: fx.text2el(`<i class="fas fa-cart-shopping"></i>`),
+    },
+    'Get Initial Confirmation': {
+      icon: fx.text2el(`<i class="fas fa-asterisk"></i>`),
+    },
+    'Confirm Payments': {
+      icon: fx.text2el(`<i class="fas fa-credit-card"></i>`),
+    },
+    'Generate Orders': {
+      icon: fx.text2el(`<i class="fas fa-face-smile-beam"></i>`),
+    },
+    'Raised Issues': {
+      icon: fx.text2el(`<i class="fas fa-hand"></i>`),
+    },
+    'COD': {
+      icon: fx.text2el(`<i class="fas fa-money-bill-1-wave"></i>`),
+    },
+    'Processed Orders': {
+      icon: fx.text2el(`<i class="fas fa-microchip"></i>`),
+    },
+    'Change Email': {
+      icon: fx.text2el(`<i class="ph ph-at"></i>`),
+    },
+    'My Orders': {
+      icon: fx.text2el(`<i class="ph ph-user"></i>`),
+    },
+    'Medisellers COD': {
+      icon: fx.text2el(`<i class="ph ph-money"></i>`),
+    },
+    'Medicare COD': {
+      icon: fx.text2el(`<i class="ph ph-money-wavy"></i>`),
+    },
+    'Payment Not Received': {
+      icon: fx.text2el(`<i class="ph ph-not-equals"></i>`),
+    },
+    'Payment Received': {
+      icon: fx.text2el(`<i class="ph ph-equals"></i>`),
+    },
+    'Overview': {
+      icon: fx.text2el(`<i class="ph ph-chart-bar"></i>`),
+    },
+    'Dispatch + Menifest': {
+      icon: fx.text2el(`<i class="ph ph-truck"></i>`),
+    },
+    'T-1 Orders': {
+      icon: fx.text2el(`<i class="ph ph-number-one"></i>`),
+    },
+    'Dispatch + RTO': {
+      icon: fx.text2el(`<i class="ph ph-arrow-u-left-down"></i>`),
+    },
+    'RTO Delivered': {
+      icon: fx.text2el(`<i class="ph ph-hand-arrow-down"></i>`),
+    },
+    'Pending Orders': {
+      icon: fx.text2el(`<i class="ph ph-hourglass"></i>`),
+    },
+    'Unconfirmed Returns': {
+      icon: fx.text2el(`<i class="ph ph-not-subset-of"></i>`),
+    },
+    'To Check': {
+      icon: fx.text2el(`<i class="ph ph-list-checks"></i>`),
+    },
+    'Payments': {
+      icon: fx.text2el(`<i class="ph ph-currency-dollar-simple"></i>`),
+    },
+    'Toggle Sub Action': {
+      icon: fx.text2el(`<i class="ph ph-arrow-right"></i>`),
+    },
+    'Raise Issue': {
+      icon: fx.text2el(`<i class="ph ph-warning"></i>`),
+    },
+    'See Followups': {
+      icon: fx.text2el(`<i class="ph ph-chat"></i>`),
+    },
+    'Change Dispatch Status': {
+      icon: fx.text2el(`<i class="ph ph-cube"></i>`),
+    },
+    'Add Remarks': {
+      icon: fx.text2el(`<i class="ph ph-file-plus"></i>`),
+    },
+    'Order Confirmation Message': {
+      icon: fx.text2el(`<i class="ph ph-whatsapp-logo"></i>`),
+    },
+    'Mark Resolved': {
+      icon: fx.text2el(`<i class="ph ph-thumbs-up"></i>`),
+    },
+    'Payment Confirmation Yes': {
+      icon: fx.text2el(`<i class="ph ph-check-circle"></i>`),
+    },
+    'Payment Confirmation No': {
+      icon: fx.text2el(`<i class="ph ph-x-circle"></i>`),
+    },
+    'Edit Row': {
+      icon: fx.text2el(`<i class="ph ph-pencil-simple-line"></i>`),
+    },
+    'Filter': {
+      icon: fx.text2el(`<i class="ph ph-funnel"></i>`),
+    },
   },
+
   requirements: {
     'Database': [
       `view_access`,
@@ -290,6 +450,7 @@ const tool = {
     ],
     'Domestic Operation Sheet': [`Master`, `Dispatch_Ref`, `Account_Setting`],
   },
+
   tableColumns: [
     `Order Details`,
     `Customer Details`,
@@ -310,50 +471,148 @@ const tool = {
   },
 };
 
-tool.doc = {
-  header: `
+const doc = {
+  schema: {
+    input: {
+      'text': {
+        tag: null,
+        attr: {},
+      },
+
+      'password': {
+        tag: null,
+        attr: {},
+      },
+
+      'email': {
+        tag: `a`,
+        func(tag) {
+          tag.href = `tel:${tag.textContent}`;
+          tag.target = `_blank`;
+        },
+      },
+      'search': {
+        tag: null,
+        attr: {},
+      },
+      'tel': {
+        tag: `a`,
+        func(tag) {
+          tag.href = `tel:${tag.textContent}`;
+          tag.target = `_blank`;
+        },
+      },
+      'url': {
+        tag: null,
+        attr: {},
+        func(tag) {
+          tag.href = `tel:${tag.textContent}`;
+          tag.target = `_blank`;
+        },
+      },
+      'number': {
+        tag: null,
+        attr: {},
+      },
+      'range': {
+        tag: null,
+        attr: {},
+      },
+      'date': {
+        tag: null,
+        attr: {},
+      },
+      'month': {
+        tag: null,
+        attr: {},
+      },
+      'week': {
+        tag: null,
+        attr: {},
+      },
+      'time': {
+        tag: null,
+        attr: {},
+      },
+      'datetime-local': {
+        tag: null,
+        attr: {},
+      },
+      'color': {
+        tag: null,
+        attr: {},
+      },
+      'checkbox': {
+        tag: null,
+        attr: {},
+      },
+      'radio': {
+        tag: null,
+        attr: {},
+      },
+      'file': {
+        tag: null,
+        attr: {},
+      },
+      'submit': {
+        tag: null,
+        attr: {},
+      },
+      'reset': {
+        tag: null,
+        attr: {},
+      },
+      'button': {
+        tag: `button`,
+        attr: {},
+        func(el) {},
+      },
+      'hidden': {
+        tag: null,
+        attr: {},
+      },
+      'image': {
+        tag: null,
+        attr: {},
+      },
+    },
+
+    textarea: {
+      textarea: {
+        tag: `div`,
+        attr: {},
+      },
+    },
+  },
+
+  header: fx.text2el(`
     <header class="header">
-      <div class="logo" title="Medisellers India">
+      <div class="logo" title="Domestic Operation Sheet">
         <img class="logo-img" src="${tool.logoSrc}" alt="Logo" />
-        <span class="logo-name">${tool.name}</span>
       </div>
-      <div class="logo-pr-div"></div>
-      <div class="pr-actions">
-        <span class="pr-icon primary-action-filter-span" title="Filter">
-          <i class="ph ph-funnel" title="Primary Filter"></i>
-          <div class="pr-filter-options hidden"></div>
-        </span>
-      </div>
+      <div class="primary-actions"></div>
     </header>
-    `,
+    `),
 
-  nav: `
+  nav: fx.text2el(`
     <nav class="view-nav"></nav>
-    `,
+    `),
 
-  main: `
+  main: fx.text2el(`
     <main class="main">
-      <div class="table-container">
+      <section class="table-container">
         <table class="table">
-          <thead class="thead">
-            <tr class="table-headings">
-              <th colname="Actions" class="action-th">
-                <i class="ph-fill ph-sliders-horizontal"></i>
-              </th>
-            </tr>
-          </thead><tbody class="tbody"></tbody>
+          <thead class="table-heading"></thead>
+          <tbody class="table-body"></tbody>
         </table>
-      </div>
-      <section class="extra-views">
-        <div class="info msg-div hide">
-          <span class="ph-fill ph-info alert-span"></span>
-          <span class="msg-span">Info: Good to Go</span>
-        </div>
       </section>
+      <section class="extra-views"></section>
     </main>
-    `,
+    `),
 
-  footer: `
+  datalist: fx.text2el(`<section id="dropdowns" hidden aria-hidden="true"></section>`),
+
+  footer: fx.text2el(`
     <footer class="footer">
       <div class="epp">
         <select id="entries-per-page" name="entries-per-page" title="Entries Per Page">
@@ -373,14 +632,239 @@ tool.doc = {
       </div>
       <div class="current-view"><i class="ph-fill ph-eye"></i></div>
     </footer>
-    `,
+    `),
+
+  actions: {
+    'Add New Order': {
+      icon: fx.text2el(`<i class="ph ph-user-circle-plus"></i>`),
+      event: {
+        click: function (e) {
+          e.stopPropagation();
+          const extraViews = fx.$('.extra-views');
+          const form = fx.text2el(tool.forms.addNewOrderForm);
+          const pocSelect = fx.$(`#poc-select`, form);
+          const mopSelect = fx.$(`#payment-mode-select`, form);
+          const stateSelect = fx.$(`#state-select`, form);
+          const pocDropdowns = getPocDropdowns();
+          const mopDropdowns = getDropdowns(`Mode of payment`);
+          const stateDropdowns = getDropdowns(`State`);
+
+          pocDropdowns.forEach(function (dropdown) {
+            pocSelect.append(dropdown);
+          });
+          mopDropdowns.forEach(function (dropdown) {
+            mopSelect.append(dropdown);
+          });
+          stateDropdowns.forEach(function (dropdown) {
+            stateSelect.append(dropdown);
+          });
+
+          extraViews.append(addOrderHtml);
+        },
+      },
+    },
+    'Create Order': {
+      icon: fx.text2el(`<i class="ph ph-webhooks-logo"></i>`),
+    },
+    'Change Account': {
+      icon: fx.text2el(`<i class="ph ph-buildings"></i>`),
+    },
+    'Sync': {
+      icon: fx.text2el(`<i class="ph ph-arrows-clockwise"></i>`),
+    },
+    'Download': {
+      icon: fx.text2el(`<i class="ph ph-cloud-arrow-down"></i>`),
+    },
+    'Orders': {
+      icon: fx.text2el(`<i class="fas fa-cart-shopping"></i>`),
+    },
+    'Get Initial Confirmation': {
+      icon: fx.text2el(`<i class="fas fa-asterisk"></i>`),
+    },
+    'Confirm Payments': {
+      icon: fx.text2el(`<i class="fas fa-credit-card"></i>`),
+    },
+    'Generate Orders': {
+      icon: fx.text2el(`<i class="fas fa-face-smile-beam"></i>`),
+    },
+    'Raised Issues': {
+      icon: fx.text2el(`<i class="fas fa-hand"></i>`),
+    },
+    'COD': {
+      icon: fx.text2el(`<i class="fas fa-money-bill-1-wave"></i>`),
+    },
+    'Processed Orders': {
+      icon: fx.text2el(`<i class="fas fa-microchip"></i>`),
+    },
+    'Change Email': {
+      icon: fx.text2el(`<i class="ph ph-at"></i>`),
+    },
+    'My Orders': {
+      icon: fx.text2el(`<i class="ph ph-user"></i>`),
+    },
+    'Medisellers COD': {
+      icon: fx.text2el(`<i class="ph ph-money"></i>`),
+    },
+    'Medicare COD': {
+      icon: fx.text2el(`<i class="ph ph-money-wavy"></i>`),
+    },
+    'Payment Not Received': {
+      icon: fx.text2el(`<i class="ph ph-not-equals"></i>`),
+    },
+    'Payment Received': {
+      icon: fx.text2el(`<i class="ph ph-equals"></i>`),
+    },
+    'Overview': {
+      icon: fx.text2el(`<i class="ph ph-chart-bar"></i>`),
+    },
+    'Dispatch + Menifest': {
+      icon: fx.text2el(`<i class="ph ph-truck"></i>`),
+    },
+    'T-1 Orders': {
+      icon: fx.text2el(`<i class="ph ph-number-one"></i>`),
+    },
+    'Dispatch + RTO': {
+      icon: fx.text2el(`<i class="ph ph-arrow-u-left-down"></i>`),
+    },
+    'RTO Delivered': {
+      icon: fx.text2el(`<i class="ph ph-hand-arrow-down"></i>`),
+    },
+    'Pending Orders': {
+      icon: fx.text2el(`<i class="ph ph-hourglass"></i>`),
+    },
+    'Unconfirmed Returns': {
+      icon: fx.text2el(`<i class="ph ph-not-subset-of"></i>`),
+    },
+    'To Check': {
+      icon: fx.text2el(`<i class="ph ph-list-checks"></i>`),
+    },
+    'Payments': {
+      icon: fx.text2el(`<i class="ph ph-currency-dollar-simple"></i>`),
+    },
+    'Toggle Sub Action': {
+      icon: fx.text2el(`<i class="ph ph-arrow-right"></i>`),
+    },
+    'Raise Issue': {
+      icon: fx.text2el(`<i class="ph ph-warning"></i>`),
+    },
+    'See Followups': {
+      icon: fx.text2el(`<i class="ph ph-chat"></i>`),
+    },
+    'Change Dispatch Status': {
+      icon: fx.text2el(`<i class="ph ph-cube"></i>`),
+    },
+    'Add Remarks': {
+      icon: fx.text2el(`<i class="ph ph-file-plus"></i>`),
+    },
+    'Order Confirmation Message': {
+      icon: fx.text2el(`<i class="ph ph-whatsapp-logo"></i>`),
+    },
+    'Mark Resolved': {
+      icon: fx.text2el(`<i class="ph ph-thumbs-up"></i>`),
+    },
+    'Payment Confirmation Yes': {
+      icon: fx.text2el(`<i class="ph ph-check-circle"></i>`),
+    },
+    'Payment Confirmation No': {
+      icon: fx.text2el(`<i class="ph ph-x-circle"></i>`),
+    },
+    'Edit Row': {
+      icon: fx.text2el(`<i class="ph ph-pencil-simple-line"></i>`),
+    },
+    'Filter': {
+      icon: fx.text2el(`<i class="ph ph-funnel"></i>`),
+    },
+    'Actions': {
+      icon: fx.text2el(`<i class="ph ph-sliders-horizontal"></i>`),
+    },
+  },
+
+  set setThead(_) {
+    const schemas = sheet.schema;
+    const tableHeading = fx.$(`.table-heading`);
+
+    for (let schema in schemas) {
+      const textfield = document.createElement(`fieldset`);
+      const legend = document.createElement(`legend`);
+
+      if (schema == `Action`) {
+        legend.append(doc.actions.Actions.icon);
+      } else {
+        legend.append(schema);
+      }
+
+      textfield.append(legend);
+      tableHeading.append(textfield);
+    }
+  },
+
+  setTr(obj = {}, type = ``) {
+    const sheetSchema = sheet.schema;
+    const docSchemas = doc.schema;
+    const rowForm = document.createElement(`form`);
+
+    rowForm.setAttribute(`rownum`, obj.rownum);
+
+    for (let header in sheetSchema) {
+      const headerProp = sheetSchema[header];
+      const fieldset = document.createElement(`fieldset`);
+      const viewDiv = document.createElement(`div`);
+      viewDiv.classList.add(`view`);
+      const editDiv = document.createElement(`div`);
+      editDiv.classList.add(`edit`, `hidden`);
+      fieldset.append(viewDiv);
+      fieldset.append(editDiv);
+
+      for (column in headerProp) {
+        const colProp = headerProp[column];
+        const colTag = colProp.tag;
+        const colAttr = colProp.attr;
+        const colTypeAttr = colAttr.type;
+
+        if (obj[column].view) {
+          const el = document.createElement(docSchemas[colTag][colTypeAttr].tag);
+          el.append(obj[column].value);
+          console.log(obj[column].value);
+          viewDiv.append(el);
+        }
+
+        if (obj[column].edit) {
+          const label = document.createElement(`label`);
+          label.textContent = column;
+          const el = document.createElement(colTag);
+          el.name = column;
+          el.value = obj[column].value;
+
+          for (attr in colAttr) {
+            el.setAttribute(attr, colAttr[attr]);
+          }
+
+          if (`func` in colProp) {
+            colProp.func(el);
+          }
+
+          if (`event` in colProp) {
+            for (e in colProp.event) {
+              el.addEventListener(e, colProp.event[e]);
+            }
+          }
+          editDiv.append(label, el);
+        }
+      }
+
+      rowForm.append(fieldset);
+    }
+
+    return rowForm;
+  },
 };
 
 const sheet = {
-  'baseUrl': `https://sheets.googleapis.com/v4/spreadsheets`, //for-api-endpoint
+  'baseUrl': `https://sheets.googleapis.com/v4/spreadsheets`,
   'Domestic Operation Sheet': {
     ssid: `1yiwtuLvsXvzMEqsSqFThA3049O6Z0Ai6UOS_Jhidtj8`, //domestic-spreadsheet-id
   },
+
   'Database': {
     ssid: `18eSZsnft1RrkX5w6N8mBzDPBUfOsTrlMPvtREiKrQRM`, //database-spreadsheet-id
   },
@@ -392,6 +876,389 @@ const sheet = {
     return fetch(endpoint)
       ?.then((response) => response.json())
       ?.then((json) => json?.values || []);
+  },
+
+  'schema': {
+    'Action': {
+      'Toggle Sub Action': {
+        tag: `input`,
+        attr: {
+          type: `button`,
+        },
+        props: {
+          append: fx.text2el(`<i class="ph ph-arrow-right"></i>`),
+        },
+      },
+
+      'Raise Issue': {
+        tag: `input`,
+        attr: {
+          type: `button`,
+        },
+        props: {
+          append: fx.text2el(`<i class="ph ph-warning"></i>`),
+        },
+      },
+
+      'See Followups': {
+        tag: `input`,
+        attr: {
+          type: `button`,
+        },
+        props: {
+          append: fx.text2el(`<i class="ph ph-chat"></i>`),
+        },
+      },
+
+      'Change Dispatch Status': {
+        tag: `input`,
+        attr: {
+          type: `button`,
+        },
+        props: {
+          append: fx.text2el(`<i class="ph ph-cube"></i>`),
+        },
+      },
+
+      'Add Remarks': {
+        tag: `input`,
+        attr: {
+          type: `button`,
+        },
+        props: {
+          append: fx.text2el(`<i class="ph ph-file-plus"></i>`),
+        },
+      },
+
+      'Order Confirmation Message': {
+        tag: `input`,
+        attr: {
+          type: `button`,
+        },
+        props: {
+          append: fx.text2el(`<i class="ph ph-whatsapp-logo"></i>`),
+        },
+      },
+
+      'Mark Resolved': {
+        tag: `input`,
+        attr: {
+          type: `button`,
+        },
+        props: {
+          append: fx.text2el(`<i class="ph ph-thumbs-up"></i>`),
+        },
+      },
+
+      'Payment Confirmation Yes': {
+        tag: `input`,
+        attr: {
+          type: `button`,
+        },
+        props: {
+          append: fx.text2el(`<i class="ph ph-check-circle"></i>`),
+        },
+      },
+
+      'Payment Confirmation No': {
+        tag: `input`,
+        attr: {
+          type: `button`,
+        },
+        event: {},
+        props: {
+          append: fx.text2el(`<i class="ph ph-x-circle"></i>`),
+        },
+      },
+
+      'Edit Row': {
+        tag: `input`,
+        attr: {
+          type: `button`,
+        },
+        props: {
+          append: fx.text2el(`<i class="ph ph-pencil-simple-line"></i>`),
+        },
+      },
+    },
+
+    'Order Details': {
+      'ID': {
+        tag: `input`,
+        attr: { type: `text` },
+      },
+
+      'Timestamp': {
+        tag: `input`,
+        attr: { type: `datetime-local` },
+      },
+
+      'Email': {
+        tag: `input`,
+        attr: { type: `email` },
+      },
+
+      'MONTH': {
+        tag: `input`,
+        attr: {
+          type: `text`,
+          list: `month`,
+        },
+      },
+
+      'DATE': {
+        tag: `input`,
+        attr: { type: `date` },
+      },
+
+      'Order No': {
+        tag: `input`,
+        attr: { type: `text` },
+      },
+
+      'POC': {
+        tag: `input`,
+        attr: {
+          type: `text`,
+          list: `poc`,
+        },
+      },
+    },
+
+    'Customer Details': {
+      'Client Name': {
+        tag: `input`,
+        attr: {
+          type: `text`,
+        },
+      },
+
+      'Contact Number': {
+        tag: `input`,
+        attr: { type: `tel` },
+      },
+
+      'Alternate Contact Number': {
+        tag: `input`,
+        attr: { type: `tel` },
+      },
+    },
+
+    'Requirements': {
+      'Order Details': {
+        tag: `textarea`,
+        attr: {
+          type: `textarea`,
+        },
+      },
+    },
+
+    'Amount': {
+      'Total Amount  (INR)': {
+        tag: `input`,
+        attr: {
+          type: `number`,
+        },
+      },
+
+      'Prepaid Amount (If any) (INR)': {
+        tag: `input`,
+        attr: {
+          type: `number`,
+        },
+      },
+
+      'Balance Amount (To be paid) (INR)': {
+        tag: `input`,
+        attr: {
+          type: `number`,
+        },
+      },
+
+      'Remittance Amount': {
+        tag: `input`,
+        attr: {
+          type: `number`,
+        },
+      },
+
+      'Mode of payment': {
+        tag: `input`,
+        attr: {
+          type: `text`,
+          list: `mode-of-payment`,
+        },
+      },
+
+      'Order Type Status': {
+        tag: `input`,
+        attr: {
+          type: `text`,
+          list: `order-type-status`,
+        },
+      },
+
+      'Order Type': {
+        tag: `input`,
+        attr: {
+          type: `text`,
+          list: `order-type`,
+        },
+      },
+
+      'Is Payment Confirmed': {
+        tag: `input`,
+        attr: {
+          type: `text`,
+          list: `is-payment-confirmed`,
+        },
+      },
+
+      'Payment Timestamp': {
+        tag: `input`,
+        attr: {
+          type: `datetime-local`,
+        },
+      },
+
+      'Payment Confirmation Timestamp': {
+        tag: `input`,
+        attr: {
+          type: `datetime-local`,
+        },
+      },
+    },
+
+    'Shipping Details': {
+      'Shipping Address': {
+        tag: `textarea`,
+        attr: {
+          type: `textarea`,
+        },
+      },
+
+      'Shipping Address_2': {
+        tag: `textarea`,
+        attr: {
+          type: `textarea`,
+        },
+      },
+
+      'State': {
+        tag: `input`,
+        attr: {
+          type: `text`,
+          list: `state`,
+        },
+      },
+
+      'Pincode': {
+        tag: `input`,
+        attr: {
+          type: `number`,
+        },
+      },
+    },
+
+    'Logistic Details': {
+      'Order Confirmation Status': {
+        tag: `input`,
+        attr: {
+          type: `text`,
+          list: `order-confirmation-status`,
+        },
+      },
+
+      'Delivery Type': {
+        tag: `input`,
+        attr: {
+          type: `text`,
+          list: `delivery-type`,
+        },
+      },
+
+      'Instant Delivery Partner': {
+        tag: `input`,
+        attr: {
+          type: `text`,
+        },
+      },
+
+      'Tracking Status': {
+        tag: `input`,
+        attr: {
+          type: `text`,
+        },
+      },
+
+      'Tracking Number': {
+        tag: `input`,
+        attr: {
+          type: `text`,
+        },
+      },
+
+      'Order Creation Error Type': {
+        tag: `textarea`,
+        attr: {
+          type: `textarea`,
+        },
+      },
+
+      'Logistic Name': {
+        tag: `input`,
+        attr: {
+          type: `text`,
+          list: `logistic-name`,
+        },
+      },
+
+      'Tracking Url': {
+        tag: `input`,
+        attr: {
+          type: `text`,
+        },
+      },
+
+      'Dispatch Status': {
+        tag: `input`,
+        attr: {
+          type: `text`,
+          list: `dispatch-status`,
+        },
+      },
+
+      'Booking Company': {
+        tag: `input`,
+        attr: {
+          type: `text`,
+          list: `booking-company`,
+        },
+      },
+
+      'CX Issue': {
+        tag: `input`,
+        attr: {
+          type: `text`,
+          list: `cx-issue`,
+        },
+      },
+
+      'CX Issue Remarks': {
+        tag: `input`,
+        attr: {
+          type: `text`,
+        },
+      },
+
+      'CX Issue Status': {
+        tag: `input`,
+        attr: {
+          type: `text`,
+          list: `cx-issue-status`,
+        },
+      },
+    },
   },
 };
 
@@ -431,23 +1298,3 @@ const user = {
     },
   },
 };
-
-function filterAndActions() {
-  let actionSelect = fx.$(`.pr-action-select`);
-  let actions = data.action_access.slice();
-  const headers = actions.shift();
-  const toolName_index = headers.indexOf(`tool_name`);
-  const access_index = headers.indexOf(`access`);
-  const script_index = headers.indexOf(`script`);
-
-  for (a of actions) {
-    let tooName = fx.indexer(a, toolName_index);
-    let access = fx.indexer(a, access_index);
-    let cond_ = tooName == tool.name && access.includes(user.email);
-
-    if (cond_) {
-      const script = fx.indexer(a, script_index);
-      actionSelect.insertAdjacentHTML(`beforeend`, script);
-    }
-  }
-}
