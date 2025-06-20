@@ -155,6 +155,7 @@ const fx = {
 const tool = {
   name: `Domestic Operation Sheet`,
   logoSrc: `https://i.postimg.cc/hGGkfhm2/mediseller-Logo.png`,
+  favicon: `https://i.postimg.cc/hGGkfhm2/mediseller-Logo.png`,
   forms: {
     addNewOrderForm: fx.text2el(
       `<form class="add-new-order-form form-base">
@@ -473,144 +474,939 @@ const tool = {
 
 const doc = {
   schema: {
-    input: {
-      'text': {
-        tag: null,
-        attr: {},
+    header: {
+      tag: `header`,
+      attr: {
+        class: `header`,
       },
-
-      'password': {
-        tag: null,
-        attr: {},
-      },
-
-      'email': {
-        tag: `a`,
-        func(tag) {
-          tag.href = `tel:${tag.textContent}`;
-          tag.target = `_blank`;
+      sub: [
+        {
+          tag: `div`,
+          attr: {
+            class: `logo`,
+            title: tool.name,
+          },
+          sub: {
+            tag: `img`,
+            attr: {
+              class: `logo-img`,
+              src: tool.favicon,
+              alt: `Logo`,
+            },
+          },
         },
-      },
-      'search': {
-        tag: null,
-        attr: {},
-      },
-      'tel': {
-        tag: `a`,
-        func(tag) {
-          tag.href = `tel:${tag.textContent}`;
-          tag.target = `_blank`;
+        {
+          tag: `div`,
+          attr: {
+            class: `primary-actions`,
+          },
         },
-      },
-      'url': {
-        tag: null,
-        attr: {},
-        func(tag) {
-          tag.href = `tel:${tag.textContent}`;
-          tag.target = `_blank`;
-        },
-      },
-      'number': {
-        tag: null,
-        attr: {},
-      },
-      'range': {
-        tag: null,
-        attr: {},
-      },
-      'date': {
-        tag: null,
-        attr: {},
-      },
-      'month': {
-        tag: null,
-        attr: {},
-      },
-      'week': {
-        tag: null,
-        attr: {},
-      },
-      'time': {
-        tag: null,
-        attr: {},
-      },
-      'datetime-local': {
-        tag: null,
-        attr: {},
-      },
-      'color': {
-        tag: null,
-        attr: {},
-      },
-      'checkbox': {
-        tag: null,
-        attr: {},
-      },
-      'radio': {
-        tag: null,
-        attr: {},
-      },
-      'file': {
-        tag: null,
-        attr: {},
-      },
-      'submit': {
-        tag: null,
-        attr: {},
-      },
-      'reset': {
-        tag: null,
-        attr: {},
-      },
-      'button': {
-        tag: `button`,
-        attr: {},
-        func(el) {},
-      },
-      'hidden': {
-        tag: null,
-        attr: {},
-      },
-      'image': {
-        tag: null,
-        attr: {},
-      },
+      ],
     },
 
-    textarea: {
-      textarea: {
-        tag: `div`,
-        attr: {},
+    nav: {
+      tag: `nav`,
+      attr: {
+        class: `view-nav`,
+      },
+      func: function () {},
+    },
+
+    main: {
+      tag: `main`,
+      attr: {
+        class: `main`,
+      },
+      sub: [
+        {
+          tag: `section`,
+          attr: {
+            class: `table-container`,
+          },
+          sub: {
+            tag: `table`,
+            attr: {
+              class: `table`,
+            },
+            sub: [
+              {
+                tag: `thead`,
+                attr: {
+                  class: `table-heading`,
+                },
+              },
+              {
+                tag: `tbody`,
+                attr: {
+                  class: `table-body`,
+                },
+              },
+            ],
+          },
+        },
+        {
+          tag: `section`,
+          attr: {
+            class: `extra-views`,
+          },
+        },
+        {
+          tag: `section`,
+          attr: {
+            'id': `dropdown`,
+            'hidden': true,
+            'aria-hidden': true,
+          },
+        },
+      ],
+    },
+
+    footer: {
+      tag: `footer`,
+      attr: {
+        class: `footer`,
+      },
+      sub: [
+        {
+          tag: `div`,
+          attr: {
+            class: `epp`,
+          },
+          sub: [
+            {
+              tag: `select`,
+              attr: {
+                id: `entries-per-page`,
+                name: `entries-per-page`,
+                title: `Entries Per Page`,
+              },
+              sub: [
+                {
+                  tag: `option`,
+                  attr: {
+                    value: 50,
+                    selected: true,
+                  },
+                  func(el) {
+                    el.innerHTML = 50;
+                  },
+                },
+                {
+                  tag: `option`,
+                  attr: {
+                    value: 100,
+                  },
+                  func(el) {
+                    el.innerHTML = 100;
+                  },
+                },
+                {
+                  tag: `option`,
+                  attr: {
+                    value: 150,
+                  },
+                  func(el) {
+                    el.innerHTML = 150;
+                  },
+                },
+                {
+                  tag: `option`,
+                  attr: {
+                    value: 200,
+                  },
+                  func(el) {
+                    el.innerHTML = 200;
+                  },
+                },
+              ],
+            },
+          ],
+        },
+
+        {
+          tag: `div`,
+          attr: {
+            class: `pagination`,
+          },
+          sub: [
+            {
+              tag: `i`,
+              attr: {
+                class: `ph ph-caret-double-left`,
+              },
+            },
+            {
+              tag: `i`,
+              attr: {
+                class: `ph ph-caret-left`,
+              },
+            },
+            {
+              tag: `input`,
+              attr: {
+                type: `number`,
+                class: `page-input`,
+                value: 1,
+              },
+            },
+            {
+              tag: `input`,
+              attr: {
+                type: `number`,
+                class: `total-pages`,
+                value: 1,
+                disabled: true,
+              },
+            },
+            {
+              tag: `i`,
+              attr: {
+                class: `ph ph-caret-right`,
+              },
+            },
+            {
+              tag: `i`,
+              attr: {
+                class: `ph ph-caret-double-right`,
+              },
+            },
+          ],
+        },
+        {
+          tag: `div`,
+          attr: {
+            class: `current-view`,
+          },
+          sub: [
+            {
+              tag: `i`,
+              attr: {
+                class: `ph-fill ph-eye`,
+              },
+            },
+          ],
+        },
+      ],
+    },
+
+    form: {
+      addNewOrder: {
+        tag: `form`,
+        attr: {
+          class: `add-new-order-form form-base`,
+        },
+        sub: [
+          {
+            tag: `fieldset`,
+            attr: {},
+            sub: [
+              {
+                tag: `legend`,
+                attr: {
+                  class: `add-order-form-header`,
+                },
+                func(el) {
+                  el.append(`Add New Order`);
+                },
+              },
+              {
+                tag: `fieldset`,
+                attr: {},
+                sub: [
+                  {
+                    tag: `legend`,
+                    attr: {},
+                    func(el) {
+                      el.innerHTML = `Order Details`;
+                    },
+                  },
+                  {
+                    tag: `label`,
+                    attr: {
+                      for: `date-input`,
+                    },
+                    func(el) {
+                      el.innerHTML = `Date:`;
+                    },
+                  },
+                  {
+                    tag: `input`,
+                    attr: {
+                      type: `date`,
+                      name: `DATE`,
+                      id: `date-input`,
+                      required: true,
+                    },
+                    func(el) {
+                      const today = new Date();
+                      today.setDate(today.getDate() - 1);
+                      const yyyy = today.getFullYear();
+                      const mm = fx.str(today.getMonth() + 1).padStart(2, `0`);
+                      const dd = fx.str(today.getDate()).padStart(2, `0`);
+
+                      el.value = `${yyyy}-${mm}-${dd}`;
+                    },
+                  },
+                  {
+                    tag: `label`,
+                    attr: {
+                      for: `poc-input`,
+                    },
+                    func(el) {
+                      el.innerHTML = `POC:`;
+                    },
+                  },
+                  {
+                    tag: `input`,
+                    attr: {
+                      name: `POC`,
+                      id: `poc-input`,
+                      required: true,
+                      list: `poc`,
+                    },
+                  },
+                  {
+                    tag: `label`,
+                    attr: {
+                      for: `requirement-input`,
+                    },
+                    func(el) {
+                      el.innerHTML = `Requirement:`;
+                    },
+                  },
+                  {
+                    tag: `textarea`,
+                    attr: {
+                      name: `Order Details`,
+                      id: `requirement-input`,
+                      required: true,
+                    },
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            tag: `fieldset`,
+            attr: {
+              class: `client-field`,
+              id: `client-field`,
+            },
+            sub: [
+              {
+                tag: `legend`,
+                attr: {},
+                func(el) {
+                  el.innerHTML = `Customer Details`;
+                },
+              },
+              {
+                tag: `label`,
+                attr: {
+                  for: `name-input`,
+                },
+                func(el) {
+                  el.innerHTML = `Client Name:`;
+                },
+              },
+              {
+                tag: `input`,
+                attr: {
+                  type: `text`,
+                  name: `Client Name`,
+                  id: `name-input`,
+                  required: true,
+                },
+              },
+              {
+                tag: `label`,
+                attr: {
+                  for: `contact-input`,
+                },
+                func(el) {
+                  el.innerHTML = `Contact Number:`;
+                },
+              },
+              {
+                tag: `input`,
+                attr: {
+                  type: `number`,
+                  name: `Contact Number`,
+                  id: `contact-input`,
+                  required: true,
+                },
+              },
+              {
+                tag: `label`,
+                attr: {
+                  for: `alt-contact-input`,
+                },
+                func(el) {
+                  el.innerHTML = `Alt-Contact Number:`;
+                },
+              },
+              {
+                tag: `input`,
+                attr: {
+                  type: `number`,
+                  name: `Alternate Contact Number`,
+                  id: `alt-contact-input`,
+                },
+              },
+            ],
+          },
+          {
+            tag: `fieldset`,
+            attr: {
+              class: `financial-field`,
+              id: `financial-field`,
+            },
+            sub: [
+              {
+                tag: `legend`,
+                attr: {},
+                func(el) {
+                  el.innerHTML = `Financial Details`;
+                },
+              },
+              {
+                tag: `label`,
+                attr: {
+                  for: `total-amount-input`,
+                },
+                func(el) {
+                  el.innerHTML = `Total Amount:`;
+                },
+              },
+              {
+                tag: `input`,
+                attr: {
+                  type: `number`,
+                  value: 0,
+                  name: `Total Amount  (INR)`,
+                  id: `total-amount-input`,
+                  required: true,
+                },
+              },
+              {
+                tag: `label`,
+                attr: {
+                  for: `prepaid-amount-input`,
+                },
+                func(el) {
+                  el.innerHTML = `Prepaid Amount:`;
+                },
+              },
+              {
+                tag: `input`,
+                attr: {
+                  type: `number`,
+                  value: 0,
+                  name: `Prepaid Amount (If any) (INR)`,
+                  id: `prepaid-amount-input`,
+                  required: true,
+                },
+              },
+              {
+                tag: `label`,
+                attr: {
+                  for: `payment-mode-select`,
+                },
+                func(el) {
+                  el.innerHTML = `Mode of Payment:`;
+                },
+              },
+              {
+                tag: `input`,
+                attr: {
+                  name: `Mode of payment`,
+                  id: `payment-mode-select`,
+                  required: true,
+                },
+              },
+            ],
+          },
+          {
+            tag: `fieldset`,
+            attr: {
+              class: `logistic-field`,
+              id: `logistic-field`,
+            },
+            sub: [
+              {
+                tag: `legend`,
+                attr: {},
+                func(el) {
+                  el.innerHTML = `Logistic Details`;
+                },
+              },
+              {
+                tag: `label`,
+                attr: {
+                  for: `shipping-address-1-input`,
+                },
+                func(el) {
+                  el.innerHTML = `Address Line 1:`;
+                },
+              },
+              {
+                tag: `input`,
+                attr: {
+                  type: `text`,
+                  maxlength: 100,
+                  name: `Shipping Address`,
+                  id: `shipping-address-1-input`,
+                  required: true,
+                },
+              },
+              {
+                tag: `label`,
+                attr: {
+                  for: `shipping-address-2-input`,
+                },
+                func(el) {
+                  el.innerHTML = `Address Line 2:`;
+                },
+              },
+              {
+                tag: `input`,
+                attr: {
+                  type: `text`,
+                  maxlength: 100,
+                  name: `Shipping Address_2`,
+                  id: `shipping-address-2-input`,
+                },
+              },
+              {
+                tag: `label`,
+                attr: {
+                  for: `state-select`,
+                },
+                func(el) {
+                  el.innerHTML = `State:`;
+                },
+              },
+              {
+                tag: `input`,
+                attr: {
+                  name: `State`,
+                  id: `state-select`,
+                  required: true,
+                },
+              },
+              {
+                tag: `input`,
+                attr: {
+                  type: `number`,
+                  min: 100000,
+                  max: 999999,
+                  name: `Pincode`,
+                  id: `pincode-input`,
+                  required: true,
+                },
+              },
+            ],
+          },
+          {
+            tag: `div`,
+            attr: {
+              class: `actions`,
+            },
+            sub: [
+              {
+                tag: `button`,
+                attr: {
+                  type: `submit`,
+                  class: `submit`,
+                },
+                func(el) {
+                  el.innerHTML = `Submit`;
+                },
+              },
+              {
+                tag: `button`,
+                attr: {
+                  type: `button`,
+                  class: `cancel`,
+                },
+                func(el) {
+                  el.innerHTML = `Cancel`;
+                },
+              },
+            ],
+          },
+        ],
+      },
+
+      cxIssue: {
+        tag: `form`,
+        attr: {
+          class: `cx-issue-form form-base`,
+        },
+        sub: [
+          {
+            tag: `fieldset`,
+            attr: {},
+            sub: [
+              {
+                tag: `legend`,
+                attr: {},
+                func(el) {
+                  el.innerHTML = `Raise Issue Form`;
+                },
+              },
+              {
+                tag: `label`,
+                attr: {
+                  for: `cx-issue-select`,
+                },
+                func(el) {
+                  el.innerHTML = `CX Issue:`;
+                },
+              },
+              {
+                tag: `input`,
+                attr: {
+                  name: `CX Issue`,
+                  id: `cx-issue-select`,
+                },
+              },
+              {
+                tag: `label`,
+                attr: {
+                  for: `cx-issue-remark-input`,
+                },
+                func(el) {
+                  el.innerHTML = `Remarks:`;
+                },
+              },
+              {
+                tag: `input`,
+                attr: {
+                  type: `text`,
+                  name: `CX Issue Remarks`,
+                  id: `cx-issue-remark-input`,
+                },
+              },
+            ],
+          },
+          {
+            tag: `div`,
+            attr: {
+              class: `actions`,
+            },
+            sub: [
+              {
+                tag: `button`,
+                attr: {
+                  type: `submit`,
+                  class: `submit`,
+                },
+                func(el) {
+                  el.innerHTML = `Submit`;
+                },
+              },
+              {
+                tag: `button`,
+                attr: {
+                  type: `button`,
+                  class: `cancel`,
+                },
+                func(el) {
+                  el.innerHTML = `Cancel`;
+                },
+              },
+            ],
+          },
+        ],
+      },
+
+      paymentConfirm: {
+        tag: `form`,
+        attr: {
+          class: `payment-yes-form form-base`,
+        },
+        sub: [
+          {
+            tag: `fieldset`,
+            attr: {},
+            sub: [
+              {
+                tag: `legend`,
+                attr: {},
+                func(el) {
+                  el.innerHTML = `Payment Confirmation Form`;
+                },
+              },
+              {
+                tag: `label`,
+                attr: {
+                  for: `payment-yes-input`,
+                },
+                func(el) {
+                  el.innerHTML = `Payment Timestamp:`;
+                },
+              },
+              {
+                tag: `input`,
+                attr: {
+                  type: `datetime-local`,
+                  name: `Payment Timestamp`,
+                  id: `payment-yes-input`,
+                },
+              },
+              {
+                tag: `label`,
+                attr: {
+                  for: `payment-yes-remark`,
+                },
+                func(el) {
+                  el.innerHTML = `Remarks:`;
+                },
+              },
+              {
+                tag: `input`,
+                attr: {
+                  type: `text`,
+                  name: `Remarks`,
+                  id: `payment-yes-remark`,
+                },
+              },
+            ],
+          },
+          {
+            tag: `div`,
+            attr: {
+              class: `actions`,
+            },
+            sub: [
+              {
+                tag: `button`,
+                attr: {
+                  type: `submit`,
+                  class: `submit`,
+                },
+                func(el) {
+                  el.innerHTML = `Submit`;
+                },
+              },
+              {
+                tag: `button`,
+                attr: {
+                  type: `button`,
+                  class: `cancel`,
+                },
+                func(el) {
+                  el.innerHTML = `Cancel`;
+                },
+              },
+            ],
+          },
+        ],
+      },
+
+      paymentUnconfirm: {
+        tag: `form`,
+        attr: {
+          class: `payment-yes-form form-base`,
+        },
+        sub: [
+          {
+            tag: `fieldset`,
+            attr: {},
+            sub: [
+              {
+                tag: `legend`,
+                attr: {},
+                func(el) {
+                  el.innerHTML = `Payment Confirmation Form`;
+                },
+              },
+              {
+                tag: `label`,
+                attr: {
+                  for: `payment-no-remark`,
+                },
+                func(el) {
+                  el.innerHTML = `Remarks:`;
+                },
+              },
+              {
+                tag: `input`,
+                attr: {
+                  type: `text`,
+                  name: `Remarks`,
+                  id: `payment-no-remark`,
+                },
+              },
+            ],
+          },
+          {
+            tag: `div`,
+            attr: {
+              class: `actions`,
+            },
+            sub: [
+              {
+                tag: `button`,
+                attr: {
+                  type: `submit`,
+                  class: `submit`,
+                },
+                func(el) {
+                  el.innerHTML = `Submit`;
+                },
+              },
+              {
+                tag: `button`,
+                attr: {
+                  type: `button`,
+                  class: `cancel`,
+                },
+                func(el) {
+                  el.innerHTML = `Cancel`;
+                },
+              },
+            ],
+          },
+        ],
+      },
+
+      changeDispatchStatus: {
+        tag: `form`,
+        attr: {
+          class: `change-dispatch-form form-base`,
+        },
+        sub: [
+          {
+            tag: `fieldset`,
+            attr: {},
+            sub: [
+              {
+                tag: `legend`,
+                attr: {},
+                func(el) {
+                  el.innerHTML = `Change Dispatch Form`;
+                },
+              },
+              {
+                tag: `label`,
+                attr: {
+                  for: `change-dispatch-select`,
+                },
+                func(el) {
+                  el.innerHTML = `Dispatch Status:`;
+                },
+              },
+              {
+                tag: `input`,
+                attr: {
+                  type: `text`,
+                  name: `Dispatch Status`,
+                  id: `change-dispatch-select`,
+                },
+              },
+            ],
+          },
+          {
+            tag: `div`,
+            attr: {
+              class: `actions`,
+            },
+            sub: [
+              {
+                tag: `button`,
+                attr: {
+                  type: `submit`,
+                  class: `submit`,
+                },
+                func(el) {
+                  el.innerHTML = `Submit`;
+                },
+              },
+              {
+                tag: `button`,
+                attr: {
+                  type: `button`,
+                  class: `cancel`,
+                },
+                func(el) {
+                  el.innerHTML = `Cancel`;
+                },
+              },
+            ],
+          },
+        ],
+      },
+
+      addRemarks: {
+        tag: `form`,
+        attr: {
+          class: `remarks-form form-base`,
+        },
+        sub: [
+          {
+            tag: `fieldset`,
+            attr: {},
+            sub: [
+              {
+                tag: `legend`,
+                attr: {},
+                func(el) {
+                  el.innerHTML = `Add Remarks`;
+                },
+              },
+              {
+                tag: `label`,
+                attr: {
+                  for: `remarks-input`,
+                },
+                func(el) {
+                  el.innerHTML = `Remarks:`;
+                },
+              },
+              {
+                tag: `input`,
+                attr: {
+                  type: `text`,
+                  name: `Remarks`,
+                  id: `remarks-input`,
+                },
+              },
+            ],
+          },
+          {
+            tag: `div`,
+            attr: {
+              class: `actions`,
+            },
+            sub: [
+              {
+                tag: `button`,
+                attr: {
+                  type: `submit`,
+                  class: `submit`,
+                },
+                func(el) {
+                  el.innerHTML = `Submit`;
+                },
+              },
+              {
+                tag: `button`,
+                attr: {
+                  type: `button`,
+                  class: `cancel`,
+                },
+                func(el) {
+                  el.innerHTML = `Cancel`;
+                },
+              },
+            ],
+          },
+        ],
       },
     },
   },
-
-  header: fx.text2el(`
-    <header class="header">
-      <div class="logo" title="Domestic Operation Sheet">
-        <img class="logo-img" src="${tool.logoSrc}" alt="Logo" />
-      </div>
-      <div class="primary-actions"></div>
-    </header>
-    `),
-
-  nav: fx.text2el(`
-    <nav class="view-nav"></nav>
-    `),
-
-  main: fx.text2el(`
-    <main class="main">
-      <section class="table-container">
-        <table class="table">
-          <thead class="table-heading"></thead>
-          <tbody class="table-body"></tbody>
-        </table>
-      </section>
-      <section class="extra-views"></section>
-    </main>
-    `),
-
-  datalist: fx.text2el(`<section id="dropdowns" hidden aria-hidden="true"></section>`),
 
   footer: fx.text2el(`
     <footer class="footer">
@@ -632,6 +1428,32 @@ const doc = {
       </div>
       <div class="current-view"><i class="ph-fill ph-eye"></i></div>
     </footer>
+    `),
+
+  datalist: fx.text2el(`<section id="dropdowns" hidden aria-hidden="true"></section>`),
+
+  main: fx.text2el(`
+    <main class="main">
+      <section class="table-container">
+        <table class="table">
+          <thead class="table-heading"></thead>
+          <tbody class="table-body"></tbody>
+        </table>
+      </section>
+      <section class="extra-views"></section>
+    </main>
+    `),
+  header: fx.text2el(`
+    <header class="header">
+      <div class="logo" title="Domestic Operation Sheet">
+        <img class="logo-img" src="${tool.logoSrc}" alt="Logo" />
+      </div>
+      <div class="primary-actions"></div>
+    </header>
+    `),
+
+  nav: fx.text2el(`
+    <nav class="view-nav"></nav>
     `),
 
   actions: {
@@ -782,38 +1604,36 @@ const doc = {
   set setThead(_) {
     const schemas = sheet.schema;
     const tableHeading = fx.$(`.table-heading`);
+    const row = document.createElement(`tr`);
 
     for (let schema in schemas) {
-      const textfield = document.createElement(`fieldset`);
-      const legend = document.createElement(`legend`);
+      const th = document.createElement(`th`);
 
       if (schema == `Action`) {
-        legend.append(doc.actions.Actions.icon);
+        th.append(doc.actions.Actions.icon);
       } else {
-        legend.append(schema);
+        th.append(schema);
       }
 
-      textfield.append(legend);
-      tableHeading.append(textfield);
+      row.append(th);
     }
+
+    tableHeading.append(row);
   },
 
-  setTr(obj = {}, type = ``) {
+  setTr(obj = {}) {
     const sheetSchema = sheet.schema;
     const docSchemas = doc.schema;
-    const rowForm = document.createElement(`form`);
-
-    rowForm.setAttribute(`rownum`, obj.rownum);
+    const tr = document.createElement(`tr`);
+    tr.setAttribute(`rownum`, obj.rownum);
 
     for (let header in sheetSchema) {
       const headerProp = sheetSchema[header];
-      const fieldset = document.createElement(`fieldset`);
-      const viewDiv = document.createElement(`div`);
-      viewDiv.classList.add(`view`);
-      const editDiv = document.createElement(`div`);
-      editDiv.classList.add(`edit`, `hidden`);
-      fieldset.append(viewDiv);
-      fieldset.append(editDiv);
+      const td = document.createElement(`td`);
+      const div = document.createElement(`div`);
+      const ul = document.createElement(`ul`);
+      div.append(ul);
+      td.append(div);
 
       for (column in headerProp) {
         const colProp = headerProp[column];
@@ -822,40 +1642,16 @@ const doc = {
         const colTypeAttr = colAttr.type;
 
         if (obj[column].view) {
-          const el = document.createElement(docSchemas[colTag][colTypeAttr].tag);
-          el.append(obj[column].value);
-          console.log(obj[column].value);
-          viewDiv.append(el);
-        }
-
-        if (obj[column].edit) {
-          const label = document.createElement(`label`);
-          label.textContent = column;
-          const el = document.createElement(colTag);
-          el.name = column;
-          el.value = obj[column].value;
-
-          for (attr in colAttr) {
-            el.setAttribute(attr, colAttr[attr]);
-          }
-
-          if (`func` in colProp) {
-            colProp.func(el);
-          }
-
-          if (`event` in colProp) {
-            for (e in colProp.event) {
-              el.addEventListener(e, colProp.event[e]);
-            }
-          }
-          editDiv.append(label, el);
+          const li = document.createElement(docSchemas[colTag][colTypeAttr].tag);
+          li.append(obj[column].value);
+          li.title = column;
+          ul.append(li);
         }
       }
-
-      rowForm.append(fieldset);
+      tr.append(td);
     }
 
-    return rowForm;
+    return tr;
   },
 };
 
@@ -881,383 +1677,893 @@ const sheet = {
   'schema': {
     'Action': {
       'Toggle Sub Action': {
-        tag: `input`,
-        attr: {
-          type: `button`,
+        edit: {
+          tag: `input`,
+          attr: {
+            type: `button`,
+          },
         },
-        props: {
-          append: fx.text2el(`<i class="ph ph-arrow-right"></i>`),
+        view: {
+          tag: `li`,
+          attr: {},
+          sub: {
+            tag: `i`,
+            attr: {
+              class: `ph ph-arrow-right`,
+            },
+          },
         },
       },
 
       'Raise Issue': {
-        tag: `input`,
-        attr: {
-          type: `button`,
+        edit: {
+          tag: `input`,
+          attr: {
+            type: `button`,
+          },
         },
-        props: {
-          append: fx.text2el(`<i class="ph ph-warning"></i>`),
+        view: {
+          tag: `li`,
+          attr: {},
+          sub: {
+            tag: `i`,
+            attr: {
+              class: `ph ph-warning`,
+            },
+          },
         },
       },
 
       'See Followups': {
-        tag: `input`,
-        attr: {
-          type: `button`,
+        edit: {
+          tag: `input`,
+          attr: {
+            type: `button`,
+          },
         },
-        props: {
-          append: fx.text2el(`<i class="ph ph-chat"></i>`),
+        view: {
+          tag: `li`,
+          attr: {},
+          sub: {
+            tag: `i`,
+            attr: {
+              class: `ph ph-chat`,
+            },
+          },
         },
       },
 
       'Change Dispatch Status': {
-        tag: `input`,
-        attr: {
-          type: `button`,
+        edit: {
+          tag: `input`,
+          attr: {
+            type: `button`,
+          },
         },
-        props: {
-          append: fx.text2el(`<i class="ph ph-cube"></i>`),
+        view: {
+          tag: `li`,
+          attr: {},
+          sub: {
+            tag: `i`,
+            attr: {
+              class: `ph ph-cube`,
+            },
+          },
         },
       },
 
       'Add Remarks': {
-        tag: `input`,
-        attr: {
-          type: `button`,
+        edit: {
+          tag: `input`,
+          attr: {
+            type: `button`,
+          },
         },
-        props: {
-          append: fx.text2el(`<i class="ph ph-file-plus"></i>`),
+        view: {
+          tag: `li`,
+          attr: {},
+          sub: {
+            tag: `i`,
+            attr: {
+              class: `ph ph-file-plus`,
+            },
+          },
         },
       },
 
       'Order Confirmation Message': {
-        tag: `input`,
-        attr: {
-          type: `button`,
+        edit: {
+          tag: `input`,
+          attr: {
+            type: `button`,
+          },
         },
-        props: {
-          append: fx.text2el(`<i class="ph ph-whatsapp-logo"></i>`),
+        view: {
+          tag: `li`,
+          attr: {},
+          sub: {
+            tag: `i`,
+            attr: {
+              class: `ph ph-whatsapp-logo`,
+            },
+          },
         },
       },
 
       'Mark Resolved': {
-        tag: `input`,
-        attr: {
-          type: `button`,
+        edit: {
+          tag: `input`,
+          attr: {
+            type: `button`,
+          },
         },
-        props: {
-          append: fx.text2el(`<i class="ph ph-thumbs-up"></i>`),
+        view: {
+          tag: `li`,
+          attr: {},
+          sub: {
+            tag: `i`,
+            attr: {
+              class: `ph ph-thumbs-up`,
+            },
+          },
         },
       },
 
       'Payment Confirmation Yes': {
-        tag: `input`,
-        attr: {
-          type: `button`,
+        edit: {
+          tag: `input`,
+          attr: {
+            type: `button`,
+          },
         },
-        props: {
-          append: fx.text2el(`<i class="ph ph-check-circle"></i>`),
+        view: {
+          tag: `li`,
+          attr: {},
+          sub: {
+            tag: `i`,
+            attr: {
+              class: `ph ph-check-circle`,
+            },
+          },
         },
       },
 
       'Payment Confirmation No': {
-        tag: `input`,
-        attr: {
-          type: `button`,
+        edit: {
+          tag: `input`,
+          attr: {
+            type: `button`,
+          },
+          event: {},
         },
-        event: {},
-        props: {
-          append: fx.text2el(`<i class="ph ph-x-circle"></i>`),
+        view: {
+          tag: `li`,
+          attr: {},
+          sub: {
+            tag: `i`,
+            attr: {
+              class: `ph ph-x-circle`,
+            },
+          },
         },
       },
 
       'Edit Row': {
-        tag: `input`,
-        attr: {
-          type: `button`,
+        edit: {
+          tag: `input`,
+          attr: {
+            type: `button`,
+          },
         },
-        props: {
-          append: fx.text2el(`<i class="ph ph-pencil-simple-line"></i>`),
+        view: {
+          tag: `li`,
+          attr: {},
+          sub: {
+            tag: `i`,
+            attr: {
+              class: `ph ph-pencil-simple-line`,
+            },
+          },
         },
       },
     },
 
     'Order Details': {
       'ID': {
-        tag: `input`,
-        attr: { type: `text` },
+        edit: {
+          tag: `input`,
+          attr: { type: `text` },
+        },
+        view: {
+          tag: `li`,
+          attr: {},
+        },
       },
 
       'Timestamp': {
-        tag: `input`,
-        attr: { type: `datetime-local` },
+        edit: {
+          tag: `input`,
+          attr: { type: `datetime-local` },
+        },
+        view: {
+          tag: `li`,
+          attr: {},
+        },
       },
 
       'Email': {
-        tag: `input`,
-        attr: { type: `email` },
+        edit: {
+          tag: `input`,
+          attr: { type: `email` },
+        },
+        view: {
+          tag: `li`,
+          attr: {},
+          sub: {
+            tag: `a`,
+            attr: {},
+          },
+        },
       },
 
       'MONTH': {
-        tag: `input`,
-        attr: {
-          type: `text`,
-          list: `month`,
+        edit: {
+          tag: `input`,
+          attr: {
+            type: `text`,
+            list: `month`,
+          },
+        },
+        view: {
+          tag: `li`,
+          attr: {},
         },
       },
 
       'DATE': {
-        tag: `input`,
-        attr: { type: `date` },
+        edit: {
+          tag: `input`,
+          attr: { type: `date` },
+        },
+        view: {
+          tag: `li`,
+          attr: {},
+        },
       },
 
       'Order No': {
-        tag: `input`,
-        attr: { type: `text` },
+        edit: {
+          tag: `input`,
+          attr: { type: `text` },
+        },
+        view: {
+          tag: `li`,
+          attr: {},
+        },
       },
 
       'POC': {
-        tag: `input`,
-        attr: {
-          type: `text`,
-          list: `poc`,
+        edit: {
+          tag: `input`,
+          attr: {
+            type: `text`,
+            list: `poc`,
+          },
+        },
+        view: {
+          tag: `li`,
+          attr: {},
         },
       },
     },
 
     'Customer Details': {
       'Client Name': {
-        tag: `input`,
-        attr: {
-          type: `text`,
+        edit: {
+          tag: `input`,
+          attr: {
+            type: `text`,
+          },
+        },
+        view: {
+          tag: `li`,
+          attr: {},
         },
       },
 
       'Contact Number': {
-        tag: `input`,
-        attr: { type: `tel` },
+        edit: {
+          tag: `input`,
+          attr: { type: `tel` },
+        },
+        view: {
+          tag: `li`,
+          attr: {},
+          sub: {
+            tag: `a`,
+            attr: {},
+          },
+        },
       },
 
       'Alternate Contact Number': {
-        tag: `input`,
-        attr: { type: `tel` },
+        edit: {
+          tag: `input`,
+          attr: { type: `tel` },
+        },
+        view: {
+          tag: `li`,
+          attr: {},
+          sub: {
+            tag: `a`,
+            attr: {},
+          },
+        },
       },
     },
 
     'Requirements': {
       'Order Details': {
-        tag: `textarea`,
-        attr: {
-          type: `textarea`,
+        edit: {
+          tag: `textarea`,
+          attr: {
+            type: `textarea`,
+          },
+        },
+        view: {
+          tag: `li`,
+          attr: {},
         },
       },
     },
 
     'Amount': {
       'Total Amount  (INR)': {
-        tag: `input`,
-        attr: {
-          type: `number`,
+        edit: {
+          tag: `input`,
+          attr: {
+            type: `number`,
+          },
+        },
+        view: {
+          tag: `li`,
+          attr: {},
         },
       },
 
       'Prepaid Amount (If any) (INR)': {
-        tag: `input`,
-        attr: {
-          type: `number`,
+        edit: {
+          tag: `input`,
+          attr: {
+            type: `number`,
+          },
+        },
+        view: {
+          tag: `li`,
+          attr: {},
         },
       },
 
       'Balance Amount (To be paid) (INR)': {
-        tag: `input`,
-        attr: {
-          type: `number`,
+        edit: {
+          tag: `input`,
+          attr: {
+            type: `number`,
+          },
+        },
+        view: {
+          tag: `li`,
+          attr: {},
         },
       },
 
       'Remittance Amount': {
-        tag: `input`,
-        attr: {
-          type: `number`,
+        edit: {
+          tag: `input`,
+          attr: {
+            type: `number`,
+          },
+        },
+        view: {
+          tag: `li`,
+          attr: {},
         },
       },
 
       'Mode of payment': {
-        tag: `input`,
-        attr: {
-          type: `text`,
-          list: `mode-of-payment`,
+        edit: {
+          tag: `input`,
+          attr: {
+            type: `text`,
+            list: `mode-of-payment`,
+          },
+        },
+        view: {
+          tag: `li`,
+          attr: {},
         },
       },
 
       'Order Type Status': {
-        tag: `input`,
-        attr: {
-          type: `text`,
-          list: `order-type-status`,
+        edit: {
+          tag: `input`,
+          attr: {
+            type: `text`,
+            list: `order-type-status`,
+          },
+        },
+        view: {
+          tag: `li`,
+          attr: {},
         },
       },
 
       'Order Type': {
-        tag: `input`,
-        attr: {
-          type: `text`,
-          list: `order-type`,
+        edit: {
+          tag: `input`,
+          attr: {
+            type: `text`,
+            list: `order-type`,
+          },
+        },
+        view: {
+          tag: `li`,
+          attr: {},
         },
       },
 
       'Is Payment Confirmed': {
-        tag: `input`,
-        attr: {
-          type: `text`,
-          list: `is-payment-confirmed`,
+        edit: {
+          tag: `input`,
+          attr: {
+            type: `text`,
+            list: `is-payment-confirmed`,
+          },
+        },
+        view: {
+          tag: `li`,
+          attr: {},
         },
       },
 
       'Payment Timestamp': {
-        tag: `input`,
-        attr: {
-          type: `datetime-local`,
+        edit: {
+          tag: `input`,
+          attr: {
+            type: `datetime-local`,
+          },
+        },
+        view: {
+          tag: `li`,
+          attr: {},
         },
       },
 
       'Payment Confirmation Timestamp': {
-        tag: `input`,
-        attr: {
-          type: `datetime-local`,
+        edit: {
+          tag: `input`,
+          attr: {
+            type: `datetime-local`,
+          },
+        },
+        view: {
+          tag: `li`,
+          attr: {},
         },
       },
     },
 
     'Shipping Details': {
       'Shipping Address': {
-        tag: `textarea`,
-        attr: {
-          type: `textarea`,
+        edit: {
+          tag: `textarea`,
+          attr: {},
+        },
+        view: {
+          tag: `li`,
+          attr: {},
         },
       },
 
       'Shipping Address_2': {
-        tag: `textarea`,
-        attr: {
-          type: `textarea`,
+        edit: {
+          tag: `textarea`,
+          attr: {},
+        },
+        view: {
+          tag: `li`,
+          attr: {},
         },
       },
 
       'State': {
-        tag: `input`,
-        attr: {
-          type: `text`,
-          list: `state`,
+        edit: {
+          tag: `input`,
+          attr: {
+            type: `text`,
+            list: `state`,
+          },
+        },
+        view: {
+          tag: `li`,
+          attr: {},
         },
       },
 
       'Pincode': {
-        tag: `input`,
-        attr: {
-          type: `number`,
+        edit: {
+          tag: `input`,
+          attr: {
+            type: `number`,
+          },
+        },
+        view: {
+          tag: `li`,
+          attr: {},
         },
       },
     },
 
     'Logistic Details': {
       'Order Confirmation Status': {
-        tag: `input`,
-        attr: {
-          type: `text`,
-          list: `order-confirmation-status`,
+        edit: {
+          tag: `input`,
+          attr: {
+            type: `text`,
+            list: `order-confirmation-status`,
+          },
+        },
+        view: {
+          tag: `li`,
+          attr: {},
         },
       },
 
       'Delivery Type': {
-        tag: `input`,
-        attr: {
-          type: `text`,
-          list: `delivery-type`,
+        edit: {
+          tag: `input`,
+          attr: {
+            type: `text`,
+            list: `delivery-type`,
+          },
+        },
+        view: {
+          tag: `li`,
+          attr: {},
         },
       },
 
       'Instant Delivery Partner': {
-        tag: `input`,
-        attr: {
-          type: `text`,
+        edit: {
+          tag: `input`,
+          attr: {
+            type: `text`,
+          },
+        },
+        view: {
+          tag: `li`,
+          attr: {},
         },
       },
 
       'Tracking Status': {
-        tag: `input`,
-        attr: {
-          type: `text`,
+        edit: {
+          tag: `input`,
+          attr: {
+            type: `text`,
+          },
+        },
+        view: {
+          tag: `li`,
+          attr: {},
         },
       },
 
       'Tracking Number': {
-        tag: `input`,
-        attr: {
-          type: `text`,
+        edit: {
+          tag: `input`,
+          attr: {
+            type: `text`,
+          },
+        },
+        view: {
+          tag: `li`,
+          attr: {},
         },
       },
 
       'Order Creation Error Type': {
-        tag: `textarea`,
-        attr: {
-          type: `textarea`,
+        edit: {
+          tag: `textarea`,
+          attr: {},
+        },
+        view: {
+          tag: `li`,
+          attr: {},
         },
       },
 
       'Logistic Name': {
-        tag: `input`,
-        attr: {
-          type: `text`,
-          list: `logistic-name`,
+        edit: {
+          tag: `input`,
+          attr: {
+            type: `text`,
+            list: `logistic-name`,
+          },
+        },
+        view: {
+          tag: `li`,
+          attr: {},
         },
       },
 
       'Tracking Url': {
-        tag: `input`,
-        attr: {
-          type: `text`,
+        edit: {
+          tag: `input`,
+          attr: {
+            type: `text`,
+          },
+        },
+        view: {
+          tag: `li`,
+          attr: {},
+          sub: {
+            tag: `a`,
+            attr: {},
+          },
         },
       },
 
       'Dispatch Status': {
-        tag: `input`,
-        attr: {
-          type: `text`,
-          list: `dispatch-status`,
+        edit: {
+          tag: `input`,
+          attr: {
+            type: `text`,
+            list: `dispatch-status`,
+          },
+        },
+        view: {
+          tag: `li`,
+          attr: {},
         },
       },
 
       'Booking Company': {
-        tag: `input`,
-        attr: {
-          type: `text`,
-          list: `booking-company`,
+        edit: {
+          tag: `input`,
+          attr: {
+            type: `text`,
+            list: `booking-company`,
+          },
+        },
+        view: {
+          tag: `li`,
+          attr: {},
         },
       },
 
       'CX Issue': {
-        tag: `input`,
-        attr: {
-          type: `text`,
-          list: `cx-issue`,
+        edit: {
+          tag: `input`,
+          attr: {
+            type: `text`,
+            list: `cx-issue`,
+          },
+        },
+        view: {
+          tag: `li`,
+          attr: {},
         },
       },
 
       'CX Issue Remarks': {
-        tag: `input`,
-        attr: {
-          type: `text`,
+        edit: {
+          tag: `input`,
+          attr: {
+            type: `text`,
+          },
+        },
+        view: {
+          tag: `li`,
+          attr: {},
         },
       },
 
       'CX Issue Status': {
-        tag: `input`,
-        attr: {
-          type: `text`,
-          list: `cx-issue-status`,
+        edit: {
+          tag: `input`,
+          attr: {
+            type: `text`,
+            list: `cx-issue-status`,
+          },
+        },
+        view: {
+          tag: `li`,
+          attr: {},
         },
       },
+    },
+  },
+
+  'filters': {
+    'Orders': {
+      equal: {},
+      notEqual: {
+        ID: ``,
+      },
+    },
+
+    'Get Initial Confirmation': {
+      equal: {
+        'Delivery Type': ``,
+      },
+      notEqual: {
+        'Order Confirmation Status': `To Check`,
+        'Dispatch Status': `Cancelled`,
+        'Tracking Status': `Cancelled`,
+      },
+    },
+
+    'Confirm Payments': {
+      equal: {
+        'Is Payment Confirmed': ``,
+      },
+      notEqual: {
+        'Prepaid Amount (If any) (INR)': 0,
+        'Tracking Status': `Cancelled`,
+        'Dispatch Status': `Cancelled`,
+      },
+    },
+
+    'Generate Orders': {
+      equal: {
+        'Order Confirmation Status': `Good to Go`,
+        'Delivery Type': `Regular Delivery`,
+        'Is Payment Confirmed': `Yes`,
+        'Tracking Number': '',
+      },
+      notEqual: {
+        'Dispatch Status': `Cancelled`,
+        'Tracking Status': `Cancelled`,
+      },
+    },
+
+    'Raised Issues': {
+      equal: {},
+      notEqual: {
+        'CX Issue': ``,
+        'CX Issue Status': `Closed`,
+      },
+    },
+
+    'COD': {
+      equal: {
+        'Order Type': `COD`,
+      },
+      notEqual: {},
+    },
+
+    'Processed Orders': {
+      equal: {
+        'Dispatch Status': `Yet to be Dispatched`,
+      },
+      notEqual: {
+        'Tracking Number': ``,
+      },
+    },
+
+    'My Orders': {
+      equal: {},
+      notEqual: {},
+    },
+
+    'Medisellers COD': {
+      equal: {
+        'Order Type': `COD`,
+        'Booking Company': `Mediseller India`,
+      },
+      notEqual: {
+        'Tracking Status': `Cancelled`,
+        'Dispatch Status': `Cancelled`,
+      },
+    },
+
+    'Medicare COD': {
+      equal: {
+        'Order Type': `COD`,
+        'Booking Company': `Medicare India`,
+      },
+      notEqual: {
+        'Tracking Status': `Cancelled`,
+        'Dispatch Status': `Cancelled`,
+      },
+    },
+
+    'Payment Not Received': {
+      equal: {
+        'Is Payment Confirmed': `No`,
+      },
+      notEqual: {
+        'Prepaid Amount (If any) (INR)': 0,
+        'Tracking Status': `Cancelled`,
+        'Dispatch Status': `Cancelled`,
+      },
+    },
+
+    'Payment Received': {
+      equal: {
+        'Is Payment Confirmed': `Yes`,
+      },
+      notEqual: {
+        'Prepaid Amount (If any) (INR)': 0,
+        'Tracking Status': `Cancelled`,
+        'Dispatch Status': `Cancelled`,
+      },
+    },
+
+    'Overview': {
+      equal: {},
+      notEqual: {},
+    },
+
+    'Dispatch + Menifest': {
+      equal: {
+        'Dispatch Status': `Yet to be Dispatched`,
+        'Tracking Status': `Manifested`,
+      },
+      notEqual: {},
+    },
+
+    'T-1 Orders': {
+      equal: {},
+      notEqual: {},
+    },
+
+    'Dispatch + RTO': {
+      equal: {
+        'Dispatch Status': `Dispatched`,
+        'Tracking Status': `RTO In Transit`,
+      },
+      notEqual: {},
+    },
+
+    'RTO Delivered': {
+      equal: {
+        'Dispatch Status': `Dispatched`,
+        'Tracking Status': `RTO Delivered`,
+      },
+      notEqual: {},
+    },
+
+    'Pending Orders': {
+      equal: {},
+      notEqual: {},
+    },
+
+    'Unconfirmed Returns': {
+      equal: {
+        'Delivery Type': `Regular Delivery`,
+        'Tracking Status': `RTO Delivered`,
+      },
+      notEqual: {
+        'Tracking Number': ``,
+        'Dispatch Status': `Returned`,
+      },
+    },
+
+    'To Check': {
+      equal: {
+        'Order Confirmation Status': `To Check`,
+      },
+      notEqual: {
+        'Tracking Status': `Cancelled`,
+        'Dispatch Status': `Cancelled`,
+      },
+    },
+
+    'Payments': {
+      equal: {},
+      notEqual: {},
     },
   },
 };
@@ -1298,3 +2604,22 @@ const user = {
     },
   },
 };
+
+function schema2el({ schema = {}, parent = document.body }) {
+  const tag = document.createElement(schema.tag);
+
+  for (attribute in schema.attr) {
+    tag.setAttribute(attribute, schema.attr[attribute]);
+  }
+
+  if (`func` in schema) schema.func(tag);
+  parent.append(tag);
+
+  if (!(`sub` in schema)) {
+    return parent;
+  } else {
+    for (subtag of schema.sub) {
+      schema2el({ parent: tag, schema: schema.sub[subtag] });
+    }
+  }
+}

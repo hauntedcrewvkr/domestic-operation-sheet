@@ -303,6 +303,103 @@ ul[type='Second Visible Action'] li:hover {
   background-color: transparent;
 }
 
+.table {
+  border: 1px solid var(--neutral-dark);
+  border-collapse: collapse;
+}
+
+.table-heading {
+  height: 45px;
+  position: sticky;
+  top: 0;
+  background: var(--neutral-dark);
+  color: var(--neutral-light);
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  z-index: 1;
+}
+
+.table-heading th:first-child {
+  position: sticky;
+  left: 0;
+  background: var(--neutral-dark);
+}
+
+tr {
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-bottom: 1px solid var(--neutral-dark);
+}
+
+tr[rownum] td div::-webkit-scrollbar {
+  width: 0px;
+  height: 0px;
+}
+
+tr[rownum] td div::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 10px;
+}
+
+tr[rownum] td div::-webkit-scrollbar-thumb {
+  background-color: transparent;
+  border-radius: 10px;
+  border: none;
+}
+
+tr[rownum] td div::-webkit-scrollbar-thumb:hover {
+  background-color: transparent;
+}
+
+tr[rownum] td div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 8rem;
+  width: 100%;
+  overflow-y: scroll;
+  scrollbar-width: none;
+  scrollbar-color: transparent;
+  padding: var(--spacing-sm) var(--spacing-md);
+}
+
+tr[rownum] td div ul li {
+  white-space: normal;
+  word-break: normal;
+  overflow-wrap: break-word;
+  max-width: 100%;
+  max-height: 100%;
+  width: fit-content;
+}
+
+tr[rownum] td:first-child {
+  position: sticky;
+  left: 0;
+  top: -100rem;
+}
+
+tr[rownum] td:first-child div ul {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--spacing-sm);
+}
+
+tr[rownum] td:first-child div ul li {
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+  background: var(--neutral-dark);
+  color: var(--neutral-light);
+}
+
+tr[rownum] td:first-child div ul li:first-child {
+  grid-column: 1;
+  grid-row: 1 / span 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-self: center;
+}
+
 /*------------------------- Forms */
 .form-base {
   display: flex;

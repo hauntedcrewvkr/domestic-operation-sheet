@@ -1,20 +1,8 @@
 function createDocument() {
-  const header = doc.header;
-  const prActionDiv = fx.$(`.primary-actions`, header);
-
-  prActionDiv.append(getActions(`First Visible Action`));
-  prActionDiv.append(getActions(`Second Visible Action`));
-  fx.$(`li[title="Filter"]`, prActionDiv).append(
-    fx.text2el(`<div class="pr-filter-options hidden"></div>`)
-  );
-
-  const nav = doc.nav;
-  nav.append(getActions(`View`));
-
-  const main = doc.main;
-  const footer = doc.footer;
-
-  document.body.append(header, nav, main, footer);
+  schema2el({ schema: doc.schema.header });
+  schema2el({ schema: doc.schema.nav });
+  schema2el({ schema: doc.schema.main });
+  schema2el({ schema: doc.schema.footer });
 }
 
 function getActions(type) {

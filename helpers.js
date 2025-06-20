@@ -18,315 +18,6 @@ function toggleLoader() {
   }
 }
 
-//------------------------- distribute-data-helper-function()
-function distributeData(ss, sheetname, data) {
-  /**
-   * @description This function distributes the data to be stored in variable accordingly
-   * @param {string} ss
-   * @param {string} sheetname
-   * @param {array} data
-   */
-
-  data = data.slice(); //make-copy-of-data-so-that-original-will-be-safe
-  if (!Array.isArray(data) || !data.length) {
-    toggleNotification(`No Data Found`, 'error');
-  }
-
-  const access = sheet.Database.column_access;
-  //------------------------- initialize-if-data-not-found
-  sheet[ss] ??= {}; //level-1
-  sheet[ss][sheetname] = {}; //level-2
-  sheet[ss][sheetname].indexes = {}; //level-3
-  sheet[ss][sheetname].jsonData = []; //level-3
-  sheet[ss][sheetname].arrayData = data; //level-3
-
-  let headers = data.shift(); //get-headers
-  let rowNum = ss == tool.name && sheetname == `Master` ? data.length + 2 : 2; //get-row-number
-
-  headers.forEach(function (header, index) {
-    sheet[ss][sheetname].indexes[header] = index; //set-sheet-header-indexes
-  });
-
-  //------------------------- set-sheet-json-data
-  if (ss == `Domestic Operation Sheet` && sheetname == `Master`) {
-    data = data.reverse();
-    const indexes = sheet[ss].Master.indexes; //get-master-index-json
-    //------------------------- store-views-to-variables
-    [
-      `Medisellers COD`,
-      `Medicare COD`,
-      `Payment Not Received`,
-      `Payment Received`,
-      `Dispatch + Menifest`,
-      `T-1 Orders`,
-      `Dispatch + RTO`,
-      `RTO Delivered`,
-      `Pending Orders`,
-      `Unconfirmed Returns`,
-      `To Check`,
-      `Get Initial Confirmation`,
-      `Confirm Payments`,
-      `Generate Orders`,
-      `Raised Issues`,
-      `COD`,
-      `Processed Orders`,
-    ].forEach(function (sn) {
-      sheet[ss][sn] = {};
-      sheet[ss][sn].jsonData = [];
-      sheet[ss][sn].arrayData = [];
-    });
-
-    for (let row of data) {
-      let json = { rowNo: rowNum-- };
-      //------------------------- get-conditional-values
-      const values = {
-        orderConfirmationStatus: row[indexes[`Order Confirmation Status`]],
-        deliveryType: row[indexes[`Delivery Type`]],
-        instantDeliveryPartner: row[indexes[`Instant Delivery Partner`]],
-        trackingStatus: row[indexes[`Tracking Status`]],
-        trackingNumber: row[indexes[`Tracking Number`]],
-        dispatchStatus: row[indexes[`Dispatch Status`]],
-        orderType: row[indexes[`Order Type`]],
-        isPaymentConfirmed: row[indexes[`Is Payment Confirmed`]],
-        prepaidAmount: fx.num(row[indexes[`Prepaid Amount (If any) (INR)`]]),
-        balanceAmount: fx.num(row[indexes[`Balance Amount (To be paid) (INR)`]]),
-        remittanceAmount: fx.num(row[indexes[`Remittance Amount`]]),
-        bookingCompany: row[indexes[`Booking Company`]],
-        cxIssue: row[indexes[`CX Issue`]],
-        cxIssueStatus: row[indexes[`CX Issue Status`]],
-      };
-
-      //------------------------- medicare-cod-conditionals
-      if (
-        values.orderType == `COD` &&
-        values.bookingCompany == `Medicare India` &&
-        (values.trackingStatus != `Cancelled` || values.dispatchStatus != `Cancelled`)
-      ) {
-        sheet[ss][`Medicare COD`].arrayData.push(row);
-        sheet[ss][`Medicare COD`].jsonData.push(masterJson(row, headers, rowNum));
-      }
-      //------------------------- medisellers-cod-conditionals
-      if (
-        values.orderType == `COD` &&
-        values.bookingCompany == `Mediseller India` &&
-        (values.trackingStatus != `Cancelled` || values.dispatchStatus != `Cancelled`)
-      ) {
-        sheet[ss][`Medisellers COD`].arrayData.push(row);
-        sheet[ss][`Medisellers COD`].jsonData.push(masterJson(row, headers, rowNum));
-      }
-      //------------------------- payment-not-received-conditionals
-      if (
-        values.prepaidAmount > 0 &&
-        values.isPaymentConfirmed == `No` &&
-        (values.dispatchStatus != `Cancelled` || values.trackingStatus != `Cancelled`)
-      ) {
-        sheet[ss][`Payment Not Received`].arrayData.push(row);
-        sheet[ss][`Payment Not Received`].jsonData.push(masterJson(row, headers, rowNum));
-      }
-      //------------------------- payment-received-conditionals
-      if (
-        values.prepaidAmount > 0 &&
-        values.isPaymentConfirmed == `Yes` &&
-        (values.dispatchStatus != `Cancelled` || values.trackingStatus != `Cancelled`)
-      ) {
-        sheet[ss][`Payment Received`].arrayData.push(row);
-        sheet[ss][`Payment Received`].jsonData.push(masterJson(row, headers, rowNum));
-      }
-      //------------------------- dispatch-+-manifest-conditionals
-      if (
-        values.dispatchStatus == `Dispatched` &&
-        values.trackingStatus == `Manifested`
-      ) {
-        sheet[ss][`Dispatch + Menifest`].arrayData.push(row);
-        sheet[ss][`Dispatch + Menifest`].jsonData.push(masterJson(row, headers, rowNum));
-      }
-      //------------------------- t-1-orders-conditionals
-      {
-      }
-      //------------------------- dispatch-+-rto-conditionals
-      if (
-        values.dispatchStatus == `Dispatched` &&
-        values.trackingStatus.includes(`RTO`)
-      ) {
-        sheet[ss][`Dispatch + RTO`].arrayData.push(row);
-        sheet[ss][`Dispatch + RTO`].jsonData.push(masterJson(row, headers, rowNum));
-      }
-      //------------------------- rto-delivered-conditionals
-      if (
-        values.dispatchStatus == `Dispatched` &&
-        values.trackingStatus == `RTO Delivered`
-      ) {
-        sheet[ss][`RTO Delivered`].arrayData.push(row);
-        sheet[ss][`RTO Delivered`].jsonData.push(masterJson(row, headers, rowNum));
-      }
-      //------------------------- pending-orders-conditionals
-      if (
-        values.dispatchStatus == `Yet to be Dispatched` &&
-        values.orderConfirmationStatus != `Good to Go` &&
-        values.trackingNumber
-      ) {
-        sheet[ss][`Pending Orders`].arrayData.push(row);
-        sheet[ss][`Pending Orders`].jsonData.push(masterJson(row, headers, rowNum));
-      }
-      //------------------------- unconfirmed-returns-conditionals
-      if (
-        values.dispatchStatus != `Returned` &&
-        values.trackingStatus == `RTO Delivered`
-      ) {
-        sheet[ss][`Unconfirmed Returns`].arrayData.push(row);
-        sheet[ss][`Unconfirmed Returns`].jsonData.push(masterJson(row, headers, rowNum));
-      }
-      //------------------------- to-check-conditionals
-      if (
-        values.orderConfirmationStatus == `To Check` &&
-        (values.dispatchStatus != `Cancelled` || values.trackingStatus != `Cancelled`)
-      ) {
-        sheet[ss][`To Check`].arrayData.push(row);
-        sheet[ss][`To Check`].jsonData.push(masterJson(row, headers, rowNum));
-      }
-      //------------------------- get-initial-confirmation-conditionals
-      if (
-        values.orderConfirmationStatus != `To Check` &&
-        !values.deliveryType &&
-        (values.dispatchStatus != `Cancelled` || values.trackingStatus != `Cancelled`)
-      ) {
-        sheet[ss][`Get Initial Confirmation`].arrayData.push(row);
-        sheet[ss][`Get Initial Confirmation`].jsonData.push(
-          masterJson(row, headers, rowNum)
-        );
-      }
-      //------------------------- confirm-payments-conditionals
-      if (
-        values.prepaidAmount > 0 &&
-        !values.isPaymentConfirmed &&
-        (values.trackingStatus != `Cancelled` || values.dispatchStatus != `Cancelled`)
-      ) {
-        sheet[ss][`Confirm Payments`].arrayData.push(row);
-        sheet[ss][`Confirm Payments`].jsonData.push(masterJson(row, headers, rowNum));
-      }
-      //------------------------- generate-orders-conditionals
-      if (
-        values.orderConfirmationStatus == `Good to Go` &&
-        values.deliveryType == `Regular Delivery` &&
-        values.isPaymentConfirmed == `Yes` &&
-        !values.trackingNumber &&
-        values.dispatchStatus != `Cancelled`
-      ) {
-        sheet[ss][`Generate Orders`].arrayData.push(row);
-        sheet[ss][`Generate Orders`].jsonData.push(masterJson(row, headers, rowNum));
-      }
-      //------------------------- raised-issues-conditionals
-      if (!values.cxIssue && values.cxIssueStatus != `Closed`) {
-        sheet[ss][`Raised Issues`].arrayData.push(row);
-        sheet[ss][`Raised Issues`].jsonData.push(masterJson(row, headers, rowNum));
-      }
-      //------------------------- cod-conditionals
-      if (values[`orderType`] == `COD`) {
-        sheet[ss].COD.arrayData.push(row);
-        sheet[ss].COD.jsonData.push(viewsJson(row, headers, rowNum));
-      }
-      //------------------------- processed-orders-conditionals
-      if (values.trackingNumber && values.dispatchStatus == `Yet to be Dispatched`) {
-        sheet[ss][`Processed Orders`].arrayData.push(row);
-        sheet[ss][`Processed Orders`].jsonData.push(masterJson(row, headers, rowNum));
-      }
-
-      for (let c = 0; c < row.length; c++) {
-        json[headers[c]] ??= row[c];
-      }
-
-      sheet[ss].Master.jsonData.push(masterJson(row, headers, rowNum));
-    }
-  } else {
-    for (let row of data) {
-      let json = { rowNo: rowNum++ };
-
-      for (let c = 0; c < row.length; c++) {
-        json[headers[c]] ??= row[c];
-      }
-
-      sheet[ss][sheetname].jsonData.push(json);
-    }
-  }
-}
-
-//------------------------- views-json-helper-function()
-function viewsJson(data, header, row) {
-  /**
-   * @description This function creates a JSON object from the data and header
-   * @param {array} data
-   * @param {array} header
-   * @param {number} row
-   */
-  let json = { rowNo: row };
-  for (let h = 0; h < header.length; h++) {
-    if ([`string`, `number`].includes(typeof data[h])) {
-      json[header[h]] ??= data[h];
-    } else if (Array.isArray(data[h])) {
-      json[header[h]] ??= data[h].join(``);
-    } else {
-      json[header[h]] ??= ``;
-    }
-  }
-
-  return json;
-}
-
-function masterJson(data, header, row) {
-  if (
-    !sheet ||
-    !sheet.schema ||
-    !sheet.schema.Action ||
-    !sheet.Database ||
-    !sheet.Database.column_access ||
-    !user ||
-    !user.email
-  ) {
-    throw new Error('Required context (sheet, user) is missing.');
-  }
-
-  const json = { rownum: row || 0 };
-  const actions = Object.keys(sheet.schema.Action);
-  const accessMap = new Map(
-    sheet.Database.column_access.jsonData.map((a) => [a.column_name, a])
-  );
-
-  for (const action of actions) {
-    if (!json[action]) {
-      json[action] = {
-        value: sheet.schema.Action[action].props.append.cloneNode(true),
-        edit: false,
-        view: true,
-      };
-    }
-  }
-
-  for (let i = 0; i < header.length; i++) {
-    const colName = header[i];
-    const colValue = data[i];
-    const colaccess = accessMap.get(colName);
-    if (!colaccess) continue;
-
-    const canEdit = colaccess.editors?.includes(user.email) || false;
-    const canView = colaccess.viewers?.includes(user.email) || false;
-
-    let value;
-    if (typeof colValue === 'string' || typeof colValue === 'number') {
-      value = colValue;
-    } else if (Array.isArray(colValue)) {
-      value = colValue.join(',');
-    } else {
-      value = '';
-    }
-
-    if (!json[colName]) {
-      json[colName] = { value, edit: canEdit, view: canView };
-    }
-  }
-
-  return json;
-}
-
 //------------------------- set-routes-helper-function()
 function setRoutes() {
   /**
@@ -365,7 +56,9 @@ function getTableRows(pagenum = 1, viewname = `Master`) {
 
   data = data.slice(start, end);
   const tableBody = fx.$(`.table-body`);
+
   fx.removeInnerHTML(tableBody);
+
   for (row of data) {
     tableBody.append(doc.setTr(row));
   }
@@ -376,47 +69,6 @@ function getTableRows(pagenum = 1, viewname = `Master`) {
   totalPages.disabled = false;
   totalPages.value = total;
   totalPages.disabled = true;
-}
-
-//------------------------- create-sub-actions-function()
-function subActions() {
-  /**
-   * @description This function returns the sub-action-ul
-   */
-  const access = sheet.Database.action_access.jsonData;
-  let subAction = document.createElement(`ul`);
-  let toggle_sa = document.createElement(`li`);
-  let togleIcon = document.createElement(`i`);
-  toggle_sa.classList.add(`sub-action`);
-  togleIcon.classList.add(`ph`, `ph-arrow-right`);
-  toggle_sa.append(togleIcon);
-  subAction.append(toggle_sa);
-
-  for (let acc of access) {
-    if (
-      acc.tool_name == tool.name &&
-      acc.type == `Sub Action` &&
-      acc.access.includes(user.email)
-    ) {
-      const subaction = fx.text2el(acc.script);
-      subaction.classList.add(`hidden`);
-      subAction.append(subaction);
-    }
-  }
-
-  function toggleSubAction(e) {
-    e.stopPropagation();
-    const ul = e.target.closest(`ul`);
-    const list = fx.$$(`li:not(:first-child)`, ul);
-
-    for (let li of list) {
-      li.classList.toggle(`hidden`);
-      toggle_sa.classList.toggle(`back`);
-    }
-  }
-
-  toggle_sa.addEventListener(`click`, toggleSubAction);
-  return subAction;
 }
 
 //------------------------- get-dropdowns-helper-function()
@@ -826,4 +478,144 @@ function toggleNotification(message = ``, type = ``) {
 
   toggleVisibility();
   setTimeout(toggleVisibility, 5000);
+}
+
+function distributeData({ ss, sheetname, data = [] }) {
+  if (!ss || !sheetname || data.length == 0) {
+    toggleNotification(`No Data Found`, 'error');
+  }
+
+  data = data.slice();
+
+  !(ss in sheet) && (sheet[ss] = {});
+  !(sheetname in sheet[ss]) && (sheet[ss][sheetname] = {});
+
+  sheet[ss][sheetname].jsonData ??= [];
+  sheet[ss][sheetname].arrayData ??= data;
+
+  const headers = data.shift();
+  const indexes = Object.fromEntries(
+    headers.map(function (head, index) {
+      return [head, index + 1];
+    })
+  );
+
+  data = data.reverse();
+
+  sheet[ss][sheetname].indexes = indexes;
+
+  data.forEach(dataAction);
+
+  function dataAction(row, index) {
+    const json = toJson({ data: row, header: headers, rownum: index + 2 });
+    sheet[ss][sheetname].jsonData.unshift(json);
+
+    if (ss == `Domestic Operation Sheet` && sheetname == `Master`) {
+      const json = filterJson({ data: row, header: headers, rownum: index + 2 });
+
+      for (filter in sheet.filters) {
+        !(filter in sheet[ss]) && (sheet[ss][filter] = {});
+
+        sheet[ss][filter].arrayData ??= [];
+        sheet[ss][filter].jsonData ??= [];
+
+        const filterObj = sheet.filters[filter];
+        const passed = checkFilterCondition({ obj: json, filter: filterObj });
+
+        if (passed) {
+          sheet[ss][filter].arrayData.unshift(row);
+          sheet[ss][filter].jsonData.unshift(json);
+        }
+      }
+    }
+  }
+}
+
+function checkFilterCondition({ obj = {}, filter = {} }) {
+  let bool = true;
+
+  for (const colname in filter.equal) {
+    if (bool == false) break;
+    bool = filter.equal[colname] == obj[colname].value;
+  }
+
+  for (const colname in filter.notEqual) {
+    if (bool == false) break;
+    bool = filter.equal[colname] != obj[colname].value;
+  }
+
+  return bool;
+}
+
+function toJson({ data, header, rownum }) {
+  if (data.length == 0 || header.length == 0) {
+    toggleNotification(`Data Error`, `error`);
+  }
+
+  const json = { rownum: rownum };
+
+  header.forEach(function (head, index) {
+    json[head] ??= data[index];
+  });
+
+  return json;
+}
+
+function filterJson({ data, header, rownum }) {
+  if (data.length == 0 || header.length == 0 || !rownum) {
+    toggleNotification(`Data Error`, `error`);
+  }
+
+  if (
+    !sheet ||
+    !sheet.schema ||
+    !sheet.schema.Action ||
+    !sheet.Database ||
+    !sheet.Database.column_access ||
+    !user ||
+    !user.email
+  ) {
+    toggleNotification(`Required context (sheet, user) is missing.`, `error`);
+  }
+
+  const json = { rownum: rownum || 0 };
+  const actions = Object.keys(sheet.schema.Action);
+  const accessMap = new Map(
+    sheet.Database.column_access.jsonData.map((a) => [a.column_name, a])
+  );
+
+  for (const action of actions) {
+    if (!json[action]) {
+      json[action] = {
+        value: sheet.schema.Action[action].props.append.cloneNode(true),
+        edit: false,
+        view: true,
+      };
+    }
+  }
+
+  for (let i = 0; i < header.length; i++) {
+    const colName = header[i];
+    const colValue = data[i];
+    const colaccess = accessMap.get(colName);
+    if (!colaccess) continue;
+
+    const canEdit = colaccess.editors?.includes(user.email) || false;
+    const canView = colaccess.viewers?.includes(user.email) || false;
+
+    let value;
+    if (typeof colValue === 'string' || typeof colValue === 'number') {
+      value = colValue;
+    } else if (Array.isArray(colValue)) {
+      value = colValue.join(',');
+    } else {
+      value = '';
+    }
+
+    if (!json[colName]) {
+      json[colName] = { value, edit: canEdit, view: canView };
+    }
+  }
+
+  return json;
 }
