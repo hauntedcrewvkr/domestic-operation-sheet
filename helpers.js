@@ -2,23 +2,177 @@
  * @description This consists all the helper functions
  */
 
-//------------------------- toggle-loader-helper-function()
-function toggleLoader() {
+//---------------------------------------------<( add-loader-helper-function()>-
+function addLoader() {
   /**
    * @description This function toggles the loader div
    */
+  const schema = {
+    tag: `div`,
+    attr: {
+      class: `loader-div`,
+    },
+    sub: [
+      {
+        tag: `div`,
+        attr: {
+          class: `loading-wave`,
+        },
+        sub: [
+          {
+            tag: `div`,
+            attr: {
+              class: `loading-bar`,
+            },
+          },
+          {
+            tag: `div`,
+            attr: {
+              class: `loading-bar`,
+            },
+          },
+          {
+            tag: `div`,
+            attr: {
+              class: `loading-bar`,
+            },
+          },
+          {
+            tag: `div`,
+            attr: {
+              class: `loading-bar`,
+            },
+          },
+        ],
+      },
+    ],
+  };
+  const loader = schema2el(schema);
+  document.body.append(loader);
+}
 
-  let extraViews = fx.$(`.extra-views`);
-  let loaderDiv = fx.$(`.loader-div`);
+//----------------------------------------------<( init-form-helper-function()>-
+function initForm() {
+  const userProps = script.run(`getUserProps`);
+  const formNeeded = !(`username` in userProps) || !(`password` in userProps);
+  const properties = [];
 
-  if (loaderDiv) {
-    extraViews.innerHTML = ``;
-  } else {
-    extraViews.innerHTML = loader;
+  if (formNeeded) {
+    document.body.append(schema2el(docSchema.forms.initForm));
   }
 }
 
-//------------------------- set-routes-helper-function()
+//---------------------------------------<( get-script-props-helper-function()>-
+function verifyScriptProp() {
+  const keyRequired = [`gsKey`];
+  const scriptProp = script.run(`getScriptProps`);
+
+  for (key in keyRequired) {
+    if (key in scriptProp) {
+      props.user[key] ??= userProps[key];
+    } else {
+      const msg = `Property no found:- (${key})`;
+      notify({ message: msg, type: `error` });
+    }
+  }
+}
+
+//---------------------------------------<( verify-user-prop-helper-function()>-
+function verifyUserProp() {
+  const keyRequired = [`gsKey`, `email`, `name`];
+  const userProps = script.run(`getUserProps`);
+  let verified = false;
+
+  for (key of keyRequired) {
+    if (key in userProps) {
+      props.user[key] ??= userProps[key];
+    }
+    if (key == gsKey) setSheetKey();
+    if (key == `email` || `name`) {
+      setUserSession();
+      break;
+    }
+  }
+}
+
+//------------------------------------------<( set-sheet-key-helper-function()>-
+async function setSheetKey() {
+  const ssid = sheet.Database.ssid;
+  const masterKey = props.script.gsKey;
+  const apiData = await sheet.getData(ssid, `api_keys`, masterKey);
+  let found = false;
+
+  for (const obj in apiData) {
+    if (obj.user_email == props.user.email && obj.status == `active`) {
+      if (script.run(`setUserProp`, `sheetKey`, obj.api_key)) {
+        verifyUserProp();
+        found = true;
+      }
+
+      break;
+    }
+  }
+
+  if (!found) notify({ message: `add-key`, type: `error` });
+  return found;
+}
+
+//---------------------------------------<( set-user-session-helper-function()>-
+function setUserSession() {
+  const userExtras = script.run(`getUserExtras`);
+  for (key in userExtras) {
+    props.user[key] ??= userExtras[key];
+  }
+}
+
+//------------------------------------------------<( validate-password-event()>-
+function validatePassword(e) {
+  const target = e.currentTarget;
+  const form = target.closest(`form`);
+  const submitBtn = fx.$(`#submit`, form);
+  const password = target.value;
+  const username = fx.$(`.password`, form).value;
+  let matched = false;
+
+  for (employee of sheet.Database.Employees) {
+    if (employee.Username == username) {
+      if (employee.Password == password) {
+        submitBtn.disabled = false;
+        break;
+      }
+    }
+  }
+
+  if (!matched) {
+    return notify({ message: `Check Username and Password`, type: `warn` });
+  }
+}
+
+//------------------------------------------------<( validate-username-event()>-
+function validateUsername(e) {
+  const value = e.currentTarget.value;
+  let matched = false;
+
+  for (let employee of sheet.Database.Employees) {
+    if (value == employee.Username) {
+      break;
+    }
+  }
+
+  if (!matched) {
+    return notify({ message: `Check Username`, type: `warn` });
+  }
+}
+
+//-------------------------------------------------<( init-form-submit-event()>-
+function initFormSubmit(e) {
+  e.preventDefault();
+  const form = e.currentTarget;
+  const formData = new FormData(form);
+  const data = Object.fromEntries(formData.entries());
+}
+
+//---------------------------------------------<( set-routes-helper-function()>-
 function setRoutes() {
   /**
    * @description This function set all the function to be run in serial
@@ -29,11 +183,11 @@ function setRoutes() {
   doc.setThead = true;
   fx.$(`.loader-init-div`)?.remove();
   fx.$(`.loader-div`)?.remove();
-  toggleNotification(`Good to Go`, `info`);
-  setTimeout(ghostSync, 5 * 60 * 1000);
+  notify({ message: `Good to Go`, type: `Info` });
+  setTimeout(ghostSync, 300000);
 }
 
-//------------------------- get-table-rows-helper-function()
+//-----------------------------------------<( get-table-rows-helper-function()>-
 function getTableRows(pagenum = 1, viewname = `Master`) {
   /**
    * @description This function create and set the rows to the table
@@ -71,34 +225,7 @@ function getTableRows(pagenum = 1, viewname = `Master`) {
   totalPages.disabled = true;
 }
 
-//------------------------- get-dropdowns-helper-function()
-function getDropdowns(colname) {
-  /**
-   * @description This function returns the dropdowns for the given column name
-   * @param {string} colname
-   */
-
-  const dropdownData = sheet.Database.dropdowns.jsonData.slice();
-  const selectedOption = document.createElement(`option`);
-  let dropdowns = [];
-  selectedOption.value = ``;
-  selectedOption.textContent = `Select ${colname}`;
-  selectedOption.disabled = true;
-  selectedOption.selected = true;
-  dropdowns.push(selectedOption);
-
-  for (let dropdown of dropdownData) {
-    if (dropdown.tool_name != tool.name || dropdown.column_name != colname) continue;
-    let option = document.createElement(`option`);
-    option.value = dropdown.value;
-    option.textContent = dropdown.value;
-    dropdowns.push(option);
-  }
-
-  return dropdowns;
-}
-
-//------------------------- get-poc-dropdowns-function()
+//---------------------------------------------<( get-poc-dropdowns-function()>-
 function getPocDropdowns() {
   /**
    * @description This function returns the POC options
@@ -125,18 +252,22 @@ function getPocDropdowns() {
   return dropdowns;
 }
 
-//------------------------- ghost-sync-helper-function()
+//---------------------------------------------<( ghost-sync-helper-function()>-
 async function ghostSync() {
   /**
    * @description This function works in background to sync realtime data
    */
 
-  const masterData = await sheet.getData(sheet[tool.name].ssid, `Master`, user.apiKey);
+  const masterData = await sheet.getData(
+    sheet[tool.name].ssid,
+    `Master`,
+    user.apiKey
+  );
   distributeData(tool.name, `Master`, masterData);
   setTimeout(ghostSync, 5 * 60 * 1000);
 }
 
-//------------------------- now-str-helper-function()
+//------------------------------------------------<( now-str-helper-function()>-
 function nowStr() {
   const d = new Date();
   const pad = (n) => (n < 10 ? '0' + n : n);
@@ -145,7 +276,7 @@ function nowStr() {
   )}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`;
 }
 
-//------------------------- get-order-number-helper-function()
+//---------------------------------------<( get-order-number-helper-function()>-
 function getOrderNo(condition) {
   let data = sheet[tool.name].Master.jsonData.slice();
   let orders = data.filter(function (value) {
@@ -154,7 +285,7 @@ function getOrderNo(condition) {
   return orders.length + 1;
 }
 
-//------------------------- append-data-helper-function()
+//--------------------------------------------<( append-data-helper-function()>-
 function appendData(object = {}) {
   const indexes = sheet[tool.name].Master.indexes;
   let data = { type: `append`, data: [] };
@@ -177,7 +308,7 @@ function appendData(object = {}) {
   script.run(toSheet, data, tool.name, `Master`);
 }
 
-//------------------------- response-adjust-helper-function()
+//----------------------------------------<( response-adjust-helper-function()>-
 function responseAdjust(results = [], data = []) {
   const indexes = sheet[tool.name].Master.indexes;
   let arr = [];
@@ -210,7 +341,7 @@ function responseAdjust(results = [], data = []) {
   return arr;
 }
 
-//------------------------- fetch-api-helper-function()
+//----------------------------------------------<( fetch-api-helper-function()>-
 function fetchApi(data = [], company) {
   const url = `https://my.ithinklogistics.com/api_v3/order/add.json`;
   const arr = [];
@@ -272,7 +403,9 @@ function fetchApi(data = [], company) {
             tracking_url: json?.data[key]?.waybill
               ? baseTrack + json?.data[key]?.waybill
               : ``,
-            dispatch_status: json?.data[key]?.waybill ? `Yet to be Dispatched` : ``,
+            dispatch_status: json?.data[key]?.waybill
+              ? `Yet to be Dispatched`
+              : ``,
             booking_company: company,
           });
         });
@@ -295,7 +428,7 @@ function fetchApi(data = [], company) {
   return arr;
 }
 
-//------------------------- payload-helper-helper-function()
+//-----------------------------------------<( payload-helper-helper-function()>-
 function payloadHelper(data = {}, returnAddressId = ``) {
   return {
     waybill: ``,
@@ -369,7 +502,7 @@ function payloadHelper(data = {}, returnAddressId = ``) {
   };
 }
 
-//------------------------- convert-date-helper-function()
+//-------------------------------------------<( convert-date-helper-function()>-
 function convertDate(date) {
   date = new Date(date);
   const day = String(date.getDate()).padStart(2, 0);
@@ -378,7 +511,8 @@ function convertDate(date) {
 
   return `${day}-${month}-${year}`;
 }
-//------------------------- update-data-helper-function()
+
+//--------------------------------------------<( update-data-helper-function()>-
 function updateData(object = {}, rownumber = 0) {
   const indexes = sheet[tool.name].Master.indexes;
   let data = { type: `update`, row: rownumber, data: [] };
@@ -393,12 +527,13 @@ function updateData(object = {}, rownumber = 0) {
   script.run(toSheet, data, tool.name, `Master`);
 }
 
-//------------------------- remove-form-helper-function()
+//--------------------------------------------<( remove-form-helper-function()>-
 function removeForm() {
   const form = fx.$(`.form-base`);
   form.remove();
 }
 
+//------------------------------------<( get-filter-actions-helper-function())>-
 function getFilterActions() {
   const data = sheet.Database.action_access.jsonData.slice();
   const list = document.createElement(`ul`);
@@ -424,6 +559,7 @@ function getFilterActions() {
   return list;
 }
 
+//-------------------------------------<( get-header-actions-helper-function()>-
 function getHeaderActions(condition = ``) {
   const data = sheet.Database.action_access.jsonData.slice();
   const arr = [];
@@ -446,43 +582,70 @@ function getHeaderActions(condition = ``) {
   return arr;
 }
 
-function toggleNotification(message = ``, type = ``) {
-  if (![`info`, `warn`, `error`].includes(type)) return;
+//------------------------------------------<( action-access-helper-function()>-
+function actionAccess({ type, action }) {
+  const actionAccess = sheet.Database.action_access.jsonData().slice();
+  return actionAccess.filter(filterAction);
 
-  const extraViews = fx.$(`.extra-views`);
-  const alertDiv = document.createElement(`div`);
-  const infoSpan = document.createElement(`span`);
-  const msgSpan = document.createElement(`span`);
-  const icons = {
-    info: [`ph-fill`, `ph-info`, `alert-span`],
-    warn: [`ph-fill`, `ph-warning-circle`, `alert-span`],
-    error: [`ph-fill`, `ph-x-circle`, `alert-span`],
-  };
-
-  alertDiv.classList.add(type, `msg-div`, `hide`);
-  infoSpan.classList.add(...icons[type]);
-  msgSpan.classList.add(`msg-span`);
-
-  if (type == `info`) msgSpan.textContent = `Info: ${message}`;
-  if (type == `warn`) msgSpan.textContent = `Warning: ${message}`;
-  if (type == `error`) msgSpan.textContent = `Error: ${message}`;
-
-  alertDiv.append(infoSpan, msgSpan);
-  extraViews.append(alertDiv);
-
-  function toggleVisibility() {
-    alertDiv.classList.toggle(`hide`);
-    alertDiv.classList.toggle(`show`);
-    alertDiv.classList.toggle(`show-alert`);
+  function filterAction(obj) {
+    return (
+      obj.tool_name == tool.name &&
+      obj.action == action &&
+      obj.type == type &&
+      obj.access.includes(user.email)
+    );
   }
-
-  toggleVisibility();
-  setTimeout(toggleVisibility, 5000);
 }
 
+//-------------------------------------------------<( notify-helper-function()>-
+function notify({ message, type }) {
+  if (![`info`, `warn`, `error`].includes(type)) return;
+
+  const icon = {
+    info: `ph-fill ph-info alert-span`,
+    warn: `ph-fill ph-warning-circle alert-span`,
+    error: `ph-fill ph-x-circle alert-span`,
+  };
+
+  const schema = {
+    tag: `div`,
+    attr: { class: type },
+    func: [removeElement, toggleVisibility],
+    sub: [
+      {
+        tag: `i`,
+        attr: { class: icon[type] },
+      },
+      {
+        tag: `i`,
+        attr: { class: ``, innerhtml: message },
+      },
+    ],
+  };
+
+  function toggleVisibility(element) {
+    function toggle() {
+      element.classList.toggle(`hide`);
+      element.classList.toggle(`show`);
+      element.classList.toggle(`show-alert`);
+    }
+
+    toggle();
+    setTimeout(toggle, 5000);
+  }
+  return schema2el({ schema: schema });
+}
+
+//-----------------------------------------<( remove-element-helper-function()>-
+function removeElement({ element, urgent = false }) {
+  if (urgent) element.remove();
+  if (!urgent) setTimeout(() => element.remove(), 500);
+}
+
+//-----------------------------------------<( distribut-data-helper-function()>-
 function distributeData({ ss, sheetname, data = [] }) {
   if (!ss || !sheetname || data.length == 0) {
-    toggleNotification(`No Data Found`, 'error');
+    notify({ message: `No Data Found`, type: `error` });
   }
 
   data = data.slice();
@@ -511,7 +674,11 @@ function distributeData({ ss, sheetname, data = [] }) {
     sheet[ss][sheetname].jsonData.unshift(json);
 
     if (ss == `Domestic Operation Sheet` && sheetname == `Master`) {
-      const json = filterJson({ data: row, header: headers, rownum: index + 2 });
+      const json = filterJson({
+        data: row,
+        header: headers,
+        rownum: index + 2,
+      });
 
       for (filter in sheet.filters) {
         !(filter in sheet[ss]) && (sheet[ss][filter] = {});
@@ -531,6 +698,7 @@ function distributeData({ ss, sheetname, data = [] }) {
   }
 }
 
+//---------------------------------<( check-filter-condition-helper-function()>-
 function checkFilterCondition({ obj = {}, filter = {} }) {
   let bool = true;
 
@@ -547,9 +715,10 @@ function checkFilterCondition({ obj = {}, filter = {} }) {
   return bool;
 }
 
+//------------------------------------------------<( to-json-helper-function()>-
 function toJson({ data, header, rownum }) {
   if (data.length == 0 || header.length == 0) {
-    toggleNotification(`Data Error`, `error`);
+    notify({ message: `Data Error`, type: `error` });
   }
 
   const json = { rownum: rownum };
@@ -561,9 +730,10 @@ function toJson({ data, header, rownum }) {
   return json;
 }
 
+//--------------------------------------------<( filter-json-helper-function()>-
 function filterJson({ data, header, rownum }) {
   if (data.length == 0 || header.length == 0 || !rownum) {
-    toggleNotification(`Data Error`, `error`);
+    notify({ message: `Data Error`, type: `error` });
   }
 
   if (
@@ -575,7 +745,10 @@ function filterJson({ data, header, rownum }) {
     !user ||
     !user.email
   ) {
-    toggleNotification(`Required context (sheet, user) is missing.`, `error`);
+    notify({
+      message: `Required context (sheet, user) is missing.`,
+      type: `error`,
+    });
   }
 
   const json = { rownum: rownum || 0 };

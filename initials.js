@@ -87,6 +87,11 @@ const fx = {
     return template.content.firstElementChild;
   },
 
+  setInnerHTML(element) {
+    element.innerHTML = element.getAttribute(`innerhtml`);
+    return element;
+  },
+
   //------------------------- remove-inner-html
   removeInnerHTML(element) {
     /**
@@ -1430,7 +1435,9 @@ const doc = {
     </footer>
     `),
 
-  datalist: fx.text2el(`<section id="dropdowns" hidden aria-hidden="true"></section>`),
+  datalist: fx.text2el(
+    `<section id="dropdowns" hidden aria-hidden="true"></section>`
+  ),
 
   main: fx.text2el(`
     <main class="main">
@@ -1642,7 +1649,9 @@ const doc = {
         const colTypeAttr = colAttr.type;
 
         if (obj[column].view) {
-          const li = document.createElement(docSchemas[colTag][colTypeAttr].tag);
+          const li = document.createElement(
+            docSchemas[colTag][colTypeAttr].tag
+          );
           li.append(obj[column].value);
           li.title = column;
           ul.append(li);
@@ -2579,8 +2588,35 @@ const script = {
   success(response) {
     return response;
   },
+
   failure(error) {
     return error;
+  },
+};
+
+const storage = {
+  script: {
+    set: ({ key, value }) => script.run(`setScriptProperty`, key, value),
+    get: ({ key }) => script.run(`getScriptProperty`, key),
+    delete: ({ key }) => script.run(`deleteScriptProperty`, key),
+  },
+
+  user: {
+    set: ({ key, value }) => script.run(`setUserProperty`, key, value),
+    get: ({ key }) => script.run(`getUserProperty`, key),
+    delete: ({ key }) => script.run(`deleteUserProperty`, key),
+  },
+
+  local: {
+    set: ({ key, value }) => localStorage.setItem(key, value),
+    get: ({ key }) => localStorage.getItem(key),
+    delete: ({ key }) => localStorage.removeItem(key),
+  },
+
+  session: {
+    set: ({ key, value }) => sessionStorage.setItem(key, value),
+    get: ({ key }) => sessionStorage.getItem(key),
+    delete: ({ key }) => sessionStorage.removeItem(key),
   },
 };
 
@@ -2605,21 +2641,28 @@ const user = {
   },
 };
 
-function schema2el({ schema = {}, parent = document.body }) {
-  const tag = document.createElement(schema.tag);
+const props = { script: {}, user: {} };
 
-  for (attribute in schema.attr) {
-    tag.setAttribute(attribute, schema.attr[attribute]);
-  }
+function schema2el(schema = {}) {
+  const parent = document.createElement(schema.tag);
 
-  if (`func` in schema) schema.func(tag);
-  parent.append(tag);
-
-  if (!(`sub` in schema)) {
-    return parent;
-  } else {
-    for (subtag of schema.sub) {
-      schema2el({ parent: tag, schema: schema.sub[subtag] });
+  if (schema.attr) {
+    for (let keyval of Object.entries(schema.attr)) {
+      parent.setAttribute(...keyval);
     }
   }
+
+  if (Array.isArray(schema.func)) {
+    for (let fx of schema.func) {
+      fx(parent);
+    }
+  }
+
+  if (Array.isArray(schema.sub)) {
+    for (let subschema of schema.sub) {
+      parent.appendChild(schema2el(subschema));
+    }
+  }
+
+  return parent;
 }
