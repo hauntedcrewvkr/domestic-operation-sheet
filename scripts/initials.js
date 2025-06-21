@@ -2642,27 +2642,3 @@ const user = {
 };
 
 const props = { script: {}, user: {} };
-
-function schema2el(schema = {}) {
-  const parent = document.createElement(schema.tag);
-
-  if (schema.attr) {
-    for (let keyval of Object.entries(schema.attr)) {
-      parent.setAttribute(...keyval);
-    }
-  }
-
-  if (Array.isArray(schema.func)) {
-    for (let fx of schema.func) {
-      fx(parent);
-    }
-  }
-
-  if (Array.isArray(schema.sub)) {
-    for (let subschema of schema.sub) {
-      parent.appendChild(schema2el(subschema));
-    }
-  }
-
-  return parent;
-}
