@@ -142,7 +142,6 @@ function loadCDN() {
 
   for (const obj of schema) {
     document.head.append(schema2el(obj));
+    console.log(obj);
   }
 }
-
-console.log(`cdns linked`);
