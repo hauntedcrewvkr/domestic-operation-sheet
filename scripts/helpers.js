@@ -69,25 +69,21 @@ async function verifyScriptProp() {
   try {
     const scriptProp = await script.run(`getScriptProps`);
     console.log(scriptProp);
+    const found = true;
+    for (key in keyRequired) {
+      if (key in scriptProp) {
+        props.user[key] ??= userProps[key];
+      } else {
+        const msg = `Property no found:- (${key})`;
+        found = false;
+        notify({ message: msg, type: `error` });
+      }
+    }
+
+    if (found) verifyUserProp();
   } catch (err) {
     console.log(err);
   }
-
-  const scriptProp = script.run(`getScriptProps`);
-  console.log(scriptProp);
-  const found = true;
-
-  for (key in keyRequired) {
-    if (key in scriptProp) {
-      props.user[key] ??= userProps[key];
-    } else {
-      const msg = `Property no found:- (${key})`;
-      found = false;
-      notify({ message: msg, type: `error` });
-    }
-  }
-
-  if (found) verifyUserProp();
 }
 
 //---------------------------------------<( verify-user-prop-helper-function()>-
