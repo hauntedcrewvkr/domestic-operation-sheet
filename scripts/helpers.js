@@ -92,8 +92,8 @@ async function verifyUserProp() {
         props.user[key] ??= userProps[key];
       }
     }
-    if ('gsKey' in userProps) setSheetKey();
-    if ('email' in userProps && 'name' in userProps) setUserSession();
+    if (!('gsKey' in userProps)) setSheetKey();
+    if (!('email' in userProps && 'name' in userProps)) setUserSession();
   } catch (err) {
     console.log(err);
   }
