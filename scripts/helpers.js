@@ -103,7 +103,7 @@ async function verifyUserProp() {
 async function setSheetKey() {
   const ssid = sheet.Database.ssid;
   const masterKey = props.script.sheetKey;
-  console.log(masterKey);
+  console.log(props);
   const apiData = await sheet.getData(ssid, `api_keys`, masterKey);
   let found = false;
 
