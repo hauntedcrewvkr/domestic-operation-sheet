@@ -40,7 +40,7 @@ function loadScriptsSequentially(scripts, index = 0) {
 }
 
 function loadCDN() {
-  const url = `${baseUrl}/domestic-operation-sheet@v2.013`;
+  const url = `${baseUrl}/domestic-operation-sheet@v2.014`;
   const schema = [
     {
       tag: `link`,
@@ -84,7 +84,7 @@ function loadCDN() {
       tag: `link`,
       attr: {
         rel: `stylesheet`,
-        href: `${url}/styles/styles.css`,
+        href: `${url}/styles/style.css`,
         type: `text/css`,
         crossorigin: `anonymous`,
       },
