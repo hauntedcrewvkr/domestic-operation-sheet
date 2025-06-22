@@ -141,7 +141,7 @@ function loadCDN() {
   ];
 
   for (const obj of schema) {
-    console.log(obj);
     document.head.append(schema2el(obj));
+    console.log(obj);
   }
 }
