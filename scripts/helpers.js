@@ -114,6 +114,8 @@ async function setSheetKey() {
       }
 
       break;
+    } else {
+      console.log(`api-key-not-found`);
     }
   }
 
