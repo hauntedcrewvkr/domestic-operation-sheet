@@ -71,7 +71,7 @@ async function verifyScriptProp() {
     let found = true;
     for (const key of keyRequired) {
       if (key in scriptProp) {
-        props.user[key] ??= scriptProp[key];
+        props.script[key] ??= scriptProp[key];
       } else {
         notify({ message: `Property not found: (${key})`, type: 'error' });
         found = false;
