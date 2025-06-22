@@ -41,7 +41,7 @@ function loadScriptsSequentially(scripts, index = 0) {
 }
 
 function loadCDN() {
-  const url = `${baseUrl}/domestic-operation-sheet@v2.0.7`;
+  const url = `${baseUrl}/domestic-operation-sheet@v2.0.8`;
   const schema = [
     {
       tag: `link`,

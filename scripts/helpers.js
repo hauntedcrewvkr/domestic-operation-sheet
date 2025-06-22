@@ -68,7 +68,6 @@ async function verifyScriptProp() {
   const keyRequired = [`sheetKey`];
   try {
     const scriptProp = await script.run(`getScriptProps`);
-    console.log(typeof scriptProp);
     let found = true;
 
     for (const key in keyRequired) {
@@ -81,7 +80,7 @@ async function verifyScriptProp() {
         notify({ message: msg, type: `error` });
       }
     }
-
+    console.log(found);
     if (found) verifyUserProp();
   } catch (err) {
     console.log(err);
