@@ -50,7 +50,8 @@ function addNewOrder(e) {
     });
     dataObject[`Order No`] ??= `MS${dataObject[`Order ID`] + 1}`;
     dataObject[`Balance Amount (To be paid) (INR)`] ??=
-      dataObject[`Total Amount  (INR)`] - dataObject[`Prepaid Amount (If any) (INR)`];
+      dataObject[`Total Amount  (INR)`] -
+      dataObject[`Prepaid Amount (If any) (INR)`];
 
     appendData(dataObject);
   });
@@ -347,7 +348,9 @@ function createOrder(e) {
     companies[company].push(row);
 
     if (companies[company].length === 10) {
-      orderOutput.push(responseAdjust(fetchApi(companies[company], company), data));
+      orderOutput.push(
+        responseAdjust(fetchApi(companies[company], company), data)
+      );
 
       companies[company] = [];
     }
@@ -355,7 +358,9 @@ function createOrder(e) {
     if (index === data.length - 1) {
       Object.entries(companies).forEach(function ([compName, orders]) {
         if (orders.length > 0) {
-          orderOutput.push(responseAdjust(fetchApi(companies[company], company), data));
+          orderOutput.push(
+            responseAdjust(fetchApi(companies[company], company), data)
+          );
         }
       });
     }
@@ -392,17 +397,21 @@ function sendOrderConfirmationMessage(e) {
   const row = e.target.closest(`tr`);
   const phoneNumber = fx.$(`#contact-number a`, row).textContent;
 
-  const template = sheet.Database.whatsapp_templates.arrayData.filter(function (value) {
+  const template = sheet.Database.whatsapp_templates.arrayData.filter(function (
+    value
+  ) {
     return value[0] == `Domestic Order Confirmation`;
   });
 
   if (!template.length) return;
 
   const messageText = template[0][1];
-  const messageTemplate = messageText.replaceAll(`\n`, `<br>`).replace(/\*/g, () => {
-    count++;
-    return count % 2 === 1 ? '<b>' : '</b>';
-  });
+  const messageTemplate = messageText
+    .replaceAll(`\n`, `<br>`)
+    .replace(/\*/g, () => {
+      count++;
+      return count % 2 === 1 ? '<b>' : '</b>';
+    });
 
   const messageParent = document.createElement(`div`);
   const messageChild = document.createElement(`div`);
@@ -440,7 +449,10 @@ function sendOrderConfirmationMessage(e) {
 }
 
 function sendWhatsapp(message = ``, phone = 0) {
-  window.open(`https://wa.me/${phone}?text=${encodeURIComponent(message)}`, `_blank`);
+  window.open(
+    `https://wa.me/${phone}?text=${encodeURIComponent(message)}`,
+    `_blank`
+  );
 }
 
 function markResolved(e) {
@@ -473,11 +485,15 @@ function download() {
     }
   }
 
-  const headers = Object.keys(data[0]).filter((col) => accessibleColumns.has(col));
+  const headers = Object.keys(data[0]).filter((col) =>
+    accessibleColumns.has(col)
+  );
   csvString += headers.join(',') + '\n';
 
   const rows = data.map((row) =>
-    headers.map((h) => `"${(row[h] ?? '').toString().replace(/"/g, '""')}"`).join(',')
+    headers
+      .map((h) => `"${(row[h] ?? '').toString().replace(/"/g, '""')}"`)
+      .join(',')
   );
 
   csvString += rows.join('\n') + '\n';
@@ -493,6 +509,4 @@ function download() {
 
 function myOrders() {}
 
-// document.addEventListener(`click`, function (e) {
-//   console.log(e.target);
-// });
+console.log(`event linked`);

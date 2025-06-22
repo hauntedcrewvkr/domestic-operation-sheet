@@ -28,8 +28,24 @@
   --font-size-base: 1rem;
   --font-size-lg: 1.125rem;
   --font-size-xl: 1.5rem;
-  --msg-icn-up: polygon(100% 0, 100% 85%, 54% 85%, 50% 100%, 46% 85%, 0 85%, 0 0);
-  --msg-icn-dwn: polygon(0 15%, 45% 15%, 50% 0, 55% 15%, 100% 15%, 100% 100%, 0 100%);
+  --msg-icn-up: polygon(
+    100% 0,
+    100% 85%,
+    54% 85%,
+    50% 100%,
+    46% 85%,
+    0 85%,
+    0 0
+  );
+  --msg-icn-dwn: polygon(
+    0 15%,
+    45% 15%,
+    50% 0,
+    55% 15%,
+    100% 15%,
+    100% 100%,
+    0 100%
+  );
 }
 
 * {
@@ -38,7 +54,7 @@
   box-sizing: border-box;
   border: none;
   outline: none;
-  font-family: 'Inter', sans-serif;
+  font-family: 'Maven Pro', sans-serif;
 }
 
 body,

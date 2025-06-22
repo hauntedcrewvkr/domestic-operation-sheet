@@ -64,3 +64,5 @@ function createDataLists() {
 }
 
 function getForm(type = ``) {}
+
+console.log(`script linked`);

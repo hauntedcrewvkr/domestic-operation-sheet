@@ -1,6 +1,10 @@
 //------------------------- get-user's-api-key()
 async function getapikey() {
-  let apiKeys = await sheet.getData(sheet.Database.ssid, `api_keys`, user.apiKey);
+  let apiKeys = await sheet.getData(
+    sheet.Database.ssid,
+    `api_keys`,
+    user.apiKey
+  );
   distributeData({ ss: `Database`, sheetname: `api_keys`, data: apiKeys });
 
   for (let json of sheet.Database.api_keys.jsonData) {
@@ -20,7 +24,11 @@ async function getRequirements() {
     const sheets = tool.requirements[spreadsheet];
 
     for (const sheetname of sheets) {
-      const data = await sheet.getData(sheet[spreadsheet].ssid, sheetname, user.apiKey);
+      const data = await sheet.getData(
+        sheet[spreadsheet].ssid,
+        sheetname,
+        user.apiKey
+      );
       distributeData({ ss: spreadsheet, sheetname, data });
     }
   }
@@ -29,3 +37,5 @@ async function getRequirements() {
 }
 
 getapikey();
+
+console.log(`main linked`);
