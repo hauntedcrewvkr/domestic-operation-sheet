@@ -65,17 +65,21 @@ function initForm() {
 
 //---------------------------------------<( get-script-props-helper-function()>-
 function verifyScriptProp() {
-  const keyRequired = [`gsKey`];
+  const keyRequired = [`sheetKey`];
   const scriptProp = script.run(`getScriptProps`);
+  const found = true;
 
   for (key in keyRequired) {
     if (key in scriptProp) {
       props.user[key] ??= userProps[key];
     } else {
       const msg = `Property no found:- (${key})`;
+      found = false;
       notify({ message: msg, type: `error` });
     }
   }
+
+  if (found) verifyUserProp();
 }
 
 //---------------------------------------<( verify-user-prop-helper-function()>-
@@ -793,5 +797,3 @@ function filterJson({ data, header, rownum }) {
 
   return json;
 }
-
-console.log(`helpers linked`);

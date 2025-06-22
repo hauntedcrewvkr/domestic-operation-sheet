@@ -508,5 +508,3 @@ function download() {
 }
 
 function myOrders() {}
-
-console.log(`event linked`);

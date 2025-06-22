@@ -2642,5 +2642,3 @@ const user = {
 };
 
 const props = { script: {}, user: {} };
-
-console.log(`initials linked`);

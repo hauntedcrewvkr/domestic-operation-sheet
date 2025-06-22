@@ -35,7 +35,3 @@ async function getRequirements() {
 
   setRoutes();
 }
-
-getapikey();
-
-console.log(`main linked`);

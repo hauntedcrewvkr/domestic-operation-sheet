@@ -14,6 +14,7 @@ function schema2el(schema = {}) {
 function loadScriptsSequentially(scripts, index = 0) {
   if (index >= scripts.length) {
     console.log('All scripts loaded in order.');
+    verifyScriptProp();
     return;
   }
 
@@ -32,7 +33,7 @@ function loadScriptsSequentially(scripts, index = 0) {
   };
 
   scriptEl.onerror = () => {
-    console.error(`❌ Failed to load script: ${scriptInfo.attr.src}`);
+    console.error(`Failed to load script: ${scriptInfo.attr.src}`);
     loadScriptsSequentially(scripts, index + 1);
   };
 
