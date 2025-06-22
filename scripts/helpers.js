@@ -102,7 +102,7 @@ async function verifyUserProp() {
 //------------------------------------------<( set-sheet-key-helper-function()>-
 async function setSheetKey() {
   const ssid = sheet.Database.ssid;
-  const masterKey = props.script.gsKey;
+  const masterKey = props.script.sheetKey;
   console.log(masterKey);
   const apiData = await sheet.getData(ssid, `api_keys`, masterKey);
   let found = false;
