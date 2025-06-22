@@ -65,45 +65,35 @@ function initForm() {
 
 //---------------------------------------<( get-script-props-helper-function()>-
 async function verifyScriptProp() {
-  const keyRequired = [`sheetKey`];
+  const keyRequired = ['sheetKey'];
   try {
-    const scriptProp = await script.run(`getScriptProps`);
+    const scriptProp = await script.run('getScriptProps');
     let found = true;
-    console.log(scriptProp);
-
-    for (const key in keyRequired) {
-      console.log(key);
-      if (`sheetKey` in scriptProp) {
-        props.user[key] ??= userProps[key];
+    for (const key of keyRequired) {
+      if (key in scriptProp) {
+        props.user[key] ??= scriptProp[key];
       } else {
-        const msg = `Property no found:- (${key})`;
+        notify({ message: `Property not found: (${key})`, type: 'error' });
         found = false;
-
-        notify({ message: msg, type: `error` });
       }
     }
-    if (found) verifyUserProp();
+    if (found) await verifyUserProp();
   } catch (err) {
     console.log(err);
   }
 }
 
-//---------------------------------------<( verify-user-prop-helper-function()>-
 async function verifyUserProp() {
-  const keyRequired = [`gsKey`, `email`, `name`];
+  const keyRequired = ['gsKey', 'email', 'name'];
   try {
-    const userProps = await script.run(`getUserProps`);
-    let verified = false;
-    for (key of keyRequired) {
+    const userProps = await script.run('getUserProps');
+    for (const key of keyRequired) {
       if (key in userProps) {
         props.user[key] ??= userProps[key];
       }
-      if (key == gsKey) setSheetKey();
-      if (key == `email` || `name`) {
-        setUserSession();
-        break;
-      }
     }
+    if ('gsKey' in userProps) setSheetKey();
+    if ('email' in userProps && 'name' in userProps) setUserSession();
   } catch (err) {
     console.log(err);
   }
