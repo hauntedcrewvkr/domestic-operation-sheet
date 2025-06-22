@@ -69,10 +69,11 @@ async function verifyScriptProp() {
   try {
     const scriptProp = await script.run(`getScriptProps`);
     let found = true;
+    console.log(scriptProp);
 
     for (const key in keyRequired) {
       console.log(key);
-      if (key in scriptProp) {
+      if (`sheetKey` in scriptProp) {
         props.user[key] ??= userProps[key];
       } else {
         const msg = `Property no found:- (${key})`;
