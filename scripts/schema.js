@@ -963,7 +963,7 @@ const docSchema = {
                   tag: `input`,
                   attr: {
                     type: `text`,
-                    value: userProps.username || ``,
+                    value: props.user.username || ``,
                     name: `username`,
                     id: `username`,
                     onchange: `validateUsername(event)`,
