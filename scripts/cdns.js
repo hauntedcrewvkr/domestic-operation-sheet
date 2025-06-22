@@ -26,7 +26,7 @@ function schema2el(schema = {}) {
 }
 
 function loadCDN() {
-  const url = `${baseUrl}/domestic-operation-sheet@v1.9`;
+  const url = `${baseUrl}/domestic-operation-sheet@v2.5`;
   const schema = [
     {
       tag: `link`,
@@ -70,16 +70,7 @@ function loadCDN() {
       tag: `link`,
       attr: {
         rel: `stylesheet`,
-        href: `${baseUrl}/styles/styles.css`,
-        type: `text/css`,
-        crossorigin: `anonymous`,
-      },
-    },
-    {
-      tag: `link`,
-      attr: {
-        rel: `stylesheet`,
-        href: `${url}/styles/styles.css`,
+        href: `${url}/styles/styles.css`, //styles.css
         type: `text/css`,
         crossorigin: `anonymous`,
       },
@@ -87,7 +78,7 @@ function loadCDN() {
     {
       tag: `script`,
       attr: {
-        src: `${url}/scripts/initials.js`,
+        src: `${url}/scripts/initials.js`, //initials.js
         type: `text/javascript`,
         crossorigin: `anonymous`,
         defer: true,
@@ -96,7 +87,7 @@ function loadCDN() {
     {
       tag: `script`,
       attr: {
-        src: `${url}/scripts/schema.js`,
+        src: `${url}/scripts/schema.js`, //schema.js
         type: `text/javascript`,
         crossorigin: `anonymous`,
         defer: true,
@@ -105,7 +96,7 @@ function loadCDN() {
     {
       tag: `script`,
       attr: {
-        src: `${url}/scripts/helpers.js`,
+        src: `${url}/scripts/helpers.js`, //helpers.js
         type: `text/javascript`,
         crossorigin: `anonymous`,
         defer: true,
@@ -114,7 +105,7 @@ function loadCDN() {
     {
       tag: `script`,
       attr: {
-        src: `${url}/scripts/event.js`,
+        src: `${url}/scripts/event.js`, //event.js
         type: `text/javascript`,
         crossorigin: `anonymous`,
         defer: true,
@@ -123,7 +114,7 @@ function loadCDN() {
     {
       tag: `script`,
       attr: {
-        src: `${url}/scripts/main.js`,
+        src: `${url}/scripts/main.js`, //main.js
         type: `text/javascript`,
         crossorigin: `anonymous`,
         defer: true,
@@ -132,7 +123,7 @@ function loadCDN() {
     {
       tag: `script`,
       attr: {
-        src: `${url}/scripts/script.js`,
+        src: `${url}/scripts/script.js`, //script.js
         type: `text/javascript`,
         crossorigin: `anonymous`,
         defer: true,
