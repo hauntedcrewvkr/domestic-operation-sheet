@@ -2578,19 +2578,13 @@ const sheet = {
 };
 
 const script = {
-  run(fn, ...args) {
-    return google.script.run
-      .withSuccessHandler(script.success)
-      .withFailureHandler(script.failure)
-      [fn](...args);
-  },
-
-  success(response) {
-    return response;
-  },
-
-  failure(error) {
-    return error;
+  async run(fn, ...args) {
+    return new Promise((resolve, reject) => {
+      google.script.run
+        .withSuccessHandler(resolve)
+        .withFailureHandler(reject)
+        [fn](...args);
+    });
   },
 };
 
