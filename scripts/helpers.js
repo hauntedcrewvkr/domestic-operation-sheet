@@ -67,6 +67,7 @@ function initForm() {
 function verifyScriptProp() {
   const keyRequired = [`sheetKey`];
   const scriptProp = script.run(`getScriptProps`);
+  console.log(scriptProp);
   const found = true;
 
   for (key in keyRequired) {
