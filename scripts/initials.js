@@ -2579,7 +2579,7 @@ const sheet = {
 
 const script = {
   run(fn, ...args) {
-    google.script.run
+    return google.script.run
       .withSuccessHandler(script.success)
       .withFailureHandler(script.failure)
       [fn](...args);
