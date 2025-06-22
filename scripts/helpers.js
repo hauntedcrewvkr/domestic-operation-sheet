@@ -89,20 +89,23 @@ async function verifyScriptProp() {
 }
 
 //---------------------------------------<( verify-user-prop-helper-function()>-
-function verifyUserProp() {
+async function verifyUserProp() {
   const keyRequired = [`gsKey`, `email`, `name`];
-  const userProps = script.run(`getUserProps`);
-  let verified = false;
-
-  for (key of keyRequired) {
-    if (key in userProps) {
-      props.user[key] ??= userProps[key];
+  try {
+    const userProps = await script.run(`getUserProps`);
+    let verified = false;
+    for (key of keyRequired) {
+      if (key in userProps) {
+        props.user[key] ??= userProps[key];
+      }
+      if (key == gsKey) setSheetKey();
+      if (key == `email` || `name`) {
+        setUserSession();
+        break;
+      }
     }
-    if (key == gsKey) setSheetKey();
-    if (key == `email` || `name`) {
-      setUserSession();
-      break;
-    }
+  } catch (err) {
+    console.log(err);
   }
 }
 
