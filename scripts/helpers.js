@@ -54,6 +54,7 @@ function addLoader() {
 //----------------------------------------------<( init-form-helper-function()>-
 function initForm() {
   const userProps = script.run(`getUserProps`);
+  console.log(userProps);
   const formNeeded = !(`username` in userProps) || !(`password` in userProps);
   const properties = [];
 
