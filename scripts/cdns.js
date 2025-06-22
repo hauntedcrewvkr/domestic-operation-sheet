@@ -26,7 +26,7 @@ function schema2el(schema = {}) {
 }
 
 function loadCDN() {
-  const url = `${baseUrl}/domestic-operation-sheet@v1.8`;
+  const url = `${baseUrl}/domestic-operation-sheet@v1.9`;
   const schema = [
     {
       tag: `link`,
@@ -141,7 +141,7 @@ function loadCDN() {
   ];
 
   for (const obj of schema) {
-    document.head.append(schema2el(obj));
     console.log(obj);
+    document.head.append(schema2el(obj));
   }
 }
