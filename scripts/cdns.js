@@ -2,31 +2,45 @@ const cdnUrl = `https://cdn.jsdelivr.net/gh`;
 const baseUrl = `${cdnUrl}/hauntedcrewvkr`;
 
 function schema2el(schema = {}) {
-  const parent = document.createElement(schema.tag);
-
+  const el = document.createElement(schema.tag);
   if (schema.attr) {
-    for (let keyval of Object.entries(schema.attr)) {
-      parent.setAttribute(...keyval);
+    for (const [key, val] of Object.entries(schema.attr)) {
+      el.setAttribute(key, val);
+    }
+  }
+  return el;
+}
+
+function loadScriptsSequentially(scripts, index = 0) {
+  if (index >= scripts.length) {
+    console.log('All scripts loaded in order.');
+    return;
+  }
+
+  const scriptInfo = scripts[index];
+  const scriptEl = document.createElement('script');
+
+  for (const [key, val] of Object.entries(scriptInfo.attr)) {
+    if (key !== 'defer') {
+      scriptEl.setAttribute(key, val);
     }
   }
 
-  if (Array.isArray(schema.func)) {
-    for (let fx of schema.func) {
-      fx(parent);
-    }
-  }
+  scriptEl.onload = () => {
+    console.log(`✅ Loaded script: ${scriptInfo.attr.src}`);
+    loadScriptsSequentially(scripts, index + 1);
+  };
 
-  if (Array.isArray(schema.sub)) {
-    for (let subschema of schema.sub) {
-      parent.appendChild(schema2el(subschema));
-    }
-  }
+  scriptEl.onerror = () => {
+    console.error(`❌ Failed to load script: ${scriptInfo.attr.src}`);
+    loadScriptsSequentially(scripts, index + 1);
+  };
 
-  return parent;
+  document.head.appendChild(scriptEl);
 }
 
 function loadCDN() {
-  const url = `${baseUrl}/domestic-operation-sheet@v2.7`;
+  const url = `${baseUrl}/domestic-operation-sheet@v2.011`;
   const schema = [
     {
       tag: `link`,
@@ -70,7 +84,7 @@ function loadCDN() {
       tag: `link`,
       attr: {
         rel: `stylesheet`,
-        href: `${url}/styles/styles.css`, //styles.css
+        href: `${url}/styles/styles.css`,
         type: `text/css`,
         crossorigin: `anonymous`,
       },
@@ -78,61 +92,61 @@ function loadCDN() {
     {
       tag: `script`,
       attr: {
-        src: `${url}/scripts/initials.js`, //initials.js
+        src: `${url}/scripts/initials.js`,
         type: `text/javascript`,
         crossorigin: `anonymous`,
-        defer: true,
       },
     },
     {
       tag: `script`,
       attr: {
-        src: `${url}/scripts/schema.js`, //schema.js
+        src: `${url}/scripts/schema.js`,
         type: `text/javascript`,
         crossorigin: `anonymous`,
-        defer: true,
       },
     },
     {
       tag: `script`,
       attr: {
-        src: `${url}/scripts/helpers.js`, //helpers.js
+        src: `${url}/scripts/helpers.js`,
         type: `text/javascript`,
         crossorigin: `anonymous`,
-        defer: true,
       },
     },
     {
       tag: `script`,
       attr: {
-        src: `${url}/scripts/event.js`, //event.js
+        src: `${url}/scripts/event.js`,
         type: `text/javascript`,
         crossorigin: `anonymous`,
-        defer: true,
       },
     },
     {
       tag: `script`,
       attr: {
-        src: `${url}/scripts/main.js`, //main.js
+        src: `${url}/scripts/main.js`,
         type: `text/javascript`,
         crossorigin: `anonymous`,
-        defer: true,
       },
     },
     {
       tag: `script`,
       attr: {
-        src: `${url}/scripts/script.js`, //script.js
+        src: `${url}/scripts/script.js`,
         type: `text/javascript`,
         crossorigin: `anonymous`,
-        defer: true,
       },
     },
   ];
 
   for (const obj of schema) {
-    document.head.append(schema2el(obj));
+    if (obj.tag === 'link') {
+      document.head.appendChild(schema2el(obj));
+    }
   }
-  console.log(`content loaded`);
+
+  const scripts = schema.filter((obj) => obj.tag === 'script');
+  loadScriptsSequentially(scripts);
 }
+
+document.addEventListener('DOMContentLoaded', loadCDN);
