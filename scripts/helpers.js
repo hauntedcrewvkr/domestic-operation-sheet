@@ -67,7 +67,7 @@ function initForm() {
 async function verifyScriptProp() {
   const keyRequired = [`sheetKey`];
   try {
-    const scriptProp = script.run(`getScriptProps`);
+    const scriptProp = await script.run(`getScriptProps`);
     console.log(scriptProp);
   } catch (err) {
     console.log(err);
