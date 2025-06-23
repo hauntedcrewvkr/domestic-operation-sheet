@@ -10,6 +10,54 @@ function schema2el(schema = {}) {
   }
   return el;
 }
+//---------------------------------------------<( add-loader-helper-function()>-
+function addLoader() {
+  /**
+   * @description This function toggles the loader div
+   */
+  const schema = {
+    tag: `div`,
+    attr: {
+      class: `loader-div`,
+    },
+    sub: [
+      {
+        tag: `div`,
+        attr: {
+          class: `loading-wave`,
+        },
+        sub: [
+          {
+            tag: `div`,
+            attr: {
+              class: `loading-bar`,
+            },
+          },
+          {
+            tag: `div`,
+            attr: {
+              class: `loading-bar`,
+            },
+          },
+          {
+            tag: `div`,
+            attr: {
+              class: `loading-bar`,
+            },
+          },
+          {
+            tag: `div`,
+            attr: {
+              class: `loading-bar`,
+            },
+          },
+        ],
+      },
+    ],
+  };
+  const loader = schema2el(schema);
+  document.body.append(loader);
+}
 
 function loadScriptsSequentially(scripts, index = 0) {
   if (index >= scripts.length) {
@@ -41,7 +89,8 @@ function loadScriptsSequentially(scripts, index = 0) {
 }
 
 function loadCDN() {
-  const url = `${baseUrl}/domestic-operation-sheet@v2.2.1`;
+  addLoader();
+  const url = `${baseUrl}/domestic-operation-sheet@v2.2.2`;
   const schema = [
     {
       tag: `link`,
@@ -149,5 +198,4 @@ function loadCDN() {
   const scripts = schema.filter((obj) => obj.tag === 'script');
   loadScriptsSequentially(scripts);
 }
-
 document.addEventListener('DOMContentLoaded', loadCDN);

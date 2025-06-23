@@ -1,56 +1,6 @@
 /**
  * @description This consists all the helper functions
  */
-
-//---------------------------------------------<( add-loader-helper-function()>-
-function addLoader() {
-  /**
-   * @description This function toggles the loader div
-   */
-  const schema = {
-    tag: `div`,
-    attr: {
-      class: `loader-div`,
-    },
-    sub: [
-      {
-        tag: `div`,
-        attr: {
-          class: `loading-wave`,
-        },
-        sub: [
-          {
-            tag: `div`,
-            attr: {
-              class: `loading-bar`,
-            },
-          },
-          {
-            tag: `div`,
-            attr: {
-              class: `loading-bar`,
-            },
-          },
-          {
-            tag: `div`,
-            attr: {
-              class: `loading-bar`,
-            },
-          },
-          {
-            tag: `div`,
-            attr: {
-              class: `loading-bar`,
-            },
-          },
-        ],
-      },
-    ],
-  };
-  const loader = schema2el(schema);
-  document.body.append(loader);
-}
-
 //----------------------------------------------<( init-form-helper-function()>-
 function initForm() {
   const userProps = script.run(`getUserProps`);
