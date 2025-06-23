@@ -115,13 +115,11 @@ async function setSheetKey() {
       }
 
       break;
-    } else {
-      console.log(`api-key-not-found`);
     }
-  }
 
-  if (!found) notify({ message: `add-key`, type: `error` });
-  return found;
+    if (!found) notify({ message: `add-key`, type: `error` });
+    return found;
+  }
 }
 
 //---------------------------------------<( set-user-session-helper-function()>-
