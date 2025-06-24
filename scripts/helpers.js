@@ -80,7 +80,7 @@ async function verifyScriptProp() {
 async function verifyUserProp() {
   const keyHelper = {
     sheetKey: setSheetKey,
-    email: setEmail,
+    email: setUserExtras,
     name: setName,
   };
 
