@@ -484,6 +484,7 @@
   justify-content: center;
   z-index: 5;
   background: var(--neutral-dark);
+  gap: var(--spacing-md);
 }
 
 .loading-wave {
@@ -525,7 +526,7 @@
 }
 
 .progress-bar::before {
-  content: 'Loading...';
+  content: '';
   display: flex;
   align-items: center;
   position: absolute;
