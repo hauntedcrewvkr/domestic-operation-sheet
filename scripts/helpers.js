@@ -135,7 +135,7 @@ async function verifyUserProp() {
 
   async function setName() {
     const ssid = gsheet.Database.ssid;
-    const key = app.user.props.sheetKey;
+    const key = app.script.props.sheetKey;
     const param = { ssid: ssid, sheet: `employees`, key: key };
 
     let employeeData = await gsheet.getData(param);
