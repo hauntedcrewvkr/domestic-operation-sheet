@@ -497,3 +497,6 @@ function download() {
 }
 
 function myOrders() {}
+
+//----------------------------------------------<( add-loader-when-dom-loads )>-
+document.addEventListener(`DOMContentLoaded`, start);

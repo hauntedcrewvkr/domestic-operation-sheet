@@ -1,6 +1,3 @@
-//----------------------------------------------<( add-loader-when-dom-loads )>-
-document.addEventListener(`DOMContentLoaded`, start);
-
 //-----------------------------------------<( easy-to-use-function-constants )>-
 const fx = {
   //------------------------- query-selector

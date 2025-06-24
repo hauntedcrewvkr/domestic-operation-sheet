@@ -1,8 +1,6 @@
 /**
  * @description This consists all the helper functions
  */
-//----------------------------------------------<( add-loader-when-dom-loads )>-
-document.addEventListener(`DOMContentLoaded`, start);
 
 //--------------------------------------------------<( start-helper-function()>-
 function start() {
