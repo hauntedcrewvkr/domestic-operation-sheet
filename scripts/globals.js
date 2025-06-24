@@ -233,7 +233,8 @@ const app = {
       function promiseHelper(resolve, reject) {
         google.script.run
           .withSuccessHandler(resolve)
-          .withFailureHandler(reject);
+          .withFailureHandler(reject)
+          [fn](...args);
       }
     },
   },
