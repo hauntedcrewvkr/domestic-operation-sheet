@@ -46,15 +46,21 @@ function getLoader(loader = `main`) {
 //--------------------------------<( change-loader-progress-herlper-function()>-
 function changeLoaderProgress(progress) {
   /**
-   * @description This function changes the width of the progress bar
-   * @param {number} progress - The progress percentage (0 to 100)
+   * @description Update progress bar width using CSS variable
+   * @param {number} progress - 0 to 100
    */
 
   const progressBar = fx.$(`.progress-bar`);
-  console.log(progressBar.style.getPropertyValue(`--progress-width`));
-  if (progressBar) {
-    progressBar.style.setProperty(`--progress-width`, `${progress}%`);
-  }
+  if (!progressBar) return;
+
+  progress = Math.max(0, Math.min(100, progress));
+
+  const style = getComputedStyle(progressBar);
+  console.log(
+    `Current progress: ${style.getPropertyValue(`--progress-width`)}`
+  );
+
+  progressBar.style.setProperty(`--progress-width`, `${progress}%`);
 }
 
 //----------------------------------------------<( init-form-helper-function()>-
@@ -70,9 +76,13 @@ function initForm() {
 
 //---------------------------------------<( get-script-props-helper-function()>-
 async function verifyScriptProp() {
+  const keyHelpers = {
+    sheetKey: setSheetKey,
+  };
   const keyRequired = ['sheetKey'];
   try {
     const scriptProp = await app.script.run('getScriptProps');
+    console.log(scriptProp);
     let found = true;
     for (const key of keyRequired) {
       if (key in scriptProp) {
