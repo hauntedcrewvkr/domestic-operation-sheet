@@ -85,7 +85,7 @@ async function verifyUserProp() {
   };
 
   try {
-    const userProps = await script.run('getUserProps');
+    const userProps = await app.script.run('getUserProps');
     for (const key in keyHelper) {
       if (key in userProps) {
         app.user.props[key] ??= userProps[key];
