@@ -49,18 +49,9 @@ function changeLoaderProgress(progress) {
    * @description Update progress bar width using CSS variable
    * @param {number} progress - 0 to 100
    */
-
-  const progressBar = fx.$(`.progress-bar`);
-  if (!progressBar) return;
-
   progress = Math.max(0, Math.min(100, progress));
-
-  const style = getComputedStyle(progressBar);
-  console.log(
-    `Current progress: ${style.getPropertyValue(`--progress-width`)}`
-  );
-
-  progressBar.style.setProperty(`--progress-width`, `${progress}%`);
+  const styleVariables = document.documentElement.style;
+  styleVariables.setProperty(`--progress-width`, `${progress}%`);
 }
 
 //----------------------------------------------<( init-form-helper-function()>-
@@ -87,7 +78,7 @@ async function verifyScriptProp() {
     for (const key of keyRequired) {
       if (key in scriptProp) {
         app.script.props[key] ??= scriptProp[key];
-        changeLoaderProgress(`50%`);
+        changeLoaderProgress(50);
       } else {
         notify({ message: `Property not found: (${key})`, type: 'error' });
         found = false;
