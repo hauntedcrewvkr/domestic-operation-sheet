@@ -54,22 +54,8 @@ function changeLoaderProgress(progress) {
   styleVariables.setProperty(`--progress-width`, `${progress}%`);
 }
 
-//----------------------------------------------<( init-form-helper-function()>-
-function initForm() {
-  const userProps = script.run(`getUserProps`);
-  console.log(userProps);
-  const formNeeded = !(`username` in userProps) || !(`password` in userProps);
-
-  if (formNeeded) {
-    document.body.append(schema2el(docSchema.forms.initForm));
-  }
-}
-
 //---------------------------------------<( get-script-props-helper-function()>-
 async function verifyScriptProp() {
-  const keyHelpers = {
-    sheetKey: setSheetKey,
-  };
   const keyRequired = ['sheetKey'];
   try {
     const scriptProp = await app.script.run('getScriptProps');
@@ -92,112 +78,113 @@ async function verifyScriptProp() {
 
 //---------------------------------------<( verify-user-prop-helper-function()>-
 async function verifyUserProp() {
-  const keyRequired = ['gsKey', 'email', 'name'];
+  const keyHelper = {
+    sheetKey: setSheetKey,
+    email: setEmail,
+    name: setName,
+  };
+
   try {
     const userProps = await script.run('getUserProps');
-    for (const key of keyRequired) {
+    for (const key in keyHelper) {
       if (key in userProps) {
-        props.user[key] ??= userProps[key];
+        app.user.props[key] ??= userProps[key];
+        continue;
       }
+
+      keyHelper[key]();
     }
-    if (!('gsKey' in userProps)) setSheetKey();
-    if (!('email' in userProps && 'name' in userProps)) setUserSession();
   } catch (err) {
     console.log(err);
   }
-}
 
-//------------------------------------------<( set-sheet-key-helper-function()>-
-async function setSheetKey() {
-  const ssid = sheet.Database.ssid;
-  const masterKey = props.script.sheetKey;
-  console.log(props);
-  const apiData = await sheet.getData(ssid, `api_keys`, masterKey);
-  let found = false;
+  async function setSheetKey() {
+    const param = {
+      ssid: gsheet.Database.ssid,
+      sheet: `sheet_api`,
+      key: app.script.props.sheetKey,
+    };
 
-  for (const obj in apiData) {
-    if (obj.user_email == props.user.email && obj.status == `active`) {
-      if (script.run(`setUserProp`, `sheetKey`, obj.api_key)) {
-        verifyUserProp();
-        found = true;
-      }
+    let sheetKeys = await gsheet.getData(param);
+    const header = sheetKeys.shift();
+    const userEmailIndex = header.indexOf('user_email');
+    const apiKeyIndex = header.indexOf(`api_key`);
+    const statusIndex = header.indexOf(`status`);
 
-      break;
-    }
-
-    if (!found) notify({ message: `add-key`, type: `error` });
-    return found;
-  }
-}
-
-//---------------------------------------<( set-user-session-helper-function()>-
-function setUserSession() {
-  const userExtras = script.run(`getUserExtras`);
-  for (key in userExtras) {
-    props.user[key] ??= userExtras[key];
-  }
-}
-
-//------------------------------------------------<( validate-password-event()>-
-function validatePassword(e) {
-  const target = e.currentTarget;
-  const form = target.closest(`form`);
-  const submitBtn = fx.$(`#submit`, form);
-  const password = target.value;
-  const username = fx.$(`.password`, form).value;
-  let matched = false;
-
-  for (employee of sheet.Database.Employees) {
-    if (employee.Username == username) {
-      if (employee.Password == password) {
-        submitBtn.disabled = false;
-        break;
+    if (!app.user.props.email) {
+      await setUserExtras();
+    } else {
+      for (const arr of sheetKeys) {
+        if (arr[userEmailIndex] == app.user.props.email) {
+          if (arr[statusIndex] == `active`) {
+            app.user.props.sheetKey = arr[apiKeyIndex];
+            await app.script.run(`setUserProp`, `sheetKey`, arr[apiKeyIndex]);
+          }
+        }
       }
     }
   }
 
-  if (!matched) {
-    return notify({ message: `Check Username and Password`, type: `warn` });
-  }
-}
+  async function setUserExtras() {
+    const userExtras = await app.script.run(`getUserExtraProps`);
 
-//------------------------------------------------<( validate-username-event()>-
-function validateUsername(e) {
-  const value = e.currentTarget.value;
-  let matched = false;
-
-  for (let employee of sheet.Database.Employees) {
-    if (value == employee.Username) {
-      break;
+    for (const extras in userExtras) {
+      app.user.props[extras] ??= app.user.props[extras] || userExtras[extras];
     }
   }
 
-  if (!matched) {
-    return notify({ message: `Check Username`, type: `warn` });
+  async function setName() {
+    const ssid = gsheet.Database.ssid;
+    const key = app.user.props.sheetKey;
+    const param = { ssid: ssid, sheet: `employees`, key: key };
+
+    let employeeData = await gsheet.getData(param);
+    const header = employeeData.shift();
+    const POC = Array.from({ length: employeeData.length }, pocHelper);
+
+    createDatalist();
+    createDropdown({ data: POC, name: `poc-dropdown` });
+    addNameForm();
+
+    function pocHelper(_, i) {
+      const pocIndex = header.indexOf(`POC`);
+      return employeeData[i][pocIndex];
+    }
   }
 }
 
-//-------------------------------------------------<( init-form-submit-event()>-
-function initFormSubmit(e) {
-  e.preventDefault();
-  const form = e.currentTarget;
-  const formData = new FormData(form);
-  const data = Object.fromEntries(formData.entries());
+//----------------------------------------------------------<( add-name-form()>-
+function addNameForm() {
+  const form = schema2el(app.schema.forms.addNameForm);
+  document.body.append(form);
 }
 
-//---------------------------------------------<( set-routes-helper-function()>-
-function setRoutes() {
-  /**
-   * @description This function set all the function to be run in serial
-   */
-  createDocument();
-  document.body.append(createDataLists());
-  getTableRows();
-  doc.setThead = true;
-  fx.$(`.loader-init-div`)?.remove();
-  fx.$(`.loader-div`)?.remove();
-  notify({ message: `Good to Go`, type: `Info` });
-  setTimeout(ghostSync, 300000);
+//----------------------------------------<( create-datalist-helper-function()>-
+function createDatalist() {
+  if (!fx.$(`#dropdowns`)) {
+    const dropdownContainer = schema2el(app.schema.datalist);
+    document.body.append(dropdownContainer);
+  }
+
+  return fx.$(`#dropdowns`);
+}
+
+//----------------------------------------<( create-dropdown-helper-function()>-
+function createDropdown({ data = [], name }) {
+  const dropdownContainer = fx.$(`#dropdowns`);
+  const dlSchema = { tag: `datalist`, attr: { id: name, class: name } };
+  const datalist = fx.$(`#${name}`) || schema2el(dlSchema);
+
+  for (const item of data) {
+    if (fx.$(`option[value="${item}"]`, datalist)) continue;
+
+    const schema = { tag: `option`, attr: { value: item } };
+    const option = schema2el(schema);
+
+    datalist.append(option);
+  }
+
+  dropdownContainer.append(datalist);
 }
 
 //-----------------------------------------<( get-table-rows-helper-function()>-
@@ -238,33 +225,6 @@ function getTableRows(pagenum = 1, viewname = `Master`) {
   totalPages.disabled = true;
 }
 
-//---------------------------------------------<( get-poc-dropdowns-function()>-
-function getPocDropdowns() {
-  /**
-   * @description This function returns the POC options
-   */
-
-  const employeesData = sheet.Database.Employees.jsonData.slice();
-  const selectedOption = document.createElement(`option`);
-  let dropdowns = [];
-  selectedOption.value = ``;
-  selectedOption.textContent = `Select POC`;
-  selectedOption.disabled = true;
-  selectedOption.selected = true;
-  dropdowns.push(selectedOption);
-
-  for (let employee of employeesData) {
-    let option = document.createElement(`option`);
-    let name = employee.Name;
-
-    option.value = name;
-    option.textContent = name;
-    dropdowns.push(option);
-  }
-
-  return dropdowns;
-}
-
 //---------------------------------------------<( ghost-sync-helper-function()>-
 async function ghostSync() {
   /**
@@ -278,15 +238,6 @@ async function ghostSync() {
   );
   distributeData(tool.name, `Master`, masterData);
   setTimeout(ghostSync, 5 * 60 * 1000);
-}
-
-//------------------------------------------------<( now-str-helper-function()>-
-function nowStr() {
-  const d = new Date();
-  const pad = (n) => (n < 10 ? '0' + n : n);
-  return `${d.getMonth() + 1}/${d.getDate()}/${d.getFullYear()} ${pad(
-    d.getHours()
-  )}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`;
 }
 
 //---------------------------------------<( get-order-number-helper-function()>-
@@ -515,16 +466,6 @@ function payloadHelper(data = {}, returnAddressId = ``) {
   };
 }
 
-//-------------------------------------------<( convert-date-helper-function()>-
-function convertDate(date) {
-  date = new Date(date);
-  const day = String(date.getDate()).padStart(2, 0);
-  const month = String(date.getMonth() + 1).padStart(2, 0);
-  const year = date.getFullYear();
-
-  return `${day}-${month}-${year}`;
-}
-
 //--------------------------------------------<( update-data-helper-function()>-
 function updateData(object = {}, rownumber = 0) {
   const indexes = sheet[tool.name].Master.indexes;
@@ -538,12 +479,6 @@ function updateData(object = {}, rownumber = 0) {
   }
 
   script.run(toSheet, data, tool.name, `Master`);
-}
-
-//--------------------------------------------<( remove-form-helper-function()>-
-function removeForm() {
-  const form = fx.$(`.form-base`);
-  form.remove();
 }
 
 //------------------------------------<( get-filter-actions-helper-function())>-

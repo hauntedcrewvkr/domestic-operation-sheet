@@ -1,3 +1,14 @@
+//------------------------------------------------<( set-name-event-function()>-
+async function setName(e) {
+  e.preventDefault();
+  const element = e.currentTarget;
+  const formData = new FormData(element);
+
+  if (await app.script.run(`setUserProp`, `name`, formData.POC)) {
+    app.user.props.name ??= app.user.props.name || formData.POC;
+  }
+}
+
 //------------------------- add-new-order-event-listener
 function addNewOrder(e) {
   e.stopPropagation();

@@ -152,6 +152,15 @@ const fx = {
       .replace(/[-_\s]+(.)?/g, (_, c) => (c ? c.toUpperCase() : ''))
       .replace(/^[a-z]/, (match) => match.toUpperCase());
   },
+
+  convertDate({ date, format = `dd-mm-yyyy` }) {
+    const delimiters = format[format.indexOf(`dd`) + 1];
+    const options = { year: `numeric`, month: `2-digit`, day: `2-digit` };
+    const formattedDate = new Intl.DateTimeFormat(`en-US`, options).format(
+      new Date(date)
+    );
+    return formattedDate;
+  },
 };
 
 //--------------------------------------------------------<( app-preferences )>-
@@ -165,14 +174,63 @@ const app = {
       main: {},
       footer: {},
     },
+    datalist: { tag: `section`, attr: { id: `dropdowns`, class: `dropdowns` } },
     forms: {
       addNewOrderForm: {},
       cxIssueForm: {},
       paymentConfirmationForm: {},
       changeDispatchStatusForm: {},
       addRemarksForm: {},
-      addNameForm: {},
       addNewOrderForm: {},
+      addNameForm: {
+        tag: `form`,
+        attr: {
+          class: `add-name-form base-form`,
+          id: `add-name-form base-form`,
+          onsubmit: `setName(event)`,
+        },
+        sub: [
+          {
+            tag: `fieldset`,
+            attr: {},
+            sub: [
+              {
+                tag: `legend`,
+                text: `Add Name`,
+                attr: { id: `form-heading` },
+              },
+              {
+                tag: `label`,
+                text: `Your Name`,
+                attr: {},
+              },
+              {
+                tag: `input`,
+                attr: {
+                  type: `text`,
+                  list: `poc-dropdown`,
+                  name: `POC`,
+                  onchange: `validateUsername()`,
+                },
+              },
+            ],
+          },
+          {
+            tag: `div`,
+            attr: { class: `` },
+            sub: [
+              {
+                tag: `button`,
+                text: `ADD NAME`,
+                attr: {
+                  type: `submit`,
+                  disabled: true,
+                },
+              },
+            ],
+          },
+        ],
+      },
     },
     loader: {
       main: {
