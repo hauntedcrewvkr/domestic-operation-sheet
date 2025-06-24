@@ -51,6 +51,7 @@ function changeLoaderProgress(progress) {
    */
 
   const progressBar = fx.$(`.progress-bar`);
+  console.log(progressBar.style.getPropertyValue(`--progress-width`));
   if (progressBar) {
     progressBar.style.setProperty(`--progress-width`, `${progress}%`);
   }
