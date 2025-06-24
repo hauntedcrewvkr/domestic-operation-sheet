@@ -156,8 +156,8 @@ const fx = {
 
 //--------------------------------------------------------<( app-preferences )>-
 const app = {
-  favicon: document.title,
-  title: document.app.textContent || document.title || document.app.innerHTML,
+  favicon: document.favicon,
+  title: document.title,
   schema: {
     body: {
       header: {},
