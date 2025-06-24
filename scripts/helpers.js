@@ -139,6 +139,7 @@ async function verifyUserProp() {
     const param = { ssid: ssid, sheet: `employees`, key: key };
 
     let employeeData = await gsheet.getData(param);
+    console.log(employeeData);
     const header = employeeData.shift();
     const POC = Array.from({ length: employeeData.length }, pocHelper);
 
