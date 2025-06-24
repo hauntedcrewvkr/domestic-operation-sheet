@@ -302,5 +302,3 @@ const itl = {
     addReattempt_rto: `https://my.ithinklogistics.com/api_v3/ndr/add-reattempt-rto.json`,
   },
 };
-
-console.log(document.title);

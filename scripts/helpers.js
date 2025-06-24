@@ -21,11 +21,20 @@ function removeShimmerEffect(element) {
 //----------------------------------------------<( schema2el-helper-function()>-
 function schema2el(schema = {}) {
   const el = document.createElement(schema.tag);
+
   if (schema.attr) {
     for (const [key, val] of Object.entries(schema.attr)) {
       el.setAttribute(key, val);
     }
   }
+
+  if (schema.sub && Array.isArray(schema.sub)) {
+    for (const childSchema of schema.sub) {
+      const childEl = schema2el(childSchema); // recursion
+      el.appendChild(childEl);
+    }
+  }
+
   return el;
 }
 
@@ -62,7 +71,7 @@ function initForm() {
 async function verifyScriptProp() {
   const keyRequired = ['sheetKey'];
   try {
-    const scriptProp = await script.run('getScriptProps');
+    const scriptProp = await app.script.run('getScriptProps');
     let found = true;
     for (const key of keyRequired) {
       if (key in scriptProp) {
