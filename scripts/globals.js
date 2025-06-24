@@ -217,7 +217,6 @@ const app = {
             tag: `div`,
             attr: {
               class: `progress-bar`,
-              style: `--progress-width: 0%`,
             },
           },
         ],
