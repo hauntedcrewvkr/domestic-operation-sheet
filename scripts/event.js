@@ -1,14 +1,3 @@
-//------------------------- escape-btn-event
-document.addEventListener(`keydown`, function (event) {
-  if (event.key === `Escape`) {
-    const detailsView = fx.$$(`.details`);
-    detailsView.forEach(function (d) {
-      d.classList.remove(`details`);
-    });
-    fx.$(`.extra-views`).innerHTML = ``;
-  }
-});
-
 //------------------------- add-new-order-event-listener
 function addNewOrder(e) {
   e.stopPropagation();

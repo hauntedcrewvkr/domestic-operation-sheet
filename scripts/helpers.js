@@ -1,12 +1,56 @@
 /**
  * @description This consists all the helper functions
  */
+//--------------------------------------------------<( start-helper-function()>-
+function start() {
+  document.body.append(getLoader());
+  verifyScriptProp();
+}
+
+//--------------------------------------------<( add-shimmer-helper-function()>-
+function addShimmerEffect(element) {
+  element.classList.add('shimmer');
+}
+
+//-----------------------------------------<( remove-shimmer-helper-function()>-
+function removeShimmerEffect(element) {
+  element.classList.remove('shimmer');
+}
+
+//----------------------------------------------<( schema2el-helper-function()>-
+function schema2el(schema = {}) {
+  const el = document.createElement(schema.tag);
+  if (schema.attr) {
+    for (const [key, val] of Object.entries(schema.attr)) {
+      el.setAttribute(key, val);
+    }
+  }
+  return el;
+}
+
+//---------------------------------------------<( get-loader-helper-function()>-
+function getLoader(loader = `main`) {
+  return schema2el(app.schema.loader[loader]);
+}
+
+//--------------------------------<( change-loader-progress-herlper-function()>-
+function changeLoaderProgress(progress) {
+  /**
+   * @description This function changes the width of the progress bar
+   * @param {number} progress - The progress percentage (0 to 100)
+   */
+
+  const progressBar = fx.$(`.progress-bar`);
+  if (progressBar) {
+    progressBar.style.setProperty(`--progress-width`, `${progress}%`);
+  }
+}
+
 //----------------------------------------------<( init-form-helper-function()>-
 function initForm() {
   const userProps = script.run(`getUserProps`);
   console.log(userProps);
   const formNeeded = !(`username` in userProps) || !(`password` in userProps);
-  const properties = [];
 
   if (formNeeded) {
     document.body.append(schema2el(docSchema.forms.initForm));
@@ -33,6 +77,7 @@ async function verifyScriptProp() {
   }
 }
 
+//---------------------------------------<( verify-user-prop-helper-function()>-
 async function verifyUserProp() {
   const keyRequired = ['gsKey', 'email', 'name'];
   try {

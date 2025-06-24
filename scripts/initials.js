@@ -2,160 +2,6 @@
  * - Consist all the custom functions
  * - should be loaded first
  */
-const fx = {
-  //------------------------- query-selector
-  $(sel, scope = document) {
-    /**
-     * @description This function is used instead of document.querySelector()
-     * @param {string} sel
-     * @param {Element} scope
-     */
-
-    return scope.querySelector(sel);
-  },
-
-  //------------------------- query-selectorall
-  $$(sel, scope = document) {
-    /**
-     * @description This function can be used instead of document.querySelectorAll()
-     * @param {string} sel
-     * @param {Element} scope
-     */
-
-    return scope.querySelectorAll(sel);
-  },
-
-  //------------------------- stringify
-  str(value) {
-    /**
-     * @description This function converts the value to a string type
-     * @param {*} value
-     */
-
-    if (typeof value == `object`) return JSON.stringify(value);
-    if (typeof value == `string`) return `${value}`;
-    return value;
-  },
-
-  //------------------------- numify
-  num(value) {
-    /**
-     * @description This funciton converts the value to a number if possible
-     * @param {string} value
-     */
-
-    if (typeof value == `number`) return value;
-    return Number(value);
-  },
-
-  //------------------------- indexer
-  indexer(obj, value) {
-    /**
-     * @description This function returns the value of the index or key
-     * @param {object} obj
-     * @param {string, number} value
-     */
-
-    if (!obj || value < 0) return;
-
-    return obj[value];
-  },
-
-  //------------------------- get-index
-  getIndex(arr = [], value) {
-    /**
-     * @description This function returns the index of a value in the object
-     * @param {array, object} arr
-     * @param {number} value
-     */
-
-    if (!arr || !value || arr.indexOf(value) < 0) return;
-
-    return arr.indexOf(value);
-  },
-
-  //------------------------- create-element-from-text
-  text2el(text) {
-    /**
-     * @description Converts an HTML string into a proper DOM element.
-     * @param {string} text - a single html element as string
-     * @returns {HTMLElement}
-     */
-    const template = document.createElement(`template`);
-    template.innerHTML = text.trim();
-
-    return template.content.firstElementChild;
-  },
-
-  setInnerHTML(element) {
-    element.innerHTML = element.getAttribute(`innerhtml`);
-    return element;
-  },
-
-  //------------------------- remove-inner-html
-  removeInnerHTML(element) {
-    /**
-     * @description This function removes inner html of an element
-     * @param {element} element
-     */
-
-    element.innerHTML = ``;
-    return;
-  },
-
-  //------------------------- create-kebab-case-of-a-text
-  kebabCase(str = ``) {
-    /**
-     * @description Converts text into kebab case
-     * @param {string} str
-     * @returns Text having kebab case
-     */
-    return str
-      .replace(/([a-z0-9])([A-Z])/g, '$1-$2')
-      .replace(/[\s_]+/g, '-')
-      .toLowerCase();
-  },
-
-  //------------------------- create-camel-case-of-a-text
-  camelCase(str = ``) {
-    /**
-     * @description Converts text into camel case
-     * @param {string} str
-     * @returns Text having camel case
-     */
-    return str
-      .toLowerCase()
-      .replace(/[-_\s]+(.)?/g, (_, c) => (c ? c.toUpperCase() : ''));
-  },
-
-  //------------------------- create-snake-case-of-a-text
-  snakeCase(str = '') {
-    /**
-     * @description Converts text into snake case
-     * @param {string} str
-     * @returns Text having snake case
-     */
-
-    return str
-      .replace(/([a-z0-9])([A-Z])/g, '$1_$2')
-      .replace(/[\s\-]+/g, '_')
-      .toLowerCase();
-  },
-
-  //------------------------- create-pascal-case-of-a-text
-  pascalCase(str = '') {
-    /**
-     * @description Converts text into pascal case
-     * @param {string} str
-     * @returns Text having pascal case
-     */
-
-    return str
-      .toLowerCase()
-      .replace(/[-_\s]+(.)?/g, (_, c) => (c ? c.toUpperCase() : ''))
-      .replace(/^[a-z]/, (match) => match.toUpperCase());
-  },
-};
 
 const tool = {
   name: `Domestic Operation Sheet`,
@@ -465,16 +311,6 @@ const tool = {
     `Shipping Details`,
     `Logistic Details`,
   ],
-  //------------------------- get-the-loader-element
-  get loader() {
-    let loaderDiv = document.createElement(`div`);
-    let loaderSpan = document.createElement(`span`);
-
-    loaderDiv.classList.add(`loader-div`);
-    loaderSpan.classList.add(`loader`);
-
-    return loaderDiv.appendChild(loaderSpan);
-  },
 };
 
 const doc = {
@@ -2579,12 +2415,14 @@ const sheet = {
 
 const script = {
   async run(fn, ...args) {
-    return new Promise((resolve, reject) => {
+    return new Promise(promiseHelper);
+
+    function promiseHelper(resolve, reject) {
       google.script.run
         .withSuccessHandler(resolve)
         .withFailureHandler(reject)
         [fn](...args);
-    });
+    }
   },
 };
 
@@ -2634,5 +2472,3 @@ const user = {
     },
   },
 };
-
-const props = { script: {}, user: {} };
