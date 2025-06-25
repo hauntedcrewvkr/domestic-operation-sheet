@@ -3,14 +3,16 @@
  */
 
 //--------------------------------------------------<( start-helper-function()>-
-function start() {
+async function start() {
   let loader = getLoader();
   document.body.append(loader);
-  setSpreadsheets();
-  setItl();
-  getScriptProps();
-  getUserProps();
+
+  await setSpreadsheets();
+  await setItl();
+  await getScriptProps();
+  await getUserProps();
   createDocument();
+
   loader.remove();
 }
 
