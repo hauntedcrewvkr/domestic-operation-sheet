@@ -89,7 +89,7 @@ async function setSpreadsheets() {
   }
 
   gsheet.database.spreadsheet ??= {};
-  gsheet.database.spreadsheets.data = data;
+  gsheet.database.spreadsheets.data ??= data;
 }
 
 //--------------------------------------------<( add-shimmer-helper-function()>-
