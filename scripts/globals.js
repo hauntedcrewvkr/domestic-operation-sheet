@@ -172,10 +172,12 @@ const app = {
           {
             tag: `div`,
             attr: { class: `logo`, title: document.title },
-            sub: {
-              tag: `img`,
-              attr: { class: `logo-img`, src: fx.$(`favicon`).innerHTML, alt: `Logo` },
-            },
+            sub: [
+              {
+                tag: `img`,
+                attr: { class: `logo-img`, src: fx.$(`favicon`).innerHTML, alt: `Logo` },
+              },
+            ],
           },
           {
             tag: `div`,
