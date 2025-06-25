@@ -174,7 +174,7 @@ const app = {
             attr: { class: `logo`, title: document.title },
             sub: {
               tag: `img`,
-              attr: { class: `logo-img`, src: document.favicon, alt: `Logo` },
+              attr: { class: `logo-img`, src: fx.$(`favicon`).innerHTML, alt: `Logo` },
             },
           },
           {
