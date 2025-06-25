@@ -182,27 +182,19 @@ async function verifyUserProp() {
 
   async function setSheetKey() {
     const param = {
-      ssid: gsheet.Database.ssid,
+      ssid: gsheet.database.ssid,
       sheet: `sheet_api`,
-      key: app.script.props.sheetKey,
     };
 
-    let sheetKeys = await gsheet.getData(param);
-    const header = sheetKeys.shift();
-    const userEmailIndex = header.indexOf('user_email');
-    const apiKeyIndex = header.indexOf(`api_key`);
-    const statusIndex = header.indexOf(`status`);
+    let sheetKeys = await app.script.run(`getSheetData`, param);
+    let data = sheetKeys.data;
 
-    if (!app.user.props.email) {
-      await setUserExtras();
-    } else {
-      for (const arr of sheetKeys) {
-        if (arr[userEmailIndex] == app.user.props.email) {
-          if (arr[statusIndex] == `active`) {
-            app.user.props.sheetKey = arr[apiKeyIndex];
-            await app.script.run(`setUserProp`, `sheetKey`, arr[apiKeyIndex]);
-          }
-        }
+    gsheet.database.sheetApi.header = sheetKeys.header;
+    gsheet.database.sheetApi.data = data;
+
+    for (let r = 0; r < data; r++) {
+      if (data[r].user_email.value.contains(app.user.email) && data[r].status.value == `active`) {
+        app.user.props.apiKey = data[r].api_key.value;
       }
     }
   }
@@ -839,5 +831,3 @@ function filterJson({ data, header, rownum }) {
 
   return json;
 }
-
-console.log(`loaded`);
