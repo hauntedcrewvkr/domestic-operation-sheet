@@ -88,7 +88,8 @@ async function setSpreadsheets() {
     gsheet[spreadsheet].ssid = row.id.value;
   }
 
-  gsheet.database.spreadsheets.jsonData = data;
+  gsheet.database.spreadsheet ??= {};
+  gsheet.database.spreadsheets.data = data;
 }
 
 //--------------------------------------------<( add-shimmer-helper-function()>-
