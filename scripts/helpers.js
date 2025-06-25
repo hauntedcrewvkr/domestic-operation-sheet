@@ -4,12 +4,14 @@
 
 //--------------------------------------------------<( start-helper-function()>-
 function start() {
-  document.body.append(getLoader());
+  let loader = getLoader();
+  document.body.append(loader);
   setSpreadsheets();
   setItl();
-  verifyScriptProp();
-  verifyUserProp();
+  getScriptProps();
+  getUserProps();
   createDocument();
+  loader.remove();
 }
 
 //----------------------------------------<( create-document-helper-function()>-
@@ -139,73 +141,26 @@ function changeLoaderProgress(progress) {
 }
 
 //---------------------------------------<( get-script-props-helper-function()>-
-async function verifyScriptProp() {
-  const keyRequired = ['sheetKey'];
-  try {
-    const scriptProp = await app.script.run('getScriptProps');
-    console.log(scriptProp);
-    let found = true;
-    for (const key of keyRequired) {
-      if (key in scriptProp) {
-        app.script.props[key] ??= scriptProp[key];
-        changeLoaderProgress(50);
-      } else {
-        notify({ message: `Property not found: (${key})`, type: 'error' });
-        found = false;
-      }
-    }
-    if (found) await verifyUserProp();
-  } catch (err) {
-    console.log(err);
+async function getScriptProps() {
+  const scriptProp = await app.script.run(`getScriptProps`);
+
+  for (const prop in scriptProp) {
+    app.script.props[prop] ??= scriptProp[prop];
   }
 }
 
 //---------------------------------------<( verify-user-prop-helper-function()>-
-async function verifyUserProp() {
-  const keyHelper = {
-    sheetKey: setSheetKey,
-    email: setUserExtras,
-  };
+async function getUserProps() {
+  const userProps = await app.script.run(`getUserProps`);
 
-  try {
-    const userProps = await app.script.run('getUserProps');
-    for (const key in keyHelper) {
-      if (key in userProps) {
-        app.user.props[key] ??= userProps[key];
-        continue;
-      }
-
-      keyHelper[key]();
-    }
-  } catch (err) {
-    console.log(err);
+  for (const prop in userProps) {
+    app.user.props[prop] ??= userProps[prop];
   }
 
-  async function setSheetKey() {
-    const param = {
-      ssid: gsheet.database.ssid,
-      sheet: `sheet_api`,
-    };
+  const userExtraProps = await app.script.run(`getUserExtraProps`);
 
-    let sheetKeys = await app.script.run(`getSheetData`, param);
-    let data = sheetKeys.data;
-
-    gsheet.database.sheetApi.header = sheetKeys.header;
-    gsheet.database.sheetApi.data = data;
-
-    for (let r = 0; r < data; r++) {
-      if (data[r].user_email.value.contains(app.user.email) && data[r].status.value == `active`) {
-        app.user.props.apiKey = data[r].api_key.value;
-      }
-    }
-  }
-
-  async function setUserExtras() {
-    const userExtras = await app.script.run(`getUserExtraProps`);
-
-    for (const extras in userExtras) {
-      app.user.props[extras] ??= app.user.props[extras] || userExtras[extras];
-    }
+  for (const prop in userExtraProps) {
+    app.user.props[prop] ??= userExtraProps[prop];
   }
 }
 
