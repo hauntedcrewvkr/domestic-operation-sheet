@@ -26,15 +26,15 @@ function createDocument() {
 
 //------------------------------------------------<( set-itl-helper-function()>-
 async function setItl() {
-  const data = await app.script.run(`getItlCred`);
+  const data = await app.script.run(`getSheetData`, { ssid: gsheet.database.ssid, sheetname: `ITL Reference` });
 
   for (const row of data) {
     const orderType = fx.camelCase(row.order_type.value);
-    itl.company[orderType].name = row.company.value;
-    itl.company[orderType].accessToken = row.access_token.value;
-    itl.company[orderType].secretKey = row.secret_key.value;
-    itl.company[orderType].pickupAddressId = row.pickup_address_id.value;
-    itl.company[orderType].returnAddressId = row.return_address_id.value;
+    itl.company[orderType].name ??= row.company.value;
+    itl.company[orderType].accessToken ??= row.access_token.value;
+    itl.company[orderType].secretKey ??= row.secret_key.value;
+    itl.company[orderType].pickupAddressId ??= row.pickup_address_id.value;
+    itl.company[orderType].returnAddressId ??= row.return_address_id.value;
   }
 }
 
