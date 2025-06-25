@@ -1,10 +1,3 @@
-function createDocument() {
-  schema2el({ schema: doc.schema.header });
-  schema2el({ schema: doc.schema.nav });
-  schema2el({ schema: doc.schema.main });
-  schema2el({ schema: doc.schema.footer });
-}
-
 function getActions(type) {
   /**
    * @description This function creates the list of actions of the type mentioned

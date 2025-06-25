@@ -6,20 +6,89 @@
 function start() {
   document.body.append(getLoader());
   setSpreadsheets();
-  // verifyScriptProp();
+  setItl();
+  verifyScriptProp();
+  verifyUserProp();
+  createDocument();
+}
+
+//----------------------------------------<( create-document-helper-function()>-
+function createDocument() {
+  const header = schema2el(app.schema.body.header);
+  const nav = schema2el(app.schema.body.nav);
+  const main = schema2el(app.schema.body.main);
+  const footer = schema2el(app.schema.body.footer);
+
+  document.body.append(header, nav, main, footer);
+}
+
+//------------------------------------------------<( set-itl-helper-function()>-
+async function setItl() {
+  const data = await app.script.run(`getItlCred`);
+
+  for (const row of data) {
+    const orderType = fx.camelCase(row.order_type.value);
+    itl.company[orderType].name = row.company.value;
+    itl.company[orderType].accessToken = row.access_token.value;
+    itl.company[orderType].secretKey = row.secret_key.value;
+    itl.company[orderType].pickupAddressId = row.pickup_address_id.value;
+    itl.company[orderType].returnAddressId = row.return_address_id.value;
+  }
+}
+
+//------------------------------------<( set-primary-actions-helper-function()>-
+async function setPrimaryActions(element) {
+  const url = gviz.gvizUrl({ ssid: gsheet.database.ssid, sheet: `action_access` });
+  const data = await gviz.fetchGoogleSheetData(url);
+
+  gsheet.database.action_access.data ??= data.data;
+  gsheet.database.action_access.headers ??= data.header;
+
+  for (const row in data.data) {
+    if (row.type.value == `Primary Action` && row.access.value.includes(app.user.props.email)) {
+      const schema = {
+        tag: `li`,
+        attr: { title: row.action.value },
+        func: getIcon,
+      };
+
+      element.append(schema2el(schema));
+    }
+  }
+}
+
+//----------------------------------<( set-secondary-actions-helper-function()>-
+async function setSecondaryActions(element) {
+  const url = gviz.gvizUrl({ ssid: gsheet.database.ssid, sheet: `action_access` });
+  const data = await gviz.fetchGoogleSheetData(url);
+
+  gsheet.database.action_access.data ??= data.data;
+  gsheet.database.action_access.headers ??= data.header;
+
+  for (const row in data.data) {
+    if (row.type.value == `Secondary Action` && row.access.value.includes(app.user.props.email)) {
+      const schema = {
+        tag: `li`,
+        attr: { title: row.action.value },
+        fun: getIcon,
+      };
+
+      element.append(schema2el(schema));
+    }
+  }
 }
 
 //---------------------------------------<( set-spreadsheets-helper-function()>-
 async function setSpreadsheets() {
   const data = await app.script.run(`getSpreadsheets`);
 
-  for (row of data) {
+  for (const row of data) {
     const spreadsheet = fx.camelCase(row.spreadsheet_name.value);
     gsheet[spreadsheet] = {};
     gsheet[spreadsheet].ssid = row.id.value;
   }
 
-  console.log(gsheet);
+  gsheet.database.spreadsheets.jsonData = data;
 }
 
 //--------------------------------------------<( add-shimmer-helper-function()>-
@@ -95,7 +164,6 @@ async function verifyUserProp() {
   const keyHelper = {
     sheetKey: setSheetKey,
     email: setUserExtras,
-    name: setName,
   };
 
   try {
@@ -146,26 +214,6 @@ async function verifyUserProp() {
       app.user.props[extras] ??= app.user.props[extras] || userExtras[extras];
     }
   }
-
-  async function setName() {
-    const ssid = gsheet.Database.ssid;
-    const key = app.script.props.sheetKey;
-    const param = { ssid: ssid, sheet: `employees`, key: key };
-
-    let employeeData = await gsheet.getData(param);
-    console.log(employeeData);
-    const header = employeeData.shift();
-    const POC = Array.from({ length: employeeData.length }, pocHelper);
-
-    createDatalist();
-    createDropdown({ data: POC, name: `poc-dropdown` });
-    addNameForm();
-
-    function pocHelper(_, i) {
-      const pocIndex = header.indexOf(`POC`);
-      return employeeData[i][pocIndex];
-    }
-  }
 }
 
 //----------------------------------------------------------<( add-name-form()>-
@@ -175,10 +223,10 @@ function addNameForm() {
 }
 
 //----------------------------------------<( create-datalist-helper-function()>-
-function createDatalist() {
+function createDatalist(element) {
   if (!fx.$(`#dropdowns`)) {
     const dropdownContainer = schema2el(app.schema.datalist);
-    document.body.append(dropdownContainer);
+    element.append(dropdownContainer);
   }
 
   return fx.$(`#dropdowns`);
@@ -200,6 +248,81 @@ function createDropdown({ data = [], name }) {
   }
 
   dropdownContainer.append(datalist);
+}
+
+//---------------------------------------<( set-view-actions-helper-function()>-
+function setViewActions(element) {
+  let data = gsheet?.database?.action_access?.data || undefined;
+  if (!data) {
+    const url = gviz.gvizUrl({ ssid: gsheet.database.ssid, sheet: `action_access` });
+    const sheetData = gviz.fetchGoogleSheetData(url);
+
+    data = sheetData.data;
+    gsheet.database.action_access.data = sheetData.data;
+    gsheet.database.action_access.header = sheetData.header;
+  }
+
+  for (row of data) {
+    if (row.access.value.contains(user.email) && row.type.value == `View Action`) {
+      const schema = {
+        tag: `li`,
+        attr: { title: row.action.value },
+        func: getIcon,
+      };
+
+      element.append(schema2el(schema));
+    }
+  }
+}
+
+//-----------------------------------------------<( get-icon-helper-function()>-
+function getIcon(element) {
+  const icons = {
+    'Add New Order': `ph ph-user-circle-plus`,
+    'Create Order': `ph ph-webhooks-logo`,
+    'Download': `ph ph-cloud-arrow-down`,
+    'My Orders': `ph ph-user`,
+    'Filter': `ph ph-funnel`,
+    'Change Account': `ph ph-buildings`,
+    'Change Email': `ph ph-at`,
+    'Sync': `ph ph-arrows-clockwise`,
+    'Medisellers COD': `ph ph-money`,
+    'Medicare COD': `ph ph-money-wavy`,
+    'Payment Not Received': `ph ph-not-equals`,
+    'Payment Received': `ph ph-equals`,
+    'Overview': `ph ph-chart-bar`,
+    'Dispatch + Menifest': `ph ph-truck`,
+    'T-1 Orders': `ph ph-number-one`,
+    'Dispatch + RTO': `ph ph-arrow-u-left-down`,
+    'RTO Delivered': `ph ph-hand-arrow-down`,
+    'Pending Orders': `ph ph-hourglass`,
+    'Unconfirmed Returns': `ph ph-not-subset-of`,
+    'To Check': `ph ph-list-checks`,
+    'Payments': `ph ph-currency-dollar-simple`,
+    'Toggle Sub Action': `ph ph-arrow-right`,
+    'Raise Issue': `ph ph-warning`,
+    'See Followups': `ph ph-chat`,
+    'Change Dispatch Status': `ph ph-cube`,
+    'Add Remarks': `ph ph-file-plus`,
+    'Order Confirmation Message': `ph ph-whatsapp-logo`,
+    'Mark Resolved': `ph ph-thumbs-up`,
+    'Payment Confirmation Yes': `ph ph-check-circle`,
+    'Payment Confirmation No': `ph ph-x-circle`,
+    'Edit Row': `ph ph-pencil-simple-line`,
+    'Orders': `fas fa-cart-shopping`,
+    'Get Initial Confirmation': `fas fa-asterisk`,
+    'Confirm Payments': `fas fa-credit-card`,
+    'Generate Orders': `fas fa-face-smile-beam`,
+    'Raised Issues': `fas fa-hand`,
+    'COD': `fas fa-money-bill-1-wave`,
+    'Processed Orders': `fas fa-microchip`,
+  };
+  const schema = {
+    tag: `i`,
+    attr: { class: icons[element.title] },
+  };
+
+  element.append(schema2el(schema));
 }
 
 //-----------------------------------------<( get-table-rows-helper-function()>-
@@ -716,5 +839,3 @@ function filterJson({ data, header, rownum }) {
 
   return json;
 }
-
-//----------------------------------------<( your-comment-here )>-

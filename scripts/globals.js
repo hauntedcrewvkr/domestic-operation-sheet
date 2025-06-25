@@ -120,7 +120,6 @@ const fx = {
      * @param {string} str
      * @returns Text having camel case
      */
-    console.log(str);
     return str.toLowerCase().replace(/[-_\s]+(.)?/g, (_, c) => (c ? c.toUpperCase() : ''));
   },
 
@@ -166,12 +165,235 @@ const app = {
   title: document.title,
   schema: {
     body: {
-      header: {},
-      nav: {},
-      main: {},
-      footer: {},
+      header: {
+        tag: `header`,
+        attr: { class: `header` },
+        sub: [
+          {
+            tag: `div`,
+            attr: { class: `logo`, title: document.title },
+            sub: {
+              tag: `img`,
+              attr: { class: `logo-img`, src: document.favicon, alt: `Logo` },
+            },
+          },
+          {
+            tag: `div`,
+            attr: { class: `primary-actions` },
+            sub: [
+              {
+                tag: `ul`,
+                attr: {},
+                func: setPrimaryActions,
+              },
+            ],
+          },
+          {
+            tag: `div`,
+            attr: { class: `secondary-actions` },
+            sub: [
+              {
+                tag: `ul`,
+                attr: {},
+                func: [setSecondaryActions],
+              },
+            ],
+          },
+        ],
+      },
+
+      nav: {
+        tag: `nav`,
+        attr: { class: `view-nav` },
+        sub: [
+          {
+            tag: `ul`,
+            attr: {},
+            func: [setViewActions],
+          },
+        ],
+      },
+
+      main: {
+        tag: `main`,
+        attr: {
+          class: `main`,
+        },
+        sub: [
+          {
+            tag: `section`,
+            attr: {
+              class: `table-container`,
+            },
+            sub: {
+              tag: `table`,
+              attr: {
+                class: `table`,
+              },
+              sub: [
+                {
+                  tag: `thead`,
+                  attr: {
+                    class: `table-heading`,
+                  },
+                },
+                {
+                  tag: `tbody`,
+                  attr: {
+                    class: `table-body`,
+                  },
+                },
+              ],
+            },
+          },
+          {
+            tag: `section`,
+            attr: {
+              class: `extra-views`,
+            },
+          },
+          {
+            tag: `section`,
+            attr: {
+              'id': `dropdown`,
+              'hidden': true,
+              'aria-hidden': true,
+            },
+          },
+        ],
+      },
+
+      footer: {
+        tag: `footer`,
+        attr: {
+          class: `footer`,
+        },
+        sub: [
+          {
+            tag: `div`,
+            attr: {
+              class: `epp`,
+            },
+            sub: [
+              {
+                tag: `select`,
+                attr: {
+                  id: `entries-per-page`,
+                  name: `entries-per-page`,
+                  title: `Entries Per Page`,
+                },
+                sub: [
+                  {
+                    tag: `option`,
+                    attr: {
+                      value: 50,
+                      selected: true,
+                    },
+                    func(el) {
+                      el.innerHTML = 50;
+                    },
+                  },
+                  {
+                    tag: `option`,
+                    attr: {
+                      value: 100,
+                    },
+                    func(el) {
+                      el.innerHTML = 100;
+                    },
+                  },
+                  {
+                    tag: `option`,
+                    attr: {
+                      value: 150,
+                    },
+                    func(el) {
+                      el.innerHTML = 150;
+                    },
+                  },
+                  {
+                    tag: `option`,
+                    attr: {
+                      value: 200,
+                    },
+                    func(el) {
+                      el.innerHTML = 200;
+                    },
+                  },
+                ],
+              },
+            ],
+          },
+
+          {
+            tag: `div`,
+            attr: {
+              class: `pagination`,
+            },
+            sub: [
+              {
+                tag: `i`,
+                attr: {
+                  class: `ph ph-caret-double-left`,
+                },
+              },
+              {
+                tag: `i`,
+                attr: {
+                  class: `ph ph-caret-left`,
+                },
+              },
+              {
+                tag: `input`,
+                attr: {
+                  type: `number`,
+                  class: `page-input`,
+                  value: 1,
+                },
+              },
+              {
+                tag: `input`,
+                attr: {
+                  type: `number`,
+                  class: `total-pages`,
+                  value: 1,
+                  disabled: true,
+                },
+              },
+              {
+                tag: `i`,
+                attr: {
+                  class: `ph ph-caret-right`,
+                },
+              },
+              {
+                tag: `i`,
+                attr: {
+                  class: `ph ph-caret-double-right`,
+                },
+              },
+            ],
+          },
+          {
+            tag: `div`,
+            attr: {
+              class: `current-view`,
+            },
+            sub: [
+              {
+                tag: `i`,
+                attr: {
+                  class: `ph-fill ph-eye`,
+                },
+              },
+            ],
+          },
+        ],
+      },
     },
+
     datalist: { tag: `section`, func: [], attr: { id: `dropdowns`, class: `dropdowns` } },
+
     forms: {
       addNewOrderForm: {},
       cxIssueForm: {},
@@ -229,6 +451,7 @@ const app = {
         ],
       },
     },
+
     loader: {
       main: {
         tag: `div`,
@@ -411,7 +634,7 @@ const gviz = {
           header.push(value);
           headProp[value] ??= { index: colnum, label: columnNumberToLabel(colnum) };
         } else {
-          json[header[c]] = { value: value, edit: true, view: true };
+          json[header[c]] = { value: value, edit: true, view: true, row: r + 2, columns: c + 1 };
         }
       }
 
