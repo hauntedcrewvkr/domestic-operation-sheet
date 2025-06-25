@@ -14,8 +14,9 @@ async function setSpreadsheets() {
   const data = await app.script.run(`getSpreadsheets`);
 
   for (row of data) {
-    gsheet[fx.camelCase(row.spreadsheet_name.value)] = {};
-    gsheet[fx.camelCase(row.spreadsheet_name)].ssid = row.id.value;
+    const spreadsheet = fx.camelCase(row.spreadsheet_name.value);
+    gsheet[spreadsheet] = {};
+    gsheet[spreadsheet].ssid = row.id.value;
   }
 
   console.log(gsheet);

@@ -120,6 +120,7 @@ const fx = {
      * @param {string} str
      * @returns Text having camel case
      */
+    console.log(str);
     return str.toLowerCase().replace(/[-_\s]+(.)?/g, (_, c) => (c ? c.toUpperCase() : ''));
   },
 
