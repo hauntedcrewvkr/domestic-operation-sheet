@@ -90,7 +90,7 @@ async function setSpreadsheets() {
     gsheet[spreadsheet].ssid = row.id.value;
   }
 
-  gsheet.database.spreadsheet ??= {};
+  gsheet.database.spreadsheets ??= {};
   gsheet.database.spreadsheets.data ??= data;
 }
 
