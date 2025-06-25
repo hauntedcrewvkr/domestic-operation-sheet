@@ -184,7 +184,7 @@ const app = {
               {
                 tag: `ul`,
                 attr: {},
-                func: setPrimaryActions,
+                func: [setPrimaryActions],
               },
             ],
           },
