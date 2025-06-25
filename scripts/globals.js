@@ -301,16 +301,6 @@ const app = {
 //----------------------------------------------<( google-sheets-preferences )>-
 const gsheet = {
   endpoint: `https://sheets.googleapis.com/v4/spreadsheets`,
-
-  domesticOperationSheet: {
-    ssid: `1yiwtuLvsXvzMEqsSqFThA3049O6Z0Ai6UOS_Jhidtj8`,
-    requirement: [],
-  },
-
-  Database: {
-    ssid: `1hBU53QGVKOE_Cz98m-f01E7q5Ly_nCO01KyiVlSNezg`,
-  },
-
   schema: {},
 
   async getData({ ssid, sheet, key }) {

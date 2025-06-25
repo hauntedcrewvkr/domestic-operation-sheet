@@ -14,10 +14,11 @@ async function setSpreadsheets() {
   const data = await app.script.run(`getSpreadsheets`);
 
   for (row of data) {
-    console.log(row);
     gsheet[fx.camelCase(row.spreadsheet_name.value)] = {};
     gsheet[fx.camelCase(row.spreadsheet_name)].ssid = row.id.value;
   }
+
+  console.log(gsheet);
 }
 
 //--------------------------------------------<( add-shimmer-helper-function()>-
