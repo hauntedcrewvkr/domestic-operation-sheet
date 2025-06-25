@@ -839,3 +839,5 @@ function filterJson({ data, header, rownum }) {
 
   return json;
 }
+
+console.log(`loaded`);
