@@ -44,7 +44,7 @@ async function setItl() {
 async function setPrimaryActions(element) {
   const url = gviz.gvizUrl({ ssid: gsheet.database.ssid, sheet: `action_access` });
   const data = await gviz.fetchGoogleSheetData(url);
-
+  console.log(data);
   gsheet.database.action_access.data ??= data.data;
   gsheet.database.action_access.headers ??= data.header;
 
@@ -53,7 +53,7 @@ async function setPrimaryActions(element) {
       const schema = {
         tag: `li`,
         attr: { title: row.action.value },
-        func: getIcon,
+        func: [getIcon],
       };
 
       element.append(schema2el(schema));
