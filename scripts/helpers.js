@@ -87,9 +87,9 @@ async function setSpreadsheets() {
   const data = await app.script.run(`getSpreadsheets`);
 
   for (const row of data) {
-    const spreadsheet = fx.camelCase(row.spreadsheet_name.value);
+    const spreadsheet = fx.camelCase(row.spreadsheet.value);
     gsheet[spreadsheet] = {};
-    gsheet[spreadsheet].ssid = row.id.value;
+    gsheet[spreadsheet].ssid = row.ssid.value;
   }
 
   gsheet.database.spreadsheets ??= {};
