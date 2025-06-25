@@ -120,9 +120,7 @@ const fx = {
      * @param {string} str
      * @returns Text having camel case
      */
-    return str
-      .toLowerCase()
-      .replace(/[-_\s]+(.)?/g, (_, c) => (c ? c.toUpperCase() : ''));
+    return str.toLowerCase().replace(/[-_\s]+(.)?/g, (_, c) => (c ? c.toUpperCase() : ''));
   },
 
   //------------------------- create-snake-case-of-a-text
@@ -156,9 +154,7 @@ const fx = {
   convertDate({ date, format = `dd-mm-yyyy` }) {
     const delimiters = format[format.indexOf(`dd`) + 1];
     const options = { year: `numeric`, month: `2-digit`, day: `2-digit` };
-    const formattedDate = new Intl.DateTimeFormat(`en-US`, options).format(
-      new Date(date)
-    );
+    const formattedDate = new Intl.DateTimeFormat(`en-US`, options).format(new Date(date));
     return formattedDate;
   },
 };
@@ -174,7 +170,7 @@ const app = {
       main: {},
       footer: {},
     },
-    datalist: { tag: `section`, attr: { id: `dropdowns`, class: `dropdowns` } },
+    datalist: { tag: `section`, func: [], attr: { id: `dropdowns`, class: `dropdowns` } },
     forms: {
       addNewOrderForm: {},
       cxIssueForm: {},
@@ -305,10 +301,12 @@ const app = {
 //----------------------------------------------<( google-sheets-preferences )>-
 const gsheet = {
   endpoint: `https://sheets.googleapis.com/v4/spreadsheets`,
+
   domesticOperationSheet: {
     ssid: `1yiwtuLvsXvzMEqsSqFThA3049O6Z0Ai6UOS_Jhidtj8`,
     requirement: [],
   },
+
   Database: {
     ssid: `1hBU53QGVKOE_Cz98m-f01E7q5Ly_nCO01KyiVlSNezg`,
   },
@@ -326,6 +324,36 @@ const gsheet = {
     const data = await response.json();
 
     return data;
+  },
+
+  columnNumberToLabel(columnNumber) {
+    if (columnNumber < 1) return '';
+
+    const chars = [];
+
+    while (columnNumber > 0) {
+      columnNumber--;
+      chars.push(String.fromCharCode(65 + (columnNumber % 26)));
+      columnNumber = Math.floor(columnNumber / 26);
+    }
+
+    return chars.reverse().join('');
+  },
+
+  columnLabelToNumber(label) {
+    /**
+     * @description ........... Convert Google Sheets-style column label
+     * @param {string} label .. Column label (case-insensitive)
+     * @returns {number} ...... Column number
+     */
+    label = label.toUpperCase();
+    let result = 0;
+
+    for (let i = 0; i < label.length; i++) {
+      result = result * 26 + (label.charCodeAt(i) - 64);
+    }
+
+    return result;
   },
 };
 
@@ -359,5 +387,82 @@ const itl = {
     storeOrderDetails: `https://my.ithinklogistics.com/api_v3/store/get-order-details.json`,
     storeOrderList: `https://my.ithinklogistics.com/api_v3/store/get-order-list.json`,
     addReattempt_rto: `https://my.ithinklogistics.com/api_v3/ndr/add-reattempt-rto.json`,
+  },
+};
+
+//----------------------------------------<( google-visualization-references )>-
+const gviz = {
+  async fetchGoogleSheetData(url) {
+    const response = await fetch(url);
+    const htmlTxt = await response.text();
+
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(htmlTxt, `text/html`);
+    const tableRows = doc.querySelectorAll(`table tbody tr`);
+
+    const headProp = {};
+    const header = [];
+    const data = [];
+
+    for (let r = 0; r < tableRows.length; r++) {
+      const isFirstRow = r === 0;
+      const json = {};
+      const columns = tableRows[r].cells;
+
+      for (let c = 0; c < columns.length; c++) {
+        const value = columns[c].textContent;
+
+        if (isFirstRow) {
+          if (!value) continue;
+
+          const colnum = c + 1;
+
+          header.push(value);
+          headProp[value] ??= { index: colnum, label: columnNumberToLabel(colnum) };
+        } else {
+          json[header[c]] = { value: value, edit: true, view: true };
+        }
+      }
+
+      if (!isFirstRow) data.push(json);
+    }
+
+    return { data: data, header: headProp };
+  },
+
+  gvizUrl({ ssid, sheet, query, type = 'html', headers = 1, range, tqxParams = {} }) {
+    /**
+     * @description helper function to create gviz url
+     *
+     * @param {Object} config .................. Configuration object
+     * @param {string} config.ssid ............. Required: Google Spreadsheet ID
+     * @param {string} [config.sheet] .......... Optional: Specific sheet name (case-sensitive)
+     * @param {string} [config.query] .......... Optional: SQL-like query string (SELECT A, B WHERE ...)
+     * @param {string} [config.type] ........... Optional: Output type for `tqx=out:<type>`
+     *                                           Supported: "json", "html", "csv", "tsv-excel", "table"
+     * @param {number} [config.headers=1] ...... Optional: Treat first row as column headers? (1 = Yes, 0 = No)
+     * @param {string} [config.range]     ...... Optional: A1-style cell range (e.g., "A1:D100")
+     *                                           Note: May be ignored if `query` is present
+     * @param {Object} [config.tqxParams] ...... Optional: Extra `tqx` options (as key-value pairs)
+     *                                         - Supported keys:
+     *                                           reqId: number (request tracking)
+     *                                           responseHandler: string (JSONP callback)
+     *                                           sig: string (version hash)
+     *                                           ex: { reqId: 123, responseHandler: "myCallback" }
+     *
+     * @returns {string} Fully constructed Google GViz query URL
+     */
+
+    let url = `https://docs.google.com/spreadsheets/d/${ssid}/gviz/tq?tqx=out:${type}&headers=${headers}`;
+
+    if (sheet) url += `&sheet=${encodeURIComponent(sheet)}`;
+    if (query) url += `&tq=${encodeURIComponent(query)}`;
+    if (range) url += `&range=${encodeURIComponent(range)}`;
+
+    for (const [key, value] of Object.entries(tqxParams)) {
+      url += `&tqx=${key}:${encodeURIComponent(value)}`;
+    }
+
+    return url;
   },
 };

@@ -5,7 +5,19 @@
 //--------------------------------------------------<( start-helper-function()>-
 function start() {
   document.body.append(getLoader());
-  verifyScriptProp();
+  setSpreadsheets();
+  // verifyScriptProp();
+}
+
+//---------------------------------------<( set-spreadsheets-helper-function()>-
+async function setSpreadsheets() {
+  const data = await app.script.run(`getSpreadsheets`);
+
+  for (row of data) {
+    console.log(row);
+    gsheet[fx.camelCase(row.spreadsheet_name.value)] = {};
+    gsheet[fx.camelCase(row.spreadsheet_name)].ssid = row.id.value;
+  }
 }
 
 //--------------------------------------------<( add-shimmer-helper-function()>-
@@ -218,9 +230,7 @@ function getTableRows(pagenum = 1, viewname = `Master`) {
     tableBody.append(doc.setTr(row));
   }
 
-  currentView.title = `${viewname == `Master` ? `Orders` : viewname} (${
-    start + 1 + ` - ` + end + `/ ` + dataLength
-  })`;
+  currentView.title = `${viewname == `Master` ? `Orders` : viewname} (${start + 1 + ` - ` + end + `/ ` + dataLength})`;
   totalPages.disabled = false;
   totalPages.value = total;
   totalPages.disabled = true;
@@ -232,11 +242,7 @@ async function ghostSync() {
    * @description This function works in background to sync realtime data
    */
 
-  const masterData = await sheet.getData(
-    sheet[tool.name].ssid,
-    `Master`,
-    user.apiKey
-  );
+  const masterData = await sheet.getData(sheet[tool.name].ssid, `Master`, user.apiKey);
   distributeData(tool.name, `Master`, masterData);
   setTimeout(ghostSync, 5 * 60 * 1000);
 }
@@ -365,12 +371,8 @@ function fetchApi(data = [], company) {
             tracking_number: json?.data[key]?.waybill || ``,
             order_creation_error_type: json?.data[key]?.remark || ``,
             logistic_name: json?.data[key]?.logistic_name || ``,
-            tracking_url: json?.data[key]?.waybill
-              ? baseTrack + json?.data[key]?.waybill
-              : ``,
-            dispatch_status: json?.data[key]?.waybill
-              ? `Yet to be Dispatched`
-              : ``,
+            tracking_url: json?.data[key]?.waybill ? baseTrack + json?.data[key]?.waybill : ``,
+            dispatch_status: json?.data[key]?.waybill ? `Yet to be Dispatched` : ``,
             booking_company: company,
           });
         });
@@ -400,10 +402,7 @@ function payloadHelper(data = {}, returnAddressId = ``) {
     order: data[`ID`],
     sub_order: ``,
     order_date: convertDate(data[`DATE`]),
-    total_amount:
-      data[`Order Type`] == `COD`
-        ? data[`Balance Amount (To be paid) (INR)`]
-        : data[`Total Amount  (INR)`],
+    total_amount: data[`Order Type`] == `COD` ? data[`Balance Amount (To be paid) (INR)`] : data[`Total Amount  (INR)`],
     name: data[`Client Name`],
     company_name: ``,
     add: data[`Shipping Address`],
@@ -434,10 +433,7 @@ function payloadHelper(data = {}, returnAddressId = ``) {
         product_name: `HEALTHCARE HERBAL PRODUCTS`,
         product_sku: ``,
         product_quantity: 1,
-        product_price:
-          data[`Order Type`] == `COD`
-            ? data[`Balance Amount (To be paid) (INR)`]
-            : data[`Total Amount  (INR)`],
+        product_price: data[`Order Type`] == `COD` ? data[`Balance Amount (To be paid) (INR)`] : data[`Total Amount  (INR)`],
         product_tax_rate: ``,
         product_hsn_code: ``,
         product_discount: ``,
@@ -488,11 +484,7 @@ function getFilterActions() {
   const list = document.createElement(`ul`);
 
   for (let json of data) {
-    if (
-      json.tool_name == tool.name &&
-      json.type == `Filter Action` &&
-      json.access.includes(user.email)
-    ) {
+    if (json.tool_name == tool.name && json.type == `Filter Action` && json.access.includes(user.email)) {
       const li = document.createElement(`li`);
       li.title = json.action;
 
@@ -514,11 +506,7 @@ function getHeaderActions(condition = ``) {
   const arr = [];
 
   for (let json of data) {
-    if (
-      json.tool_name == tool.name &&
-      json.type == condition &&
-      json.access.includes(user.email)
-    ) {
+    if (json.tool_name == tool.name && json.type == condition && json.access.includes(user.email)) {
       const span = document.createElement(`span`);
       span.classList.add(`pr-icon`);
       span.title = json.action;
@@ -537,12 +525,7 @@ function actionAccess({ type, action }) {
   return actionAccess.filter(filterAction);
 
   function filterAction(obj) {
-    return (
-      obj.tool_name == tool.name &&
-      obj.action == action &&
-      obj.type == type &&
-      obj.access.includes(user.email)
-    );
+    return obj.tool_name == tool.name && obj.action == action && obj.type == type && obj.access.includes(user.email);
   }
 }
 
@@ -685,15 +668,7 @@ function filterJson({ data, header, rownum }) {
     notify({ message: `Data Error`, type: `error` });
   }
 
-  if (
-    !sheet ||
-    !sheet.schema ||
-    !sheet.schema.Action ||
-    !sheet.Database ||
-    !sheet.Database.column_access ||
-    !user ||
-    !user.email
-  ) {
+  if (!sheet || !sheet.schema || !sheet.schema.Action || !sheet.Database || !sheet.Database.column_access || !user || !user.email) {
     notify({
       message: `Required context (sheet, user) is missing.`,
       type: `error`,
@@ -702,9 +677,7 @@ function filterJson({ data, header, rownum }) {
 
   const json = { rownum: rownum || 0 };
   const actions = Object.keys(sheet.schema.Action);
-  const accessMap = new Map(
-    sheet.Database.column_access.jsonData.map((a) => [a.column_name, a])
-  );
+  const accessMap = new Map(sheet.Database.column_access.jsonData.map((a) => [a.column_name, a]));
 
   for (const action of actions) {
     if (!json[action]) {

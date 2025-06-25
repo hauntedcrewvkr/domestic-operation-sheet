@@ -291,26 +291,11 @@ const tool = {
   },
 
   requirements: {
-    'Database': [
-      `view_access`,
-      `action_access`,
-      `column_access`,
-      `Employees`,
-      `dropdowns`,
-      `domestic_html_views`,
-      `whatsapp_templates`,
-    ],
+    'Database': [`view_access`, `action_access`, `column_access`, `Employees`, `dropdowns`, `domestic_html_views`, `whatsapp_templates`],
     'Domestic Operation Sheet': [`Master`, `Dispatch_Ref`, `Account_Setting`],
   },
 
-  tableColumns: [
-    `Order Details`,
-    `Customer Details`,
-    `Requirements`,
-    `Amount`,
-    `Shipping Details`,
-    `Logistic Details`,
-  ],
+  tableColumns: [`Order Details`, `Customer Details`, `Requirements`, `Amount`, `Shipping Details`, `Logistic Details`],
 };
 
 const doc = {
@@ -1271,9 +1256,7 @@ const doc = {
     </footer>
     `),
 
-  datalist: fx.text2el(
-    `<section id="dropdowns" hidden aria-hidden="true"></section>`
-  ),
+  datalist: fx.text2el(`<section id="dropdowns" hidden aria-hidden="true"></section>`),
 
   main: fx.text2el(`
     <main class="main">
@@ -1485,9 +1468,7 @@ const doc = {
         const colTypeAttr = colAttr.type;
 
         if (obj[column].view) {
-          const li = document.createElement(
-            docSchemas[colTag][colTypeAttr].tag
-          );
+          const li = document.createElement(docSchemas[colTag][colTypeAttr].tag);
           li.append(obj[column].value);
           li.title = column;
           ul.append(li);

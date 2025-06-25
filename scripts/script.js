@@ -54,9 +54,7 @@ function createDataLists() {
 
     if (!valueSetMap[colName].has(json.value)) {
       valueSetMap[colName].add(json.value);
-      datalistMap[colName].appendChild(
-        Object.assign(document.createElement('option'), { value: json.value })
-      );
+      datalistMap[colName].appendChild(Object.assign(document.createElement('option'), { value: json.value }));
     }
   }
 
