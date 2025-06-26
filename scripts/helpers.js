@@ -7,11 +7,12 @@ async function start() {
   let loader = getLoader();
   document.body.append(loader);
 
-  await setSpreadsheets();
-  await setItl();
-  await getScriptProps();
-  await getUserProps();
-  createDocument();
+  setSpreadsheets()
+    .then(() => setSpreadsheets())
+    .then(() => setItl())
+    .then(() => getScriptProps())
+    .then(() => getUserProps())
+    .then(() => createDocument());
 
   loader.remove();
 }
@@ -201,14 +202,14 @@ function createDropdown({ data = [], name }) {
 
 //---------------------------------------<( set-view-actions-helper-function()>-
 function setViewActions(element) {
-  let data = gsheet?.database?.action_access?.data || undefined;
+  let data = gsheet?.database?.actionAccess?.data || undefined;
   if (!data) {
     const url = gviz.gvizUrl({ ssid: gsheet.database.ssid, sheet: `action_access` });
 
     gviz.fetchGoogleSheetData(url).then(function (sheetData) {
       data = sheetData.data;
-      gsheet.database.action_access.data = sheetData.data;
-      gsheet.database.action_access.header = sheetData.header;
+      gsheet.database.actionAccess.data = sheetData.data;
+      gsheet.database.actionAccess.header = sheetData.header;
     });
   }
   console.log(data);
