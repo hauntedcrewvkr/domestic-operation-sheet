@@ -13,6 +13,7 @@ function start() {
     .then(() => getUserProps())
     .then(() => setMasterData())
     .then(() => createDocument())
+    .then(() => setInterval(setMasterData, 600000))
     .then(() => removeLoader());
 }
 
@@ -211,16 +212,6 @@ async function getUserProps() {
 function addNameForm() {
   const form = schema2el(app.schema.forms.addNameForm);
   document.body.append(form);
-}
-
-//----------------------------------------<( create-datalist-helper-function()>-
-function createDatalist(element) {
-  if (!fx.$(`#dropdowns`)) {
-    const dropdownContainer = schema2el(app.schema.datalist);
-    element.append(dropdownContainer);
-  }
-
-  return fx.$(`#dropdowns`);
 }
 
 //----------------------------------------<( create-dropdown-helper-function()>-
@@ -570,72 +561,6 @@ function payloadHelper(data = {}, returnAddressId = ``) {
   };
 }
 
-//--------------------------------------------<( update-data-helper-function()>-
-function updateData(object = {}, rownumber = 0) {
-  const indexes = sheet[tool.name].Master.indexes;
-  let data = { type: `update`, row: rownumber, data: [] };
-
-  for (let key in object) {
-    data.data.push({
-      index: indexes[key] + 1,
-      value: object[key],
-    });
-  }
-
-  script.run(toSheet, data, tool.name, `Master`);
-}
-
-//------------------------------------<( get-filter-actions-helper-function())>-
-function getFilterActions() {
-  const data = sheet.Database.action_access.jsonData.slice();
-  const list = document.createElement(`ul`);
-
-  for (let json of data) {
-    if (json.tool_name == tool.name && json.type == `Filter Action` && json.access.includes(user.email)) {
-      const li = document.createElement(`li`);
-      li.title = json.action;
-
-      li.addEventListener(`click`, function (e) {
-        getTableRows(1, li.title);
-      });
-
-      li.append(fx.text2el(json.script), json.action);
-      list.append(li);
-    }
-  }
-
-  return list;
-}
-
-//-------------------------------------<( get-header-actions-helper-function()>-
-function getHeaderActions(condition = ``) {
-  const data = sheet.Database.action_access.jsonData.slice();
-  const arr = [];
-
-  for (let json of data) {
-    if (json.tool_name == tool.name && json.type == condition && json.access.includes(user.email)) {
-      const span = document.createElement(`span`);
-      span.classList.add(`pr-icon`);
-      span.title = json.action;
-      span.append(fx.text2el(json.script));
-
-      arr.push(span);
-    }
-  }
-
-  return arr;
-}
-
-//------------------------------------------<( action-access-helper-function()>-
-function actionAccess({ type, action }) {
-  const actionAccess = sheet.Database.action_access.jsonData().slice();
-  return actionAccess.filter(filterAction);
-
-  function filterAction(obj) {
-    return obj.tool_name == tool.name && obj.action == action && obj.type == type && obj.access.includes(user.email);
-  }
-}
-
 //-------------------------------------------------<( notify-helper-function()>-
 function notify({ message, type }) {
   if (![`info`, `warn`, `error`].includes(type)) return;
@@ -679,145 +604,4 @@ function notify({ message, type }) {
 function removeElement({ element, urgent = false }) {
   if (urgent) element.remove();
   if (!urgent) setTimeout(() => element.remove(), 500);
-}
-
-//-----------------------------------------<( distribut-data-helper-function()>-
-function distributeData({ ss, sheetname, data = [] }) {
-  if (!ss || !sheetname || data.length == 0) {
-    notify({ message: `No Data Found`, type: `error` });
-  }
-
-  data = data.slice();
-
-  !(ss in sheet) && (sheet[ss] = {});
-  !(sheetname in sheet[ss]) && (sheet[ss][sheetname] = {});
-
-  sheet[ss][sheetname].jsonData ??= [];
-  sheet[ss][sheetname].arrayData ??= data;
-
-  const headers = data.shift();
-  const indexes = Object.fromEntries(
-    headers.map(function (head, index) {
-      return [head, index + 1];
-    })
-  );
-
-  data = data.reverse();
-
-  sheet[ss][sheetname].indexes = indexes;
-
-  data.forEach(dataAction);
-
-  function dataAction(row, index) {
-    const json = toJson({ data: row, header: headers, rownum: index + 2 });
-    sheet[ss][sheetname].jsonData.unshift(json);
-
-    if (ss == `Domestic Operation Sheet` && sheetname == `Master`) {
-      const json = filterJson({
-        data: row,
-        header: headers,
-        rownum: index + 2,
-      });
-
-      for (filter in sheet.filters) {
-        !(filter in sheet[ss]) && (sheet[ss][filter] = {});
-
-        sheet[ss][filter].arrayData ??= [];
-        sheet[ss][filter].jsonData ??= [];
-
-        const filterObj = sheet.filters[filter];
-        const passed = checkFilterCondition({ obj: json, filter: filterObj });
-
-        if (passed) {
-          sheet[ss][filter].arrayData.unshift(row);
-          sheet[ss][filter].jsonData.unshift(json);
-        }
-      }
-    }
-  }
-}
-
-//---------------------------------<( check-filter-condition-helper-function()>-
-function checkFilterCondition({ obj = {}, filter = {} }) {
-  let bool = true;
-
-  for (const colname in filter.equal) {
-    if (bool == false) break;
-    bool = filter.equal[colname] == obj[colname].value;
-  }
-
-  for (const colname in filter.notEqual) {
-    if (bool == false) break;
-    bool = filter.equal[colname] != obj[colname].value;
-  }
-
-  return bool;
-}
-
-//------------------------------------------------<( to-json-helper-function()>-
-function toJson({ data, header, rownum }) {
-  if (data.length == 0 || header.length == 0) {
-    notify({ message: `Data Error`, type: `error` });
-  }
-
-  const json = { rownum: rownum };
-
-  header.forEach(function (head, index) {
-    json[head] ??= data[index];
-  });
-
-  return json;
-}
-
-//--------------------------------------------<( filter-json-helper-function()>-
-function filterJson({ data, header, rownum }) {
-  if (data.length == 0 || header.length == 0 || !rownum) {
-    notify({ message: `Data Error`, type: `error` });
-  }
-
-  if (!sheet || !sheet.schema || !sheet.schema.Action || !sheet.Database || !sheet.Database.column_access || !user || !user.email) {
-    notify({
-      message: `Required context (sheet, user) is missing.`,
-      type: `error`,
-    });
-  }
-
-  const json = { rownum: rownum || 0 };
-  const actions = Object.keys(sheet.schema.Action);
-  const accessMap = new Map(sheet.Database.column_access.jsonData.map((a) => [a.column_name, a]));
-
-  for (const action of actions) {
-    if (!json[action]) {
-      json[action] = {
-        value: sheet.schema.Action[action].props.append.cloneNode(true),
-        edit: false,
-        view: true,
-      };
-    }
-  }
-
-  for (let i = 0; i < header.length; i++) {
-    const colName = header[i];
-    const colValue = data[i];
-    const colaccess = accessMap.get(colName);
-    if (!colaccess) continue;
-
-    const canEdit = colaccess.editors?.includes(user.email) || false;
-    const canView = colaccess.viewers?.includes(user.email) || false;
-
-    let value;
-    if (typeof colValue === 'string' || typeof colValue === 'number') {
-      value = colValue;
-    } else if (Array.isArray(colValue)) {
-      value = colValue.join(',');
-    } else {
-      value = '';
-    }
-
-    if (!json[colName]) {
-      json[colName] = { value, edit: canEdit, view: canView };
-    }
-  }
-
-  return json;
 }

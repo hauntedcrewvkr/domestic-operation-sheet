@@ -189,28 +189,28 @@ const app = {
             sub: [
               {
                 tag: `img`,
-                attr: { class: `logo-img`, src: fx.$(`favicon`).innerHTML, alt: `Logo` },
+                attr: { class: `logo-img`, src: fx.$(`favicon`).innerHTML.trim(), alt: `Logo` },
               },
             ],
           },
           {
             tag: `div`,
-            attr: { class: `primary-actions` },
+            attr: { class: `primary-action-container` },
             sub: [
               {
                 tag: `ul`,
-                attr: {},
+                attr: { class: `primary-actions` },
                 func: [setPrimaryActions],
               },
             ],
           },
           {
             tag: `div`,
-            attr: { class: `secondary-actions` },
+            attr: { class: `secondary-actions-container` },
             sub: [
               {
                 tag: `ul`,
-                attr: {},
+                attr: { class: `secondary-actions` },
                 func: [setSecondaryActions],
               },
             ],
@@ -224,7 +224,7 @@ const app = {
         sub: [
           {
             tag: `ul`,
-            attr: {},
+            attr: { class: `views-list` },
             func: [setViewActions],
           },
         ],
@@ -252,12 +252,14 @@ const app = {
                   attr: {
                     class: `table-heading`,
                   },
+                  func: [setTableHeaders],
                 },
                 {
                   tag: `tbody`,
                   attr: {
                     class: `table-body`,
                   },
+                  func: [setTableRows],
                 },
               ],
             },
