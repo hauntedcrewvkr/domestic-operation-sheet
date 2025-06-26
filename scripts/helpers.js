@@ -4,8 +4,9 @@
 
 //--------------------------------------------------<( start-helper-function()>-
 function start() {
-  addLoader()
-    .then(() => setSpreadsheets())
+  addLoader();
+
+  setSpreadsheets()
     .then(() => setSpreadsheets())
     .then(() => setItl())
     .then(() => getScriptProps())
