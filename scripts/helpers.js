@@ -208,7 +208,7 @@ function setViewActions(element) {
 
     for (row of sheetData.data) {
       if (row.access.value.contains(user.email) && row.type.value == `View Action`) {
-        element.append(schema2el({ tag: `li`, attr: { title: row.action.value }, func: getIcon }));
+        element.append(schema2el({ tag: `li`, attr: { title: row.action.value }, func: [getIcon] }));
       }
     }
   });
