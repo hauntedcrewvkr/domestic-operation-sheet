@@ -207,7 +207,7 @@ function setViewActions(element) {
   gviz.fetchGoogleSheetData(url).then(function (data) {
     gsheet.domesticOperationSheet.actionAccess ??= {};
     gsheet.domesticOperationSheet.actionAccess.data ??= data.data;
-    gsheet.database.actionAccess.header ??= data.header;
+    gsheet.domesticOperationSheet.actionAccess.header ??= data.header;
 
     for (row of data.data) {
       if (row.access.value.contains(user.email) && row.type.value == `View Action`) {
