@@ -46,6 +46,7 @@ function setFilterViews(data) {
 //-------------------------------------------<( filter-check-helper-function()>-
 function filterCheck({ json, filter }) {
   const operators = fx.checkers;
+  console.log(filter);
 
   for (const [operator, obj] of Object.values(filter)) {
     for (const [column, value] of Object.values(obj)) {
