@@ -48,8 +48,8 @@ function filterCheck({ json, filter }) {
   const operators = fx.checkers;
   console.log(Object.values(filter));
 
-  for (const [operator, obj] of Object.values(filter)) {
-    for (const [column, value] of Object.values(obj)) {
+  for (const [operator, obj] of Object.entries(filter)) {
+    for (const [column, value] of Object.entries(obj)) {
       if (!operators[operator](json[column].value, value)) return false;
     }
   }
