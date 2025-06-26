@@ -202,7 +202,7 @@ function createDropdown({ data = [], name }) {
 
 //---------------------------------------<( set-view-actions-helper-function()>-
 function setViewActions(element) {
-  const url = gviz.gvizUrl({ ssid: gsheet.database.ssid, sheet: `action_access` });
+  const url = gviz.gvizUrl({ ssid: gsheet.domesticOperationSheet.ssid, sheet: `Action Access` });
 
   gviz.fetchGoogleSheetData(url).then(function (data) {
     gsheet.domesticOperationSheet.actionAccess ??= {};
