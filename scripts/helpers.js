@@ -116,6 +116,7 @@ function schema2el(schema = {}) {
   }
 
   if (schema.func) {
+    console.log(schema.func);
     for (const fx of schema.func) fx(el);
   }
 
