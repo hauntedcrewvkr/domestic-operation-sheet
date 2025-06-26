@@ -48,9 +48,9 @@ function setPrimaryActions(element) {
   gviz.fetchGoogleSheetData(url).then(helper);
 
   function helper(data) {
-    console.log(data);
-    gsheet.database.action_access.data ??= data.data;
-    gsheet.database.action_access.headers ??= data.header;
+    gsheet.database.actionAccess ??= {};
+    gsheet.database.actionAccess.data ??= data.data;
+    gsheet.database.actionAccess.headers ??= data.header;
 
     for (const row in data.data) {
       if (row.type.value == `Primary Action` && row.access.value.includes(app.user.props.email)) {
@@ -116,7 +116,6 @@ function schema2el(schema = {}) {
   }
 
   if (schema.func && schema.func.length > 0) {
-    console.log(schema.func);
     for (const fx of schema.func) fx(el);
   }
 
@@ -351,7 +350,6 @@ function responseAdjust(results = [], data = []) {
 
   results.forEach(function (result) {
     const row = data.find((r) => r[`ID`] == result.id);
-    console.log(row);
 
     arr.push({
       row_number: row?.rowNum || null,

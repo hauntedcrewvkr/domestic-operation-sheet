@@ -522,7 +522,6 @@ const gsheet = {
   schema: {},
 
   async getData({ ssid, sheet, key }) {
-    console.log([ssid, sheet, key]);
     if (!ssid || !sheet || !key) {
       throw new Error(`Missing required parameters: ssid, sheet, key`);
     }
