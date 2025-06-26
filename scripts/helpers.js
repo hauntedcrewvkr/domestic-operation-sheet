@@ -211,7 +211,7 @@ function setViewActions(element) {
       gsheet.database.action_access.header = sheetData.header;
     });
   }
-
+  console.log(data);
   for (row of data) {
     if (row.access.value.contains(user.email) && row.type.value == `View Action`) {
       const schema = {
