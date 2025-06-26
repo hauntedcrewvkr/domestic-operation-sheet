@@ -43,12 +43,10 @@ async function setItl() {
 //------------------------------------<( set-primary-actions-helper-function()>-
 function setPrimaryActions(element) {
   const url = gviz.gvizUrl({ ssid: gsheet.database.ssid, sheet: `action_access` });
-  // const data = await gviz.fetchGoogleSheetData(url);
-  gviz.fetchGoogleSheetData(url).then(function (data) {
-    console.log(data);
-  });
+  gviz.fetchGoogleSheetData(url).then(helper(data));
 
   function helper(data) {
+    console.log(data);
     gsheet.database.action_access.data ??= data.data;
     gsheet.database.action_access.headers ??= data.header;
     for (const row in data.data) {
