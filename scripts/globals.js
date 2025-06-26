@@ -287,39 +287,31 @@ const app = {
                 sub: [
                   {
                     tag: `option`,
+                    text: 50,
                     attr: {
                       value: 50,
                       selected: true,
                     },
-                    func(el) {
-                      el.innerHTML = 50;
-                    },
                   },
                   {
                     tag: `option`,
+                    text: 100,
                     attr: {
                       value: 100,
                     },
-                    func(el) {
-                      el.innerHTML = 100;
-                    },
                   },
                   {
                     tag: `option`,
+                    text: 150,
                     attr: {
                       value: 150,
                     },
-                    func(el) {
-                      el.innerHTML = 150;
-                    },
                   },
                   {
                     tag: `option`,
+                    text: 200,
                     attr: {
                       value: 200,
-                    },
-                    func(el) {
-                      el.innerHTML = 200;
                     },
                   },
                 ],
