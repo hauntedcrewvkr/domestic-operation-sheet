@@ -70,24 +70,20 @@ function setPrimaryActions(element) {
 }
 
 //----------------------------------<( set-secondary-actions-helper-function()>-
-async function setSecondaryActions(element) {
-  const url = gviz.gvizUrl({ ssid: gsheet.database.ssid, sheet: `action_access` });
-  const data = await gviz.fetchGoogleSheetData(url);
+function setSecondaryActions(element) {
+  const url = gviz.gvizUrl({ ssid: gsheet.domesticOperationSheet.ssid, sheet: `Action Access` });
 
-  gsheet.database.action_access.data ??= data.data;
-  gsheet.database.action_access.headers ??= data.header;
+  gviz.fetchGoogleSheetData(url).then(function (data) {
+    gsheet.domesticOperationSheet.ActionAccess ??= {};
+    gsheet.domesticOperationSheet.ActionAccess.data ??= data.data;
+    gsheet.domesticOperationSheet.ActionAccess.headers ??= data.header;
 
-  for (const row in data.data) {
-    if (row.type.value == `Secondary Action` && row.access.value.includes(app.user.props.email)) {
-      const schema = {
-        tag: `li`,
-        attr: { title: row.action.value },
-        fun: getIcon,
-      };
-
-      element.append(schema2el(schema));
+    for (const row in data.data) {
+      if (row.type.value == `Secondary Action` && row.access.value.includes(app.user.props.email)) {
+        element.append(schema2el({ tag: `li`, attr: { title: row.action.value }, func: [getIcon] }));
+      }
     }
-  }
+  });
 }
 
 //---------------------------------------<( set-spreadsheets-helper-function()>-
@@ -206,11 +202,14 @@ function createDropdown({ data = [], name }) {
 
 //---------------------------------------<( set-view-actions-helper-function()>-
 function setViewActions(element) {
-  gviz.fetchGoogleSheetData(gviz.gvizUrl({ ssid: gsheet.database.ssid, sheet: `action_access` })).then(function (sheetData) {
-    gsheet.database.actionAccess.data = sheetData.data;
-    gsheet.database.actionAccess.header = sheetData.header;
+  const url = gviz.gvizUrl({ ssid: gsheet.database.ssid, sheet: `action_access` });
 
-    for (row of sheetData.data) {
+  gviz.fetchGoogleSheetData(url).then(function (data) {
+    gsheet.domesticOperationSheet.actionAccess ??= {};
+    gsheet.domesticOperationSheet.actionAccess.data ??= data.data;
+    gsheet.database.actionAccess.header ??= data.header;
+
+    for (row of data.data) {
       if (row.access.value.contains(user.email) && row.type.value == `View Action`) {
         element.append(schema2el({ tag: `li`, attr: { title: row.action.value }, func: [getIcon] }));
       }
