@@ -115,7 +115,7 @@ function schema2el(schema = {}) {
     for (const [key, val] of Object.entries(schema.attr)) el.setAttribute(key, val);
   }
 
-  if (schema.func) {
+  if (schema.func && schema.func.length > 0) {
     console.log(schema.func);
     for (const fx of schema.func) fx(el);
   }
