@@ -3,18 +3,28 @@
  */
 
 //--------------------------------------------------<( start-helper-function()>-
-async function start() {
-  let loader = getLoader();
-  document.body.append(loader);
-
-  setSpreadsheets()
+function start() {
+  addLoader()
+    .then(() => setSpreadsheets())
     .then(() => setSpreadsheets())
     .then(() => setItl())
     .then(() => getScriptProps())
     .then(() => getUserProps())
-    .then(() => createDocument());
+    .then(() => createDocument())
+    .then(() => removeLoader());
+}
 
-  loader.remove();
+//----------------------------------------<( add-main-loader-helper-function()>-
+function addLoader(name = `main`) {
+  const loader = schema2el(app.schema.loader[name]);
+  document.body.append(loader);
+  return loader;
+}
+
+//------------------------------------------<( remove-loader-helper-function()>-
+function removeLoader() {
+  const loaderDiv = fx.$(`.loader-div`);
+  loaderDiv.remove();
 }
 
 //----------------------------------------<( create-document-helper-function()>-
@@ -28,36 +38,34 @@ function createDocument() {
 }
 
 //------------------------------------------------<( set-itl-helper-function()>-
-async function setItl() {
-  const data = await app.script.run(`getSheetData`, { ssid: gsheet.database.ssid, sheetname: `ITL Reference` });
-
-  for (const row of data) {
-    const orderType = fx.camelCase(row.order_type.value);
-    itl.company[orderType].name ??= row.company.value;
-    itl.company[orderType].accessToken ??= row.access_token.value;
-    itl.company[orderType].secretKey ??= row.secret_key.value;
-    itl.company[orderType].pickupAddressId ??= row.pickup_address_id.value;
-    itl.company[orderType].returnAddressId ??= row.return_address_id.value;
-  }
+function setItl() {
+  app.script.run(`getSheetData`, { ssid: gsheet.database.ssid, sheetname: `ITL Reference` }).then(function (data) {
+    for (row of data) {
+      const orderType = fx.camelCase(row.order_type.value);
+      itl.company[orderType].name ??= row.company.value;
+      itl.company[orderType].accessToken ??= row.access_token.value;
+      itl.company[orderType].secretKey ??= row.secret_key.value;
+      itl.company[orderType].pickupAddressId ??= row.pickup_address_id.value;
+      itl.company[orderType].returnAddressId ??= row.return_address_id.value;
+    }
+  });
 }
 
 //------------------------------------<( set-primary-actions-helper-function()>-
 function setPrimaryActions(element) {
-  const url = gviz.gvizUrl({ ssid: gsheet.database.ssid, sheet: `action_access` });
+  const url = gviz.gvizUrl({ ssid: gsheet.domesticOperationSheet.ssid, sheet: `Action Access` });
 
-  gviz.fetchGoogleSheetData(url).then(helper);
-
-  function helper(data) {
+  gviz.fetchGoogleSheetData(url).then(function (data) {
     gsheet.database.actionAccess ??= {};
     gsheet.database.actionAccess.data ??= data.data;
     gsheet.database.actionAccess.headers ??= data.header;
 
-    for (const row in data.data) {
+    for (const row of data.data) {
       if (row.type.value == `Primary Action` && row.access.value.includes(app.user.props.email)) {
         element.append(schema2el({ tag: `li`, attr: { title: row.action.value }, func: [getIcon] }));
       }
     }
-  }
+  });
 }
 
 //----------------------------------<( set-secondary-actions-helper-function()>-
@@ -124,11 +132,6 @@ function schema2el(schema = {}) {
   }
 
   return el;
-}
-
-//---------------------------------------------<( get-loader-helper-function()>-
-function getLoader(loader = `main`) {
-  return schema2el(app.schema.loader[loader]);
 }
 
 //--------------------------------<( change-loader-progress-herlper-function()>-
