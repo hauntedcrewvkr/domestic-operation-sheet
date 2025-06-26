@@ -210,7 +210,7 @@ function setViewActions(element) {
     gsheet.domesticOperationSheet.actionAccess.header ??= data.header;
 
     for (row of data.data) {
-      if (row.access.value.contains(app.user.props.email) && row.type.value == `View Action`) {
+      if (row.access.value.includes(app.user.props.email) && row.type.value == `View Action`) {
         element.append(schema2el({ tag: `li`, attr: { title: row.action.value }, func: [getIcon] }));
       }
     }
