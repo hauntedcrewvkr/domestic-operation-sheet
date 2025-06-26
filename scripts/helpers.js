@@ -41,22 +41,26 @@ async function setItl() {
 }
 
 //------------------------------------<( set-primary-actions-helper-function()>-
-async function setPrimaryActions(element) {
+function setPrimaryActions(element) {
   const url = gviz.gvizUrl({ ssid: gsheet.database.ssid, sheet: `action_access` });
-  const data = await gviz.fetchGoogleSheetData(url);
-  console.log(data);
-  gsheet.database.action_access.data ??= data.data;
-  gsheet.database.action_access.headers ??= data.header;
+  // const data = await gviz.fetchGoogleSheetData(url);
+  gviz.fetchGoogleSheetData(url).then(function (data) {
+    console.log(data);
+  });
 
-  for (const row in data.data) {
-    if (row.type.value == `Primary Action` && row.access.value.includes(app.user.props.email)) {
-      const schema = {
-        tag: `li`,
-        attr: { title: row.action.value },
-        func: [getIcon],
-      };
+  function helper(data) {
+    gsheet.database.action_access.data ??= data.data;
+    gsheet.database.action_access.headers ??= data.header;
+    for (const row in data.data) {
+      if (row.type.value == `Primary Action` && row.access.value.includes(app.user.props.email)) {
+        const schema = {
+          tag: `li`,
+          attr: { title: row.action.value },
+          func: [getIcon],
+        };
 
-      element.append(schema2el(schema));
+        element.append(schema2el(schema));
+      }
     }
   }
 }
