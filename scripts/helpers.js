@@ -112,17 +112,18 @@ function removeShimmerEffect(element) {
 function schema2el(schema = {}) {
   const el = document.createElement(schema.tag);
 
+  if (schema.text) el.textContent = schema.text;
+
   if (schema.attr) {
-    for (const [key, val] of Object.entries(schema.attr)) {
-      el.setAttribute(key, val);
-    }
+    for (const [key, val] of Object.entries(schema.attr)) el.setAttribute(key, val);
+  }
+
+  if (schema.func) {
+    for (const fx of schema.func) fx(el);
   }
 
   if (schema.sub && Array.isArray(schema.sub)) {
-    for (const childSchema of schema.sub) {
-      const childEl = schema2el(childSchema); // recursion
-      el.appendChild(childEl);
-    }
+    for (const childSchema of schema.sub) el.appendChild(schema2el(childSchema));
   }
 
   return el;
