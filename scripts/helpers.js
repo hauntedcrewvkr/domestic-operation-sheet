@@ -11,8 +11,49 @@ function start() {
     .then(() => setItl())
     .then(() => getScriptProps())
     .then(() => getUserProps())
+    .then(() => setMasterData())
     .then(() => createDocument())
     .then(() => removeLoader());
+}
+
+//----------------------------------------<( set-master-data-helper-function()>-
+function setMasterData() {
+  const url = gviz.gvizUrl({ ssid: gsheet.domesticOperationSheet.ssid, sheet: `Master` });
+
+  gviz.fetchGoogleSheetData(url).then(function (data) {
+    gsheet.domesticOperationSheet.master ??= {};
+    gsheet.domesticOperationSheet.master.data ??= data.data;
+    gsheet.domesticOperationSheet.master.header ??= data.header;
+
+    setFilterViews(data.data);
+  });
+}
+
+//----------------------------------------<( set-filter-data-helper-function()>-
+function setFilterViews(data) {
+  const views = Object.keys(gsheet.filters);
+
+  for (const json of data) {
+    for (const view of views) {
+      if (!gsheet.domesticOperationSheet[view]) gsheet.domesticOperationSheet[view] = {};
+      if (!gsheet.domesticOperationSheet[view].data) gsheet.domesticOperationSheet[view].data = [];
+
+      filterCheck({ json: json, filter: gsheet.filters[view] }) && gsheet.domesticOperationSheet[view].data.push(json);
+    }
+  }
+}
+
+//-------------------------------------------<( filter-check-helper-function()>-
+function filterCheck({ json, filter }) {
+  const operators = fx.checkers;
+
+  for (const [operator, obj] of Object.values(filter)) {
+    for (const [column, value] of Object.values(obj)) {
+      if (!operators[operator](json[column].value, value)) return false;
+    }
+  }
+
+  return true;
 }
 
 //----------------------------------------<( add-main-loader-helper-function()>-

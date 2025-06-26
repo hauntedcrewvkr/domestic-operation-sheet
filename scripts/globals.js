@@ -1,5 +1,19 @@
 //-----------------------------------------<( easy-to-use-function-constants )>-
 const fx = {
+  checkers: {
+    equal: (a, b) => a == b,
+    notEqual: (a, b) => a != b,
+    greater: (a, b) => a > b,
+    greaterEqual: (a, b) => a >= b,
+    less: (a, b) => a < b,
+    lessEqual: (a, b) => a <= b,
+    dateEqual: (a, b) => new Date(a).setHours(0, 0, 0, 0) == new Date(b).setHours(0, 0, 0, 0),
+    dateNotEqual: (a, b) => new Date(a).setHours(0, 0, 0, 0) != new Date(b).setHours(0, 0, 0, 0),
+    dateGreater: (a, b) => new Date(a).setHours(0, 0, 0, 0) > new Date(b).setHours(0, 0, 0, 0),
+    dateGreaterEqual: (a, b) => new Date(a).setHours(0, 0, 0, 0) >= new Date(b).setHours(0, 0, 0, 0),
+    dateLess: (a, b) => new Date(a).setHours(0, 0, 0, 0) < new Date(b).setHours(0, 0, 0, 0),
+    dateLessEqual: (a, b) => new Date(a).setHours(0, 0, 0, 0) <= new Date(b).setHours(0, 0, 0, 0),
+  },
   //------------------------- query-selector
   $(sel, scope = document) {
     /**
@@ -520,6 +534,165 @@ const app = {
 const gsheet = {
   endpoint: `https://sheets.googleapis.com/v4/spreadsheets`,
   schema: {},
+
+  filters: {
+    'Orders': {
+      notEqual: {
+        ID: ``,
+      },
+    },
+
+    'Get Initial Confirmation': {
+      equal: {
+        'Delivery Type': ``,
+      },
+      notEqual: {
+        'Order Confirmation Status': `To Check`,
+        'Dispatch Status': `Cancelled`,
+        'Tracking Status': `Cancelled`,
+      },
+    },
+
+    'Confirm Payments': {
+      equal: {
+        'Is Payment Confirmed': ``,
+      },
+      notEqual: {
+        'Prepaid Amount (If any) (INR)': 0,
+        'Tracking Status': `Cancelled`,
+        'Dispatch Status': `Cancelled`,
+      },
+    },
+
+    'Generate Orders': {
+      equal: {
+        'Order Confirmation Status': `Good to Go`,
+        'Delivery Type': `Regular Delivery`,
+        'Is Payment Confirmed': `Yes`,
+        'Tracking Number': '',
+      },
+      notEqual: {
+        'Dispatch Status': `Cancelled`,
+        'Tracking Status': `Cancelled`,
+      },
+    },
+
+    'Raised Issues': {
+      notEqual: {
+        'CX Issue': ``,
+        'CX Issue Status': `Closed`,
+      },
+    },
+
+    'COD': {
+      equal: {
+        'Order Type': `COD`,
+      },
+    },
+
+    'Processed Orders': {
+      equal: {
+        'Dispatch Status': `Yet to be Dispatched`,
+      },
+      notEqual: {
+        'Tracking Number': ``,
+      },
+    },
+
+    'My Orders': {},
+
+    'Medisellers COD': {
+      equal: {
+        'Order Type': `COD`,
+        'Booking Company': `Mediseller India`,
+      },
+      notEqual: {
+        'Tracking Status': `Cancelled`,
+        'Dispatch Status': `Cancelled`,
+      },
+    },
+
+    'Medicare COD': {
+      equal: {
+        'Order Type': `COD`,
+        'Booking Company': `Medicare India`,
+      },
+      notEqual: {
+        'Tracking Status': `Cancelled`,
+        'Dispatch Status': `Cancelled`,
+      },
+    },
+
+    'Payment Not Received': {
+      equal: {
+        'Is Payment Confirmed': `No`,
+      },
+      notEqual: {
+        'Prepaid Amount (If any) (INR)': 0,
+        'Tracking Status': `Cancelled`,
+        'Dispatch Status': `Cancelled`,
+      },
+    },
+
+    'Payment Received': {
+      equal: {
+        'Is Payment Confirmed': `Yes`,
+      },
+      notEqual: {
+        'Prepaid Amount (If any) (INR)': 0,
+        'Tracking Status': `Cancelled`,
+        'Dispatch Status': `Cancelled`,
+      },
+    },
+
+    'Dispatch + Menifest': {
+      equal: {
+        'Dispatch Status': `Yet to be Dispatched`,
+        'Tracking Status': `Manifested`,
+      },
+    },
+
+    'T-1 Orders': {},
+
+    'Dispatch + RTO': {
+      equal: {
+        'Dispatch Status': `Dispatched`,
+        'Tracking Status': `RTO In Transit`,
+      },
+    },
+
+    'RTO Delivered': {
+      equal: {
+        'Dispatch Status': `Dispatched`,
+        'Tracking Status': `RTO Delivered`,
+      },
+    },
+
+    'Pending Orders': {},
+
+    'Unconfirmed Returns': {
+      equal: {
+        'Delivery Type': `Regular Delivery`,
+        'Tracking Status': `RTO Delivered`,
+      },
+      notEqual: {
+        'Tracking Number': ``,
+        'Dispatch Status': `Returned`,
+      },
+    },
+
+    'To Check': {
+      equal: {
+        'Order Confirmation Status': `To Check`,
+      },
+      notEqual: {
+        'Tracking Status': `Cancelled`,
+        'Dispatch Status': `Cancelled`,
+      },
+    },
+
+    'Payments': {},
+  },
 
   async getData({ ssid, sheet, key }) {
     if (!ssid || !sheet || !key) {
