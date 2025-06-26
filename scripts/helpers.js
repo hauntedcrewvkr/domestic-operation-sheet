@@ -79,6 +79,7 @@ function setSecondaryActions(element) {
     gsheet.domesticOperationSheet.ActionAccess.headers ??= data.header;
 
     for (const row in data.data) {
+      console.log(row);
       if (row.type.value == `Secondary Action` && row.access.value.includes(app.user.props.email)) {
         element.append(schema2el({ tag: `li`, attr: { title: row.action.value }, func: [getIcon] }));
       }
