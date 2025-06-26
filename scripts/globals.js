@@ -555,10 +555,10 @@ const gsheet = {
 
     'Confirm Payments': {
       equal: {
-        'Is Payment Confirmed': ``,
+        'Payment Status': ``,
       },
       notEqual: {
-        'Prepaid Amount (If any) (INR)': 0,
+        'Prepaid Amount (₹)': 0,
         'Tracking Status': `Cancelled`,
         'Dispatch Status': `Cancelled`,
       },
@@ -568,7 +568,7 @@ const gsheet = {
       equal: {
         'Order Confirmation Status': `Good to Go`,
         'Delivery Type': `Regular Delivery`,
-        'Is Payment Confirmed': `Yes`,
+        'Payment Status': `Yes`,
         'Tracking Number': '',
       },
       notEqual: {
@@ -625,10 +625,10 @@ const gsheet = {
 
     'Payment Not Received': {
       equal: {
-        'Is Payment Confirmed': `No`,
+        'Payment Status': `No`,
       },
       notEqual: {
-        'Prepaid Amount (If any) (INR)': 0,
+        'Prepaid Amount (₹)': 0,
         'Tracking Status': `Cancelled`,
         'Dispatch Status': `Cancelled`,
       },
@@ -636,10 +636,10 @@ const gsheet = {
 
     'Payment Received': {
       equal: {
-        'Is Payment Confirmed': `Yes`,
+        'Payment Status': `Yes`,
       },
       notEqual: {
-        'Prepaid Amount (If any) (INR)': 0,
+        'Prepaid Amount (₹)': 0,
         'Tracking Status': `Cancelled`,
         'Dispatch Status': `Cancelled`,
       },
