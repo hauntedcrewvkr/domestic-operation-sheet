@@ -626,7 +626,7 @@ const gviz = {
           const colnum = c + 1;
 
           header.push(value);
-          headProp[value] ??= { index: colnum, label: columnNumberToLabel(colnum) };
+          headProp[value] ??= { index: colnum, label: gsheet.columnNumberToLabel(colnum) };
         } else {
           json[header[c]] = { value: value, edit: true, view: true, row: r + 2, columns: c + 1 };
         }
