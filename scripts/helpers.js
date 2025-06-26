@@ -206,11 +206,10 @@ function setViewActions(element) {
     const url = gviz.gvizUrl({ ssid: gsheet.database.ssid, sheet: `action_access` });
 
     gviz.fetchGoogleSheetData(url).then(function (sheetData) {
-      data = sheetData;
+      data = sheetData.data;
+      gsheet.database.action_access.data = sheetData.data;
+      gsheet.database.action_access.header = sheetData.header;
     });
-
-    gsheet.database.action_access.data = sheetData.data;
-    gsheet.database.action_access.header = sheetData.header;
   }
 
   for (row of data) {
