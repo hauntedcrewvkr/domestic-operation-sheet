@@ -202,28 +202,16 @@ function createDropdown({ data = [], name }) {
 
 //---------------------------------------<( set-view-actions-helper-function()>-
 function setViewActions(element) {
-  let data = gsheet?.database?.actionAccess?.data || undefined;
-  if (!data) {
-    const url = gviz.gvizUrl({ ssid: gsheet.database.ssid, sheet: `action_access` });
+  gviz.fetchGoogleSheetData(gviz.gvizUrl({ ssid: gsheet.database.ssid, sheet: `action_access` })).then(function (sheetData) {
+    gsheet.database.actionAccess.data = sheetData.data;
+    gsheet.database.actionAccess.header = sheetData.header;
 
-    gviz.fetchGoogleSheetData(url).then(function (sheetData) {
-      data = sheetData.data;
-      gsheet.database.actionAccess.data = sheetData.data;
-      gsheet.database.actionAccess.header = sheetData.header;
-    });
-  }
-  console.log(data);
-  for (row of data) {
-    if (row.access.value.contains(user.email) && row.type.value == `View Action`) {
-      const schema = {
-        tag: `li`,
-        attr: { title: row.action.value },
-        func: getIcon,
-      };
-
-      element.append(schema2el(schema));
+    for (row of sheetData.data) {
+      if (row.access.value.contains(user.email) && row.type.value == `View Action`) {
+        element.append(schema2el({ tag: `li`, attr: { title: row.action.value }, func: getIcon }));
+      }
     }
-  }
+  });
 }
 
 //-----------------------------------------------<( get-icon-helper-function()>-
