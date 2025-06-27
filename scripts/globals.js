@@ -283,38 +283,40 @@ const app = {
             attr: {
               class: `table-container`,
             },
-            sub: {
-              tag: `table`,
-              attr: {
-                class: `table`,
-              },
-              sub: [
-                {
-                  tag: `thead`,
-                  attr: {
-                    class: `table-heading`,
-                  },
-                  sub: [
-                    {
-                      tag: `tr`,
-                      attr: { class: `thead-row` },
-                      func: [setTableHeaders],
+            sub: [
+              {
+                tag: `table`,
+                attr: {
+                  class: `table`,
+                },
+                sub: [
+                  {
+                    tag: `thead`,
+                    attr: {
+                      class: `table-heading`,
                     },
-                  ],
-                },
-                {
-                  tag: `tbody`,
-                  attr: {
-                    class: `table-body`,
+                    sub: [
+                      {
+                        tag: `tr`,
+                        attr: { class: `thead-row` },
+                        func: [setTableHeaders],
+                      },
+                    ],
                   },
-                  func: [setTableRows],
-                },
-                {
-                  tag: `tfoot`,
-                  attr: { class: `tfoot` },
-                },
-              ],
-            },
+                  {
+                    tag: `tbody`,
+                    attr: {
+                      class: `table-body`,
+                    },
+                    func: [setTableRows],
+                  },
+                  {
+                    tag: `tfoot`,
+                    attr: { class: `tfoot` },
+                  },
+                ],
+              },
+            ],
           },
           {
             tag: `section`,
