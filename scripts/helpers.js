@@ -3,18 +3,26 @@
  */
 
 //--------------------------------------------------<( start-helper-function()>-
-function start() {
-  addLoader();
+async function start() {
+  await addLoader();
+  await setSpreadsheets();
+  await setItl();
+  await getScriptProps();
+  await getUserProps();
+  await setMasterData();
+  await createDocument();
+  setInterval(setMasterData, 600000);
+  removeLoader();
 
-  setSpreadsheets()
-    .then(() => setSpreadsheets())
-    .then(() => setItl())
-    .then(() => getScriptProps())
-    .then(() => getUserProps())
-    .then(() => setMasterData())
-    .then(() => createDocument())
-    .then(() => setInterval(setMasterData, 600000))
-    .then(() => removeLoader());
+  // setSpreadsheets()
+  //   .then(() => setSpreadsheets())
+  //   .then(() => setItl())
+  //   .then(() => getScriptProps())
+  //   .then(() => getUserProps())
+  //   .then(() => setMasterData())
+  //   .then(() => createDocument())
+  //   .then(() => setInterval(setMasterData, 600000))
+  //   .then(() => removeLoader());
 }
 
 //----------------------------------------<( set-master-data-helper-function()>-
