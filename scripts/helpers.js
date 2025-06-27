@@ -251,52 +251,7 @@ function setViewActions(element) {
 
 //-----------------------------------------------<( get-icon-helper-function()>-
 function getIcon(element) {
-  const icons = {
-    'Add New Order': `ph ph-user-circle-plus`,
-    'Create Order': `ph ph-webhooks-logo`,
-    'Download': `ph ph-cloud-arrow-down`,
-    'My Orders': `ph ph-user`,
-    'Filter': `ph ph-funnel`,
-    'Change Account': `ph ph-buildings`,
-    'Change Email': `ph ph-at`,
-    'Sync': `ph ph-arrows-clockwise`,
-    'Medisellers COD': `ph ph-money`,
-    'Medicare COD': `ph ph-money-wavy`,
-    'Payment Not Received': `ph ph-not-equals`,
-    'Payment Received': `ph ph-equals`,
-    'Overview': `ph ph-chart-bar`,
-    'Dispatch + Menifest': `ph ph-truck`,
-    'T-1 Orders': `ph ph-number-one`,
-    'Dispatch + RTO': `ph ph-arrow-u-left-down`,
-    'RTO Delivered': `ph ph-hand-arrow-down`,
-    'Pending Orders': `ph ph-hourglass`,
-    'Unconfirmed Returns': `ph ph-not-subset-of`,
-    'To Check': `ph ph-list-checks`,
-    'Payments': `ph ph-currency-dollar-simple`,
-    'Toggle Sub Action': `ph ph-arrow-right`,
-    'Raise Issue': `ph ph-warning`,
-    'See Followups': `ph ph-chat`,
-    'Change Dispatch Status': `ph ph-cube`,
-    'Add Remarks': `ph ph-file-plus`,
-    'Order Confirmation Message': `ph ph-whatsapp-logo`,
-    'Mark Resolved': `ph ph-thumbs-up`,
-    'Payment Confirmation Yes': `ph ph-check-circle`,
-    'Payment Confirmation No': `ph ph-x-circle`,
-    'Edit Row': `ph ph-pencil-simple-line`,
-    'Orders': `fas fa-cart-shopping`,
-    'Get Initial Confirmation': `fas fa-asterisk`,
-    'Confirm Payments': `fas fa-credit-card`,
-    'Generate Orders': `fas fa-face-smile-beam`,
-    'Raised Issues': `fas fa-hand`,
-    'COD': `fas fa-money-bill-1-wave`,
-    'Processed Orders': `fas fa-microchip`,
-  };
-  const schema = {
-    tag: `i`,
-    attr: { class: icons[element.title] },
-  };
-
-  element.append(schema2el(schema));
+  element.append(schema2el({ tag: `i`, attr: { class: app.icons[element.title] } }));
 }
 
 //-----------------------------------------<( get-table-rows-helper-function()>-
@@ -333,17 +288,6 @@ function getTableRows(pagenum = 1, viewname = `Master`) {
   totalPages.disabled = false;
   totalPages.value = total;
   totalPages.disabled = true;
-}
-
-//---------------------------------------------<( ghost-sync-helper-function()>-
-async function ghostSync() {
-  /**
-   * @description This function works in background to sync realtime data
-   */
-
-  const masterData = await sheet.getData(sheet[tool.name].ssid, `Master`, user.apiKey);
-  distributeData(tool.name, `Master`, masterData);
-  setTimeout(ghostSync, 5 * 60 * 1000);
 }
 
 //---------------------------------------<( get-order-number-helper-function()>-
@@ -604,4 +548,45 @@ function notify({ message, type }) {
 function removeElement({ element, urgent = false }) {
   if (urgent) element.remove();
   if (!urgent) setTimeout(() => element.remove(), 500);
+}
+
+function setTableHeaders(element) {
+  // prettier-ignore
+  element.append(schema2el({ tag: `th`, sub: [{ tag: `i`, attr: { class: `ph ph-magnifying-glass` } }, { tag: `input`, att: { type: `text` } }] }));
+
+  for (const [group, columns] of Object.entries(gsheet.columnGroup)) {
+    if (Array.isArray(columns) && columns.length > 0) {
+      //prettier-ignore
+      element.append(schema2el({ tag: `th`, sub: [ { tag: `i`, attr: { class: `ph ph-sort-ascending` } }, { tag: `span`, text: group } ] }));
+    }
+  }
+}
+
+function setTabbleRows(element, props = { page: 1, view: `Orders`, rpp: 50 }) {
+  const data = gsheet.domesticOperationSheet[props.view].data;
+  let start = props.page > 0 ? props.rpp * (props.page - 1) : 0;
+  const end = Math.min(start + props.rpp, data.length);
+
+  while (start < end) {
+    const tr = schema2el({ tag: `tr`, attr: { class: `table-row`, onclick: `seeDetails(event)`, rowNum: start + 2 } });
+
+    for (const [group, columns] of Object.entries(gsheet.columnGroup)) {
+      const td = schema2el({ tag: `td`, sub: [{ tag: `div` }] });
+      const tdContainer = fx.$(`div`, td);
+
+      for (const column of columns) {
+        if (gsheet.columnProps[column].view.access) {
+          const el = schema2el(gsheet.columnProps[column].view.schema);
+          el.textContent = data[start][column].value;
+
+          tdContainer.append(el);
+        }
+      }
+
+      tr.append(td);
+    }
+
+    element.append(tr);
+    start++;
+  }
 }

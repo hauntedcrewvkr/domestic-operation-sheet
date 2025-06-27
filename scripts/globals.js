@@ -177,6 +177,48 @@ const fx = {
 const app = {
   favicon: fx.$(`favicon`).innerHTML,
   title: document.title,
+
+  icons: {
+    'Add New Order': `ph ph-user-circle-plus`,
+    'Create Order': `ph ph-webhooks-logo`,
+    'Download': `ph ph-cloud-arrow-down`,
+    'My Orders': `ph ph-user`,
+    'Filter': `ph ph-funnel`,
+    'Change Account': `ph ph-buildings`,
+    'Change Email': `ph ph-at`,
+    'Sync': `ph ph-arrows-clockwise`,
+    'Medisellers COD': `ph ph-money`,
+    'Medicare COD': `ph ph-money-wavy`,
+    'Payment Not Received': `ph ph-not-equals`,
+    'Payment Received': `ph ph-equals`,
+    'Overview': `ph ph-chart-bar`,
+    'Dispatch + Menifest': `ph ph-truck`,
+    'T-1 Orders': `ph ph-number-one`,
+    'Dispatch + RTO': `ph ph-arrow-u-left-down`,
+    'RTO Delivered': `ph ph-hand-arrow-down`,
+    'Pending Orders': `ph ph-hourglass`,
+    'Unconfirmed Returns': `ph ph-not-subset-of`,
+    'To Check': `ph ph-list-checks`,
+    'Payments': `ph ph-currency-dollar-simple`,
+    'Toggle Sub Action': `ph ph-arrow-right`,
+    'Raise Issue': `ph ph-warning`,
+    'See Followups': `ph ph-chat`,
+    'Change Dispatch Status': `ph ph-cube`,
+    'Add Remarks': `ph ph-file-plus`,
+    'Order Confirmation Message': `ph ph-whatsapp-logo`,
+    'Mark Resolved': `ph ph-thumbs-up`,
+    'Payment Confirmation Yes': `ph ph-check-circle`,
+    'Payment Confirmation No': `ph ph-x-circle`,
+    'Edit Row': `ph ph-pencil-simple-line`,
+    'Orders': `fas fa-cart-shopping`,
+    'Get Initial Confirmation': `fas fa-asterisk`,
+    'Confirm Payments': `fas fa-credit-card`,
+    'Generate Orders': `fas fa-face-smile-beam`,
+    'Raised Issues': `fas fa-hand`,
+    'COD': `fas fa-money-bill-1-wave`,
+    'Processed Orders': `fas fa-microchip`,
+  },
+
   schema: {
     body: {
       header: {
@@ -252,7 +294,13 @@ const app = {
                   attr: {
                     class: `table-heading`,
                   },
-                  func: [setTableHeaders],
+                  sub: [
+                    {
+                      tag: `tr`,
+                      attr: { class: `thead-row` },
+                      func: [setTableHeaders],
+                    },
+                  ],
                 },
                 {
                   tag: `tbody`,
@@ -260,6 +308,10 @@ const app = {
                     class: `table-body`,
                   },
                   func: [setTableRows],
+                },
+                {
+                  tag: `tfoot`,
+                  attr: { class: `tfoot` },
                 },
               ],
             },
@@ -535,7 +587,206 @@ const app = {
 //----------------------------------------------<( google-sheets-preferences )>-
 const gsheet = {
   endpoint: `https://sheets.googleapis.com/v4/spreadsheets`,
-  schema: {},
+  columnGroup: {
+    'ORDER DETAILS': [`ID`, `Timestamp`, `Email`, `Month`, `Order Date`, `Order ID`, `POC`],
+    'CUSTOMER DETAILS': [`Client Name`, `Contact Number`, `Alternate Contact Number`],
+    'REQUIREMENTS': [`Requirement`, `CX Issue`, `CX Issue Status`],
+    'AMOUNT': [`Total Amount (₹)`, `Prepaid Amount (₹)`, `Balance Amount (₹)`, `Remittance Amount (₹)`, `Mode of Payment`, `Sub Order Type`, `Order Type`, `Payment Status`, `Payment Timestamp`],
+    'SHIPPING DETAILS': [`Address Line 1`, `Address Line 2`, `State`, `Pincode`],
+    'LOGISTIC DETAILS': [`Order Confirmation Status`, `Delivery Type`, `Logistic Partner`, `Booking Company`, `ITL Error`, `Tracking Number`, `Tracking Status`, `Tracking Url`, `Dispatch Status`],
+  },
+
+  columnProps: {
+    'ID': {
+      view: { access: false, schema: { tag: `span` } },
+      edit: { access: false, schema: { tag: `input`, attr: { type: text, placeholder: `ID` } } },
+    },
+
+    'Timestamp': {
+      view: { access: false, schema: { tag: `span` } },
+      edit: { access: false, schema: { tag: `input`, attr: { type: `datetime-local` } } },
+    },
+
+    'Email': {
+      view: { access: false, schema: { tag: `a` } },
+      edit: { access: false, schema: { tag: `input`, attr: { type: `email` } } },
+    },
+
+    'Month': {
+      view: { access: false, schema: { tag: `span` } },
+      edit: { access: false, schema: { tag: `input`, attr: { type: `text` } } },
+    },
+
+    'Order Date': {
+      view: { access: false, schema: { tag: `span` } },
+      edit: { access: false, schema: { tag: `input`, attr: { type: `date`, required: true } } },
+    },
+
+    'Order ID': {
+      view: { access: false, schema: { tag: `span` } },
+      edit: { access: false, schema: { tag: `input`, attr: { type: `text` } } },
+    },
+
+    'POC': {
+      view: { access: false, schema: { tag: `span` } },
+      edit: { access: false, schema: { tag: `input`, attr: { type: `text`, list: `poc`, required: true } } },
+    },
+
+    'Client Name': {
+      view: { access: false, schema: { tag: `span` } },
+      edit: { access: false, schema: { tag: `input`, attr: { type: `text`, required: true } } },
+    },
+
+    'Contact Number': {
+      view: { access: false, schema: { tag: `span` } },
+      edit: { access: false, schema: { tag: `input`, attr: { type: `number`, required: true } } },
+    },
+
+    'Alternate Contact Number': {
+      view: { access: false, schema: { tag: `span` } },
+      edit: { access: false, schema: { tag: `input`, attr: { type: `number` } } },
+    },
+
+    'Requirement': {
+      view: { access: false, schema: { tag: `p` } },
+      edit: { access: false, schema: { tag: `textarea`, attr: { placeholder: `Enter Requirement` } } },
+    },
+
+    'Total Amount (₹)': {
+      view: { access: false, schema: { tag: `span` } },
+      edit: { access: false, schema: { tag: `input`, attr: { type: `number`, value: 0, required: true } } },
+    },
+
+    'Prepaid Amount (₹)': {
+      view: { access: false, schema: { tag: `span` } },
+      edit: { access: false, schema: { tag: `input`, attr: { type: `number`, value: 0, required: true } } },
+    },
+
+    'Balance Amount (₹)': {
+      view: { access: false, schema: { tag: `span` } },
+      edit: { access: false, schema: { tag: `input`, attr: { type: `number`, value: 0, required: true } } },
+    },
+
+    'Remittance Amount (₹)': {
+      view: { access: false, schema: { tag: `span` } },
+      edit: { access: false, schema: { tag: `input`, attr: { type: `number`, value: 0, required: true } } },
+    },
+
+    'Mode of Payment': {
+      view: { access: false, schema: { tag: `span` } },
+      edit: { access: false, schema: { tag: `input`, attr: { type: `text`, list: `mode-of-payment`, required: true } } },
+    },
+
+    'Sub Order Type': {
+      view: { access: false, schema: { tag: `span` } },
+      edit: { access: false, schema: { tag: `input`, attr: { type: `text`, list: `sub-order-type`, required: true } } },
+    },
+
+    'Order Type': {
+      view: { access: false, schema: { tag: `span` } },
+      edit: { access: false, schema: { tag: `input`, attr: { type: `text`, list: `order-type`, required: true } } },
+    },
+
+    'Payment Status': {
+      view: { access: false, schema: { tag: `span` } },
+      edit: { access: false, schema: { tag: `input`, attr: { type: `text`, list: `payment-status`, required: true } } },
+    },
+
+    'Payment Timestamp': {
+      view: { access: false, schema: { tag: `span` } },
+      edit: { access: false, schema: { tag: `input`, attr: { type: `datetime-local`, required: true } } },
+    },
+
+    'Address Line 1': {
+      view: { access: false, schema: { tag: `p` } },
+      edit: { access: false, schema: { tag: `textarea`, attr: { placeholder: `Address Line 1....` } } },
+    },
+
+    'Address Line 2': {
+      view: { access: false, schema: { tag: `p` } },
+      edit: { access: false, schema: { tag: `textarea`, attr: { placeholder: `Address Line 2....` } } },
+    },
+
+    'State': {
+      view: { access: false, schema: { tag: `span` } },
+      edit: { access: false, schema: { tag: `input`, attr: { type: `text`, required: true, list: `state`, placeholder: `State` } } },
+    },
+
+    'Pincode': {
+      view: { access: false, schema: { tag: `span` } },
+      edit: { access: false, schema: { tag: `input`, attr: { type: `number`, placeholder: `Pincode`, required: true } } },
+    },
+
+    'CX Issue': {
+      view: { access: false, schema: { tag: `span` } },
+      edit: { access: false, schema: { tag: `input`, attr: { type: `text`, list: `cx-issue`, required: true, placeholder: `CX Issue` } } },
+    },
+
+    'CX Issue Status': {
+      view: { access: false, schema: { tag: `span` } },
+      edit: { access: false, schema: { tag: `input`, attr: { type: `text`, list: `cx-issue-status`, required: true, placeholder: `CX Issue Status` } } },
+    },
+
+    'Order Confirmation Status': {
+      view: { access: false, schema: { tag: `span` } },
+      edit: { access: false, schema: { tag: `input`, attr: { type: `text`, list: `order-confirmation-status`, required: true, placeholder: `Order Confirmation Status` } } },
+    },
+
+    'Delivery Type': {
+      view: { access: false, schema: { tag: `span` } },
+      edit: { access: false, schema: { tag: `input`, attr: { type: `text`, list: `delivery-type`, required: true, placeholder: `Delivery Type` } } },
+    },
+
+    'Logistic Partner': {
+      view: { access: false, schema: { tag: `span` } },
+      edit: { access: false, schema: { tag: `input`, attr: { type: `text`, list: `logistic-partner`, required: true, placeholder: `Enter Logistic Partner` } } },
+    },
+
+    'Booking Company': {
+      view: { access: false, schema: { tag: `span` } },
+      edit: { access: false, schema: { tag: `input`, attr: { type: `text`, list: `booking-company`, required: true, placeholder: `Enter Booking Company` } } },
+    },
+
+    'ITL Error': {
+      view: { access: false, schema: { tag: `p` } },
+      edit: { access: false, schema: { tag: `input`, attr: { type: `text`, placeholder: `Enter ITL Error`, required: true } } },
+    },
+
+    'Tracking Number': {
+      view: { access: false, schema: { tag: `span` } },
+      edit: { access: false, schema: { tag: `input`, attr: { type: `text`, placeholder: `Enter Tracking Number`, required: true } } },
+    },
+
+    'Tracking Status': {
+      view: { access: false, schema: { tag: `span` } },
+      edit: { access: false, schema: { tag: `input`, attr: { type: `text`, list: `tracking-status`, placeholder: `Enter Tracking Status`, required: true } } },
+    },
+
+    'Tracking Url': {
+      view: { access: false, schema: { tag: `span` } },
+      edit: { access: false, schema: { tag: `input`, attr: { type: `url`, required: true, placeholder: `https://www.ithinklogistics.co.in/postship/tracking/...........` } } },
+    },
+
+    'Dispatch Status': {
+      view: { access: false, schema: { tag: `span` } },
+      edit: { access: false, schema: { tag: `input`, attr: { type: `text`, list: `dispatch-status`, placeholder: `Enter Dispatch Status`, required: true } } },
+    },
+
+    'Transaction ID': {
+      view: { access: false, schema: { tag: `span` } },
+      edit: { access: false, schema: { tag: `input`, attr: { type: `text`, placeholder: `Enter Trasaction ID`, required: true } } },
+    },
+
+    'Whatsapp  Status': {
+      view: { access: false, schema: { tag: `span` } },
+      edit: { access: false, schema: { tag: `input`, attr: { type: `text`, list: `Whatsapp Status`, required: true } } },
+    },
+
+    'Remarks': {
+      view: { access: false, schema: { tag: `p` } },
+      edit: { access: false, schema: { tag: `input`, attr: { type: `text`, placeholder: `Your Remarks` } } },
+    },
+  },
 
   filters: {
     'Orders': {
