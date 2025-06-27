@@ -562,7 +562,7 @@ function setTableHeaders(element) {
   }
 }
 
-function setTabbleRows(element, props = { page: 1, view: `Orders`, rpp: 50 }) {
+function setTableRows(element, props = { page: 1, view: `Orders`, rpp: 50 }) {
   const data = gsheet.domesticOperationSheet[props.view].data;
   let start = props.page > 0 ? props.rpp * (props.page - 1) : 0;
   const end = Math.min(start + props.rpp, data.length);
