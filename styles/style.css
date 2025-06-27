@@ -413,6 +413,7 @@ td {
   border: var(--border);
   box-shadow: var(--shadow-soft);
   padding: var(--u2);
+  z-index: 1;
 
   & .current-view {
     display: none;
