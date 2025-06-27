@@ -4,29 +4,19 @@
 
 //--------------------------------------------------<( start-helper-function()>-
 async function start() {
-  await addLoader();
+  addLoader();
   await setSpreadsheets();
   await setItl();
   await getScriptProps();
   await getUserProps();
   await setMasterData();
-  await createDocument();
+  createDocument();
   setInterval(setMasterData, 600000);
   removeLoader();
-
-  // setSpreadsheets()
-  //   .then(() => setSpreadsheets())
-  //   .then(() => setItl())
-  //   .then(() => getScriptProps())
-  //   .then(() => getUserProps())
-  //   .then(() => setMasterData())
-  //   .then(() => createDocument())
-  //   .then(() => setInterval(setMasterData, 600000))
-  //   .then(() => removeLoader());
 }
 
 //----------------------------------------<( set-master-data-helper-function()>-
-function setMasterData() {
+async function setMasterData() {
   const url = gviz.gvizUrl({ ssid: gsheet.domesticOperationSheet.ssid, sheet: `Master` });
 
   gviz.fetchGoogleSheetData(url).then(function (data) {
@@ -90,7 +80,7 @@ function createDocument() {
 }
 
 //------------------------------------------------<( set-itl-helper-function()>-
-function setItl() {
+async function setItl() {
   app.script.run(`getSheetData`, { ssid: gsheet.database.ssid, sheetname: `ITL Reference` }).then(function (data) {
     for (row of data) {
       const orderType = fx.camelCase(row.order_type.value);
