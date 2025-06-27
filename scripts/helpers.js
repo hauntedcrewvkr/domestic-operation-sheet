@@ -312,20 +312,17 @@ function setTableHeaders(element) {
 
   for (const [group, columns] of Object.entries(gsheet.columnGroup)) {
     if (Array.isArray(columns) && columns.length > 0) {
-      // prettier - ignore
       element.append(
         schema2el({
           tag: `th`,
           sub: [
             {
               tag: 'div',
-              attr: {
-                class: 'th-holder',
-                sub: [
-                  { tag: `i`, attr: { class: `ph ph-sort-ascending` } },
-                  { tag: `span`, text: group },
-                ],
-              },
+              attr: { class: 'th-holder' },
+              sub: [
+                { tag: `i`, attr: { class: `ph ph-sort-ascending` } },
+                { tag: `span`, text: group },
+              ],
             },
           ],
         })
