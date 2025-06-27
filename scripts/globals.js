@@ -414,21 +414,27 @@ const app = {
                 },
               },
               {
-                tag: `input`,
-                attr: {
-                  type: `number`,
-                  class: `page-input`,
-                  value: 1,
-                },
-              },
-              {
-                tag: `input`,
-                attr: {
-                  type: `number`,
-                  class: `total-pages`,
-                  value: 1,
-                  disabled: true,
-                },
+                tag: 'div',
+                attr: { class: 'inputs' },
+                sub: [
+                  {
+                    tag: `input`,
+                    attr: {
+                      type: `number`,
+                      class: `page-input`,
+                      value: 1,
+                    },
+                  },
+                  {
+                    tag: `input`,
+                    attr: {
+                      type: `number`,
+                      class: `total-pages`,
+                      value: 1,
+                      disabled: true,
+                    },
+                  },
+                ],
               },
               {
                 tag: `i`,
