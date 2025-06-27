@@ -4,16 +4,16 @@
 
 //--------------------------------------------------<( start-helper-function()>-
 async function start() {
-  addLoader();
-  await setSpreadsheets();
-  await setItl();
-  await getScriptProps();
-  await getUserProps();
-  await setMasterData();
-  await createDocument();
-  setInterval(setMasterData, 600000);
-  removeLoader();
-  setTimeout();
+  const functions = [addLoader, setSpreadsheets, setItl, getScriptProps, getUserProps, setMasterData, createDocument, () => setInterval(setMasterData, 600000), removeLoader];
+
+  try {
+    for (const fn of functions) {
+      await fn();
+    }
+    console.log(`All Functions Completed`);
+  } catch (err) {
+    console.error('Error in sequence:', err);
+  }
 }
 
 //----------------------------------------<( set-master-data-helper-function()>-
@@ -26,12 +26,14 @@ async function setMasterData() {
     gsheet.domesticOperationSheet.master.data ??= data.data;
     gsheet.domesticOperationSheet.master.header ??= data.header;
 
-    setFilterViews(data.data);
+    setFilterViews(data.data).then(function () {
+      return;
+    });
   });
 }
 
 //----------------------------------------<( set-filter-data-helper-function()>-
-function setFilterViews(data) {
+async function setFilterViews(data) {
   const views = Object.keys(gsheet.filters);
 
   for (const json of data) {
