@@ -10,7 +10,7 @@ async function start() {
   await getScriptProps();
   await getUserProps();
   await setMasterData();
-  createDocument();
+  await createDocument();
   setInterval(setMasterData, 600000);
   removeLoader();
 }
@@ -70,7 +70,7 @@ function removeLoader() {
 }
 
 //----------------------------------------<( create-document-helper-function()>-
-function createDocument() {
+async function createDocument() {
   const header = schema2el(app.schema.body.header);
   const nav = schema2el(app.schema.body.nav);
   const main = schema2el(app.schema.body.main);
