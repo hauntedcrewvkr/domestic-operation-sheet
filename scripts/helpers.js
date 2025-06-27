@@ -10,7 +10,6 @@ async function start() {
     for (const fn of functions) {
       await fn();
     }
-    console.log(`All Functions Completed`);
   } catch (err) {
     console.error('Error in sequence:', err);
   }
@@ -313,7 +312,6 @@ function setTableHeaders(element) {
 }
 
 function setTableRows(element, props = { page: 1, view: `Orders`, rpp: 50 }) {
-  console.log(gsheet.domesticOperationSheet[props.view]);
   const data = gsheet.domesticOperationSheet[props.view].data;
   let start = props.page > 0 ? props.rpp * (props.page - 1) : 0;
   const end = Math.min(start + props.rpp, data.length);

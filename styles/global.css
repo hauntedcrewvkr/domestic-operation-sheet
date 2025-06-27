@@ -1,59 +1,31 @@
 /*.::::::::::::::::::::::::::::::::::::::::::::::::::::: global-variables :::.*/
+
 :root {
-  --primary-color: #e74c3c;
-  --primary-color-light: #ff6c11;
-  --neutral-gray: #6b7280;
-  --neutral-dark: #1f2937;
-  --neutral-light: #f9fafb;
-  --warning: #e71d36;
-  --warn: #fff4d0;
-  --warn-text: #a4731e;
-  --warn-border-accent: #f1c40f;
-  --info: #d0e8ff;
-  --info-text: #1e6fa4;
-  --info-border-accent: #3398db;
-  --error: #fde2df;
-  --error-text: #c0392b;
-  --error-border-accent: #e74c3c;
-  --shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  --shadow2: 0 -2px 8px rgba(0, 0, 0, 0.1);
-  --table-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
-  --shadow-above: 0 -4px 12px rgba(0, 0, 0, 0.2);
-  --transition: all 0.2s ease;
-  --radius-big: 8px;
-  --radius-small: 4px;
-  --spacing-sm: 8px;
-  --spacing-md: 16px;
-  --spacing-lg: 24px;
-  --font-size-sm: 0.875rem;
-  --font-size-base: 1rem;
-  --font-size-lg: 1.125rem;
-  --font-size-xl: 1.5rem;
-  --msg-icn-up: polygon(
-    100% 0,
-    100% 85%,
-    54% 85%,
-    50% 100%,
-    46% 85%,
-    0 85%,
-    0 0
-  );
-  --msg-icn-dwn: polygon(
-    0 15%,
-    45% 15%,
-    50% 0,
-    55% 15%,
-    100% 15%,
-    100% 100%,
-    0 100%
-  );
-  --progress-width: 0%;
-  --shimmer-background: linear-gradient(
-    100deg,
-    #e0e0e0 30%,
-    #f5f5f5 50%,
-    #e0e0e0 70%
-  );
+  /*.:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: theme :::.*/
+  --primary: #e74c3c;
+  --primary-dark: #c0392b;
+  --accent-dark: #392f5a;
+  --background: #fdfdfd;
+  --text-dark: #2c2c2c;
+  --text-light: #ffffff;
+  --border-color: #e4e4e4;
+  --card-bg: rgba(255, 255, 255, 0.95);
+  --hover-bg: #f16a52;
+  --radius: 12px;
+  --shadow-soft: 0 2px 12px rgba(0, 0, 0, 0.06);
+  --shadow-hover: 0 4px 24px rgba(0, 0, 0, 0.08);
+  --transition: all 0.25s ease-in-out;
+  --box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.08);
+  --border: 2px solid rgba(0, 0, 0, 0.08);
+
+  /*.:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: spacing :::.*/
+  --spacing-xs: 0.5rem;
+  --spacing-sm: 1rem;
+  --spacing-md: 1.5rem;
+  --spacing-lg: 2rem;
+  --u: 6px;
+  --u2: 12px;
+  --border-radius: var(--u2);
 }
 
 /*.::::::::::::::::::::::::::::::::::::::::::::::::::: gloabal properties :::.*/

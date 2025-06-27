@@ -3,26 +3,518 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/regular/style.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Maven+Pro:wght@400..900&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="https://unpkg.com/transition-style" />
-    <link rel="stylesheet" href="style.css" />
-    <link rel="stylesheet" href="media.css" />
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/regular/style.css" />
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/fill/style.css" />
-    <link rel="stylesheet" href="style.css" />
     <title>Domestic Operation Sheet</title>
   </head>
 
-  <body></body>
+  <body>
+    <favicon hidden="">https://i.postimg.cc/hGGkfhm2/mediseller-Logo.png</favicon>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" crossorigin="" href="https://fonts.gstatic.com" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Maven+Pro:wght@400..900&amp;display=swap" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/regular/style.css" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/fill/style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" type="text/css" crossorigin="" href="styles/animation.css" />
+    <link rel="stylesheet" type="text/css" crossorigin="" href="styles/global.css" />
+    <link rel="stylesheet" type="text/css" crossorigin="" href="styles/element.css" />
+    <link rel="stylesheet" type="text/css" crossorigin="" href="styles/style.css" />
+
+    <!-- <script type="text/javascript" crossorigin="" src="https://cdn.jsdelivr.net/gh/hauntedcrewvkr/domestic-operation-sheet@v2.5.40/scripts/helpers.js" defer=""></script> -->
+    <!-- <script type="text/javascript" crossorigin="" src="https://cdn.jsdelivr.net/gh/hauntedcrewvkr/domestic-operation-sheet@v2.5.40/scripts/event.js" defer=""></script> -->
+    <!-- <script type="text/javascript" crossorigin="" src="https://cdn.jsdelivr.net/gh/hauntedcrewvkr/domestic-operation-sheet@v2.5.40/scripts/globals.js" defer=""></script> -->
+    <header class="header">
+      <div class="header-holder">
+        <div class="logo" title="Domestic Operation Sheet"><img class="logo-img" src="https://i.postimg.cc/hGGkfhm2/mediseller-Logo.png" alt="Logo" /></div>
+        <div class="primary-action-container">
+          <ul class="primary-actions">
+            <li title="Add New Order"><i class="ph ph-user-circle-plus"></i></li>
+            <li title="Create Order"><i class="ph ph-webhooks-logo"></i></li>
+            <li title="Download"><i class="ph ph-cloud-arrow-down"></i></li>
+            <li title="My Orders"><i class="ph ph-user"></i></li>
+          </ul>
+        </div>
+      </div>
+      <div class="secondary-actions-container">
+        <ul class="secondary-actions">
+          <li title="Filter"><i class="ph ph-funnel"></i></li>
+          <li title="Change Account"><i class="ph ph-buildings"></i></li>
+          <li title="Change Email"><i class="ph ph-at"></i></li>
+          <li title="Sync"><i class="ph ph-arrows-clockwise"></i></li>
+        </ul>
+      </div>
+    </header>
+    <nav class="view-nav">
+      <ul class="views-list">
+        <li title="Orders"><i class="fas fa-cart-shopping"></i></li>
+        <li title="Get Initial Confirmation"><i class="fas fa-asterisk"></i></li>
+        <li title="Confirm Payments"><i class="fas fa-credit-card"></i></li>
+        <li title="Generate Orders"><i class="fas fa-face-smile-beam"></i></li>
+        <li title="Raised Issues"><i class="fas fa-hand"></i></li>
+        <li title="COD"><i class="fas fa-money-bill-1-wave"></i></li>
+        <li title="Processed Orders"><i class="fas fa-microchip"></i></li>
+      </ul>
+    </nav>
+    <main class="main">
+      <section class="table-container">
+        <table class="table">
+          <thead class="table-heading">
+            <tr class="thead-row">
+              <th>
+                <i class="ph ph-magnifying-glass"></i>
+                <input />
+              </th>
+              <th>
+                <i class="ph ph-sort-ascending"></i>
+                <span>ORDER DETAILS</span>
+              </th>
+              <th>
+                <i class="ph ph-sort-ascending"></i>
+                <span>CUSTOMER DETAILS</span>
+              </th>
+              <th>
+                <i class="ph ph-sort-ascending"></i>
+                <span>REQUIREMENTS</span>
+              </th>
+              <th>
+                <i class="ph ph-sort-ascending"></i>
+                <span>AMOUNT</span>
+              </th>
+              <th>
+                <i class="ph ph-sort-ascending"></i>
+                <span>SHIPPING DETAILS</span>
+              </th>
+              <th>
+                <i class="ph ph-sort-ascending"></i>
+                <span>LOGISTIC DETAILS</span>
+              </th>
+            </tr>
+          </thead>
+          <tbody class="table-body">
+            <tr class="table-row" onclick="seeDetails(event)" rownum="2">
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+            </tr>
+            <tr class="table-row" onclick="seeDetails(event)" rownum="3">
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+            </tr>
+            <tr class="table-row" onclick="seeDetails(event)" rownum="4">
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+            </tr>
+            <tr class="table-row" onclick="seeDetails(event)" rownum="5">
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+            </tr>
+            <tr class="table-row" onclick="seeDetails(event)" rownum="6">
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+            </tr>
+            <tr class="table-row" onclick="seeDetails(event)" rownum="7">
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+            </tr>
+            <tr class="table-row" onclick="seeDetails(event)" rownum="8">
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+            </tr>
+            <tr class="table-row" onclick="seeDetails(event)" rownum="9">
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+            </tr>
+            <tr class="table-row" onclick="seeDetails(event)" rownum="10">
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+            </tr>
+            <tr class="table-row" onclick="seeDetails(event)" rownum="11">
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+            </tr>
+            <tr class="table-row" onclick="seeDetails(event)" rownum="12">
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+            </tr>
+            <tr class="table-row" onclick="seeDetails(event)" rownum="13">
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+            </tr>
+            <tr class="table-row" onclick="seeDetails(event)" rownum="14">
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+            </tr>
+            <tr class="table-row" onclick="seeDetails(event)" rownum="15">
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+            </tr>
+            <tr class="table-row" onclick="seeDetails(event)" rownum="16">
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+            </tr>
+            <tr class="table-row" onclick="seeDetails(event)" rownum="17">
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+            </tr>
+            <tr class="table-row" onclick="seeDetails(event)" rownum="18">
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+            </tr>
+            <tr class="table-row" onclick="seeDetails(event)" rownum="19">
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+            </tr>
+            <tr class="table-row" onclick="seeDetails(event)" rownum="20">
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+            </tr>
+            <tr class="table-row" onclick="seeDetails(event)" rownum="21">
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+            </tr>
+            <tr class="table-row" onclick="seeDetails(event)" rownum="22">
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+            </tr>
+            <tr class="table-row" onclick="seeDetails(event)" rownum="23">
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+            </tr>
+            <tr class="table-row" onclick="seeDetails(event)" rownum="24">
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+            </tr>
+            <tr class="table-row" onclick="seeDetails(event)" rownum="25">
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+            </tr>
+            <tr class="table-row" onclick="seeDetails(event)" rownum="26">
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+            </tr>
+            <tr class="table-row" onclick="seeDetails(event)" rownum="27">
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+            </tr>
+            <tr class="table-row" onclick="seeDetails(event)" rownum="28">
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+            </tr>
+            <tr class="table-row" onclick="seeDetails(event)" rownum="29">
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+            </tr>
+            <tr class="table-row" onclick="seeDetails(event)" rownum="30">
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+            </tr>
+            <tr class="table-row" onclick="seeDetails(event)" rownum="31">
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+            </tr>
+            <tr class="table-row" onclick="seeDetails(event)" rownum="32">
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+            </tr>
+            <tr class="table-row" onclick="seeDetails(event)" rownum="33">
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+            </tr>
+            <tr class="table-row" onclick="seeDetails(event)" rownum="34">
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+            </tr>
+            <tr class="table-row" onclick="seeDetails(event)" rownum="35">
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+            </tr>
+            <tr class="table-row" onclick="seeDetails(event)" rownum="36">
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+            </tr>
+            <tr class="table-row" onclick="seeDetails(event)" rownum="37">
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+            </tr>
+            <tr class="table-row" onclick="seeDetails(event)" rownum="38">
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+            </tr>
+            <tr class="table-row" onclick="seeDetails(event)" rownum="39">
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+            </tr>
+            <tr class="table-row" onclick="seeDetails(event)" rownum="40">
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+            </tr>
+            <tr class="table-row" onclick="seeDetails(event)" rownum="41">
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+            </tr>
+            <tr class="table-row" onclick="seeDetails(event)" rownum="42">
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+            </tr>
+            <tr class="table-row" onclick="seeDetails(event)" rownum="43">
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+            </tr>
+            <tr class="table-row" onclick="seeDetails(event)" rownum="44">
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+            </tr>
+            <tr class="table-row" onclick="seeDetails(event)" rownum="45">
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+            </tr>
+            <tr class="table-row" onclick="seeDetails(event)" rownum="46">
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+            </tr>
+            <tr class="table-row" onclick="seeDetails(event)" rownum="47">
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+            </tr>
+            <tr class="table-row" onclick="seeDetails(event)" rownum="48">
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+            </tr>
+            <tr class="table-row" onclick="seeDetails(event)" rownum="49">
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+            </tr>
+            <tr class="table-row" onclick="seeDetails(event)" rownum="50">
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+            </tr>
+            <tr class="table-row" onclick="seeDetails(event)" rownum="51">
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+              <td><div></div></td>
+            </tr>
+          </tbody>
+          <tfoot class="tfoot"></tfoot>
+        </table>
+      </section>
+      <section class="extra-views"></section>
+      <section id="dropdown" hidden="true" aria-hidden="true"></section>
+    </main>
+    <footer class="footer">
+      <div class="epp">
+        <select id="entries-per-page" name="entries-per-page" title="Entries Per Page">
+          <option value="50" selected="true">50</option>
+          <option value="100">100</option>
+          <option value="150">150</option>
+          <option value="200">200</option>
+        </select>
+      </div>
+      <div class="pagination">
+        <i class="ph ph-caret-double-left"></i>
+        <i class="ph ph-caret-left"></i>
+        <input type="number" class="page-input" value="1" />
+        <input type="number" class="total-pages" value="1" disabled="true" />
+        <i class="ph ph-caret-right"></i>
+        <i class="ph ph-caret-double-right"></i>
+      </div>
+      <div class="current-view"><i class="ph-fill ph-eye"></i></div>
+    </footer>
+  </body>
 </html>
-<script src="initials.js"></script>
-<script src="schema.js"></script>
-<script src="helpers.js"></script>
-<script src="checking.js"></script>
-<script src="event.js"></script>
-<script src="main.js"></script>
-<script src="script.js"></script>

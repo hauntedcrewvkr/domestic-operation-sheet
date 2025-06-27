@@ -227,22 +227,28 @@ const app = {
         sub: [
           {
             tag: `div`,
-            attr: { class: `logo`, title: document.title },
+            attr: { class: 'header-holder' },
             sub: [
               {
-                tag: `img`,
-                attr: { class: `logo-img`, src: fx.$(`favicon`).innerHTML.trim(), alt: `Logo` },
+                tag: `div`,
+                attr: { class: `logo`, title: document.title },
+                sub: [
+                  {
+                    tag: `img`,
+                    attr: { class: `logo-img`, src: fx.$(`favicon`).innerHTML.trim(), alt: `Logo` },
+                  },
+                ],
               },
-            ],
-          },
-          {
-            tag: `div`,
-            attr: { class: `primary-action-container` },
-            sub: [
               {
-                tag: `ul`,
-                attr: { class: `primary-actions` },
-                func: [setPrimaryActions],
+                tag: `div`,
+                attr: { class: `primary-action-container` },
+                sub: [
+                  {
+                    tag: `ul`,
+                    attr: { class: `primary-actions` },
+                    func: [setPrimaryActions],
+                  },
+                ],
               },
             ],
           },
