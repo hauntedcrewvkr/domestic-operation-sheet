@@ -599,7 +599,7 @@ const gsheet = {
   columnProps: {
     'ID': {
       view: { access: false, schema: { tag: `span` } },
-      edit: { access: false, schema: { tag: `input`, attr: { type: text, placeholder: `ID` } } },
+      edit: { access: false, schema: { tag: `input`, attr: { type: `text`, placeholder: `ID` } } },
     },
 
     'Timestamp': {
