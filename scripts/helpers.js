@@ -22,6 +22,7 @@ function setMasterData() {
   const url = gviz.gvizUrl({ ssid: gsheet.domesticOperationSheet.ssid, sheet: `Master` });
 
   gviz.fetchGoogleSheetData(url).then(function (data) {
+    console.log(data);
     gsheet.domesticOperationSheet.master ??= {};
     gsheet.domesticOperationSheet.master.data ??= data.data;
     gsheet.domesticOperationSheet.master.header ??= data.header;
