@@ -216,6 +216,17 @@ ul.secondary-actions {
     color: white;
     text-transform: uppercase;
     font-weight: normal;
+
+    .th-holder {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 2px;
+    }
+
+    i {
+      font-size: 1.3rem;
+    }
   }
 }
 

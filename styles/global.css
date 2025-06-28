@@ -1,24 +1,12 @@
-/*.::::::::::::::::::::::::::::::::::::::::::::::::::::: global-variables :::.*/
+/*.::::::::::::::::::::::::::::::::::::::::::::::::::::::::: global-variables */
 
 :root {
-  /*.:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: theme :::.*/
+  /*.:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: theme */
   --primary: #e74c3c;
-  --primary-dark: #c0392b;
-  --accent-dark: #392f5a;
-  --background: #fdfdfd;
-  --text-dark: #2c2c2c;
-  --text-light: #ffffff;
-  --border-color: #e4e4e4;
-  --card-bg: rgba(255, 255, 255, 0.95);
-  --hover-bg: #f16a52;
-  --radius: 12px;
-  --shadow-soft: 0 2px 12px rgba(0, 0, 0, 0.06);
-  --shadow-hover: 0 4px 24px rgba(0, 0, 0, 0.08);
-  --transition: all 0.25s ease-in-out;
-  --box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.08);
-  --border: 2px solid rgba(0, 0, 0, 0.08);
+  --transition: 0.25s ease-in-out;
 
-  /*.:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: spacing :::.*/
+  /*.:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: spacing */
+  --border: 2px solid rgba(0, 0, 0, 0.08);
   --spacing-xs: 0.5rem;
   --spacing-sm: 1rem;
   --spacing-md: 1.5rem;
@@ -28,7 +16,7 @@
   --border-radius: var(--u2);
 }
 
-/*.::::::::::::::::::::::::::::::::::::::::::::::::::: gloabal properties :::.*/
+/*.::::::::::::::::::::::::::::::::::::::::::::::::::::::: gloabal properties */
 * {
   margin: 0;
   padding: 0;
@@ -38,7 +26,7 @@
   font-family: 'Poppins', sans-serif;
 }
 
-/*.:::::::::::::::::::::::::::::::::::::: shimmering effect for the class :::.*/
+/*.:::::::::::::::::::::::::::::::::::::::::: shimmering effect for the class */
 .shimmer {
   background: var(--shimmer-background) !important;
   background-size: 200% 100% !important;

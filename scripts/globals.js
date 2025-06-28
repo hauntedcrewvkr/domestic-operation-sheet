@@ -1,18 +1,21 @@
 //-----------------------------------------<( easy-to-use-function-constants )>-
 const fx = {
   checkers: {
+    D(date) {
+      return new Date(date).setHours(0, 0, 0, 0);
+    },
     equal: (a, b) => a == b,
     notEqual: (a, b) => a != b,
     greater: (a, b) => a > b,
     greaterEqual: (a, b) => a >= b,
     less: (a, b) => a < b,
     lessEqual: (a, b) => a <= b,
-    dateEqual: (a, b) => new Date(a).setHours(0, 0, 0, 0) == new Date(b).setHours(0, 0, 0, 0),
-    dateNotEqual: (a, b) => new Date(a).setHours(0, 0, 0, 0) != new Date(b).setHours(0, 0, 0, 0),
-    dateGreater: (a, b) => new Date(a).setHours(0, 0, 0, 0) > new Date(b).setHours(0, 0, 0, 0),
-    dateGreaterEqual: (a, b) => new Date(a).setHours(0, 0, 0, 0) >= new Date(b).setHours(0, 0, 0, 0),
-    dateLess: (a, b) => new Date(a).setHours(0, 0, 0, 0) < new Date(b).setHours(0, 0, 0, 0),
-    dateLessEqual: (a, b) => new Date(a).setHours(0, 0, 0, 0) <= new Date(b).setHours(0, 0, 0, 0),
+    dateEqual: (a, b) => fx.equal(fx.D(a), fx.D(b)),
+    dateNotEqual: (a, b) => fx.notEqual(fx.D(a), fx.D(b)),
+    dateGreater: (a, b) => fx.greater(fx.D(a), fx.D(b)),
+    dateGreaterEqual: (a, b) => fx.greaterEqual(fx.D(a), fx.D(b)),
+    dateLess: (a, b) => fx.less(fx.D(a), fx.D(b)),
+    dateLessEqual: (a, b) => fx.lessEqual(fx.D(a), fx.D(b)),
   },
   //------------------------- query-selector
   $(sel, scope = document) {

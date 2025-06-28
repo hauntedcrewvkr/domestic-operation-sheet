@@ -4,7 +4,7 @@
 
 //--------------------------------------------------<( start-helper-function()>-
 async function start() {
-  const functions = [addLoader, setSpreadsheets, setItl, getScriptProps, getUserProps, setMasterData, createDocument, () => setInterval(setMasterData, 600000), removeLoader];
+  const functions = [addLoader, setSpreadsheets, setItl, getScriptProps, getUserProps, setMasterData, setColumnAccess, createDocument, () => setInterval(setMasterData, 600000), removeLoader];
 
   try {
     for (const fn of functions) {
@@ -12,6 +12,16 @@ async function start() {
     }
   } catch (err) {
     console.error('Error in sequence:', err);
+  }
+}
+
+//------------------------------------------------------<( set-column-access )>-
+async function setColumnAccess() {
+  const data = await gviz.fetchGoogleSheetData(gviz.gvizUrl({ ssid: gsheet.domesticOperationSheet.ssid, sheet: 'Column Access' }));
+
+  for (const json of data) {
+    if (json.viewers.value.includes(app.user.props.email)) columnProps[json.column_name.value].view.access = true;
+    if (json.editors.value.includes(app.user.props.email)) columnProps[json.column_name.value].edit.access = true;
   }
 }
 
@@ -355,7 +365,7 @@ function setTableRows(element, props = { page: 1, view: `Orders`, rpp: 50 }) {
       tr.append(td);
     }
 
-    element.append(tr);
+    tdContainer.innerHTML && element.append(tr);
     start++;
   }
 }
