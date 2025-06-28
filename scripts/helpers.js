@@ -365,10 +365,10 @@ function setTableRows(element, props = { page: 1, view: `Orders`, rpp: 50 }) {
         }
       }
 
-      tr.append(td);
+      tdContainer.innerHTML && tr.append(td);
     }
 
-    tdContainer.innerHTML && element.append(tr);
+    tr.innerHTML ? element.append(tr) : tr.remove();
     start++;
   }
 }
