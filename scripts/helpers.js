@@ -21,6 +21,7 @@ async function setColumnAccess() {
 
   for (const json of data.data) {
     const columnProps = gsheet.columnProps;
+    console.log(columnProps);
     if (json.viewers.value.includes(app.user.props.email)) columnProps[json.column_name.value].view.access = true;
     if (json.editors.value.includes(app.user.props.email)) columnProps[json.column_name.value].edit.access = true;
   }
