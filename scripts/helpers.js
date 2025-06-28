@@ -18,8 +18,8 @@ async function start() {
 //------------------------------------------------------<( set-column-access )>-
 async function setColumnAccess() {
   const data = await gviz.fetchGoogleSheetData(gviz.gvizUrl({ ssid: gsheet.domesticOperationSheet.ssid, sheet: 'Column Access' }));
-  console.log(data);
-  for (const json of data) {
+
+  for (const json of data.data) {
     if (json.viewers.value.includes(app.user.props.email)) columnProps[json.column_name.value].view.access = true;
     if (json.editors.value.includes(app.user.props.email)) columnProps[json.column_name.value].edit.access = true;
   }
