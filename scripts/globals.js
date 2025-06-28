@@ -803,6 +803,11 @@ const gsheet = {
       view: { access: false, schema: { tag: `p` } },
       edit: { access: false, schema: { tag: `input`, attr: { type: `text`, placeholder: `Your Remarks` } } },
     },
+
+    'Month Number': {
+      view: { access: false, schema: { tag: `p` } },
+      edit: { access: false, schema: { tag: `input`, attr: { type: `text`, placeholder: `Your Remarks` } } },
+    },
   },
 
   filters: {
