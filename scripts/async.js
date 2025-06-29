@@ -241,8 +241,7 @@ async function setDropdowns(element) {
   }
 
   function dropdownSort(a, b) {
-    console.log([a.column_name.value, b.column_name.value]);
-    return a.column_name.value.toLocaleCompare(b.column_name.value);
+    return (a.column_name?.value || '').toLowerCase().localeCompare((b.column_name?.value || '').toLowerCase());
   }
   function pocSort(a, b) {
     return a.POC.value.toLocaleCompare(b.POC.value);
