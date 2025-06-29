@@ -244,7 +244,7 @@ async function setDropdowns(element) {
     return (a.column_name?.value || '').toLowerCase().localeCompare((b.column_name?.value || '').toLowerCase());
   }
   function pocSort(a, b) {
-    console.log([a, b]);
-    return a.POC.value.toLocaleCompare(b.POC.value);
+    console.log([a.POC.value.toString(), b.POC.value.toString()]);
+    return a.POC.value.toString().toLocaleCompare(b.POC.value.toString());
   }
 }
