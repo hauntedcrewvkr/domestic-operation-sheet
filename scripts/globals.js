@@ -1024,7 +1024,6 @@ const gviz = {
     const parser = new DOMParser();
     const doc = parser.parseFromString(htmlTxt, 'text/html');
     const tableRows = doc.querySelectorAll('table tbody tr');
-    console.log(tableRows);
 
     const headProp = {};
     const header = [];
@@ -1052,7 +1051,7 @@ const gviz = {
 
       if (!isFirstRow) data.push(json);
     }
-
+    console.log(data);
     return { data: data, header: headProp };
   },
 
