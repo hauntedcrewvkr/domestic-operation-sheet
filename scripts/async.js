@@ -241,6 +241,7 @@ async function setDropdowns(element) {
   }
 
   function dropdownSort(a, b) {
+    console.log([a, b]);
     return a.column_name.value.toLocaleCompare(b.column_name.value);
   }
   function pocSort(a, b) {
