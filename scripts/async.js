@@ -200,6 +200,7 @@ async function setProps() {
 
 //----------------------------------------<( create-dropdown-helper-function()>-
 async function setDropdowns(element) {
+  console.log(element);
   const masterData = await gviz.fetchGoogleSheetData(gviz.gvizUrl({ ssid: gsheet.domesticOperationSheet.ssid, sheet: 'Dropdowns' }));
   const employeeData = await app.script.run('getSheetData', { ssid: gsheet.database.ssid, sheetname: 'Employees' });
 
