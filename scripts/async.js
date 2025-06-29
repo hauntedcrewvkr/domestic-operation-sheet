@@ -53,7 +53,7 @@ async function start() {
   }
 
   try {
-    await ghostSync();
+    setInterval(setMasterData, 300000);
   } catch (error) {
     console.log(`Error Occurred: ${error}`);
   }
@@ -103,7 +103,6 @@ async function setFilterViews(data) {
 //----------------------------------------------<( add-loader-async-function()>-
 async function addLoader(name = 'main') {
   const loader = schema2el(app.schema.loader[name]);
-  console.log(loader);
 
   document.body.append(loader);
 
@@ -204,6 +203,7 @@ async function setDropdowns(element) {
   const masterData = await gviz.fetchGoogleSheetData(gviz.gvizUrl({ ssid: gsheet.domesticOperationSheet.ssid, sheet: 'Dropdowns' }));
   const employeeData = await app.script.run('getSheetData', { ssid: gsheet.database.ssid, sheetname: 'Employees' });
 
+  console.log(masterData.data.sort);
   for (const [type, json] in Object.entries({ master: masterData.data.sort(compareLocale), poc: employeeData.data.sort(compareLocale) })) {
     const schema = {
       tag: 'datalist',
