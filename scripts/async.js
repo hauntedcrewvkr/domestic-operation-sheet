@@ -241,6 +241,6 @@ async function setDropdowns(element) {
     return a.column_name.value.toLocaleCompare(b.column_name.value);
   }
   function pocSort(a, b) {
-    return a.column_name.value.toLocaleCompare(b.POC.value);
+    return a.POC.value.toLocaleCompare(b.POC.value);
   }
 }
