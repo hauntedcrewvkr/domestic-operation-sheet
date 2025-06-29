@@ -205,7 +205,7 @@ async function setDropdowns(element) {
 
   console.log(masterData.data.sort());
 
-  for (const [type, json] of Object.entries({ master: masterData.data.sort(dropdownSort), poc: employeeData.data.sort(pocSort) })) {
+  for (const [type, json] of Object.entries({ master: masterData.data.sort(), poc: employeeData.data.sort() })) {
     const schema = {
       tag: 'datalist',
       attr: { class: 'dropdown', id: '' },
