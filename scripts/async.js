@@ -189,7 +189,7 @@ async function setProps() {
       app[role].props = propArr[0] || {};
     } else {
       for (const props of propArr) {
-        for (const [prop, propVal] in props) {
+        for (const [prop, propVal] of Object.entries(props)) {
           app[role].props[prop] ??= propVal;
         }
       }
