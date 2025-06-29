@@ -217,7 +217,7 @@ async function setDropdowns(element) {
       if (isMaster) {
         if (!schema.attr.id) schema.attr.id = 'poc';
 
-        console.log('value');
+        console.log(obj);
         const value = obj.POC.value;
 
         schema.sub.push({ tag: 'option', text: value, attr: { value: value } });
