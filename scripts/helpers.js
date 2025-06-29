@@ -21,7 +21,7 @@ function actionRouter(e) {}
 //---------------------------------------------<( set-action-helper-function )>-
 function setAction(element) {
   const actionName = element.getAttribute('actionname');
-
+  console.log(app.cta);
   element.append(actionName == 'Sub Action' ? app.cta[actionName].cloneNode(true) : app.cta[actionName]);
 }
 
