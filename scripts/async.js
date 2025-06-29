@@ -143,10 +143,9 @@ async function setItl() {
 //---------------------------------------<( set-action-access-async-function )>-
 async function setActionAccess() {
   const data = await gviz.fetchGoogleSheetData(gviz.gvizUrl({ ssid: gsheet.domesticOperationSheet.ssid, sheet: 'Action Access' }));
-  let parentSchema = { tag: 'div', attr: { class: '', actionname: json.action.value }, sub: [] };
+  let parentSchema = { tag: 'div', attr: { class: '', actionname: '' }, sub: [] };
 
   for (const json of data.data) {
-    console.log(json);
     if (!json.view_access.value.includes(app.user.props.email)) continue;
 
     const class_ = `${fx.kebabCase(json.action.value)}-holder`;
@@ -163,6 +162,7 @@ async function setActionAccess() {
     }
 
     parentSchema.attr.class = class_;
+    parentSchema.attr.actionname ??= json.type.value;
     parentSchema.sub.push(schema);
   }
 }
@@ -203,10 +203,7 @@ async function setDropdowns(element) {
   const masterData = await gviz.fetchGoogleSheetData(gviz.gvizUrl({ ssid: gsheet.domesticOperationSheet.ssid, sheet: 'Dropdowns' }));
   const employeeData = await app.script.run('getSheetData', { ssid: gsheet.database.ssid, sheetname: 'Employees' });
 
-  masterData.sort(compareLocale);
-  employeeData.sort(compareLocale);
-
-  for (const [type, json] in Object.entries({ master: masterData, poc: employeeData })) {
+  for (const [type, json] in Object.entries({ master: masterData.data.sort(compareLocale), poc: employeeData.data.sort(compareLocale) })) {
     const schema = {
       tag: 'datalist',
       attr: { class: 'dropdown', id: '' },
