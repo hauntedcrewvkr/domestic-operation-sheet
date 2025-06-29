@@ -141,7 +141,6 @@ async function setActionAccess() {
 
   for (const json of data.data) {
     if (!json.view_access.value.includes(app.user.props.email)) continue;
-    app.cta[json.type.value] = {};
 
     const class_ = `${fx.kebabCase(json.action.value)}-holder`;
     const schema = {
