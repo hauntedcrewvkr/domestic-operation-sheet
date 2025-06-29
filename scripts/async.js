@@ -203,8 +203,6 @@ async function setDropdowns(element) {
   const masterData = await gviz.fetchGoogleSheetData(gviz.gvizUrl({ ssid: gsheet.domesticOperationSheet.ssid, sheet: 'Dropdowns' }));
   const employeeData = await app.script.run('getSheetData', { ssid: gsheet.database.ssid, sheetname: 'Employees' });
 
-  // const data = { master: masterData.data.sort(dropdownSort), poc: employeeData.sort(pocSort) };
-
   for (const [type, json] of Object.entries({ master: masterData.data.sort(dropdownSort), poc: employeeData.sort(pocSort) })) {
     const schema = {
       tag: 'datalist',
@@ -220,10 +218,12 @@ async function setDropdowns(element) {
         if (!schema.attr.id) schema.attr.id = 'poc';
 
         const value = obj.POC.value;
+        console.log(value);
 
         schema.sub.push({ tag: 'option', text: value, attr: { value: value } });
       } else {
         const value = obj.dropdown.value;
+        console.log(value);
 
         if (currColumn == obj.column_name.value) {
           schema.sub.push({ tag: 'option', text: value, attr: { value: value } });
@@ -241,10 +241,12 @@ async function setDropdowns(element) {
   }
 
   function dropdownSort(a, b) {
-    return (a.column_name?.value || '').toLowerCase().localeCompare((b.column_name?.value || '').toLowerCase());
+    return String(a.column_name.value || '')
+      .toLowerCase()
+      .localeCompare(String(b.column_name.value || '').toLowerCase());
   }
+
   function pocSort(a, b) {
-    console.log(a.POC.value, b.POC.value);
     return String(a.POC.value || '')
       .toLowerCase()
       .localeCompare(String(b.POC.value || '').toLowerCase());
