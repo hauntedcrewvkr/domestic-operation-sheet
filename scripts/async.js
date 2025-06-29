@@ -141,6 +141,7 @@ async function setActionAccess() {
 
   for (const json of data.data) {
     if (!json.view_access.value.includes(app.user.props.email)) continue;
+    app.cta[json.type.value] = {};
 
     const class_ = `${fx.kebabCase(json.action.value)}-holder`;
     const schema = {
@@ -152,7 +153,7 @@ async function setActionAccess() {
     json.call_access.value.includes(app.user.props.email) && (schema.attr.onclick ??= actionRouter);
 
     if (parentSchema.attr.class && parentSchema.attr.class != class_) {
-      app.cta[json.action.value] ??= schema2el(parentSchema);
+      app.cta[json.type.value] ??= schema2el(parentSchema);
     }
 
     parentSchema.attr.class = class_;
