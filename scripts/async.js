@@ -144,7 +144,7 @@ async function setItl() {
 async function setActionAccess() {
   const data = await gviz.fetchGoogleSheetData(gviz.gvizUrl({ ssid: gsheet.domesticOperationSheet.ssid, sheet: 'Action Access' }));
   let parentSchema = { tag: 'div', attr: { class: '', actionname: json.action.value }, sub: [] };
-
+  console.log(data);
   for (const json of data.data) {
     if (!json.view_access.value.includes(app.user.props.email)) continue;
 
