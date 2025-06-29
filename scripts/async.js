@@ -183,6 +183,7 @@ async function setSpreadsheets() {
 //-----------------------------------------------<( set-props-async-function()>-
 async function setProps() {
   const scriptProps = await app.script.run('getAllProps');
+  console.log(scriptProps);
 
   for (const [propType, propObj] in Object.entries(scriptProps)) {
     for (const [prop, value] in Object.entries(propObj)) {
