@@ -1024,6 +1024,7 @@ const gviz = {
     const parser = new DOMParser();
     const doc = parser.parseFromString(htmlTxt, 'text/html');
     const tableRows = doc.querySelectorAll('table tbody tr');
+    console.log(tableRows);
 
     const headProp = {};
     const header = [];
