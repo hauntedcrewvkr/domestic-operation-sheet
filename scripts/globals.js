@@ -311,7 +311,7 @@ const app = {
               'hidden': true,
               'aria-hidden': true,
             },
-            func: setDropdowns,
+            func: [setDropdowns],
           },
         ],
       },

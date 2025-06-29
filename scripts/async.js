@@ -34,12 +34,6 @@ async function start() {
     console.log(`Error Occurred: ${error}`);
   }
 
-  // try {
-  await setDropdowns();
-  // } catch (error) {
-  // console.log(`Error Occurred: ${error}`);
-  // }
-
   try {
     await setMasterData();
   } catch (error) {
