@@ -181,6 +181,7 @@ function setTableRows(element, props = { page: 1, view: `Orders`, rpp: 50 }) {
       for (const column of columns) {
         if (gsheet.columnProps[column].view.access) {
           const el = schema2el(gsheet.columnProps[column].view.schema);
+          console.log(el);
           el.textContent = data[start][column].value;
 
           tdContainer.append(el);
