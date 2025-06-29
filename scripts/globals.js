@@ -243,17 +243,6 @@ const app = {
                       },
                     ],
                   },
-                  {
-                    tag: 'div',
-                    attr: { class: 'primary-action-container' },
-                    sub: [
-                      {
-                        tag: 'ul',
-                        attr: { class: 'primary-actions' },
-                        func: [setPrimaryActions],
-                      },
-                    ],
-                  },
                 ],
               },
             ],
