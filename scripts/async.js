@@ -183,13 +183,20 @@ async function setSpreadsheets() {
 //-----------------------------------------------<( set-props-async-function()>-
 async function setProps() {
   const scriptProps = await app.script.run('getAllProps');
-  console.log(scriptProps);
 
-  for (const [propType, propObj] in Object.entries(scriptProps)) {
-    for (const [prop, value] in Object.entries(propObj)) {
-      app[propType].props[prop] ??= value;
+  for (const [role, propArr] of Object.entries(scriptProps)) {
+    if (propArr.length < 2) {
+      app[role].props = propArr[0] || {};
+    } else {
+      for (const props of propArr) {
+        for (const [prop, propVal] in props) {
+          app[role].props[prop] ??= propVal;
+        }
+      }
     }
   }
+
+  console.log(app);
 }
 
 //----------------------------------------<( create-dropdown-helper-function()>-
