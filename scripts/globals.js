@@ -46,8 +46,8 @@ const fx = {
      * @param {*} value
      */
 
-    if (typeof value == `object`) return JSON.stringify(value);
-    if (typeof value == `string`) return `${value}`;
+    if (typeof value == 'object') return JSON.stringify(value);
+    if (typeof value == 'string') return `${value}`;
     return value;
   },
 
@@ -58,7 +58,7 @@ const fx = {
      * @param {string} value
      */
 
-    if (typeof value == `number`) return value;
+    if (typeof value == 'number') return value;
     return Number(value);
   },
 
@@ -95,15 +95,10 @@ const fx = {
      * @param {string} text - a single html element as string
      * @returns {HTMLElement}
      */
-    const template = document.createElement(`template`);
+    const template = document.createElement('template');
     template.innerHTML = text.trim();
 
     return template.content.firstElementChild;
-  },
-
-  setInnerHTML(element) {
-    element.innerHTML = element.getAttribute(`innerhtml`);
-    return element;
   },
 
   //------------------------- remove-inner-html
@@ -118,7 +113,7 @@ const fx = {
   },
 
   //------------------------- create-kebab-case-of-a-text
-  kebabCase(str = ``) {
+  kebabCase(str = '') {
     /**
      * @description Converts text into kebab case
      * @param {string} str
@@ -131,7 +126,7 @@ const fx = {
   },
 
   //------------------------- create-camel-case-of-a-text
-  camelCase(str = ``) {
+  camelCase(str = '') {
     /**
      * @description Converts text into camel case
      * @param {string} str
@@ -168,101 +163,98 @@ const fx = {
       .replace(/^[a-z]/, (match) => match.toUpperCase());
   },
 
-  convertDate({ date, format = `dd-mm-yyyy` }) {
-    const delimiters = format[format.indexOf(`dd`) + 1];
-    const options = { year: `numeric`, month: `2-digit`, day: `2-digit` };
-    const formattedDate = new Intl.DateTimeFormat(`en-US`, options).format(new Date(date));
+  convertDate({ date, format = 'dd-mm-yyyy' }) {
+    const delimiters = format[format.indexOf('dd') + 1];
+    const options = { year: `numeric`, month: '2-digit', day: '2-digit' };
+    const formattedDate = new Intl.DateTimeFormat('en-US', options).format(new Date(date));
     return formattedDate;
   },
 };
 
 //--------------------------------------------------------<( app-preferences )>-
 const app = {
-  favicon: fx.$(`favicon`).innerHTML,
+  favicon: fx.$('favicon').innerHTML,
   title: document.title,
+  cta: {},
 
-  icons: {
-    'Add New Order': `ph ph-user-circle-plus`,
-    'Create Order': `ph ph-webhooks-logo`,
-    'Download': `ph ph-cloud-arrow-down`,
-    'My Orders': `ph ph-user`,
-    'Filter': `ph ph-funnel`,
-    'Change Account': `ph ph-buildings`,
-    'Change Email': `ph ph-at`,
-    'Sync': `ph ph-arrows-clockwise`,
-    'Medisellers COD': `ph ph-money`,
-    'Medicare COD': `ph ph-money-wavy`,
-    'Payment Not Received': `ph ph-not-equals`,
-    'Payment Received': `ph ph-equals`,
-    'Overview': `ph ph-chart-bar`,
-    'Dispatch + Menifest': `ph ph-truck`,
-    'T-1 Orders': `ph ph-number-one`,
-    'Dispatch + RTO': `ph ph-arrow-u-left-down`,
-    'RTO Delivered': `ph ph-hand-arrow-down`,
-    'Pending Orders': `ph ph-hourglass`,
-    'Unconfirmed Returns': `ph ph-not-subset-of`,
-    'To Check': `ph ph-list-checks`,
-    'Payments': `ph ph-currency-dollar-simple`,
-    'Toggle Sub Action': `ph ph-arrow-right`,
-    'Raise Issue': `ph ph-warning`,
-    'See Followups': `ph ph-chat`,
-    'Change Dispatch Status': `ph ph-cube`,
-    'Add Remarks': `ph ph-file-plus`,
-    'Order Confirmation Message': `ph ph-whatsapp-logo`,
-    'Mark Resolved': `ph ph-thumbs-up`,
-    'Payment Confirmation Yes': `ph ph-check-circle`,
-    'Payment Confirmation No': `ph ph-x-circle`,
-    'Edit Row': `ph ph-pencil-simple-line`,
-    'Orders': `fas fa-cart-shopping`,
-    'Get Initial Confirmation': `fas fa-asterisk`,
-    'Confirm Payments': `fas fa-credit-card`,
-    'Generate Orders': `fas fa-face-smile-beam`,
-    'Raised Issues': `fas fa-hand`,
-    'COD': `fas fa-money-bill-1-wave`,
-    'Processed Orders': `fas fa-microchip`,
+  icon: {
+    'Add New Order': 'ph ph-user-circle-plus',
+    'Create Order': 'ph ph-webhooks-logo',
+    'Download': 'ph ph-cloud-arrow-down',
+    'My Orders': 'ph ph-user',
+    'Filter': 'ph ph-funnel',
+    'Change Account': 'ph ph-buildings',
+    'Change Email': 'ph ph-at',
+    'Sync': 'ph ph-arrows-clockwise',
+    'Medisellers COD': 'ph ph-money',
+    'Medicare COD': 'ph ph-money-wavy',
+    'Payment Not Received': 'ph ph-not-equals',
+    'Payment Received': 'ph ph-equals',
+    'Overview': 'ph ph-chart-bar',
+    'Dispatch + Menifest': 'ph ph-truck',
+    'T-1 Orders': 'ph ph-number-one',
+    'Dispatch + RTO': 'ph ph-arrow-u-left-down',
+    'RTO Delivered': 'ph ph-hand-arrow-down',
+    'Pending Orders': 'ph ph-hourglass',
+    'Unconfirmed Returns': 'ph ph-not-subset-of',
+    'To Check': 'ph ph-list-checks',
+    'Payments': 'ph ph-currency-dollar-simple',
+    'Raise Issue': 'ph ph-warning',
+    'See Followups': 'ph ph-chat',
+    'Change Dispatch Status': 'ph ph-cube',
+    'Add Remarks': 'ph ph-file-plus',
+    'Order Confirmation Message': 'ph ph-whatsapp-logo',
+    'Mark Resolved': 'ph ph-thumbs-up',
+    'Payment Confirmation Yes': 'ph ph-check-circle',
+    'Payment Confirmation No': 'ph ph-x-circle',
+    'Edit Row': 'ph ph-pencil-simple-line',
+    'Orders': 'fas fa-cart-shopping',
+    'Get Initial Confirmation': 'fas fa-asterisk',
+    'Confirm Payments': 'fas fa-credit-card',
+    'Generate Orders': 'fas fa-face-smile-beam',
+    'Raised Issues': 'fas fa-hand',
+    'COD': 'fas fa-money-bill-1-wave',
+    'Processed Orders': 'fas fa-microchip',
+    'Toggle Sub Action': 'ph ph-arrow-right',
   },
 
   schema: {
     body: {
       header: {
-        tag: `header`,
-        attr: { class: `header` },
+        tag: 'header',
         sub: [
           {
-            tag: `div`,
-            attr: { class: 'header-holder' },
+            tag: 'div',
+            attr: { class: 'header-container', actionname: 'Secondary Action' },
+            func: [setAction],
             sub: [
               {
-                tag: `div`,
-                attr: { class: `logo`, title: document.title },
+                tag: 'div',
+                attr: { class: 'primary-header', actionname: 'Primary Action' },
+                func: [setAction],
                 sub: [
                   {
-                    tag: `img`,
-                    attr: { class: `logo-img`, src: fx.$(`favicon`).innerHTML.trim(), alt: `Logo` },
+                    tag: 'a',
+                    attr: { href: '/', title: document.title },
+                    sub: [
+                      {
+                        tag: 'img',
+                        attr: { class: 'logo-img', src: fx.$('favicon').innerHTML.trim(), alt: 'Logo' },
+                      },
+                    ],
                   },
-                ],
-              },
-              {
-                tag: `div`,
-                attr: { class: `primary-action-container` },
-                sub: [
                   {
-                    tag: `ul`,
-                    attr: { class: `primary-actions` },
-                    func: [setPrimaryActions],
+                    tag: 'div',
+                    attr: { class: 'primary-action-container' },
+                    sub: [
+                      {
+                        tag: 'ul',
+                        attr: { class: 'primary-actions' },
+                        func: [setPrimaryActions],
+                      },
+                    ],
                   },
                 ],
-              },
-            ],
-          },
-          {
-            tag: `div`,
-            attr: { class: `secondary-actions-container` },
-            sub: [
-              {
-                tag: `ul`,
-                attr: { class: `secondary-actions` },
-                func: [setSecondaryActions],
               },
             ],
           },
@@ -270,102 +262,93 @@ const app = {
       },
 
       nav: {
-        tag: `nav`,
-        attr: { class: `view-nav` },
-        sub: [
-          {
-            tag: `ul`,
-            attr: { class: `views-list` },
-            func: [setViewActions],
-          },
-        ],
+        tag: 'nav',
+        attr: { class: 'view-nav', actionname: 'View Action' },
+        func: [setAction],
       },
 
       main: {
-        tag: `main`,
+        tag: 'main',
         attr: {
-          class: `main`,
+          class: 'main',
         },
         sub: [
           {
-            tag: `section`,
+            tag: 'section',
             attr: {
-              class: `table-container`,
+              class: 'table-container',
             },
             sub: [
               {
-                tag: `table`,
+                tag: 'table',
                 attr: {
-                  class: `table`,
+                  class: 'table',
                 },
                 sub: [
                   {
-                    tag: `thead`,
+                    tag: 'thead',
                     attr: {
-                      class: `table-heading`,
+                      class: 'table-heading',
                     },
                     sub: [
                       {
-                        tag: `tr`,
-                        attr: { class: `thead-row` },
+                        tag: 'tr',
+                        attr: { class: 'thead-row' },
                         func: [setTableHeaders],
                       },
                     ],
                   },
                   {
-                    tag: `tbody`,
+                    tag: 'tbody',
                     attr: {
-                      class: `table-body`,
+                      class: 'table-body',
                     },
                     func: [setTableRows],
-                  },
-                  {
-                    tag: `tfoot`,
-                    attr: { class: `tfoot` },
                   },
                 ],
               },
             ],
           },
           {
-            tag: `section`,
+            tag: 'section',
             attr: {
-              class: `extra-views`,
+              class: 'extra-views',
             },
           },
           {
-            tag: `section`,
+            tag: 'section',
             attr: {
-              'id': `dropdown`,
+              'id': 'dropdown',
               'hidden': true,
               'aria-hidden': true,
             },
+            func: setDropdowns,
           },
         ],
       },
 
       footer: {
-        tag: `footer`,
+        tag: 'footer',
         attr: {
-          class: `footer`,
+          class: 'footer',
         },
         sub: [
           {
-            tag: `div`,
+            tag: 'div',
             attr: {
-              class: `epp`,
+              class: 'epp',
             },
             sub: [
               {
-                tag: `select`,
+                tag: 'select',
                 attr: {
-                  id: `entries-per-page`,
-                  name: `entries-per-page`,
-                  title: `Entries Per Page`,
+                  id: 'entries-per-page',
+                  name: 'entries-per-page',
+                  title: 'Entries Per Page',
                 },
                 sub: [
                   {
-                    tag: `option`,
+                    tag: 'option',
                     text: 50,
                     attr: {
                       value: 50,
@@ -373,21 +356,21 @@ const app = {
                     },
                   },
                   {
-                    tag: `option`,
+                    tag: 'option',
                     text: 100,
                     attr: {
                       value: 100,
                     },
                   },
                   {
-                    tag: `option`,
+                    tag: 'option',
                     text: 150,
                     attr: {
                       value: 150,
                     },
                   },
                   {
-                    tag: `option`,
+                    tag: 'option',
                     text: 200,
                     attr: {
                       value: 200,
@@ -399,21 +382,21 @@ const app = {
           },
 
           {
-            tag: `div`,
+            tag: 'div',
             attr: {
-              class: `pagination`,
+              class: 'pagination',
             },
             sub: [
               {
-                tag: `i`,
+                tag: 'i',
                 attr: {
-                  class: `ph ph-caret-double-left`,
+                  class: 'ph ph-caret-double-left',
                 },
               },
               {
-                tag: `i`,
+                tag: 'i',
                 attr: {
-                  class: `ph ph-caret-left`,
+                  class: 'ph ph-caret-left',
                 },
               },
               {
@@ -421,18 +404,18 @@ const app = {
                 attr: { class: 'inputs' },
                 sub: [
                   {
-                    tag: `input`,
+                    tag: 'input',
                     attr: {
-                      type: `number`,
-                      class: `page-input`,
+                      type: 'number',
+                      class: 'page-input',
                       value: 1,
                     },
                   },
                   {
-                    tag: `input`,
+                    tag: 'input',
                     attr: {
-                      type: `number`,
-                      class: `total-pages`,
+                      type: 'number',
+                      class: 'total-pages',
                       value: 1,
                       disabled: true,
                     },
@@ -440,29 +423,29 @@ const app = {
                 ],
               },
               {
-                tag: `i`,
+                tag: 'i',
                 attr: {
-                  class: `ph ph-caret-right`,
+                  class: 'ph ph-caret-right',
                 },
               },
               {
-                tag: `i`,
+                tag: 'i',
                 attr: {
-                  class: `ph ph-caret-double-right`,
+                  class: 'ph ph-caret-double-right',
                 },
               },
             ],
           },
           {
-            tag: `div`,
+            tag: 'div',
             attr: {
-              class: `current-view`,
+              class: 'current-view',
             },
             sub: [
               {
-                tag: `i`,
+                tag: 'i',
                 attr: {
-                  class: `ph-fill ph-eye`,
+                  class: 'ph-fill ph-eye',
                 },
               },
             ],
@@ -470,8 +453,6 @@ const app = {
         ],
       },
     },
-
-    datalist: { tag: `section`, func: [], attr: { id: `dropdowns`, class: `dropdowns` } },
 
     forms: {
       addNewOrderForm: {},
@@ -481,47 +462,47 @@ const app = {
       addRemarksForm: {},
       addNewOrderForm: {},
       addNameForm: {
-        tag: `form`,
+        tag: 'form',
         attr: {
-          class: `add-name-form base-form`,
-          id: `add-name-form base-form`,
-          onsubmit: `setName(event)`,
+          class: 'add-name-form base-form',
+          id: 'add-name-form base-form',
+          onsubmit: 'setName(event)',
         },
         sub: [
           {
-            tag: `fieldset`,
+            tag: 'fieldset',
             attr: {},
             sub: [
               {
-                tag: `legend`,
-                text: `Add Name`,
-                attr: { id: `form-heading` },
+                tag: 'legend',
+                text: 'Add Name',
+                attr: { id: 'form-heading' },
               },
               {
-                tag: `label`,
-                text: `Your Name`,
+                tag: 'label',
+                text: 'Your Name',
                 attr: {},
               },
               {
-                tag: `input`,
+                tag: 'input',
                 attr: {
-                  type: `text`,
-                  list: `poc-dropdown`,
-                  name: `POC`,
-                  onchange: `validateUsername()`,
+                  type: 'text',
+                  list: 'poc-dropdown',
+                  name: 'POC',
+                  onchange: 'validateUsername(event)',
                 },
               },
             ],
           },
           {
-            tag: `div`,
+            tag: 'div',
             attr: { class: `` },
             sub: [
               {
-                tag: `button`,
-                text: `ADD NAME`,
+                tag: 'button',
+                text: 'ADD NAME',
                 attr: {
-                  type: `submit`,
+                  type: 'submit',
                   disabled: true,
                 },
               },
@@ -533,47 +514,47 @@ const app = {
 
     loader: {
       main: {
-        tag: `div`,
+        tag: 'div',
         attr: {
-          class: `loader-div`,
+          class: 'loader-div',
         },
         sub: [
           {
-            tag: `div`,
+            tag: 'div',
             attr: {
-              class: `loading-wave`,
+              class: 'loading-wave',
             },
             sub: [
               {
-                tag: `div`,
+                tag: 'div',
                 attr: {
-                  class: `loading-bar`,
+                  class: 'loading-bar',
                 },
               },
               {
-                tag: `div`,
+                tag: 'div',
                 attr: {
-                  class: `loading-bar`,
+                  class: 'loading-bar',
                 },
               },
               {
-                tag: `div`,
+                tag: 'div',
                 attr: {
-                  class: `loading-bar`,
+                  class: 'loading-bar',
                 },
               },
               {
-                tag: `div`,
+                tag: 'div',
                 attr: {
-                  class: `loading-bar`,
+                  class: 'loading-bar',
                 },
               },
             ],
           },
           {
-            tag: `div`,
+            tag: 'div',
             attr: {
-              class: `progress-bar`,
+              class: 'progress-bar',
             },
           },
         ],
@@ -605,272 +586,272 @@ const app = {
 const gsheet = {
   endpoint: `https://sheets.googleapis.com/v4/spreadsheets`,
   columnGroup: {
-    'ORDER DETAILS': [`ID`, `Timestamp`, `Email`, `Month`, `Order Date`, `Order ID`, `POC`],
-    'CUSTOMER DETAILS': [`Client Name`, `Contact Number`, `Alternate Contact Number`],
-    'REQUIREMENTS': [`Requirement`, `CX Issue`, `CX Issue Status`],
-    'AMOUNT': [`Total Amount (₹)`, `Prepaid Amount (₹)`, `Balance Amount (₹)`, `Remittance Amount (₹)`, `Mode of Payment`, `Sub Order Type`, `Order Type`, `Payment Status`, `Payment Timestamp`],
-    'SHIPPING DETAILS': [`Address Line 1`, `Address Line 2`, `State`, `Pincode`],
-    'LOGISTIC DETAILS': [`Order Confirmation Status`, `Delivery Type`, `Logistic Partner`, `Booking Company`, `ITL Error`, `Tracking Number`, `Tracking Status`, `Tracking Url`, `Dispatch Status`],
+    'ORDER DETAILS': ['ID', 'Timestamp', 'Email', 'Month', 'Order Date', 'Order ID', 'POC'],
+    'CUSTOMER DETAILS': ['Client Name', 'Contact Number', 'Alternate Contact Number'],
+    'REQUIREMENTS': ['Requirement', 'CX Issue', 'CX Issue Status'],
+    'AMOUNT': ['Total Amount (₹)', 'Prepaid Amount (₹)', 'Balance Amount (₹)', 'Remittance Amount (₹)', 'Mode of Payment', 'Sub Order Type', 'Order Type', 'Payment Status', 'Payment Timestamp'],
+    'SHIPPING DETAILS': ['Address Line 1', 'Address Line 2', 'State', 'Pincode'],
+    'LOGISTIC DETAILS': ['Order Confirmation Status', 'Delivery Type', 'Logistic Partner', 'Booking Company', 'ITL Error', 'Tracking Number', 'Tracking Status', 'Tracking Url', 'Dispatch Status'],
   },
 
   columnProps: {
     'ID': {
-      view: { access: false, schema: { tag: `span` } },
-      edit: { access: false, schema: { tag: `input`, attr: { type: `text`, placeholder: `ID` } } },
+      view: { access: false, schema: { tag: 'span', attr: { title: 'ID' } } },
+      edit: { access: false, schema: { tag: 'input', attr: { type: 'text', placeholder: 'ID' } } },
     },
 
     'Timestamp': {
-      view: { access: false, schema: { tag: `span` } },
-      edit: { access: false, schema: { tag: `input`, attr: { type: `datetime-local` } } },
+      view: { access: false, schema: { tag: 'span', attr: { title: 'Timestamp' } } },
+      edit: { access: false, schema: { tag: 'input', attr: { type: 'datetime-local' } } },
     },
 
     'Email': {
-      view: { access: false, schema: { tag: `a` } },
-      edit: { access: false, schema: { tag: `input`, attr: { type: `email` } } },
+      view: { access: false, schema: { tag: 'a', attr: { title: 'Email' } } },
+      edit: { access: false, schema: { tag: 'input', attr: { type: 'email' } } },
     },
 
     'Month': {
-      view: { access: false, schema: { tag: `span` } },
-      edit: { access: false, schema: { tag: `input`, attr: { type: `text` } } },
+      view: { access: false, schema: { tag: 'span', attr: { title: 'Month' } } },
+      edit: { access: false, schema: { tag: 'input', attr: { type: 'text' } } },
     },
 
     'Order Date': {
-      view: { access: false, schema: { tag: `span` } },
-      edit: { access: false, schema: { tag: `input`, attr: { type: `date`, required: true } } },
+      view: { access: false, schema: { tag: 'span', attr: { title: 'Order Date' } } },
+      edit: { access: false, schema: { tag: 'input', attr: { type: 'date', required: true } } },
     },
 
     'Order ID': {
-      view: { access: false, schema: { tag: `span` } },
-      edit: { access: false, schema: { tag: `input`, attr: { type: `text` } } },
+      view: { access: false, schema: { tag: 'span', attr: { title: 'Order ID' } } },
+      edit: { access: false, schema: { tag: 'input', attr: { type: 'text' } } },
     },
 
     'POC': {
-      view: { access: false, schema: { tag: `span` } },
-      edit: { access: false, schema: { tag: `input`, attr: { type: `text`, list: `poc`, required: true } } },
+      view: { access: false, schema: { tag: 'span', attr: { title: 'POC' } } },
+      edit: { access: false, schema: { tag: 'input', attr: { type: 'text', list: 'poc', required: true } } },
     },
 
     'Client Name': {
-      view: { access: false, schema: { tag: `span` } },
-      edit: { access: false, schema: { tag: `input`, attr: { type: `text`, required: true } } },
+      view: { access: false, schema: { tag: 'span', attr: { title: 'Client Name' } } },
+      edit: { access: false, schema: { tag: 'input', attr: { type: 'text', required: true } } },
     },
 
     'Contact Number': {
-      view: { access: false, schema: { tag: `span` } },
-      edit: { access: false, schema: { tag: `input`, attr: { type: `number`, required: true } } },
+      view: { access: false, schema: { tag: 'span', attr: { title: 'Contact Number' } } },
+      edit: { access: false, schema: { tag: 'input', attr: { type: 'number', required: true } } },
     },
 
     'Alternate Contact Number': {
-      view: { access: false, schema: { tag: `span` } },
-      edit: { access: false, schema: { tag: `input`, attr: { type: `number` } } },
+      view: { access: false, schema: { tag: 'span', attr: { title: 'Alternative Contact Number' } } },
+      edit: { access: false, schema: { tag: 'input', attr: { type: 'number' } } },
     },
 
     'Requirement': {
-      view: { access: false, schema: { tag: `p` } },
-      edit: { access: false, schema: { tag: `textarea`, attr: { placeholder: `Enter Requirement` } } },
+      view: { access: false, schema: { tag: 'span', attr: { title: 'Requirement' } } },
+      edit: { access: false, schema: { tag: 'textarea', attr: { placeholder: 'Enter Requirement' } } },
     },
 
     'Total Amount (₹)': {
-      view: { access: false, schema: { tag: `span` } },
-      edit: { access: false, schema: { tag: `input`, attr: { type: `number`, value: 0, required: true } } },
+      view: { access: false, schema: { tag: 'span', attr: { title: 'Total Amount (₹)' } } },
+      edit: { access: false, schema: { tag: 'input', attr: { type: 'number', value: 0, required: true } } },
     },
 
     'Prepaid Amount (₹)': {
-      view: { access: false, schema: { tag: `span` } },
-      edit: { access: false, schema: { tag: `input`, attr: { type: `number`, value: 0, required: true } } },
+      view: { access: false, schema: { tag: 'span', attr: { title: 'Prepaid Amount (₹)' } } },
+      edit: { access: false, schema: { tag: 'input', attr: { type: 'number', value: 0, required: true } } },
     },
 
     'Balance Amount (₹)': {
-      view: { access: false, schema: { tag: `span` } },
-      edit: { access: false, schema: { tag: `input`, attr: { type: `number`, value: 0, required: true } } },
+      view: { access: false, schema: { tag: 'span', attr: { title: 'Balance Amount (₹)' } } },
+      edit: { access: false, schema: { tag: 'input', attr: { type: 'number', value: 0, required: true } } },
     },
 
     'Remittance Amount (₹)': {
-      view: { access: false, schema: { tag: `span` } },
-      edit: { access: false, schema: { tag: `input`, attr: { type: `number`, value: 0, required: true } } },
+      view: { access: false, schema: { tag: 'span', attr: { title: 'Remittance Amount (₹)' } } },
+      edit: { access: false, schema: { tag: 'input', attr: { type: 'number', value: 0, required: true } } },
     },
 
     'Mode of Payment': {
-      view: { access: false, schema: { tag: `span` } },
-      edit: { access: false, schema: { tag: `input`, attr: { type: `text`, list: `mode-of-payment`, required: true } } },
+      view: { access: false, schema: { tag: 'span', attr: { title: 'Mode of Payment' } } },
+      edit: { access: false, schema: { tag: 'input', attr: { type: 'text', list: 'mode-of-payment', required: true } } },
     },
 
     'Sub Order Type': {
-      view: { access: false, schema: { tag: `span` } },
-      edit: { access: false, schema: { tag: `input`, attr: { type: `text`, list: `sub-order-type`, required: true } } },
+      view: { access: false, schema: { tag: 'span', attr: { title: 'Sub Order Type' } } },
+      edit: { access: false, schema: { tag: 'input', attr: { type: 'text', list: 'sub-order-type', required: true } } },
     },
 
     'Order Type': {
-      view: { access: false, schema: { tag: `span` } },
-      edit: { access: false, schema: { tag: `input`, attr: { type: `text`, list: `order-type`, required: true } } },
+      view: { access: false, schema: { tag: 'span', attr: { title: 'Order Type' } } },
+      edit: { access: false, schema: { tag: 'input', attr: { type: 'text', list: 'order-type', required: true } } },
     },
 
     'Payment Status': {
-      view: { access: false, schema: { tag: `span` } },
-      edit: { access: false, schema: { tag: `input`, attr: { type: `text`, list: `payment-status`, required: true } } },
+      view: { access: false, schema: { tag: 'span', attr: { title: 'Payment Status' } } },
+      edit: { access: false, schema: { tag: 'input', attr: { type: 'text', list: 'payment-status', required: true } } },
     },
 
     'Payment Timestamp': {
-      view: { access: false, schema: { tag: `span` } },
-      edit: { access: false, schema: { tag: `input`, attr: { type: `datetime-local`, required: true } } },
+      view: { access: false, schema: { tag: 'span', attr: { title: 'Payment Timestamp' } } },
+      edit: { access: false, schema: { tag: 'input', attr: { type: 'datetime-local', required: true } } },
     },
 
     'Address Line 1': {
-      view: { access: false, schema: { tag: `p` } },
-      edit: { access: false, schema: { tag: `textarea`, attr: { placeholder: `Address Line 1....` } } },
+      view: { access: false, schema: { tag: 'span', attr: { title: 'Address Line 1' } } },
+      edit: { access: false, schema: { tag: 'textarea', attr: { placeholder: 'Address Line 1....' } } },
     },
 
     'Address Line 2': {
-      view: { access: false, schema: { tag: `p` } },
-      edit: { access: false, schema: { tag: `textarea`, attr: { placeholder: `Address Line 2....` } } },
+      view: { access: false, schema: { tag: 'span', attr: { title: 'Address Line 2' } } },
+      edit: { access: false, schema: { tag: 'textarea', attr: { placeholder: 'Address Line 2....' } } },
     },
 
     'State': {
-      view: { access: false, schema: { tag: `span` } },
-      edit: { access: false, schema: { tag: `input`, attr: { type: `text`, required: true, list: `state`, placeholder: `State` } } },
+      view: { access: false, schema: { tag: 'span', attr: { title: 'State' } } },
+      edit: { access: false, schema: { tag: 'input', attr: { type: 'text', required: true, list: 'state', placeholder: 'State' } } },
     },
 
     'Pincode': {
-      view: { access: false, schema: { tag: `span` } },
-      edit: { access: false, schema: { tag: `input`, attr: { type: `number`, placeholder: `Pincode`, required: true } } },
+      view: { access: false, schema: { tag: 'span', attr: { title: 'Pincode' } } },
+      edit: { access: false, schema: { tag: 'input', attr: { type: 'number', placeholder: 'Pincode', required: true } } },
     },
 
     'CX Issue': {
-      view: { access: false, schema: { tag: `span` } },
-      edit: { access: false, schema: { tag: `input`, attr: { type: `text`, list: `cx-issue`, required: true, placeholder: `CX Issue` } } },
+      view: { access: false, schema: { tag: 'span', attr: { title: 'CX Issue' } } },
+      edit: { access: false, schema: { tag: 'input', attr: { type: 'text', list: 'cx-issue', required: true, placeholder: 'CX Issue' } } },
     },
 
     'CX Issue Status': {
-      view: { access: false, schema: { tag: `span` } },
-      edit: { access: false, schema: { tag: `input`, attr: { type: `text`, list: `cx-issue-status`, required: true, placeholder: `CX Issue Status` } } },
+      view: { access: false, schema: { tag: 'span', attr: { title: 'CX Issue Status' } } },
+      edit: { access: false, schema: { tag: 'input', attr: { type: 'text', list: 'cx-issue-status', required: true, placeholder: 'CX Issue Status' } } },
     },
 
     'Order Confirmation Status': {
-      view: { access: false, schema: { tag: `span` } },
-      edit: { access: false, schema: { tag: `input`, attr: { type: `text`, list: `order-confirmation-status`, required: true, placeholder: `Order Confirmation Status` } } },
+      view: { access: false, schema: { tag: 'span', attr: { title: 'Order Confirmation Status' } } },
+      edit: { access: false, schema: { tag: 'input', attr: { type: 'text', list: 'order-confirmation-status', required: true, placeholder: 'Order Confirmation Status' } } },
     },
 
     'Delivery Type': {
-      view: { access: false, schema: { tag: `span` } },
-      edit: { access: false, schema: { tag: `input`, attr: { type: `text`, list: `delivery-type`, required: true, placeholder: `Delivery Type` } } },
+      view: { access: false, schema: { tag: 'span', attr: { title: 'Delivery Type' } } },
+      edit: { access: false, schema: { tag: 'input', attr: { type: 'text', list: 'delivery-type', required: true, placeholder: 'Delivery Type' } } },
     },
 
     'Logistic Partner': {
-      view: { access: false, schema: { tag: `span` } },
-      edit: { access: false, schema: { tag: `input`, attr: { type: `text`, list: `logistic-partner`, required: true, placeholder: `Enter Logistic Partner` } } },
+      view: { access: false, schema: { tag: 'span', attr: { title: 'Logistic Partner' } } },
+      edit: { access: false, schema: { tag: 'input', attr: { type: 'text', list: 'logistic-partner', required: true, placeholder: 'Enter Logistic Partner' } } },
     },
 
     'Booking Company': {
-      view: { access: false, schema: { tag: `span` } },
-      edit: { access: false, schema: { tag: `input`, attr: { type: `text`, list: `booking-company`, required: true, placeholder: `Enter Booking Company` } } },
+      view: { access: false, schema: { tag: 'span', attr: { title: 'Booking Company' } } },
+      edit: { access: false, schema: { tag: 'input', attr: { type: 'text', list: 'booking-company', required: true, placeholder: 'Enter Booking Company' } } },
     },
 
     'ITL Error': {
-      view: { access: false, schema: { tag: `p` } },
-      edit: { access: false, schema: { tag: `input`, attr: { type: `text`, placeholder: `Enter ITL Error`, required: true } } },
+      view: { access: false, schema: { tag: 'span', attr: { title: 'ITL Error' } } },
+      edit: { access: false, schema: { tag: 'input', attr: { type: 'text', placeholder: 'Enter ITL Error', required: true } } },
     },
 
     'Tracking Number': {
-      view: { access: false, schema: { tag: `span` } },
-      edit: { access: false, schema: { tag: `input`, attr: { type: `text`, placeholder: `Enter Tracking Number`, required: true } } },
+      view: { access: false, schema: { tag: 'span', attr: { title: 'Tracking Number' } } },
+      edit: { access: false, schema: { tag: 'input', attr: { type: 'text', placeholder: 'Enter Tracking Number', required: true } } },
     },
 
     'Tracking Status': {
-      view: { access: false, schema: { tag: `span` } },
-      edit: { access: false, schema: { tag: `input`, attr: { type: `text`, list: `tracking-status`, placeholder: `Enter Tracking Status`, required: true } } },
+      view: { access: false, schema: { tag: 'span', attr: { title: 'Tracking Status' } } },
+      edit: { access: false, schema: { tag: 'input', attr: { type: 'text', list: 'tracking-status', placeholder: 'Enter Tracking Status', required: true } } },
     },
 
     'Tracking Url': {
-      view: { access: false, schema: { tag: `span` } },
-      edit: { access: false, schema: { tag: `input`, attr: { type: `url`, required: true, placeholder: `https://www.ithinklogistics.co.in/postship/tracking/...........` } } },
+      view: { access: false, schema: { tag: 'span', attr: { title: 'Tracking Url' } } },
+      edit: { access: false, schema: { tag: 'input', attr: { type: 'url', required: true, placeholder: `https://www.ithinklogistics.co.in/postship/tracking/...........` } } },
     },
 
     'Dispatch Status': {
-      view: { access: false, schema: { tag: `span` } },
-      edit: { access: false, schema: { tag: `input`, attr: { type: `text`, list: `dispatch-status`, placeholder: `Enter Dispatch Status`, required: true } } },
+      view: { access: false, schema: { tag: 'span', attr: { title: 'Dispatch Status' } } },
+      edit: { access: false, schema: { tag: 'input', attr: { type: 'text', list: 'dispatch-status', placeholder: 'Enter Dispatch Status', required: true } } },
     },
 
     'Transaction ID': {
-      view: { access: false, schema: { tag: `span` } },
-      edit: { access: false, schema: { tag: `input`, attr: { type: `text`, placeholder: `Enter Trasaction ID`, required: true } } },
+      view: { access: false, schema: { tag: 'span', attr: { title: 'Transaction ID' } } },
+      edit: { access: false, schema: { tag: 'input', attr: { type: 'text', placeholder: 'Enter Trasaction ID', required: true } } },
     },
 
     'Whatsapp  Status': {
-      view: { access: false, schema: { tag: `span` } },
-      edit: { access: false, schema: { tag: `input`, attr: { type: `text`, list: `Whatsapp Status`, required: true } } },
+      view: { access: false, schema: { tag: 'span', attr: { title: 'Whatsapp Status' } } },
+      edit: { access: false, schema: { tag: 'input', attr: { type: 'text', list: 'Whatsapp Status', required: true } } },
     },
 
     'Remarks': {
-      view: { access: false, schema: { tag: `p` } },
-      edit: { access: false, schema: { tag: `input`, attr: { type: `text`, placeholder: `Your Remarks` } } },
+      view: { access: false, schema: { tag: 'span', attr: { title: 'Remarks' } } },
+      edit: { access: false, schema: { tag: 'input', attr: { type: 'text', placeholder: 'Your Remarks' } } },
     },
 
     'Month Number': {
-      view: { access: false, schema: { tag: `p` } },
-      edit: { access: false, schema: { tag: `input`, attr: { type: `text`, placeholder: `Your Remarks` } } },
+      view: { access: false, schema: { tag: 'span', attr: { title: 'Month Number' } } },
+      edit: { access: false, schema: { tag: 'input', attr: { type: 'text', placeholder: 'Your Remarks' } } },
     },
   },
 
   filters: {
     'Orders': {
       notEqual: {
-        ID: ``,
+        ID: '',
       },
     },
 
     'Get Initial Confirmation': {
       equal: {
-        'Delivery Type': ``,
+        'Delivery Type': '',
       },
       notEqual: {
-        'Order Confirmation Status': `To Check`,
-        'Dispatch Status': `Cancelled`,
-        'Tracking Status': `Cancelled`,
+        'Order Confirmation Status': 'To Check',
+        'Dispatch Status': 'Cancelled',
+        'Tracking Status': 'Cancelled',
       },
     },
 
     'Confirm Payments': {
       equal: {
-        'Payment Status': ``,
+        'Payment Status': '',
       },
       notEqual: {
         'Prepaid Amount (₹)': 0,
-        'Tracking Status': `Cancelled`,
-        'Dispatch Status': `Cancelled`,
+        'Tracking Status': 'Cancelled',
+        'Dispatch Status': 'Cancelled',
       },
     },
 
     'Generate Orders': {
       equal: {
-        'Order Confirmation Status': `Good to Go`,
-        'Delivery Type': `Regular Delivery`,
-        'Payment Status': `Yes`,
+        'Order Confirmation Status': 'Good to Go',
+        'Delivery Type': 'Regular Delivery',
+        'Payment Status': 'Yes',
         'Tracking Number': '',
       },
       notEqual: {
-        'Dispatch Status': `Cancelled`,
-        'Tracking Status': `Cancelled`,
+        'Dispatch Status': 'Cancelled',
+        'Tracking Status': 'Cancelled',
       },
     },
 
     'Raised Issues': {
       notEqual: {
-        'CX Issue': ``,
-        'CX Issue Status': `Closed`,
+        'CX Issue': '',
+        'CX Issue Status': 'Closed',
       },
     },
 
     'COD': {
       equal: {
-        'Order Type': `COD`,
+        'Order Type': 'COD',
       },
     },
 
     'Processed Orders': {
       equal: {
-        'Dispatch Status': `Yet to be Dispatched`,
+        'Dispatch Status': 'Yet to be Dispatched',
       },
       notEqual: {
-        'Tracking Number': ``,
+        'Tracking Number': '',
       },
     },
 
@@ -878,52 +859,52 @@ const gsheet = {
 
     'Medisellers COD': {
       equal: {
-        'Order Type': `COD`,
-        'Booking Company': `Mediseller India`,
+        'Order Type': 'COD',
+        'Booking Company': 'Mediseller India',
       },
       notEqual: {
-        'Tracking Status': `Cancelled`,
-        'Dispatch Status': `Cancelled`,
+        'Tracking Status': 'Cancelled',
+        'Dispatch Status': 'Cancelled',
       },
     },
 
     'Medicare COD': {
       equal: {
-        'Order Type': `COD`,
-        'Booking Company': `Medicare India`,
+        'Order Type': 'COD',
+        'Booking Company': 'Medicare India',
       },
       notEqual: {
-        'Tracking Status': `Cancelled`,
-        'Dispatch Status': `Cancelled`,
+        'Tracking Status': 'Cancelled',
+        'Dispatch Status': 'Cancelled',
       },
     },
 
     'Payment Not Received': {
       equal: {
-        'Payment Status': `No`,
+        'Payment Status': 'No',
       },
       notEqual: {
         'Prepaid Amount (₹)': 0,
-        'Tracking Status': `Cancelled`,
-        'Dispatch Status': `Cancelled`,
+        'Tracking Status': 'Cancelled',
+        'Dispatch Status': 'Cancelled',
       },
     },
 
     'Payment Received': {
       equal: {
-        'Payment Status': `Yes`,
+        'Payment Status': 'Yes',
       },
       notEqual: {
         'Prepaid Amount (₹)': 0,
-        'Tracking Status': `Cancelled`,
-        'Dispatch Status': `Cancelled`,
+        'Tracking Status': 'Cancelled',
+        'Dispatch Status': 'Cancelled',
       },
     },
 
     'Dispatch + Menifest': {
       equal: {
-        'Dispatch Status': `Yet to be Dispatched`,
-        'Tracking Status': `Manifested`,
+        'Dispatch Status': 'Yet to be Dispatched',
+        'Tracking Status': 'Manifested',
       },
     },
 
@@ -931,15 +912,15 @@ const gsheet = {
 
     'Dispatch + RTO': {
       equal: {
-        'Dispatch Status': `Dispatched`,
-        'Tracking Status': `RTO In Transit`,
+        'Dispatch Status': 'Dispatched',
+        'Tracking Status': 'RTO In Transit',
       },
     },
 
     'RTO Delivered': {
       equal: {
-        'Dispatch Status': `Dispatched`,
-        'Tracking Status': `RTO Delivered`,
+        'Dispatch Status': 'Dispatched',
+        'Tracking Status': 'RTO Delivered',
       },
     },
 
@@ -947,22 +928,22 @@ const gsheet = {
 
     'Unconfirmed Returns': {
       equal: {
-        'Delivery Type': `Regular Delivery`,
-        'Tracking Status': `RTO Delivered`,
+        'Delivery Type': 'Regular Delivery',
+        'Tracking Status': 'RTO Delivered',
       },
       notEqual: {
-        'Tracking Number': ``,
-        'Dispatch Status': `Returned`,
+        'Tracking Number': '',
+        'Dispatch Status': 'Returned',
       },
     },
 
     'To Check': {
       equal: {
-        'Order Confirmation Status': `To Check`,
+        'Order Confirmation Status': 'To Check',
       },
       notEqual: {
-        'Tracking Status': `Cancelled`,
-        'Dispatch Status': `Cancelled`,
+        'Tracking Status': 'Cancelled',
+        'Dispatch Status': 'Cancelled',
       },
     },
 
@@ -971,7 +952,7 @@ const gsheet = {
 
   async getData({ ssid, sheet, key }) {
     if (!ssid || !sheet || !key) {
-      throw new Error(`Missing required parameters: ssid, sheet, key`);
+      throw new Error('Missing required parameters: ssid, sheet, key');
     }
 
     const url = `${gsheet.endpoint}/${ssid}/values/${sheet}?key=${key}`;
@@ -1052,8 +1033,8 @@ const gviz = {
     const htmlTxt = await response.text();
 
     const parser = new DOMParser();
-    const doc = parser.parseFromString(htmlTxt, `text/html`);
-    const tableRows = doc.querySelectorAll(`table tbody tr`);
+    const doc = parser.parseFromString(htmlTxt, 'text/html');
+    const tableRows = doc.querySelectorAll('table tbody tr');
 
     const headProp = {};
     const header = [];
