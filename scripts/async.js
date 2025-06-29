@@ -195,8 +195,6 @@ async function setProps() {
       }
     }
   }
-
-  console.log(app);
 }
 
 //----------------------------------------<( create-dropdown-helper-function()>-
