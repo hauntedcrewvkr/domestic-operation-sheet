@@ -1051,7 +1051,7 @@ const gviz = {
 
       if (!isFirstRow) data.push(json);
     }
-    console.log(data);
+
     return { data: data, header: headProp };
   },
 
