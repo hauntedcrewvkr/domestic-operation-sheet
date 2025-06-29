@@ -60,7 +60,7 @@ function schema2el(schema = {}) {
     }
   }
 
-  return el;
+  return element;
 }
 
 //--------------------------------<( change-loader-progress-herlper-function()>-
