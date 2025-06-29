@@ -214,16 +214,14 @@ async function setDropdowns(element) {
     const isMaster = type == 'master';
 
     for (const obj of json) {
-      if (isMaster) {
+      if (!isMaster) {
         if (!schema.attr.id) schema.attr.id = 'poc';
 
-        console.log(obj);
         const value = obj.POC.value;
 
         schema.sub.push({ tag: 'option', text: value, attr: { value: value } });
       } else {
         const value = obj.dropdown.value;
-        console.log(value);
 
         if (currColumn == obj.column_name.value) {
           schema.sub.push({ tag: 'option', text: value, attr: { value: value } });
