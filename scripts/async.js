@@ -203,7 +203,7 @@ async function setDropdowns(element) {
   const masterData = await gviz.fetchGoogleSheetData(gviz.gvizUrl({ ssid: gsheet.domesticOperationSheet.ssid, sheet: 'Dropdowns' }));
   const employeeData = await app.script.run('getSheetData', { ssid: gsheet.database.ssid, sheetname: 'Employees' });
 
-  console.log(masterData.data.sort);
+  console.log(masterData.data.sort());
 
   for (const [type, json] of Object.entries({ master: masterData.data.sort(dropdownSort), poc: employeeData.data.sort(pocSort) })) {
     const schema = {
