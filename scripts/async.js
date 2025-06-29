@@ -204,7 +204,7 @@ async function setDropdowns(element) {
   const employeeData = await app.script.run('getSheetData', { ssid: gsheet.database.ssid, sheetname: 'Employees' });
 
   console.log(masterData.data);
-  for (const [type, json] in Object.entries({ master: masterData.data.sort(compareLocale), poc: employeeData.data.sort(compareLocale) })) {
+  for (const [type, json] in Object.entries({ master: masterData.data.sort(dropdownSort), poc: employeeData.data.sort(pocSort) })) {
     const schema = {
       tag: 'datalist',
       attr: { class: 'dropdown', id: '' },
@@ -237,7 +237,10 @@ async function setDropdowns(element) {
     element.append(schema2el(schema));
   }
 
-  function compareLocale(a, b) {
+  function dropdownSort(a, b) {
     return a.column_name.value.toLocaleCompare(b.column_name.value);
+  }
+  function pocSort(a, b) {
+    return a.column_name.value.toLocaleCompare(b.POC.value);
   }
 }
