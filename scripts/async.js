@@ -204,7 +204,6 @@ async function setDropdowns(element) {
   const employeeData = await app.script.run('getSheetData', { ssid: gsheet.database.ssid, sheetname: 'Employees' });
 
   for (const [type, json] of Object.entries({ master: masterData.data.sort(dropdownSort), poc: employeeData.sort(pocSort) })) {
-    console.log('ran');
     const schema = {
       tag: 'datalist',
       attr: { class: 'dropdown', id: '' },
@@ -218,8 +217,8 @@ async function setDropdowns(element) {
       if (isMaster) {
         if (!schema.attr.id) schema.attr.id = 'poc';
 
+        console.log('value');
         const value = obj.POC.value;
-        console.log(value);
 
         schema.sub.push({ tag: 'option', text: value, attr: { value: value } });
       } else {
