@@ -204,6 +204,7 @@ async function setDropdowns(element) {
   const employeeData = await app.script.run('getSheetData', { ssid: gsheet.database.ssid, sheetname: 'Employees' });
 
   for (const [type, json] of Object.entries({ master: masterData.data.sort(dropdownSort), poc: employeeData.sort(pocSort) })) {
+    console.log('ran');
     const schema = {
       tag: 'datalist',
       attr: { class: 'dropdown', id: '' },
