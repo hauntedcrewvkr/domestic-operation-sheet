@@ -22,11 +22,11 @@ async function start() {
     console.log(`Error Occurred: ${error}`);
   }
 
-  // try {
-  await setActionAccess();
-  // } catch (error) {
-  // console.log(`Error Occurred: ${error}`);
-  // }
+  try {
+    await setActionAccess();
+  } catch (error) {
+    console.log(`Error Occurred: ${error}`);
+  }
 
   try {
     await setColumnAccess();
