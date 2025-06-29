@@ -40,11 +40,11 @@ async function start() {
     console.log(`Error Occurred: ${error}`);
   }
 
-  try {
-    await createDocument();
-  } catch (error) {
-    console.log(`Error Occurred: ${error}`);
-  }
+  // try {
+  await createDocument();
+  // } catch (error) {
+  console.log(`Error Occurred: ${error}`);
+  // }
 
   try {
     setInterval(setMasterData, 300000);
