@@ -181,7 +181,7 @@ function setTableRows(element, props = { page: 1, view: `Orders`, rpp: 50 }) {
 
   while (start < end) {
     const tr = schema2el({ tag: 'tr', attr: { class: 'table-row', onclick: 'seeDetails(event)', rowNum: start + 2 } });
-    tr.append(schema2el({ tag: 'td', attr: { class: 'sub-action-td', actionname: 'Sub Action' }, sub: [{ tag: 'div', attr: { class: 'tr-actions' }, sub: [{ tag: 'span', attr: { class: 'icon-span' }, sub: [{ tag: 'i', attr: { class: 'ph ph-corners-out' } }] }], func: [setAction] }] }));
+    tr.append(schema2el({ tag: 'td', attr: { class: 'sub-action-td' }, sub: [{ tag: 'div', attr: { class: 'tr-actions', actionname: 'Sub Action' }, sub: [{ tag: 'span', attr: { class: 'icon-span' }, sub: [{ tag: 'i', attr: { class: 'ph ph-corners-out' } }] }], func: [setAction] }] }));
 
     for (const [group, columns] of Object.entries(gsheet.columnGroup)) {
       const td = schema2el({ tag: 'td', sub: [{ tag: 'div', attr: { headname: group } }] });
