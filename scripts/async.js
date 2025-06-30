@@ -97,7 +97,7 @@ async function setFilterViews(data) {
 //----------------------------------------------<( add-loader-async-function()>-
 async function addLoader(name = 'main') {
   const loader = schema2el(app.schema.loader[name]);
-
+  console.log(loader);
   document.body.append(loader);
 
   return loader;
