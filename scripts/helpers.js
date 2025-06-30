@@ -139,7 +139,7 @@ function setTableHeaders(element) {
       sub: [
         {
           tag: 'div',
-          attr: { class: 'th-holder' },
+          attr: { class: 'th-holder th-search-holder' },
           sub: [
             { tag: 'span', attr: { class: 'icon-span' }, sub: [{ tag: 'i', attr: { class: 'ph ph-magnifying-glass' } }] },
             { tag: 'input', attr: { type: 'text' } },

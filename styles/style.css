@@ -104,10 +104,9 @@
             position: relative;
             gap: var(--u2);
 
-            i {
-              height: 30px;
-              width: 30px;
-              border-radius: 50%;
+            & span {
+              & i {
+              }
             }
 
             & input {
@@ -117,13 +116,16 @@
           }
 
           & .th-holder.th-search-holder {
-            & i {
+            & span {
               display: flex;
               align-items: center;
               justify-content: center;
               position: absolute;
               left: 0;
               color: black;
+
+              & i {
+              }
             }
           }
         }
