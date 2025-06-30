@@ -22,7 +22,7 @@ function actionRouter(e) {}
 function setAction(element) {
   const actionName = element.getAttribute('actionname');
 
-  if (actionName.contains('|')) {
+  if (actionName.includes('|')) {
     for (const action_name of actionName.split('|')) {
       element.append(action_name == 'Sub Action' ? app.cta[action_name].cloneNode(true) : app.cta[action_name]);
     }

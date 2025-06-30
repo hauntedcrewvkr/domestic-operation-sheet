@@ -170,8 +170,6 @@ async function setActionAccess() {
   function actionSort(a, b) {
     return String(a.type.value.toLowerCase().trim() || '').localeCompare(String(b.type.value.toLowerCase().trim() || ''));
   }
-
-  console.log(app.cta);
 }
 
 //---------------------------------------<( set-spreadsheets-async-function()>-
