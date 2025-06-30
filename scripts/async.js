@@ -135,40 +135,99 @@ async function setItl() {
 }
 
 //---------------------------------------<( set-action-access-async-function )>-
+// async function setActionAccess() {
+//   const data = await gviz.fetchGoogleSheetData(gviz.gvizUrl({ ssid: gsheet.domesticOperationSheet.ssid, sheet: 'Action Access' }));
+//   let parentSchema = { tag: 'div', attr: { class: '' }, sub: [] };
+//   let currType;
+
+//   for (const jsonrow of data.data.sort(actionSort)) {
+//     if (!jsonrow.view_access.value.includes(app.user.props.email)) continue;
+
+//     const type = jsonrow.type.value;
+//     const action = jsonrow.action.value;
+//     const schema = {
+//       tag: 'span',
+//       attr: { title: action, class: 'icon', onclick: 'actionRouter(event)' },
+//       sub: [{ tag: 'i', attr: { class: app.icon[action] } }],
+//     };
+
+//     if (currType === undefined) {
+//       currType = type;
+//       parentSchema.sub.push(schema);
+//     }
+
+//     if (currType != type) {
+//       app.cta[currType] ??= schema2el(parentSchema);
+//       currType = type;
+//       parentSchema.attr.class = fx.kebabCase(type) + '-holder';
+//     } else {
+//       parentSchema.sub.push(schema);
+//     }
+//   }
+
+//   app.cta[currType] ??= schema2el(parentSchema);
+
+//   function actionSort(a, b) {
+//     return String(a.type.value.toLowerCase().trim() || '').localeCompare(String(b.type.value.toLowerCase().trim() || ''));
+//   }
+// }
+
 async function setActionAccess() {
-  const data = await gviz.fetchGoogleSheetData(gviz.gvizUrl({ ssid: gsheet.domesticOperationSheet.ssid, sheet: 'Action Access' }));
-  let parentSchema = { tag: 'div', attr: { class: '' }, sub: [] };
-  let currType;
+  let data;
 
-  for (const jsonrow of data.data.sort(actionSort)) {
-    if (!jsonrow.view_access.value.includes(app.user.props.email)) continue;
+  try {
+    data = await gviz.fetchGoogleSheetData(
+      gviz.gvizUrl({
+        ssid: gsheet.domesticOperationSheet.ssid,
+        sheet: 'Action Access',
+      })
+    );
+  } catch (error) {
+    console.error('❌ Error fetching Google Sheet data:', error);
+    return;
+  }
 
-    const type = jsonrow.type.value;
-    const action = jsonrow.action.value;
+  const sortedRows = data.data.filter((row) => row.view_access.value.includes(app.user.props.email)).sort((a, b) => String(a.type.value?.toLowerCase().trim() || '').localeCompare(String(b.type.value?.toLowerCase().trim() || '')));
+
+  let currentType = undefined;
+  let parentSchema = null;
+
+  for (const row of sortedRows) {
+    const type = row.type.value;
+    const action = row.action.value;
+
     const schema = {
       tag: 'span',
-      attr: { title: action, class: 'icon', onclick: 'actionRouter(event)' },
-      sub: [{ tag: 'i', attr: { class: app.icon[action] } }],
+      attr: { title: action, class: 'icon' },
+      sub: [
+        {
+          tag: 'i',
+          attr: { class: app.icon[action] },
+        },
+      ],
     };
 
-    if (currType === undefined) {
-      currType = type;
-      parentSchema.sub.push(schema);
-    }
+    // पहला type या नया type आ जाने पर नया block शुरू करें
+    if (currentType !== type) {
+      if (parentSchema && currentType) {
+        app.cta[currentType] ??= schema2el(parentSchema);
+      }
 
-    if (currType != type) {
-      app.cta[currType] ??= schema2el(parentSchema);
-      currType = type;
-      parentSchema.attr.class = fx.kebabCase(type) + '-holder';
+      parentSchema = {
+        tag: 'div',
+        attr: { class: fx.kebabCase(type) + '-holder' },
+        sub: [schema],
+      };
+
+      currentType = type;
     } else {
       parentSchema.sub.push(schema);
     }
   }
 
-  app.cta[currType] ??= schema2el(parentSchema);
-
-  function actionSort(a, b) {
-    return String(a.type.value.toLowerCase().trim() || '').localeCompare(String(b.type.value.toLowerCase().trim() || ''));
+  // लास्ट block को भी save करना ज़रूरी है
+  if (parentSchema && currentType) {
+    app.cta[currentType] ??= schema2el(parentSchema);
   }
 }
 
