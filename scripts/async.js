@@ -40,11 +40,11 @@ async function start() {
     console.log(`Error Occurred: ${error}`);
   }
 
-  try {
-    await createDocument();
-  } catch (error) {
-    console.log(`Error Occurred: ${error}`);
-  }
+  // try {
+  await createDocument();
+  // } catch (error) {
+  // console.log(`Error Occurred: ${error}`);
+  // }
 
   try {
     setInterval(setMasterData, 300000);
@@ -97,7 +97,6 @@ async function setFilterViews(data) {
 //----------------------------------------------<( add-loader-async-function()>-
 async function addLoader(name = 'main') {
   const loader = schema2el(app.schema.loader[name]);
-  console.log(loader.outerHTML);
   document.body.append(loader);
 
   return loader;
