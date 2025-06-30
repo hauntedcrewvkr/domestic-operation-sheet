@@ -135,55 +135,13 @@ async function setItl() {
 }
 
 //---------------------------------------<( set-action-access-async-function )>-
-// async function setActionAccess() {
-//   const data = await gviz.fetchGoogleSheetData(gviz.gvizUrl({ ssid: gsheet.domesticOperationSheet.ssid, sheet: 'Action Access' }));
-//   let parentSchema = { tag: 'div', attr: { class: '' }, sub: [] };
-//   let currType;
-
-//   for (const jsonrow of data.data.sort(actionSort)) {
-//     if (!jsonrow.view_access.value.includes(app.user.props.email)) continue;
-
-//     const type = jsonrow.type.value;
-//     const action = jsonrow.action.value;
-//     const schema = {
-//       tag: 'span',
-//       attr: { title: action, class: 'icon', onclick: 'actionRouter(event)' },
-//       sub: [{ tag: 'i', attr: { class: app.icon[action] } }],
-//     };
-
-//     if (currType === undefined) {
-//       currType = type;
-//       parentSchema.sub.push(schema);
-//     }
-
-//     if (currType != type) {
-//       app.cta[currType] ??= schema2el(parentSchema);
-//       currType = type;
-//       parentSchema.attr.class = fx.kebabCase(type) + '-holder';
-//     } else {
-//       parentSchema.sub.push(schema);
-//     }
-//   }
-
-//   app.cta[currType] ??= schema2el(parentSchema);
-
-//   function actionSort(a, b) {
-//     return String(a.type.value.toLowerCase().trim() || '').localeCompare(String(b.type.value.toLowerCase().trim() || ''));
-//   }
-// }
-
 async function setActionAccess() {
   let data;
 
   try {
-    data = await gviz.fetchGoogleSheetData(
-      gviz.gvizUrl({
-        ssid: gsheet.domesticOperationSheet.ssid,
-        sheet: 'Action Access',
-      })
-    );
+    data = await gviz.fetchGoogleSheetData(gviz.gvizUrl({ ssid: gsheet.domesticOperationSheet.ssid, sheet: 'Action Access' }));
   } catch (error) {
-    console.error('❌ Error fetching Google Sheet data:', error);
+    console.error('Error fetching Google Sheet data:', error);
     return;
   }
 
@@ -193,39 +151,23 @@ async function setActionAccess() {
   let parentSchema = null;
 
   for (const row of sortedRows) {
+    if (!row.view_access.value.includes(app.user.props.email)) continue;
+
     const type = row.type.value;
     const action = row.action.value;
 
-    const schema = {
-      tag: 'span',
-      attr: { title: action, class: 'icon' },
-      sub: [
-        {
-          tag: 'i',
-          attr: { class: app.icon[action] },
-        },
-      ],
-    };
+    const schema = { tag: 'span', attr: { title: action, class: 'icon' }, sub: [{ tag: 'i', attr: { class: app.icon[action] } }] };
 
-    // पहला type या नया type आ जाने पर नया block शुरू करें
     if (currentType !== type) {
-      if (parentSchema && currentType) {
-        app.cta[currentType] ??= schema2el(parentSchema);
-      }
+      if (parentSchema && currentType) app.cta[currentType] ??= schema2el(parentSchema);
 
-      parentSchema = {
-        tag: 'div',
-        attr: { class: fx.kebabCase(type) + '-holder' },
-        sub: [schema],
-      };
-
+      parentSchema = { tag: 'div', attr: { class: fx.kebabCase(type) + '-holder' }, sub: [schema] };
       currentType = type;
     } else {
       parentSchema.sub.push(schema);
     }
   }
 
-  // लास्ट block को भी save करना ज़रूरी है
   if (parentSchema && currentType) {
     app.cta[currentType] ??= schema2el(parentSchema);
   }
@@ -264,42 +206,64 @@ async function setProps() {
 
 //----------------------------------------<( create-dropdown-helper-function()>-
 async function setDropdowns(element) {
-  const masterData = await gviz.fetchGoogleSheetData(gviz.gvizUrl({ ssid: gsheet.domesticOperationSheet.ssid, sheet: 'Dropdowns' }));
-  const employeeData = await app.script.run('getSheetData', { ssid: gsheet.database.ssid, sheetname: 'Employees' });
+  let masterData, employeeData;
 
-  for (const [type, json] of Object.entries({ master: masterData.data.sort(dropdownSort), poc: employeeData.sort(pocSort) })) {
-    const schema = {
-      tag: 'datalist',
-      attr: { class: 'dropdown', id: '' },
-      sub: [],
-    };
+  try {
+    masterData = await gviz.fetchGoogleSheetData(gviz.gvizUrl({ ssid: gsheet.domesticOperationSheet.ssid, sheet: 'Dropdowns' }));
 
-    let currColumn = undefined;
-    const isMaster = type == 'master';
+    employeeData = await app.script.run('getSheetData', {
+      ssid: gsheet.database.ssid,
+      sheetname: 'Employees',
+    });
+  } catch (error) {
+    console.error('Error:', error);
+    return;
+  }
 
-    for (const obj of json) {
-      if (!isMaster) {
-        if (!schema.attr.id) schema.attr.id = 'poc';
+  const datasets = {
+    master: masterData.data.sort(dropdownSort),
+    poc: employeeData.sort(pocSort),
+  };
 
-        const value = obj.POC.value;
+  for (const [type, json] of Object.entries(datasets)) {
+    const isMaster = type === 'master';
 
-        schema.sub.push({ tag: 'option', text: value, attr: { value: value } });
-      } else {
-        const value = obj.dropdown.value;
-
-        if (currColumn == obj.column_name.value) {
-          schema.sub.push({ tag: 'option', text: value, attr: { value: value } });
-          continue;
-        }
-
-        schema.attr.id = fx.kebabCase(obj.column_name.value);
-        currColumn = obj.column_name.value;
-
-        element.append(schema2el(schema));
-      }
+    if (!isMaster) {
+      const schema = {
+        tag: 'datalist',
+        attr: { class: 'dropdown', id: 'poc' },
+        sub: employeeData.map((obj) => {
+          const value = obj.POC.value;
+          return { tag: 'option', text: value, attr: { value } };
+        }),
+      };
+      element.append(schema2el(schema));
+      continue;
     }
 
-    element.append(schema2el(schema));
+    // for master
+    let currentColumn = '';
+    let schema = null;
+
+    for (const obj of json) {
+      const column = obj.column_name.value;
+      const value = obj.dropdown.value;
+
+      if (column !== currentColumn) {
+        if (schema) {
+          element.append(schema2el(schema));
+        }
+
+        currentColumn = column;
+        schema = { tag: 'datalist', attr: { class: 'dropdown', id: fx.kebabCase(column) }, sub: [] };
+      }
+
+      schema.sub.push({ tag: 'option', text: value, attr: { value } });
+    }
+
+    if (schema) {
+      element.append(schema2el(schema));
+    }
   }
 
   function dropdownSort(a, b) {
