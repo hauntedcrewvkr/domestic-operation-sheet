@@ -24,9 +24,11 @@ function setAction(element) {
 
   if (actionName.includes('|')) {
     for (const action_name of actionName.split('|')) {
+      console.log(action_name);
       element.append(action_name == 'Sub Action' ? app.cta[action_name].cloneNode(true) : app.cta[action_name]);
     }
   } else {
+    console.log(actionName);
     element.append(actionName == 'Sub Action' ? app.cta[actionName].cloneNode(true) : app.cta[actionName]);
   }
 }
