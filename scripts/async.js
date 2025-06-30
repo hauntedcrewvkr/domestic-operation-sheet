@@ -71,7 +71,7 @@ async function setColumnAccess() {
   }
 }
 
-//----------------------------------------<( set-master-data-async-function()>-
+//-----------------------------------------<( set-master-data-async-function()>-
 async function setMasterData() {
   const data = await gviz.fetchGoogleSheetData(gviz.gvizUrl({ ssid: gsheet.domesticOperationSheet.ssid, sheet: 'Master' }));
 
@@ -137,28 +137,41 @@ async function setItl() {
 //---------------------------------------<( set-action-access-async-function )>-
 async function setActionAccess() {
   const data = await gviz.fetchGoogleSheetData(gviz.gvizUrl({ ssid: gsheet.domesticOperationSheet.ssid, sheet: 'Action Access' }));
-  let parentSchema = { tag: 'div', attr: { class: '', actionname: '' }, sub: [] };
+  let parentSchema = { tag: 'div', attr: { class: '' }, sub: [] };
+  let currType;
 
-  for (const json of data.data) {
-    if (!json.view_access.value.includes(app.user.props.email)) continue;
+  for (const jsonrow of data.data.sort(actionSort)) {
+    if (!jsonrow.view_access.value.includes(app.user.props.email)) continue;
 
-    const class_ = `${fx.kebabCase(json.action.value)}-holder`;
+    const type = jsonrow.type.value;
+    const action = jsonrow.action.value;
     const schema = {
       tag: 'span',
-      attr: { title: json.action.value },
-      sub: [{ tag: 'i', class: app.icon[json.action.value] }],
+      attr: { title: action, class: 'icon' },
+      sub: [{ tag: 'i', attr: { class: app.icon[action] } }],
     };
 
-    json.call_access.value.includes(app.user.props.email) && (schema.attr.onclick ??= actionRouter);
-
-    if (parentSchema.attr.class && parentSchema.attr.class != class_) {
-      app.cta[json.type.value] ??= schema2el(parentSchema);
+    if (!currType) {
+      currType = type;
+      parentSchema.sub.push(schema);
     }
 
-    parentSchema.attr.class = class_;
-    parentSchema.attr.actionname ??= json.type.value;
-    parentSchema.sub.push(schema);
+    if (currType != type) {
+      app.cta[currType] ??= schema2el(parentSchema);
+      currType = type;
+      parentSchema.attr.class = fx.kebabCase(type) + '-holder';
+    } else {
+      parentSchema.sub.push(schema);
+    }
   }
+
+  app.cta[currType] ??= schema2el(parentSchema);
+
+  function actionSort(a, b) {
+    return String(a.type.value.toLowerCase().trim() || '').localeCompare(String(b.type.value.toLowerCase().trim() || ''));
+  }
+
+  console.log(app.cta);
 }
 
 //---------------------------------------<( set-spreadsheets-async-function()>-

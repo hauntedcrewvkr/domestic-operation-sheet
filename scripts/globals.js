@@ -224,14 +224,12 @@ const app = {
         tag: 'header',
         sub: [
           {
-            tag: 'div',
-            attr: { class: 'header-container', actionname: 'Secondary Action' },
-            func: [setAction],
+            tag: 'section',
+            attr: { class: 'header' },
             sub: [
               {
                 tag: 'div',
-                attr: { class: 'primary-header', actionname: 'Primary Action' },
-                func: [setAction],
+                attr: { class: 'logo-holder' },
                 sub: [
                   {
                     tag: 'a',
@@ -239,11 +237,16 @@ const app = {
                     sub: [
                       {
                         tag: 'img',
-                        attr: { class: 'logo-img', src: fx.$('favicon').innerHTML.trim(), alt: 'Logo' },
+                        attr: { class: 'logo-img', src: fx.$('favicon').innerHTML.trim() },
                       },
                     ],
                   },
                 ],
+              },
+              {
+                tag: 'div',
+                attr: { class: 'header-action-holder', actionname: 'Primary Action|Secondary Action' },
+                func: [setAction],
               },
             ],
           },
@@ -252,8 +255,13 @@ const app = {
 
       nav: {
         tag: 'nav',
-        attr: { class: 'view-nav', actionname: 'View Action' },
-        func: [setAction],
+        sub: [
+          {
+            tag: 'section',
+            attr: { class: 'nav', actionname: 'View Action' },
+            func: [setAction],
+          },
+        ],
       },
 
       main: {

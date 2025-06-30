@@ -22,7 +22,13 @@ function actionRouter(e) {}
 function setAction(element) {
   const actionName = element.getAttribute('actionname');
 
-  element.append(actionName == 'Sub Action' ? app.cta[actionName].cloneNode(true) : app.cta[actionName]);
+  if (actionName.contains('|')) {
+    for (const action_name of actionName.split('|')) {
+      element.append(action_name == 'Sub Action' ? app.cta[action_name].cloneNode(true) : app.cta[action_name]);
+    }
+  } else {
+    element.append(actionName == 'Sub Action' ? app.cta[actionName].cloneNode(true) : app.cta[actionName]);
+  }
 }
 
 //--------------------------------------------<( add-shimmer-helper-function()>-
