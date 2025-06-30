@@ -143,8 +143,8 @@ function setTableHeaders(element) {
           tag: 'div',
           attr: { class: 'th-holder' },
           sub: [
-            { tag: 'i', attr: { class: 'ph ph-magnifying-glass' } },
-            { tag: 'input', att: { type: 'text' } },
+            { tag: 'span', attr: { class: 'icon-span' }, sub: [{ tag: 'i', attr: { class: 'ph ph-magnifying-glass' } }] },
+            { tag: 'input', attr: { type: 'text' } },
           ],
         },
       ],
@@ -161,7 +161,7 @@ function setTableHeaders(element) {
               tag: 'div',
               attr: { class: 'th-holder' },
               sub: [
-                { tag: 'i', attr: { class: 'ph ph-sort-ascending' } },
+                { tag: 'span', attr: { class: 'icon-span' }, sub: [{ tag: 'i', attr: { class: 'ph ph-sort-ascending' } }] },
                 { tag: 'span', text: group },
               ],
             },
@@ -175,12 +175,15 @@ function setTableHeaders(element) {
 //-----------------------------------------<( set-table-rows-helper-function()>-
 function setTableRows(element, props = { page: 1, view: `Orders`, rpp: 50 }) {
   const data = gsheet.domesticOperationSheet[props.view].data;
+
+  if (data.length < 1) notify({ message: 'Nothing to show', type: 'warn' });
+
   let start = props.page > 0 ? props.rpp * (props.page - 1) : 0;
-  const end = Math.min(start + props.rpp, data.length);
+  let end = Math.min(start + props.rpp, data.length);
 
   while (start < end) {
     const tr = schema2el({ tag: 'tr', attr: { class: 'table-row', onclick: 'seeDetails(event)', rowNum: start + 2 } });
-    tr.append(schema2el({ tag: 'td', attr: { class: 'sub-action-td', actionname: 'Sub Action' }, sub: [{ tag: 'div', attr: { class: 'tr-actions', actionname: 'Sub Action' }, func: [setAction], sub: [{ tag: 'div', attr: {}, sub: [{ tag: 'i', attr: { class: 'ph ph-corners-out' } }] }] }] }));
+    tr.append(schema2el({ tag: 'td', attr: { class: 'sub-action-td', actionname: 'Sub Action' }, sub: [{ tag: 'div', attr: { class: 'tr-actions' }, sub: [{ tag: 'span', attr: { class: 'icon-span' }, sub: [{ tag: 'i', attr: { class: 'ph ph-corners-out' } }] }], func: [setAction] }] }));
 
     for (const [group, columns] of Object.entries(gsheet.columnGroup)) {
       const td = schema2el({ tag: 'td', sub: [{ tag: 'div', attr: { headname: group } }] });
@@ -188,17 +191,19 @@ function setTableRows(element, props = { page: 1, view: `Orders`, rpp: 50 }) {
 
       for (const column of columns) {
         if (gsheet.columnProps[column].view.access) {
-          const el = schema2el(gsheet.columnProps[column].view.schema);
-          el.textContent = data[start][column].value;
-
-          tdContainer.append(el);
+          tdContainer.append(schema2el({ tag: 'span', attr: { title: column }, text: data[start][column].value }));
         }
       }
 
       tdContainer.innerHTML && tr.append(td);
     }
 
-    tr.innerHTML ? element.append(tr) : tr.remove();
-    start++;
+    if (tr.innerHTML) {
+      element.append(tr);
+      start++;
+    } else {
+      tr.remove();
+      end++;
+    }
   }
 }
