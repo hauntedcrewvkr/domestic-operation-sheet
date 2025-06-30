@@ -147,11 +147,11 @@ async function setActionAccess() {
     const action = jsonrow.action.value;
     const schema = {
       tag: 'span',
-      attr: { title: action, class: 'icon' },
+      attr: { title: action, class: 'icon', onclick: 'actionRouter(event)' },
       sub: [{ tag: 'i', attr: { class: app.icon[action] } }],
     };
 
-    if (!currType) {
+    if (currType === undefined) {
       currType = type;
       parentSchema.sub.push(schema);
     }
