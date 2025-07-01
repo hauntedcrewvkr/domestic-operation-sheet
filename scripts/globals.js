@@ -878,9 +878,9 @@ const app = {
                 sub: [
                   { tag: 'legend', text: 'Order Details' },
                   { tag: 'label', text: 'Order Date', attr: {} },
-                  gsheet.columnProps['Order Date'],
+                  gsheet.columnProps['Order Date'].edit.schema,
                   { tag: 'label', text: 'POC', attr: {} },
-                  gsheet.columnProps['POC']
+                  gsheet.columnProps['POC'].edit.schema
                 ],
               },
               {
@@ -888,11 +888,11 @@ const app = {
                 sub: [
                   { tag: 'legend', text: 'Customer Details' },
                   { tag: 'label', text: 'Client Name', attr: {} },
-                  gsheet.columnProps['Client Name'],
+                  gsheet.columnProps['Client Name'].edit.schema,
                   { tag: 'label', text: 'Contact Number', attr: {} },
-                  gsheet.columnProps['Contact Number'],
+                  gsheet.columnProps['Contact Number'].edit.schema,
                   { tag: 'label', text: 'Alternate Contact Number', attr: {} },
-                  gsheet.columnProps['Alternate Contact Number']
+                  gsheet.columnProps['Alternate Contact Number'].edit.schema
                 ],
               },
               {
@@ -900,13 +900,13 @@ const app = {
                 sub: [
                   { tag: 'legend', text: 'Financial Details' },
                   { tag: 'label', text: 'Total Amount (₹)', attr: {} },
-                  gsheet.columnProps['Total Amount (₹)'],
+                  gsheet.columnProps['Total Amount (₹)'].edit.schema,
                   { tag: 'label', text: 'Prepaid Amount (₹)', attr: {} },
-                  gsheet.columnProps['Prepaid Amount (₹)'],
+                  gsheet.columnProps['Prepaid Amount (₹)'].edit.schema,
                   { tag: 'label', text: 'Balance Amount (₹)', attr: {} },
-                  gsheet.columnProps['Balance Amount (₹)'],
+                  gsheet.columnProps['Balance Amount (₹)'].edit.schema,
                   { tag: 'label', text: 'Mode of Payment', attr: {} },
-                  gsheet.columnProps['Mode of Payment'],
+                  gsheet.columnProps['Mode of Payment'].edit.schema,
                 ],
               },
               {
@@ -914,13 +914,13 @@ const app = {
                 sub: [
                   { tag: 'legend', text: 'Shipping Details' },
                   { tag: 'label', text: 'Address Line 1', attr: {} },
-                  gsheet.columnProps['Address Line 1'],
+                  gsheet.columnProps['Address Line 1'].edit.schema,
                   { tag: 'label', text: 'Address Line 2', attr: {} },
-                  gsheet.columnProps['Address Line 2'],
+                  gsheet.columnProps['Address Line 2'].edit.schema,
                   { tag: 'label', text: 'State', attr: {} },
-                  gsheet.columnProps['State'],
+                  gsheet.columnProps['State'].edit.schema,
                   { tag: 'label', text: 'Pincode', attr: {} },
-                  gsheet.columnProps['Pincode'],
+                  gsheet.columnProps['Pincode'].edit.schema,
                 ],
               },
             ],
