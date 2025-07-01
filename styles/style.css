@@ -280,13 +280,12 @@ td .sub-action-holder {
   background: var(--white);
   box-shadow: var(--shadow-gray);
   border: var(--border-primary-dark);
-  padding: var(--u) var(--u2);
   max-height: 90vh;
   overflow-y: scroll;
   border-radius: var(--u2);
-  width: clamp();
   max-width: clac(var(--u2) * 10);
   scrollbar-width: none;
+  padding: 0 var(--u2);
 }
 
 .form-title {
@@ -298,30 +297,21 @@ td .sub-action-holder {
   top: 0;
   background: var(--white);
   width: 100%;
+  padding: var(--u2);
 }
 
 .base-form fieldset > fieldset {
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
-  border-bottom: var(--border-primary);
   width: 100%;
   gap: var(--u);
   padding: var(--u) var(--u2);
   margin-top: var(--u);
-}
 
-.base-form legend:not(.form-title) {
-  font-weight: 500;
-  text-transform: uppercase;
-  width: 100%;
-}
-
-.base-form label {
-  display: flex;
-  width: calc(var(--u2) * 50);
-  width: 40%;
-  margin-left: var(--u2);
+  .input-holder {
+    width: 100%;
+  }
 }
 
 .base-form label::after {
@@ -330,7 +320,7 @@ td .sub-action-holder {
 
 .base-form input,
 .base-form textarea {
-  width: 50%;
+  width: 100%;
 }
 
 .form-btn-holder {

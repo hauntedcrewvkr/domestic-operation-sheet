@@ -216,7 +216,7 @@ const gsheet = {
 
     'POC': {
       view: { access: false, schema: { tag: 'span', attr: { title: 'POC' } } },
-      edit: { access: false, schema: { tag: 'input', attr: { type: 'text', list: 'poc', required: true, name: 'POC' } } },
+      edit: { access: false, schema: { tag: 'input', attr: { type: 'text', list: 'poc', required: true, name: 'POC', autocomplete: true } } },
     },
 
     'Client Name': {
@@ -241,17 +241,17 @@ const gsheet = {
 
     'Total Amount (₹)': {
       view: { access: false, schema: { tag: 'span', attr: { title: 'Total Amount (₹)' } } },
-      edit: { access: false, schema: { tag: 'input', attr: { type: 'number', value: 0, required: true, name: 'Total Amount (₹)' } } },
+      edit: { access: false, schema: { tag: 'input', attr: { type: 'number', value: 0, required: true, name: 'Total Amount (₹)', onchange: 'getBalanceAmount(event)' } } },
     },
 
     'Prepaid Amount (₹)': {
       view: { access: false, schema: { tag: 'span', attr: { title: 'Prepaid Amount (₹)' } } },
-      edit: { access: false, schema: { tag: 'input', attr: { type: 'number', value: 0, required: true, name: 'Prepaid Amount (₹)' } } },
+      edit: { access: false, schema: { tag: 'input', attr: { type: 'number', value: 0, required: true, name: 'Prepaid Amount (₹)', onchange: 'getBalanceAmount(event)' } } },
     },
 
     'Balance Amount (₹)': {
       view: { access: false, schema: { tag: 'span', attr: { title: 'Balance Amount (₹)' } } },
-      edit: { access: false, schema: { tag: 'input', attr: { type: 'number', value: 0, required: true, name: 'Balance Amount (₹)' } } },
+      edit: { access: false, schema: { tag: 'input', attr: { type: 'number', value: 0, required: true, name: 'Balance Amount (₹)', disabled: true } } },
     },
 
     'Remittance Amount (₹)': {
@@ -261,22 +261,22 @@ const gsheet = {
 
     'Mode of Payment': {
       view: { access: false, schema: { tag: 'span', attr: { title: 'Mode of Payment' } } },
-      edit: { access: false, schema: { tag: 'input', attr: { type: 'text', list: 'mode-of-payment', required: true, name: 'Mode of Payment' } } },
+      edit: { access: false, schema: { tag: 'input', attr: { type: 'text', list: 'mode-of-payment', required: true, name: 'Mode of Payment', autocomplete: true } } },
     },
 
     'Sub Order Type': {
       view: { access: false, schema: { tag: 'span', attr: { title: 'Sub Order Type' } } },
-      edit: { access: false, schema: { tag: 'input', attr: { type: 'text', list: 'sub-order-type', required: true, name: 'Sub Order Type' } } },
+      edit: { access: false, schema: { tag: 'input', attr: { type: 'text', list: 'sub-order-type', required: true, name: 'Sub Order Type', autocomplete: true } } },
     },
 
     'Order Type': {
       view: { access: false, schema: { tag: 'span', attr: { title: 'Order Type' } } },
-      edit: { access: false, schema: { tag: 'input', attr: { type: 'text', list: 'order-type', required: true, name: 'Order Type' } } },
+      edit: { access: false, schema: { tag: 'input', attr: { type: 'text', list: 'order-type', required: true, name: 'Order Type', autocomplete: true } } },
     },
 
     'Payment Status': {
       view: { access: false, schema: { tag: 'span', attr: { title: 'Payment Status' } } },
-      edit: { access: false, schema: { tag: 'input', attr: { type: 'text', list: 'payment-status', required: true, name: 'Payment Status' } } },
+      edit: { access: false, schema: { tag: 'input', attr: { type: 'text', list: 'payment-status', required: true, name: 'Payment Status', autocomplete: true } } },
     },
 
     'Payment Timestamp': {
@@ -296,7 +296,7 @@ const gsheet = {
 
     'State': {
       view: { access: false, schema: { tag: 'span', attr: { title: 'State' } } },
-      edit: { access: false, schema: { tag: 'input', attr: { type: 'text', required: true, list: 'state', placeholder: 'State', name: 'State' } } },
+      edit: { access: false, schema: { tag: 'input', attr: { type: 'text', required: true, list: 'state', placeholder: 'State', name: 'State', autocomplete: true } } },
     },
 
     'Pincode': {
@@ -306,32 +306,32 @@ const gsheet = {
 
     'CX Issue': {
       view: { access: false, schema: { tag: 'span', attr: { title: 'CX Issue' } } },
-      edit: { access: false, schema: { tag: 'input', attr: { type: 'text', list: 'cx-issue', required: true, placeholder: 'CX Issue', name: 'CX Issue' } } },
+      edit: { access: false, schema: { tag: 'input', attr: { type: 'text', list: 'cx-issue', required: true, placeholder: 'CX Issue', name: 'CX Issue', autocomplete: true } } },
     },
 
     'CX Issue Status': {
       view: { access: false, schema: { tag: 'span', attr: { title: 'CX Issue Status' } } },
-      edit: { access: false, schema: { tag: 'input', attr: { type: 'text', list: 'cx-issue-status', required: true, placeholder: 'CX Issue Status', name: 'CX Issue Status' } } },
+      edit: { access: false, schema: { tag: 'input', attr: { type: 'text', list: 'cx-issue-status', required: true, placeholder: 'CX Issue Status', name: 'CX Issue Status', autocomplete: true } } },
     },
 
     'Order Confirmation Status': {
       view: { access: false, schema: { tag: 'span', attr: { title: 'Order Confirmation Status' } } },
-      edit: { access: false, schema: { tag: 'input', attr: { type: 'text', list: 'order-confirmation-status', required: true, placeholder: 'Order Confirmation Status', name: 'Order Confirmation Status' } } },
+      edit: { access: false, schema: { tag: 'input', attr: { type: 'text', list: 'order-confirmation-status', required: true, placeholder: 'Order Confirmation Status', name: 'Order Confirmation Status', autocomplete: true } } },
     },
 
     'Delivery Type': {
       view: { access: false, schema: { tag: 'span', attr: { title: 'Delivery Type' } } },
-      edit: { access: false, schema: { tag: 'input', attr: { type: 'text', list: 'delivery-type', required: true, placeholder: 'Delivery Type', name: 'Delivery Type' } } },
+      edit: { access: false, schema: { tag: 'input', attr: { type: 'text', list: 'delivery-type', required: true, placeholder: 'Delivery Type', name: 'Delivery Type', autocomplete: true } } },
     },
 
     'Logistic Partner': {
       view: { access: false, schema: { tag: 'span', attr: { title: 'Logistic Partner' } } },
-      edit: { access: false, schema: { tag: 'input', attr: { type: 'text', list: 'logistic-partner', required: true, placeholder: 'Enter Logistic Partner', name: 'Logistic Partner' } } },
+      edit: { access: false, schema: { tag: 'input', attr: { type: 'text', list: 'logistic-partner', required: true, placeholder: 'Enter Logistic Partner', name: 'Logistic Partner', autocomplete: true } } },
     },
 
     'Booking Company': {
       view: { access: false, schema: { tag: 'span', attr: { title: 'Booking Company' } } },
-      edit: { access: false, schema: { tag: 'input', attr: { type: 'text', list: 'booking-company', required: true, placeholder: 'Enter Booking Company', name: 'Booking Company' } } },
+      edit: { access: false, schema: { tag: 'input', attr: { type: 'text', list: 'booking-company', required: true, placeholder: 'Enter Booking Company', name: 'Booking Company', autocomplete: true } } },
     },
 
     'ITL Error': {
@@ -346,7 +346,7 @@ const gsheet = {
 
     'Tracking Status': {
       view: { access: false, schema: { tag: 'span', attr: { title: 'Tracking Status' } } },
-      edit: { access: false, schema: { tag: 'input', attr: { type: 'text', list: 'tracking-status', placeholder: 'Enter Tracking Status', required: true, name: 'Tracking Status' } } },
+      edit: { access: false, schema: { tag: 'input', attr: { type: 'text', list: 'tracking-status', placeholder: 'Enter Tracking Status', required: true, name: 'Tracking Status', autocomplete: true } } },
     },
 
     'Tracking Url': {
@@ -356,7 +356,7 @@ const gsheet = {
 
     'Dispatch Status': {
       view: { access: false, schema: { tag: 'span', attr: { title: 'Dispatch Status' } } },
-      edit: { access: false, schema: { tag: 'input', attr: { type: 'text', list: 'dispatch-status', placeholder: 'Enter Dispatch Status', required: true, name: 'Dispatch Status' } } },
+      edit: { access: false, schema: { tag: 'input', attr: { type: 'text', list: 'dispatch-status', placeholder: 'Enter Dispatch Status', required: true, name: 'Dispatch Status', autocomplete: true } } },
     },
 
     'Transaction ID': {
@@ -366,7 +366,7 @@ const gsheet = {
 
     'Whatsapp  Status': {
       view: { access: false, schema: { tag: 'span', attr: { title: 'Whatsapp Status' } } },
-      edit: { access: false, schema: { tag: 'input', attr: { type: 'text', list: 'Whatsapp Status', required: true, name: 'Whatsapp  Status' } } },
+      edit: { access: false, schema: { tag: 'input', attr: { type: 'text', list: 'whatsapp-status', required: true, name: 'Whatsapp  Status', autocomplete: true } } },
     },
 
     'Remarks': {

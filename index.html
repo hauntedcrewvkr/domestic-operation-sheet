@@ -3963,35 +3963,55 @@
             <legend class="form-title">Add New Order Form</legend>
             <fieldset>
               <legend>Order Details</legend>
-              <label>Order Date</label>
-              <input type="date" required="true" name="Order Date" />
-              <label>POC</label>
-              <input type="text" list="poc" required="true" name="POC" />
+              <div class="input-holder">
+                <label class="input-label">Order Date</label>
+                <input type="date" required="true" name="Order Date" />
+              </div>
+              <div class="input-holder">
+                <label class="input-label">POC</label>
+                <input type="text" list="poc" required="true" name="POC" />
+              </div>
             </fieldset>
             <fieldset>
               <legend>Customer Details</legend>
-              <label>Client Name</label>
-              <input type="text" required="true" name="Client Name" />
-              <label>Contact Number</label>
-              <input type="number" required="true" name="Contact Number" />
-              <label>Alternate Contact Number</label>
-              <input type="number" />
+              <div class="input-holder">
+                <label class="input-label">Client Name</label>
+                <input type="text" required="true" name="Client Name" />
+              </div>
+              <div class="input-holder">
+                <label class="input-label">Contact Number</label>
+                <input type="number" required="true" name="Contact Number" />
+              </div>
+              <div class="input-holder">
+                <label class="input-label">Alternate Contact Number</label>
+                <input type="number" />
+              </div>
             </fieldset>
             <fieldset>
               <legend>Financial Details</legend>
-              <label>Total Amount (₹)</label>
-              <input type="number" value="0" required="true" name="Total Amount (₹)" />
-              <label>Prepaid Amount (₹)</label>
-              <input type="number" value="0" required="true" name="Prepaid Amount (₹)" />
-              <label>Balance Amount (₹)</label>
-              <input type="number" value="0" required="true" name="Balance Amount (₹)" />
-              <label>Mode of Payment</label>
-              <input type="text" list="mode-of-payment" required="true" name="Mode of Payment" />
+              <div class="input-holder">
+                <label class="input-label">Total Amount (₹)</label>
+                <input type="number" value="0" required="true" name="Total Amount (₹)" />
+              </div>
+              <div class="input-holder">
+                <label class="input-label">Prepaid Amount (₹)</label>
+                <input type="number" value="0" required="true" name="Prepaid Amount (₹)" />
+              </div>
+              <div class="input-holder">
+                <label class="input-label">Balance Amount (₹)</label>
+                <input type="number" value="0" required="true" name="Balance Amount (₹)" />
+              </div>
+              <div class="input-holder">
+                <label class="input-label">Mode of Payment</label>
+                <input type="text" list="mode-of-payment" required="true" name="Mode of Payment" />
+              </div>
             </fieldset>
             <fieldset>
               <legend>Shipping Details</legend>
-              <label>Address Line 1</label>
-              <textarea placeholder="Address Line 1...." name="Address Line 1"></textarea>
+              <div class="input-holder">
+                <label class="input-label">Address Line 1</label>
+                <textarea placeholder="Address Line 1...." name="Address Line 1"></textarea>
+              </div>
               <label>Address Line 2</label>
               <textarea placeholder="Address Line 2...." name="Address Line 2"></textarea>
               <label>State</label>
