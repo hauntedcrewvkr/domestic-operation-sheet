@@ -27,16 +27,16 @@
         </div>
         <div class="header-action-holder" actionname="Primary Action|Secondary Action">
           <div class="primary-action-holder">
-            <span title="Add New Order" class="icon"><i class="ph ph-user-circle-plus"></i></span>
-            <span title="Create Order" class="icon"><i class="ph ph-webhooks-logo"></i></span>
-            <span title="Download" class="icon"><i class="ph ph-cloud-arrow-down"></i></span>
-            <span title="My Orders" class="icon"><i class="ph ph-user"></i></span>
+            <span title="Add New Order" class="icon" onclick="addNewOrder(event)"><i class="ph ph-user-circle-plus"></i></span>
+            <span title="Create Order" class="icon" onclick="createOrder(event)"><i class="ph ph-webhooks-logo"></i></span>
+            <span title="Download" class="icon" onclick="download(event)"><i class="ph ph-cloud-arrow-down"></i></span>
+            <span title="My Orders" class="icon" onclick="myOrders(event)"><i class="ph ph-user"></i></span>
           </div>
           <div class="secondary-action-holder">
-            <span title="Filter" class="icon"><i class="ph ph-funnel"></i></span>
-            <span title="Change Account" class="icon"><i class="ph ph-buildings"></i></span>
-            <span title="Change Email" class="icon"><i class="ph ph-at"></i></span>
-            <span title="Sync" class="icon"><i class="ph ph-arrows-clockwise"></i></span>
+            <span title="Filter" class="icon" onclick="filter(event)"><i class="ph ph-funnel"></i></span>
+            <span title="Change Account" class="icon" onclick="changeAccount(event)"><i class="ph ph-buildings"></i></span>
+            <span title="Change Email" class="icon" onclick="changeEmail(event)"><i class="ph ph-at"></i></span>
+            <span title="Sync" class="icon" onclick="sync(event)"><i class="ph ph-arrows-clockwise"></i></span>
           </div>
         </div>
       </section>
@@ -44,13 +44,13 @@
     <nav>
       <section class="nav" actionname="View Action">
         <div class="view-action-holder">
-          <span title="Orders" class="icon"><i class="fas fa-cart-shopping"></i></span>
-          <span title="Get Initial Confirmation" class="icon"><i class="fas fa-asterisk"></i></span>
-          <span title="Confirm Payments" class="icon"><i class="fas fa-credit-card"></i></span>
-          <span title="Generate Orders" class="icon"><i class="fas fa-face-smile-beam"></i></span>
-          <span title="Raised Issues" class="icon"><i class="fas fa-hand"></i></span>
-          <span title="COD" class="icon"><i class="fas fa-money-bill-1-wave"></i></span>
-          <span title="Processed Orders" class="icon"><i class="fas fa-microchip"></i></span>
+          <span title="Orders" class="icon" onclick="viewRouter(event)"><i class="fas fa-cart-shopping"></i></span>
+          <span title="Get Initial Confirmation" class="icon" onclick="viewRouter(event)"><i class="fas fa-asterisk"></i></span>
+          <span title="Confirm Payments" class="icon" onclick="viewRouter(event)"><i class="fas fa-credit-card"></i></span>
+          <span title="Generate Orders" class="icon" onclick="viewRouter(event)"><i class="fas fa-face-smile-beam"></i></span>
+          <span title="Raised Issues" class="icon" onclick="viewRouter(event)"><i class="fas fa-hand"></i></span>
+          <span title="COD" class="icon" onclick="viewRouter(event)"><i class="fas fa-money-bill-1-wave"></i></span>
+          <span title="Processed Orders" class="icon" onclick="viewRouter(event)"><i class="fas fa-microchip"></i></span>
         </div>
       </section>
     </nav>
@@ -109,16 +109,15 @@
                 <div class="tr-actions" actionname="Sub Action">
                   <span class="icon-span"><i class="ph ph-corners-out"></i></span>
                   <div class="sub-action-holder">
-                    <span title="Toggle Sub Action" class="icon"><i class="ph ph-arrow-right"></i></span>
-                    <span title="Raise Issue" class="icon"><i class="ph ph-warning"></i></span>
-                    <span title="See Followups" class="icon"><i class="ph ph-chat"></i></span>
-                    <span title="Change Dispatch Status" class="icon"><i class="ph ph-cube"></i></span>
-                    <span title="Add Remarks" class="icon"><i class="ph ph-file-plus"></i></span>
-                    <span title="Order Confirmation Message" class="icon"><i class="ph ph-whatsapp-logo"></i></span>
-                    <span title="Mark Resolved" class="icon"><i class="ph ph-thumbs-up"></i></span>
-                    <span title="Payment Confirmation Yes" class="icon"><i class="ph ph-check-circle"></i></span>
-                    <span title="Payment Confirmation No" class="icon"><i class="ph ph-x-circle"></i></span>
-                    <span title="Edit Row" class="icon"><i class="ph ph-pencil-simple-line"></i></span>
+                    <span title="Raise Issue" class="icon" onclick="raiseIssue(event)"><i class="ph ph-warning"></i></span>
+                    <span title="See Followups" class="icon" onclick="seeFollowups(event)"><i class="ph ph-chat"></i></span>
+                    <span title="Change Dispatch Status" class="icon" onclick="changeDispatchStatus(event)"><i class="ph ph-cube"></i></span>
+                    <span title="Add Remarks" class="icon" onclick="addRemarks(event)"><i class="ph ph-file-plus"></i></span>
+                    <span title="Order Confirmation Message" class="icon" onclick="orderConfirmationMessage(event)"><i class="ph ph-whatsapp-logo"></i></span>
+                    <span title="Mark Resolved" class="icon" onclick="markResolved(event)"><i class="ph ph-thumbs-up"></i></span>
+                    <span title="Payment Confirmation Yes" class="icon" onclick="paymentConfirmationYes(event)"><i class="ph ph-check-circle"></i></span>
+                    <span title="Payment Confirmation No" class="icon" onclick="paymentConfirmationNo(event)"><i class="ph ph-x-circle"></i></span>
+                    <span title="Edit Row" class="icon" onclick="editRow(event)"><i class="ph ph-pencil-simple-line"></i></span>
                   </div>
                 </div>
               </td>
@@ -187,16 +186,15 @@
                 <div class="tr-actions" actionname="Sub Action">
                   <span class="icon-span"><i class="ph ph-corners-out"></i></span>
                   <div class="sub-action-holder">
-                    <span title="Toggle Sub Action" class="icon"><i class="ph ph-arrow-right"></i></span>
-                    <span title="Raise Issue" class="icon"><i class="ph ph-warning"></i></span>
-                    <span title="See Followups" class="icon"><i class="ph ph-chat"></i></span>
-                    <span title="Change Dispatch Status" class="icon"><i class="ph ph-cube"></i></span>
-                    <span title="Add Remarks" class="icon"><i class="ph ph-file-plus"></i></span>
-                    <span title="Order Confirmation Message" class="icon"><i class="ph ph-whatsapp-logo"></i></span>
-                    <span title="Mark Resolved" class="icon"><i class="ph ph-thumbs-up"></i></span>
-                    <span title="Payment Confirmation Yes" class="icon"><i class="ph ph-check-circle"></i></span>
-                    <span title="Payment Confirmation No" class="icon"><i class="ph ph-x-circle"></i></span>
-                    <span title="Edit Row" class="icon"><i class="ph ph-pencil-simple-line"></i></span>
+                    <span title="Raise Issue" class="icon" onclick="raiseIssue(event)"><i class="ph ph-warning"></i></span>
+                    <span title="See Followups" class="icon" onclick="seeFollowups(event)"><i class="ph ph-chat"></i></span>
+                    <span title="Change Dispatch Status" class="icon" onclick="changeDispatchStatus(event)"><i class="ph ph-cube"></i></span>
+                    <span title="Add Remarks" class="icon" onclick="addRemarks(event)"><i class="ph ph-file-plus"></i></span>
+                    <span title="Order Confirmation Message" class="icon" onclick="orderConfirmationMessage(event)"><i class="ph ph-whatsapp-logo"></i></span>
+                    <span title="Mark Resolved" class="icon" onclick="markResolved(event)"><i class="ph ph-thumbs-up"></i></span>
+                    <span title="Payment Confirmation Yes" class="icon" onclick="paymentConfirmationYes(event)"><i class="ph ph-check-circle"></i></span>
+                    <span title="Payment Confirmation No" class="icon" onclick="paymentConfirmationNo(event)"><i class="ph ph-x-circle"></i></span>
+                    <span title="Edit Row" class="icon" onclick="editRow(event)"><i class="ph ph-pencil-simple-line"></i></span>
                   </div>
                 </div>
               </td>
@@ -265,16 +263,15 @@
                 <div class="tr-actions" actionname="Sub Action">
                   <span class="icon-span"><i class="ph ph-corners-out"></i></span>
                   <div class="sub-action-holder">
-                    <span title="Toggle Sub Action" class="icon"><i class="ph ph-arrow-right"></i></span>
-                    <span title="Raise Issue" class="icon"><i class="ph ph-warning"></i></span>
-                    <span title="See Followups" class="icon"><i class="ph ph-chat"></i></span>
-                    <span title="Change Dispatch Status" class="icon"><i class="ph ph-cube"></i></span>
-                    <span title="Add Remarks" class="icon"><i class="ph ph-file-plus"></i></span>
-                    <span title="Order Confirmation Message" class="icon"><i class="ph ph-whatsapp-logo"></i></span>
-                    <span title="Mark Resolved" class="icon"><i class="ph ph-thumbs-up"></i></span>
-                    <span title="Payment Confirmation Yes" class="icon"><i class="ph ph-check-circle"></i></span>
-                    <span title="Payment Confirmation No" class="icon"><i class="ph ph-x-circle"></i></span>
-                    <span title="Edit Row" class="icon"><i class="ph ph-pencil-simple-line"></i></span>
+                    <span title="Raise Issue" class="icon" onclick="raiseIssue(event)"><i class="ph ph-warning"></i></span>
+                    <span title="See Followups" class="icon" onclick="seeFollowups(event)"><i class="ph ph-chat"></i></span>
+                    <span title="Change Dispatch Status" class="icon" onclick="changeDispatchStatus(event)"><i class="ph ph-cube"></i></span>
+                    <span title="Add Remarks" class="icon" onclick="addRemarks(event)"><i class="ph ph-file-plus"></i></span>
+                    <span title="Order Confirmation Message" class="icon" onclick="orderConfirmationMessage(event)"><i class="ph ph-whatsapp-logo"></i></span>
+                    <span title="Mark Resolved" class="icon" onclick="markResolved(event)"><i class="ph ph-thumbs-up"></i></span>
+                    <span title="Payment Confirmation Yes" class="icon" onclick="paymentConfirmationYes(event)"><i class="ph ph-check-circle"></i></span>
+                    <span title="Payment Confirmation No" class="icon" onclick="paymentConfirmationNo(event)"><i class="ph ph-x-circle"></i></span>
+                    <span title="Edit Row" class="icon" onclick="editRow(event)"><i class="ph ph-pencil-simple-line"></i></span>
                   </div>
                 </div>
               </td>
@@ -343,16 +340,15 @@
                 <div class="tr-actions" actionname="Sub Action">
                   <span class="icon-span"><i class="ph ph-corners-out"></i></span>
                   <div class="sub-action-holder">
-                    <span title="Toggle Sub Action" class="icon"><i class="ph ph-arrow-right"></i></span>
-                    <span title="Raise Issue" class="icon"><i class="ph ph-warning"></i></span>
-                    <span title="See Followups" class="icon"><i class="ph ph-chat"></i></span>
-                    <span title="Change Dispatch Status" class="icon"><i class="ph ph-cube"></i></span>
-                    <span title="Add Remarks" class="icon"><i class="ph ph-file-plus"></i></span>
-                    <span title="Order Confirmation Message" class="icon"><i class="ph ph-whatsapp-logo"></i></span>
-                    <span title="Mark Resolved" class="icon"><i class="ph ph-thumbs-up"></i></span>
-                    <span title="Payment Confirmation Yes" class="icon"><i class="ph ph-check-circle"></i></span>
-                    <span title="Payment Confirmation No" class="icon"><i class="ph ph-x-circle"></i></span>
-                    <span title="Edit Row" class="icon"><i class="ph ph-pencil-simple-line"></i></span>
+                    <span title="Raise Issue" class="icon" onclick="raiseIssue(event)"><i class="ph ph-warning"></i></span>
+                    <span title="See Followups" class="icon" onclick="seeFollowups(event)"><i class="ph ph-chat"></i></span>
+                    <span title="Change Dispatch Status" class="icon" onclick="changeDispatchStatus(event)"><i class="ph ph-cube"></i></span>
+                    <span title="Add Remarks" class="icon" onclick="addRemarks(event)"><i class="ph ph-file-plus"></i></span>
+                    <span title="Order Confirmation Message" class="icon" onclick="orderConfirmationMessage(event)"><i class="ph ph-whatsapp-logo"></i></span>
+                    <span title="Mark Resolved" class="icon" onclick="markResolved(event)"><i class="ph ph-thumbs-up"></i></span>
+                    <span title="Payment Confirmation Yes" class="icon" onclick="paymentConfirmationYes(event)"><i class="ph ph-check-circle"></i></span>
+                    <span title="Payment Confirmation No" class="icon" onclick="paymentConfirmationNo(event)"><i class="ph ph-x-circle"></i></span>
+                    <span title="Edit Row" class="icon" onclick="editRow(event)"><i class="ph ph-pencil-simple-line"></i></span>
                   </div>
                 </div>
               </td>
@@ -421,16 +417,15 @@
                 <div class="tr-actions" actionname="Sub Action">
                   <span class="icon-span"><i class="ph ph-corners-out"></i></span>
                   <div class="sub-action-holder">
-                    <span title="Toggle Sub Action" class="icon"><i class="ph ph-arrow-right"></i></span>
-                    <span title="Raise Issue" class="icon"><i class="ph ph-warning"></i></span>
-                    <span title="See Followups" class="icon"><i class="ph ph-chat"></i></span>
-                    <span title="Change Dispatch Status" class="icon"><i class="ph ph-cube"></i></span>
-                    <span title="Add Remarks" class="icon"><i class="ph ph-file-plus"></i></span>
-                    <span title="Order Confirmation Message" class="icon"><i class="ph ph-whatsapp-logo"></i></span>
-                    <span title="Mark Resolved" class="icon"><i class="ph ph-thumbs-up"></i></span>
-                    <span title="Payment Confirmation Yes" class="icon"><i class="ph ph-check-circle"></i></span>
-                    <span title="Payment Confirmation No" class="icon"><i class="ph ph-x-circle"></i></span>
-                    <span title="Edit Row" class="icon"><i class="ph ph-pencil-simple-line"></i></span>
+                    <span title="Raise Issue" class="icon" onclick="raiseIssue(event)"><i class="ph ph-warning"></i></span>
+                    <span title="See Followups" class="icon" onclick="seeFollowups(event)"><i class="ph ph-chat"></i></span>
+                    <span title="Change Dispatch Status" class="icon" onclick="changeDispatchStatus(event)"><i class="ph ph-cube"></i></span>
+                    <span title="Add Remarks" class="icon" onclick="addRemarks(event)"><i class="ph ph-file-plus"></i></span>
+                    <span title="Order Confirmation Message" class="icon" onclick="orderConfirmationMessage(event)"><i class="ph ph-whatsapp-logo"></i></span>
+                    <span title="Mark Resolved" class="icon" onclick="markResolved(event)"><i class="ph ph-thumbs-up"></i></span>
+                    <span title="Payment Confirmation Yes" class="icon" onclick="paymentConfirmationYes(event)"><i class="ph ph-check-circle"></i></span>
+                    <span title="Payment Confirmation No" class="icon" onclick="paymentConfirmationNo(event)"><i class="ph ph-x-circle"></i></span>
+                    <span title="Edit Row" class="icon" onclick="editRow(event)"><i class="ph ph-pencil-simple-line"></i></span>
                   </div>
                 </div>
               </td>
@@ -499,16 +494,15 @@
                 <div class="tr-actions" actionname="Sub Action">
                   <span class="icon-span"><i class="ph ph-corners-out"></i></span>
                   <div class="sub-action-holder">
-                    <span title="Toggle Sub Action" class="icon"><i class="ph ph-arrow-right"></i></span>
-                    <span title="Raise Issue" class="icon"><i class="ph ph-warning"></i></span>
-                    <span title="See Followups" class="icon"><i class="ph ph-chat"></i></span>
-                    <span title="Change Dispatch Status" class="icon"><i class="ph ph-cube"></i></span>
-                    <span title="Add Remarks" class="icon"><i class="ph ph-file-plus"></i></span>
-                    <span title="Order Confirmation Message" class="icon"><i class="ph ph-whatsapp-logo"></i></span>
-                    <span title="Mark Resolved" class="icon"><i class="ph ph-thumbs-up"></i></span>
-                    <span title="Payment Confirmation Yes" class="icon"><i class="ph ph-check-circle"></i></span>
-                    <span title="Payment Confirmation No" class="icon"><i class="ph ph-x-circle"></i></span>
-                    <span title="Edit Row" class="icon"><i class="ph ph-pencil-simple-line"></i></span>
+                    <span title="Raise Issue" class="icon" onclick="raiseIssue(event)"><i class="ph ph-warning"></i></span>
+                    <span title="See Followups" class="icon" onclick="seeFollowups(event)"><i class="ph ph-chat"></i></span>
+                    <span title="Change Dispatch Status" class="icon" onclick="changeDispatchStatus(event)"><i class="ph ph-cube"></i></span>
+                    <span title="Add Remarks" class="icon" onclick="addRemarks(event)"><i class="ph ph-file-plus"></i></span>
+                    <span title="Order Confirmation Message" class="icon" onclick="orderConfirmationMessage(event)"><i class="ph ph-whatsapp-logo"></i></span>
+                    <span title="Mark Resolved" class="icon" onclick="markResolved(event)"><i class="ph ph-thumbs-up"></i></span>
+                    <span title="Payment Confirmation Yes" class="icon" onclick="paymentConfirmationYes(event)"><i class="ph ph-check-circle"></i></span>
+                    <span title="Payment Confirmation No" class="icon" onclick="paymentConfirmationNo(event)"><i class="ph ph-x-circle"></i></span>
+                    <span title="Edit Row" class="icon" onclick="editRow(event)"><i class="ph ph-pencil-simple-line"></i></span>
                   </div>
                 </div>
               </td>
@@ -577,16 +571,15 @@
                 <div class="tr-actions" actionname="Sub Action">
                   <span class="icon-span"><i class="ph ph-corners-out"></i></span>
                   <div class="sub-action-holder">
-                    <span title="Toggle Sub Action" class="icon"><i class="ph ph-arrow-right"></i></span>
-                    <span title="Raise Issue" class="icon"><i class="ph ph-warning"></i></span>
-                    <span title="See Followups" class="icon"><i class="ph ph-chat"></i></span>
-                    <span title="Change Dispatch Status" class="icon"><i class="ph ph-cube"></i></span>
-                    <span title="Add Remarks" class="icon"><i class="ph ph-file-plus"></i></span>
-                    <span title="Order Confirmation Message" class="icon"><i class="ph ph-whatsapp-logo"></i></span>
-                    <span title="Mark Resolved" class="icon"><i class="ph ph-thumbs-up"></i></span>
-                    <span title="Payment Confirmation Yes" class="icon"><i class="ph ph-check-circle"></i></span>
-                    <span title="Payment Confirmation No" class="icon"><i class="ph ph-x-circle"></i></span>
-                    <span title="Edit Row" class="icon"><i class="ph ph-pencil-simple-line"></i></span>
+                    <span title="Raise Issue" class="icon" onclick="raiseIssue(event)"><i class="ph ph-warning"></i></span>
+                    <span title="See Followups" class="icon" onclick="seeFollowups(event)"><i class="ph ph-chat"></i></span>
+                    <span title="Change Dispatch Status" class="icon" onclick="changeDispatchStatus(event)"><i class="ph ph-cube"></i></span>
+                    <span title="Add Remarks" class="icon" onclick="addRemarks(event)"><i class="ph ph-file-plus"></i></span>
+                    <span title="Order Confirmation Message" class="icon" onclick="orderConfirmationMessage(event)"><i class="ph ph-whatsapp-logo"></i></span>
+                    <span title="Mark Resolved" class="icon" onclick="markResolved(event)"><i class="ph ph-thumbs-up"></i></span>
+                    <span title="Payment Confirmation Yes" class="icon" onclick="paymentConfirmationYes(event)"><i class="ph ph-check-circle"></i></span>
+                    <span title="Payment Confirmation No" class="icon" onclick="paymentConfirmationNo(event)"><i class="ph ph-x-circle"></i></span>
+                    <span title="Edit Row" class="icon" onclick="editRow(event)"><i class="ph ph-pencil-simple-line"></i></span>
                   </div>
                 </div>
               </td>
@@ -655,16 +648,15 @@
                 <div class="tr-actions" actionname="Sub Action">
                   <span class="icon-span"><i class="ph ph-corners-out"></i></span>
                   <div class="sub-action-holder">
-                    <span title="Toggle Sub Action" class="icon"><i class="ph ph-arrow-right"></i></span>
-                    <span title="Raise Issue" class="icon"><i class="ph ph-warning"></i></span>
-                    <span title="See Followups" class="icon"><i class="ph ph-chat"></i></span>
-                    <span title="Change Dispatch Status" class="icon"><i class="ph ph-cube"></i></span>
-                    <span title="Add Remarks" class="icon"><i class="ph ph-file-plus"></i></span>
-                    <span title="Order Confirmation Message" class="icon"><i class="ph ph-whatsapp-logo"></i></span>
-                    <span title="Mark Resolved" class="icon"><i class="ph ph-thumbs-up"></i></span>
-                    <span title="Payment Confirmation Yes" class="icon"><i class="ph ph-check-circle"></i></span>
-                    <span title="Payment Confirmation No" class="icon"><i class="ph ph-x-circle"></i></span>
-                    <span title="Edit Row" class="icon"><i class="ph ph-pencil-simple-line"></i></span>
+                    <span title="Raise Issue" class="icon" onclick="raiseIssue(event)"><i class="ph ph-warning"></i></span>
+                    <span title="See Followups" class="icon" onclick="seeFollowups(event)"><i class="ph ph-chat"></i></span>
+                    <span title="Change Dispatch Status" class="icon" onclick="changeDispatchStatus(event)"><i class="ph ph-cube"></i></span>
+                    <span title="Add Remarks" class="icon" onclick="addRemarks(event)"><i class="ph ph-file-plus"></i></span>
+                    <span title="Order Confirmation Message" class="icon" onclick="orderConfirmationMessage(event)"><i class="ph ph-whatsapp-logo"></i></span>
+                    <span title="Mark Resolved" class="icon" onclick="markResolved(event)"><i class="ph ph-thumbs-up"></i></span>
+                    <span title="Payment Confirmation Yes" class="icon" onclick="paymentConfirmationYes(event)"><i class="ph ph-check-circle"></i></span>
+                    <span title="Payment Confirmation No" class="icon" onclick="paymentConfirmationNo(event)"><i class="ph ph-x-circle"></i></span>
+                    <span title="Edit Row" class="icon" onclick="editRow(event)"><i class="ph ph-pencil-simple-line"></i></span>
                   </div>
                 </div>
               </td>
@@ -733,16 +725,15 @@
                 <div class="tr-actions" actionname="Sub Action">
                   <span class="icon-span"><i class="ph ph-corners-out"></i></span>
                   <div class="sub-action-holder">
-                    <span title="Toggle Sub Action" class="icon"><i class="ph ph-arrow-right"></i></span>
-                    <span title="Raise Issue" class="icon"><i class="ph ph-warning"></i></span>
-                    <span title="See Followups" class="icon"><i class="ph ph-chat"></i></span>
-                    <span title="Change Dispatch Status" class="icon"><i class="ph ph-cube"></i></span>
-                    <span title="Add Remarks" class="icon"><i class="ph ph-file-plus"></i></span>
-                    <span title="Order Confirmation Message" class="icon"><i class="ph ph-whatsapp-logo"></i></span>
-                    <span title="Mark Resolved" class="icon"><i class="ph ph-thumbs-up"></i></span>
-                    <span title="Payment Confirmation Yes" class="icon"><i class="ph ph-check-circle"></i></span>
-                    <span title="Payment Confirmation No" class="icon"><i class="ph ph-x-circle"></i></span>
-                    <span title="Edit Row" class="icon"><i class="ph ph-pencil-simple-line"></i></span>
+                    <span title="Raise Issue" class="icon" onclick="raiseIssue(event)"><i class="ph ph-warning"></i></span>
+                    <span title="See Followups" class="icon" onclick="seeFollowups(event)"><i class="ph ph-chat"></i></span>
+                    <span title="Change Dispatch Status" class="icon" onclick="changeDispatchStatus(event)"><i class="ph ph-cube"></i></span>
+                    <span title="Add Remarks" class="icon" onclick="addRemarks(event)"><i class="ph ph-file-plus"></i></span>
+                    <span title="Order Confirmation Message" class="icon" onclick="orderConfirmationMessage(event)"><i class="ph ph-whatsapp-logo"></i></span>
+                    <span title="Mark Resolved" class="icon" onclick="markResolved(event)"><i class="ph ph-thumbs-up"></i></span>
+                    <span title="Payment Confirmation Yes" class="icon" onclick="paymentConfirmationYes(event)"><i class="ph ph-check-circle"></i></span>
+                    <span title="Payment Confirmation No" class="icon" onclick="paymentConfirmationNo(event)"><i class="ph ph-x-circle"></i></span>
+                    <span title="Edit Row" class="icon" onclick="editRow(event)"><i class="ph ph-pencil-simple-line"></i></span>
                   </div>
                 </div>
               </td>
@@ -811,16 +802,15 @@
                 <div class="tr-actions" actionname="Sub Action">
                   <span class="icon-span"><i class="ph ph-corners-out"></i></span>
                   <div class="sub-action-holder">
-                    <span title="Toggle Sub Action" class="icon"><i class="ph ph-arrow-right"></i></span>
-                    <span title="Raise Issue" class="icon"><i class="ph ph-warning"></i></span>
-                    <span title="See Followups" class="icon"><i class="ph ph-chat"></i></span>
-                    <span title="Change Dispatch Status" class="icon"><i class="ph ph-cube"></i></span>
-                    <span title="Add Remarks" class="icon"><i class="ph ph-file-plus"></i></span>
-                    <span title="Order Confirmation Message" class="icon"><i class="ph ph-whatsapp-logo"></i></span>
-                    <span title="Mark Resolved" class="icon"><i class="ph ph-thumbs-up"></i></span>
-                    <span title="Payment Confirmation Yes" class="icon"><i class="ph ph-check-circle"></i></span>
-                    <span title="Payment Confirmation No" class="icon"><i class="ph ph-x-circle"></i></span>
-                    <span title="Edit Row" class="icon"><i class="ph ph-pencil-simple-line"></i></span>
+                    <span title="Raise Issue" class="icon" onclick="raiseIssue(event)"><i class="ph ph-warning"></i></span>
+                    <span title="See Followups" class="icon" onclick="seeFollowups(event)"><i class="ph ph-chat"></i></span>
+                    <span title="Change Dispatch Status" class="icon" onclick="changeDispatchStatus(event)"><i class="ph ph-cube"></i></span>
+                    <span title="Add Remarks" class="icon" onclick="addRemarks(event)"><i class="ph ph-file-plus"></i></span>
+                    <span title="Order Confirmation Message" class="icon" onclick="orderConfirmationMessage(event)"><i class="ph ph-whatsapp-logo"></i></span>
+                    <span title="Mark Resolved" class="icon" onclick="markResolved(event)"><i class="ph ph-thumbs-up"></i></span>
+                    <span title="Payment Confirmation Yes" class="icon" onclick="paymentConfirmationYes(event)"><i class="ph ph-check-circle"></i></span>
+                    <span title="Payment Confirmation No" class="icon" onclick="paymentConfirmationNo(event)"><i class="ph ph-x-circle"></i></span>
+                    <span title="Edit Row" class="icon" onclick="editRow(event)"><i class="ph ph-pencil-simple-line"></i></span>
                   </div>
                 </div>
               </td>
@@ -889,16 +879,15 @@
                 <div class="tr-actions" actionname="Sub Action">
                   <span class="icon-span"><i class="ph ph-corners-out"></i></span>
                   <div class="sub-action-holder">
-                    <span title="Toggle Sub Action" class="icon"><i class="ph ph-arrow-right"></i></span>
-                    <span title="Raise Issue" class="icon"><i class="ph ph-warning"></i></span>
-                    <span title="See Followups" class="icon"><i class="ph ph-chat"></i></span>
-                    <span title="Change Dispatch Status" class="icon"><i class="ph ph-cube"></i></span>
-                    <span title="Add Remarks" class="icon"><i class="ph ph-file-plus"></i></span>
-                    <span title="Order Confirmation Message" class="icon"><i class="ph ph-whatsapp-logo"></i></span>
-                    <span title="Mark Resolved" class="icon"><i class="ph ph-thumbs-up"></i></span>
-                    <span title="Payment Confirmation Yes" class="icon"><i class="ph ph-check-circle"></i></span>
-                    <span title="Payment Confirmation No" class="icon"><i class="ph ph-x-circle"></i></span>
-                    <span title="Edit Row" class="icon"><i class="ph ph-pencil-simple-line"></i></span>
+                    <span title="Raise Issue" class="icon" onclick="raiseIssue(event)"><i class="ph ph-warning"></i></span>
+                    <span title="See Followups" class="icon" onclick="seeFollowups(event)"><i class="ph ph-chat"></i></span>
+                    <span title="Change Dispatch Status" class="icon" onclick="changeDispatchStatus(event)"><i class="ph ph-cube"></i></span>
+                    <span title="Add Remarks" class="icon" onclick="addRemarks(event)"><i class="ph ph-file-plus"></i></span>
+                    <span title="Order Confirmation Message" class="icon" onclick="orderConfirmationMessage(event)"><i class="ph ph-whatsapp-logo"></i></span>
+                    <span title="Mark Resolved" class="icon" onclick="markResolved(event)"><i class="ph ph-thumbs-up"></i></span>
+                    <span title="Payment Confirmation Yes" class="icon" onclick="paymentConfirmationYes(event)"><i class="ph ph-check-circle"></i></span>
+                    <span title="Payment Confirmation No" class="icon" onclick="paymentConfirmationNo(event)"><i class="ph ph-x-circle"></i></span>
+                    <span title="Edit Row" class="icon" onclick="editRow(event)"><i class="ph ph-pencil-simple-line"></i></span>
                   </div>
                 </div>
               </td>
@@ -967,16 +956,15 @@
                 <div class="tr-actions" actionname="Sub Action">
                   <span class="icon-span"><i class="ph ph-corners-out"></i></span>
                   <div class="sub-action-holder">
-                    <span title="Toggle Sub Action" class="icon"><i class="ph ph-arrow-right"></i></span>
-                    <span title="Raise Issue" class="icon"><i class="ph ph-warning"></i></span>
-                    <span title="See Followups" class="icon"><i class="ph ph-chat"></i></span>
-                    <span title="Change Dispatch Status" class="icon"><i class="ph ph-cube"></i></span>
-                    <span title="Add Remarks" class="icon"><i class="ph ph-file-plus"></i></span>
-                    <span title="Order Confirmation Message" class="icon"><i class="ph ph-whatsapp-logo"></i></span>
-                    <span title="Mark Resolved" class="icon"><i class="ph ph-thumbs-up"></i></span>
-                    <span title="Payment Confirmation Yes" class="icon"><i class="ph ph-check-circle"></i></span>
-                    <span title="Payment Confirmation No" class="icon"><i class="ph ph-x-circle"></i></span>
-                    <span title="Edit Row" class="icon"><i class="ph ph-pencil-simple-line"></i></span>
+                    <span title="Raise Issue" class="icon" onclick="raiseIssue(event)"><i class="ph ph-warning"></i></span>
+                    <span title="See Followups" class="icon" onclick="seeFollowups(event)"><i class="ph ph-chat"></i></span>
+                    <span title="Change Dispatch Status" class="icon" onclick="changeDispatchStatus(event)"><i class="ph ph-cube"></i></span>
+                    <span title="Add Remarks" class="icon" onclick="addRemarks(event)"><i class="ph ph-file-plus"></i></span>
+                    <span title="Order Confirmation Message" class="icon" onclick="orderConfirmationMessage(event)"><i class="ph ph-whatsapp-logo"></i></span>
+                    <span title="Mark Resolved" class="icon" onclick="markResolved(event)"><i class="ph ph-thumbs-up"></i></span>
+                    <span title="Payment Confirmation Yes" class="icon" onclick="paymentConfirmationYes(event)"><i class="ph ph-check-circle"></i></span>
+                    <span title="Payment Confirmation No" class="icon" onclick="paymentConfirmationNo(event)"><i class="ph ph-x-circle"></i></span>
+                    <span title="Edit Row" class="icon" onclick="editRow(event)"><i class="ph ph-pencil-simple-line"></i></span>
                   </div>
                 </div>
               </td>
@@ -1045,16 +1033,15 @@
                 <div class="tr-actions" actionname="Sub Action">
                   <span class="icon-span"><i class="ph ph-corners-out"></i></span>
                   <div class="sub-action-holder">
-                    <span title="Toggle Sub Action" class="icon"><i class="ph ph-arrow-right"></i></span>
-                    <span title="Raise Issue" class="icon"><i class="ph ph-warning"></i></span>
-                    <span title="See Followups" class="icon"><i class="ph ph-chat"></i></span>
-                    <span title="Change Dispatch Status" class="icon"><i class="ph ph-cube"></i></span>
-                    <span title="Add Remarks" class="icon"><i class="ph ph-file-plus"></i></span>
-                    <span title="Order Confirmation Message" class="icon"><i class="ph ph-whatsapp-logo"></i></span>
-                    <span title="Mark Resolved" class="icon"><i class="ph ph-thumbs-up"></i></span>
-                    <span title="Payment Confirmation Yes" class="icon"><i class="ph ph-check-circle"></i></span>
-                    <span title="Payment Confirmation No" class="icon"><i class="ph ph-x-circle"></i></span>
-                    <span title="Edit Row" class="icon"><i class="ph ph-pencil-simple-line"></i></span>
+                    <span title="Raise Issue" class="icon" onclick="raiseIssue(event)"><i class="ph ph-warning"></i></span>
+                    <span title="See Followups" class="icon" onclick="seeFollowups(event)"><i class="ph ph-chat"></i></span>
+                    <span title="Change Dispatch Status" class="icon" onclick="changeDispatchStatus(event)"><i class="ph ph-cube"></i></span>
+                    <span title="Add Remarks" class="icon" onclick="addRemarks(event)"><i class="ph ph-file-plus"></i></span>
+                    <span title="Order Confirmation Message" class="icon" onclick="orderConfirmationMessage(event)"><i class="ph ph-whatsapp-logo"></i></span>
+                    <span title="Mark Resolved" class="icon" onclick="markResolved(event)"><i class="ph ph-thumbs-up"></i></span>
+                    <span title="Payment Confirmation Yes" class="icon" onclick="paymentConfirmationYes(event)"><i class="ph ph-check-circle"></i></span>
+                    <span title="Payment Confirmation No" class="icon" onclick="paymentConfirmationNo(event)"><i class="ph ph-x-circle"></i></span>
+                    <span title="Edit Row" class="icon" onclick="editRow(event)"><i class="ph ph-pencil-simple-line"></i></span>
                   </div>
                 </div>
               </td>
@@ -1123,16 +1110,15 @@
                 <div class="tr-actions" actionname="Sub Action">
                   <span class="icon-span"><i class="ph ph-corners-out"></i></span>
                   <div class="sub-action-holder">
-                    <span title="Toggle Sub Action" class="icon"><i class="ph ph-arrow-right"></i></span>
-                    <span title="Raise Issue" class="icon"><i class="ph ph-warning"></i></span>
-                    <span title="See Followups" class="icon"><i class="ph ph-chat"></i></span>
-                    <span title="Change Dispatch Status" class="icon"><i class="ph ph-cube"></i></span>
-                    <span title="Add Remarks" class="icon"><i class="ph ph-file-plus"></i></span>
-                    <span title="Order Confirmation Message" class="icon"><i class="ph ph-whatsapp-logo"></i></span>
-                    <span title="Mark Resolved" class="icon"><i class="ph ph-thumbs-up"></i></span>
-                    <span title="Payment Confirmation Yes" class="icon"><i class="ph ph-check-circle"></i></span>
-                    <span title="Payment Confirmation No" class="icon"><i class="ph ph-x-circle"></i></span>
-                    <span title="Edit Row" class="icon"><i class="ph ph-pencil-simple-line"></i></span>
+                    <span title="Raise Issue" class="icon" onclick="raiseIssue(event)"><i class="ph ph-warning"></i></span>
+                    <span title="See Followups" class="icon" onclick="seeFollowups(event)"><i class="ph ph-chat"></i></span>
+                    <span title="Change Dispatch Status" class="icon" onclick="changeDispatchStatus(event)"><i class="ph ph-cube"></i></span>
+                    <span title="Add Remarks" class="icon" onclick="addRemarks(event)"><i class="ph ph-file-plus"></i></span>
+                    <span title="Order Confirmation Message" class="icon" onclick="orderConfirmationMessage(event)"><i class="ph ph-whatsapp-logo"></i></span>
+                    <span title="Mark Resolved" class="icon" onclick="markResolved(event)"><i class="ph ph-thumbs-up"></i></span>
+                    <span title="Payment Confirmation Yes" class="icon" onclick="paymentConfirmationYes(event)"><i class="ph ph-check-circle"></i></span>
+                    <span title="Payment Confirmation No" class="icon" onclick="paymentConfirmationNo(event)"><i class="ph ph-x-circle"></i></span>
+                    <span title="Edit Row" class="icon" onclick="editRow(event)"><i class="ph ph-pencil-simple-line"></i></span>
                   </div>
                 </div>
               </td>
@@ -1201,16 +1187,15 @@
                 <div class="tr-actions" actionname="Sub Action">
                   <span class="icon-span"><i class="ph ph-corners-out"></i></span>
                   <div class="sub-action-holder">
-                    <span title="Toggle Sub Action" class="icon"><i class="ph ph-arrow-right"></i></span>
-                    <span title="Raise Issue" class="icon"><i class="ph ph-warning"></i></span>
-                    <span title="See Followups" class="icon"><i class="ph ph-chat"></i></span>
-                    <span title="Change Dispatch Status" class="icon"><i class="ph ph-cube"></i></span>
-                    <span title="Add Remarks" class="icon"><i class="ph ph-file-plus"></i></span>
-                    <span title="Order Confirmation Message" class="icon"><i class="ph ph-whatsapp-logo"></i></span>
-                    <span title="Mark Resolved" class="icon"><i class="ph ph-thumbs-up"></i></span>
-                    <span title="Payment Confirmation Yes" class="icon"><i class="ph ph-check-circle"></i></span>
-                    <span title="Payment Confirmation No" class="icon"><i class="ph ph-x-circle"></i></span>
-                    <span title="Edit Row" class="icon"><i class="ph ph-pencil-simple-line"></i></span>
+                    <span title="Raise Issue" class="icon" onclick="raiseIssue(event)"><i class="ph ph-warning"></i></span>
+                    <span title="See Followups" class="icon" onclick="seeFollowups(event)"><i class="ph ph-chat"></i></span>
+                    <span title="Change Dispatch Status" class="icon" onclick="changeDispatchStatus(event)"><i class="ph ph-cube"></i></span>
+                    <span title="Add Remarks" class="icon" onclick="addRemarks(event)"><i class="ph ph-file-plus"></i></span>
+                    <span title="Order Confirmation Message" class="icon" onclick="orderConfirmationMessage(event)"><i class="ph ph-whatsapp-logo"></i></span>
+                    <span title="Mark Resolved" class="icon" onclick="markResolved(event)"><i class="ph ph-thumbs-up"></i></span>
+                    <span title="Payment Confirmation Yes" class="icon" onclick="paymentConfirmationYes(event)"><i class="ph ph-check-circle"></i></span>
+                    <span title="Payment Confirmation No" class="icon" onclick="paymentConfirmationNo(event)"><i class="ph ph-x-circle"></i></span>
+                    <span title="Edit Row" class="icon" onclick="editRow(event)"><i class="ph ph-pencil-simple-line"></i></span>
                   </div>
                 </div>
               </td>
@@ -1279,16 +1264,15 @@
                 <div class="tr-actions" actionname="Sub Action">
                   <span class="icon-span"><i class="ph ph-corners-out"></i></span>
                   <div class="sub-action-holder">
-                    <span title="Toggle Sub Action" class="icon"><i class="ph ph-arrow-right"></i></span>
-                    <span title="Raise Issue" class="icon"><i class="ph ph-warning"></i></span>
-                    <span title="See Followups" class="icon"><i class="ph ph-chat"></i></span>
-                    <span title="Change Dispatch Status" class="icon"><i class="ph ph-cube"></i></span>
-                    <span title="Add Remarks" class="icon"><i class="ph ph-file-plus"></i></span>
-                    <span title="Order Confirmation Message" class="icon"><i class="ph ph-whatsapp-logo"></i></span>
-                    <span title="Mark Resolved" class="icon"><i class="ph ph-thumbs-up"></i></span>
-                    <span title="Payment Confirmation Yes" class="icon"><i class="ph ph-check-circle"></i></span>
-                    <span title="Payment Confirmation No" class="icon"><i class="ph ph-x-circle"></i></span>
-                    <span title="Edit Row" class="icon"><i class="ph ph-pencil-simple-line"></i></span>
+                    <span title="Raise Issue" class="icon" onclick="raiseIssue(event)"><i class="ph ph-warning"></i></span>
+                    <span title="See Followups" class="icon" onclick="seeFollowups(event)"><i class="ph ph-chat"></i></span>
+                    <span title="Change Dispatch Status" class="icon" onclick="changeDispatchStatus(event)"><i class="ph ph-cube"></i></span>
+                    <span title="Add Remarks" class="icon" onclick="addRemarks(event)"><i class="ph ph-file-plus"></i></span>
+                    <span title="Order Confirmation Message" class="icon" onclick="orderConfirmationMessage(event)"><i class="ph ph-whatsapp-logo"></i></span>
+                    <span title="Mark Resolved" class="icon" onclick="markResolved(event)"><i class="ph ph-thumbs-up"></i></span>
+                    <span title="Payment Confirmation Yes" class="icon" onclick="paymentConfirmationYes(event)"><i class="ph ph-check-circle"></i></span>
+                    <span title="Payment Confirmation No" class="icon" onclick="paymentConfirmationNo(event)"><i class="ph ph-x-circle"></i></span>
+                    <span title="Edit Row" class="icon" onclick="editRow(event)"><i class="ph ph-pencil-simple-line"></i></span>
                   </div>
                 </div>
               </td>
@@ -1357,16 +1341,15 @@
                 <div class="tr-actions" actionname="Sub Action">
                   <span class="icon-span"><i class="ph ph-corners-out"></i></span>
                   <div class="sub-action-holder">
-                    <span title="Toggle Sub Action" class="icon"><i class="ph ph-arrow-right"></i></span>
-                    <span title="Raise Issue" class="icon"><i class="ph ph-warning"></i></span>
-                    <span title="See Followups" class="icon"><i class="ph ph-chat"></i></span>
-                    <span title="Change Dispatch Status" class="icon"><i class="ph ph-cube"></i></span>
-                    <span title="Add Remarks" class="icon"><i class="ph ph-file-plus"></i></span>
-                    <span title="Order Confirmation Message" class="icon"><i class="ph ph-whatsapp-logo"></i></span>
-                    <span title="Mark Resolved" class="icon"><i class="ph ph-thumbs-up"></i></span>
-                    <span title="Payment Confirmation Yes" class="icon"><i class="ph ph-check-circle"></i></span>
-                    <span title="Payment Confirmation No" class="icon"><i class="ph ph-x-circle"></i></span>
-                    <span title="Edit Row" class="icon"><i class="ph ph-pencil-simple-line"></i></span>
+                    <span title="Raise Issue" class="icon" onclick="raiseIssue(event)"><i class="ph ph-warning"></i></span>
+                    <span title="See Followups" class="icon" onclick="seeFollowups(event)"><i class="ph ph-chat"></i></span>
+                    <span title="Change Dispatch Status" class="icon" onclick="changeDispatchStatus(event)"><i class="ph ph-cube"></i></span>
+                    <span title="Add Remarks" class="icon" onclick="addRemarks(event)"><i class="ph ph-file-plus"></i></span>
+                    <span title="Order Confirmation Message" class="icon" onclick="orderConfirmationMessage(event)"><i class="ph ph-whatsapp-logo"></i></span>
+                    <span title="Mark Resolved" class="icon" onclick="markResolved(event)"><i class="ph ph-thumbs-up"></i></span>
+                    <span title="Payment Confirmation Yes" class="icon" onclick="paymentConfirmationYes(event)"><i class="ph ph-check-circle"></i></span>
+                    <span title="Payment Confirmation No" class="icon" onclick="paymentConfirmationNo(event)"><i class="ph ph-x-circle"></i></span>
+                    <span title="Edit Row" class="icon" onclick="editRow(event)"><i class="ph ph-pencil-simple-line"></i></span>
                   </div>
                 </div>
               </td>
@@ -1435,16 +1418,15 @@
                 <div class="tr-actions" actionname="Sub Action">
                   <span class="icon-span"><i class="ph ph-corners-out"></i></span>
                   <div class="sub-action-holder">
-                    <span title="Toggle Sub Action" class="icon"><i class="ph ph-arrow-right"></i></span>
-                    <span title="Raise Issue" class="icon"><i class="ph ph-warning"></i></span>
-                    <span title="See Followups" class="icon"><i class="ph ph-chat"></i></span>
-                    <span title="Change Dispatch Status" class="icon"><i class="ph ph-cube"></i></span>
-                    <span title="Add Remarks" class="icon"><i class="ph ph-file-plus"></i></span>
-                    <span title="Order Confirmation Message" class="icon"><i class="ph ph-whatsapp-logo"></i></span>
-                    <span title="Mark Resolved" class="icon"><i class="ph ph-thumbs-up"></i></span>
-                    <span title="Payment Confirmation Yes" class="icon"><i class="ph ph-check-circle"></i></span>
-                    <span title="Payment Confirmation No" class="icon"><i class="ph ph-x-circle"></i></span>
-                    <span title="Edit Row" class="icon"><i class="ph ph-pencil-simple-line"></i></span>
+                    <span title="Raise Issue" class="icon" onclick="raiseIssue(event)"><i class="ph ph-warning"></i></span>
+                    <span title="See Followups" class="icon" onclick="seeFollowups(event)"><i class="ph ph-chat"></i></span>
+                    <span title="Change Dispatch Status" class="icon" onclick="changeDispatchStatus(event)"><i class="ph ph-cube"></i></span>
+                    <span title="Add Remarks" class="icon" onclick="addRemarks(event)"><i class="ph ph-file-plus"></i></span>
+                    <span title="Order Confirmation Message" class="icon" onclick="orderConfirmationMessage(event)"><i class="ph ph-whatsapp-logo"></i></span>
+                    <span title="Mark Resolved" class="icon" onclick="markResolved(event)"><i class="ph ph-thumbs-up"></i></span>
+                    <span title="Payment Confirmation Yes" class="icon" onclick="paymentConfirmationYes(event)"><i class="ph ph-check-circle"></i></span>
+                    <span title="Payment Confirmation No" class="icon" onclick="paymentConfirmationNo(event)"><i class="ph ph-x-circle"></i></span>
+                    <span title="Edit Row" class="icon" onclick="editRow(event)"><i class="ph ph-pencil-simple-line"></i></span>
                   </div>
                 </div>
               </td>
@@ -1513,16 +1495,15 @@
                 <div class="tr-actions" actionname="Sub Action">
                   <span class="icon-span"><i class="ph ph-corners-out"></i></span>
                   <div class="sub-action-holder">
-                    <span title="Toggle Sub Action" class="icon"><i class="ph ph-arrow-right"></i></span>
-                    <span title="Raise Issue" class="icon"><i class="ph ph-warning"></i></span>
-                    <span title="See Followups" class="icon"><i class="ph ph-chat"></i></span>
-                    <span title="Change Dispatch Status" class="icon"><i class="ph ph-cube"></i></span>
-                    <span title="Add Remarks" class="icon"><i class="ph ph-file-plus"></i></span>
-                    <span title="Order Confirmation Message" class="icon"><i class="ph ph-whatsapp-logo"></i></span>
-                    <span title="Mark Resolved" class="icon"><i class="ph ph-thumbs-up"></i></span>
-                    <span title="Payment Confirmation Yes" class="icon"><i class="ph ph-check-circle"></i></span>
-                    <span title="Payment Confirmation No" class="icon"><i class="ph ph-x-circle"></i></span>
-                    <span title="Edit Row" class="icon"><i class="ph ph-pencil-simple-line"></i></span>
+                    <span title="Raise Issue" class="icon" onclick="raiseIssue(event)"><i class="ph ph-warning"></i></span>
+                    <span title="See Followups" class="icon" onclick="seeFollowups(event)"><i class="ph ph-chat"></i></span>
+                    <span title="Change Dispatch Status" class="icon" onclick="changeDispatchStatus(event)"><i class="ph ph-cube"></i></span>
+                    <span title="Add Remarks" class="icon" onclick="addRemarks(event)"><i class="ph ph-file-plus"></i></span>
+                    <span title="Order Confirmation Message" class="icon" onclick="orderConfirmationMessage(event)"><i class="ph ph-whatsapp-logo"></i></span>
+                    <span title="Mark Resolved" class="icon" onclick="markResolved(event)"><i class="ph ph-thumbs-up"></i></span>
+                    <span title="Payment Confirmation Yes" class="icon" onclick="paymentConfirmationYes(event)"><i class="ph ph-check-circle"></i></span>
+                    <span title="Payment Confirmation No" class="icon" onclick="paymentConfirmationNo(event)"><i class="ph ph-x-circle"></i></span>
+                    <span title="Edit Row" class="icon" onclick="editRow(event)"><i class="ph ph-pencil-simple-line"></i></span>
                   </div>
                 </div>
               </td>
@@ -1591,16 +1572,15 @@
                 <div class="tr-actions" actionname="Sub Action">
                   <span class="icon-span"><i class="ph ph-corners-out"></i></span>
                   <div class="sub-action-holder">
-                    <span title="Toggle Sub Action" class="icon"><i class="ph ph-arrow-right"></i></span>
-                    <span title="Raise Issue" class="icon"><i class="ph ph-warning"></i></span>
-                    <span title="See Followups" class="icon"><i class="ph ph-chat"></i></span>
-                    <span title="Change Dispatch Status" class="icon"><i class="ph ph-cube"></i></span>
-                    <span title="Add Remarks" class="icon"><i class="ph ph-file-plus"></i></span>
-                    <span title="Order Confirmation Message" class="icon"><i class="ph ph-whatsapp-logo"></i></span>
-                    <span title="Mark Resolved" class="icon"><i class="ph ph-thumbs-up"></i></span>
-                    <span title="Payment Confirmation Yes" class="icon"><i class="ph ph-check-circle"></i></span>
-                    <span title="Payment Confirmation No" class="icon"><i class="ph ph-x-circle"></i></span>
-                    <span title="Edit Row" class="icon"><i class="ph ph-pencil-simple-line"></i></span>
+                    <span title="Raise Issue" class="icon" onclick="raiseIssue(event)"><i class="ph ph-warning"></i></span>
+                    <span title="See Followups" class="icon" onclick="seeFollowups(event)"><i class="ph ph-chat"></i></span>
+                    <span title="Change Dispatch Status" class="icon" onclick="changeDispatchStatus(event)"><i class="ph ph-cube"></i></span>
+                    <span title="Add Remarks" class="icon" onclick="addRemarks(event)"><i class="ph ph-file-plus"></i></span>
+                    <span title="Order Confirmation Message" class="icon" onclick="orderConfirmationMessage(event)"><i class="ph ph-whatsapp-logo"></i></span>
+                    <span title="Mark Resolved" class="icon" onclick="markResolved(event)"><i class="ph ph-thumbs-up"></i></span>
+                    <span title="Payment Confirmation Yes" class="icon" onclick="paymentConfirmationYes(event)"><i class="ph ph-check-circle"></i></span>
+                    <span title="Payment Confirmation No" class="icon" onclick="paymentConfirmationNo(event)"><i class="ph ph-x-circle"></i></span>
+                    <span title="Edit Row" class="icon" onclick="editRow(event)"><i class="ph ph-pencil-simple-line"></i></span>
                   </div>
                 </div>
               </td>
@@ -1669,16 +1649,15 @@
                 <div class="tr-actions" actionname="Sub Action">
                   <span class="icon-span"><i class="ph ph-corners-out"></i></span>
                   <div class="sub-action-holder">
-                    <span title="Toggle Sub Action" class="icon"><i class="ph ph-arrow-right"></i></span>
-                    <span title="Raise Issue" class="icon"><i class="ph ph-warning"></i></span>
-                    <span title="See Followups" class="icon"><i class="ph ph-chat"></i></span>
-                    <span title="Change Dispatch Status" class="icon"><i class="ph ph-cube"></i></span>
-                    <span title="Add Remarks" class="icon"><i class="ph ph-file-plus"></i></span>
-                    <span title="Order Confirmation Message" class="icon"><i class="ph ph-whatsapp-logo"></i></span>
-                    <span title="Mark Resolved" class="icon"><i class="ph ph-thumbs-up"></i></span>
-                    <span title="Payment Confirmation Yes" class="icon"><i class="ph ph-check-circle"></i></span>
-                    <span title="Payment Confirmation No" class="icon"><i class="ph ph-x-circle"></i></span>
-                    <span title="Edit Row" class="icon"><i class="ph ph-pencil-simple-line"></i></span>
+                    <span title="Raise Issue" class="icon" onclick="raiseIssue(event)"><i class="ph ph-warning"></i></span>
+                    <span title="See Followups" class="icon" onclick="seeFollowups(event)"><i class="ph ph-chat"></i></span>
+                    <span title="Change Dispatch Status" class="icon" onclick="changeDispatchStatus(event)"><i class="ph ph-cube"></i></span>
+                    <span title="Add Remarks" class="icon" onclick="addRemarks(event)"><i class="ph ph-file-plus"></i></span>
+                    <span title="Order Confirmation Message" class="icon" onclick="orderConfirmationMessage(event)"><i class="ph ph-whatsapp-logo"></i></span>
+                    <span title="Mark Resolved" class="icon" onclick="markResolved(event)"><i class="ph ph-thumbs-up"></i></span>
+                    <span title="Payment Confirmation Yes" class="icon" onclick="paymentConfirmationYes(event)"><i class="ph ph-check-circle"></i></span>
+                    <span title="Payment Confirmation No" class="icon" onclick="paymentConfirmationNo(event)"><i class="ph ph-x-circle"></i></span>
+                    <span title="Edit Row" class="icon" onclick="editRow(event)"><i class="ph ph-pencil-simple-line"></i></span>
                   </div>
                 </div>
               </td>
@@ -1747,16 +1726,15 @@
                 <div class="tr-actions" actionname="Sub Action">
                   <span class="icon-span"><i class="ph ph-corners-out"></i></span>
                   <div class="sub-action-holder">
-                    <span title="Toggle Sub Action" class="icon"><i class="ph ph-arrow-right"></i></span>
-                    <span title="Raise Issue" class="icon"><i class="ph ph-warning"></i></span>
-                    <span title="See Followups" class="icon"><i class="ph ph-chat"></i></span>
-                    <span title="Change Dispatch Status" class="icon"><i class="ph ph-cube"></i></span>
-                    <span title="Add Remarks" class="icon"><i class="ph ph-file-plus"></i></span>
-                    <span title="Order Confirmation Message" class="icon"><i class="ph ph-whatsapp-logo"></i></span>
-                    <span title="Mark Resolved" class="icon"><i class="ph ph-thumbs-up"></i></span>
-                    <span title="Payment Confirmation Yes" class="icon"><i class="ph ph-check-circle"></i></span>
-                    <span title="Payment Confirmation No" class="icon"><i class="ph ph-x-circle"></i></span>
-                    <span title="Edit Row" class="icon"><i class="ph ph-pencil-simple-line"></i></span>
+                    <span title="Raise Issue" class="icon" onclick="raiseIssue(event)"><i class="ph ph-warning"></i></span>
+                    <span title="See Followups" class="icon" onclick="seeFollowups(event)"><i class="ph ph-chat"></i></span>
+                    <span title="Change Dispatch Status" class="icon" onclick="changeDispatchStatus(event)"><i class="ph ph-cube"></i></span>
+                    <span title="Add Remarks" class="icon" onclick="addRemarks(event)"><i class="ph ph-file-plus"></i></span>
+                    <span title="Order Confirmation Message" class="icon" onclick="orderConfirmationMessage(event)"><i class="ph ph-whatsapp-logo"></i></span>
+                    <span title="Mark Resolved" class="icon" onclick="markResolved(event)"><i class="ph ph-thumbs-up"></i></span>
+                    <span title="Payment Confirmation Yes" class="icon" onclick="paymentConfirmationYes(event)"><i class="ph ph-check-circle"></i></span>
+                    <span title="Payment Confirmation No" class="icon" onclick="paymentConfirmationNo(event)"><i class="ph ph-x-circle"></i></span>
+                    <span title="Edit Row" class="icon" onclick="editRow(event)"><i class="ph ph-pencil-simple-line"></i></span>
                   </div>
                 </div>
               </td>
@@ -1825,16 +1803,15 @@
                 <div class="tr-actions" actionname="Sub Action">
                   <span class="icon-span"><i class="ph ph-corners-out"></i></span>
                   <div class="sub-action-holder">
-                    <span title="Toggle Sub Action" class="icon"><i class="ph ph-arrow-right"></i></span>
-                    <span title="Raise Issue" class="icon"><i class="ph ph-warning"></i></span>
-                    <span title="See Followups" class="icon"><i class="ph ph-chat"></i></span>
-                    <span title="Change Dispatch Status" class="icon"><i class="ph ph-cube"></i></span>
-                    <span title="Add Remarks" class="icon"><i class="ph ph-file-plus"></i></span>
-                    <span title="Order Confirmation Message" class="icon"><i class="ph ph-whatsapp-logo"></i></span>
-                    <span title="Mark Resolved" class="icon"><i class="ph ph-thumbs-up"></i></span>
-                    <span title="Payment Confirmation Yes" class="icon"><i class="ph ph-check-circle"></i></span>
-                    <span title="Payment Confirmation No" class="icon"><i class="ph ph-x-circle"></i></span>
-                    <span title="Edit Row" class="icon"><i class="ph ph-pencil-simple-line"></i></span>
+                    <span title="Raise Issue" class="icon" onclick="raiseIssue(event)"><i class="ph ph-warning"></i></span>
+                    <span title="See Followups" class="icon" onclick="seeFollowups(event)"><i class="ph ph-chat"></i></span>
+                    <span title="Change Dispatch Status" class="icon" onclick="changeDispatchStatus(event)"><i class="ph ph-cube"></i></span>
+                    <span title="Add Remarks" class="icon" onclick="addRemarks(event)"><i class="ph ph-file-plus"></i></span>
+                    <span title="Order Confirmation Message" class="icon" onclick="orderConfirmationMessage(event)"><i class="ph ph-whatsapp-logo"></i></span>
+                    <span title="Mark Resolved" class="icon" onclick="markResolved(event)"><i class="ph ph-thumbs-up"></i></span>
+                    <span title="Payment Confirmation Yes" class="icon" onclick="paymentConfirmationYes(event)"><i class="ph ph-check-circle"></i></span>
+                    <span title="Payment Confirmation No" class="icon" onclick="paymentConfirmationNo(event)"><i class="ph ph-x-circle"></i></span>
+                    <span title="Edit Row" class="icon" onclick="editRow(event)"><i class="ph ph-pencil-simple-line"></i></span>
                   </div>
                 </div>
               </td>
@@ -1903,16 +1880,15 @@
                 <div class="tr-actions" actionname="Sub Action">
                   <span class="icon-span"><i class="ph ph-corners-out"></i></span>
                   <div class="sub-action-holder">
-                    <span title="Toggle Sub Action" class="icon"><i class="ph ph-arrow-right"></i></span>
-                    <span title="Raise Issue" class="icon"><i class="ph ph-warning"></i></span>
-                    <span title="See Followups" class="icon"><i class="ph ph-chat"></i></span>
-                    <span title="Change Dispatch Status" class="icon"><i class="ph ph-cube"></i></span>
-                    <span title="Add Remarks" class="icon"><i class="ph ph-file-plus"></i></span>
-                    <span title="Order Confirmation Message" class="icon"><i class="ph ph-whatsapp-logo"></i></span>
-                    <span title="Mark Resolved" class="icon"><i class="ph ph-thumbs-up"></i></span>
-                    <span title="Payment Confirmation Yes" class="icon"><i class="ph ph-check-circle"></i></span>
-                    <span title="Payment Confirmation No" class="icon"><i class="ph ph-x-circle"></i></span>
-                    <span title="Edit Row" class="icon"><i class="ph ph-pencil-simple-line"></i></span>
+                    <span title="Raise Issue" class="icon" onclick="raiseIssue(event)"><i class="ph ph-warning"></i></span>
+                    <span title="See Followups" class="icon" onclick="seeFollowups(event)"><i class="ph ph-chat"></i></span>
+                    <span title="Change Dispatch Status" class="icon" onclick="changeDispatchStatus(event)"><i class="ph ph-cube"></i></span>
+                    <span title="Add Remarks" class="icon" onclick="addRemarks(event)"><i class="ph ph-file-plus"></i></span>
+                    <span title="Order Confirmation Message" class="icon" onclick="orderConfirmationMessage(event)"><i class="ph ph-whatsapp-logo"></i></span>
+                    <span title="Mark Resolved" class="icon" onclick="markResolved(event)"><i class="ph ph-thumbs-up"></i></span>
+                    <span title="Payment Confirmation Yes" class="icon" onclick="paymentConfirmationYes(event)"><i class="ph ph-check-circle"></i></span>
+                    <span title="Payment Confirmation No" class="icon" onclick="paymentConfirmationNo(event)"><i class="ph ph-x-circle"></i></span>
+                    <span title="Edit Row" class="icon" onclick="editRow(event)"><i class="ph ph-pencil-simple-line"></i></span>
                   </div>
                 </div>
               </td>
@@ -1981,16 +1957,15 @@
                 <div class="tr-actions" actionname="Sub Action">
                   <span class="icon-span"><i class="ph ph-corners-out"></i></span>
                   <div class="sub-action-holder">
-                    <span title="Toggle Sub Action" class="icon"><i class="ph ph-arrow-right"></i></span>
-                    <span title="Raise Issue" class="icon"><i class="ph ph-warning"></i></span>
-                    <span title="See Followups" class="icon"><i class="ph ph-chat"></i></span>
-                    <span title="Change Dispatch Status" class="icon"><i class="ph ph-cube"></i></span>
-                    <span title="Add Remarks" class="icon"><i class="ph ph-file-plus"></i></span>
-                    <span title="Order Confirmation Message" class="icon"><i class="ph ph-whatsapp-logo"></i></span>
-                    <span title="Mark Resolved" class="icon"><i class="ph ph-thumbs-up"></i></span>
-                    <span title="Payment Confirmation Yes" class="icon"><i class="ph ph-check-circle"></i></span>
-                    <span title="Payment Confirmation No" class="icon"><i class="ph ph-x-circle"></i></span>
-                    <span title="Edit Row" class="icon"><i class="ph ph-pencil-simple-line"></i></span>
+                    <span title="Raise Issue" class="icon" onclick="raiseIssue(event)"><i class="ph ph-warning"></i></span>
+                    <span title="See Followups" class="icon" onclick="seeFollowups(event)"><i class="ph ph-chat"></i></span>
+                    <span title="Change Dispatch Status" class="icon" onclick="changeDispatchStatus(event)"><i class="ph ph-cube"></i></span>
+                    <span title="Add Remarks" class="icon" onclick="addRemarks(event)"><i class="ph ph-file-plus"></i></span>
+                    <span title="Order Confirmation Message" class="icon" onclick="orderConfirmationMessage(event)"><i class="ph ph-whatsapp-logo"></i></span>
+                    <span title="Mark Resolved" class="icon" onclick="markResolved(event)"><i class="ph ph-thumbs-up"></i></span>
+                    <span title="Payment Confirmation Yes" class="icon" onclick="paymentConfirmationYes(event)"><i class="ph ph-check-circle"></i></span>
+                    <span title="Payment Confirmation No" class="icon" onclick="paymentConfirmationNo(event)"><i class="ph ph-x-circle"></i></span>
+                    <span title="Edit Row" class="icon" onclick="editRow(event)"><i class="ph ph-pencil-simple-line"></i></span>
                   </div>
                 </div>
               </td>
@@ -2059,16 +2034,15 @@
                 <div class="tr-actions" actionname="Sub Action">
                   <span class="icon-span"><i class="ph ph-corners-out"></i></span>
                   <div class="sub-action-holder">
-                    <span title="Toggle Sub Action" class="icon"><i class="ph ph-arrow-right"></i></span>
-                    <span title="Raise Issue" class="icon"><i class="ph ph-warning"></i></span>
-                    <span title="See Followups" class="icon"><i class="ph ph-chat"></i></span>
-                    <span title="Change Dispatch Status" class="icon"><i class="ph ph-cube"></i></span>
-                    <span title="Add Remarks" class="icon"><i class="ph ph-file-plus"></i></span>
-                    <span title="Order Confirmation Message" class="icon"><i class="ph ph-whatsapp-logo"></i></span>
-                    <span title="Mark Resolved" class="icon"><i class="ph ph-thumbs-up"></i></span>
-                    <span title="Payment Confirmation Yes" class="icon"><i class="ph ph-check-circle"></i></span>
-                    <span title="Payment Confirmation No" class="icon"><i class="ph ph-x-circle"></i></span>
-                    <span title="Edit Row" class="icon"><i class="ph ph-pencil-simple-line"></i></span>
+                    <span title="Raise Issue" class="icon" onclick="raiseIssue(event)"><i class="ph ph-warning"></i></span>
+                    <span title="See Followups" class="icon" onclick="seeFollowups(event)"><i class="ph ph-chat"></i></span>
+                    <span title="Change Dispatch Status" class="icon" onclick="changeDispatchStatus(event)"><i class="ph ph-cube"></i></span>
+                    <span title="Add Remarks" class="icon" onclick="addRemarks(event)"><i class="ph ph-file-plus"></i></span>
+                    <span title="Order Confirmation Message" class="icon" onclick="orderConfirmationMessage(event)"><i class="ph ph-whatsapp-logo"></i></span>
+                    <span title="Mark Resolved" class="icon" onclick="markResolved(event)"><i class="ph ph-thumbs-up"></i></span>
+                    <span title="Payment Confirmation Yes" class="icon" onclick="paymentConfirmationYes(event)"><i class="ph ph-check-circle"></i></span>
+                    <span title="Payment Confirmation No" class="icon" onclick="paymentConfirmationNo(event)"><i class="ph ph-x-circle"></i></span>
+                    <span title="Edit Row" class="icon" onclick="editRow(event)"><i class="ph ph-pencil-simple-line"></i></span>
                   </div>
                 </div>
               </td>
@@ -2137,16 +2111,15 @@
                 <div class="tr-actions" actionname="Sub Action">
                   <span class="icon-span"><i class="ph ph-corners-out"></i></span>
                   <div class="sub-action-holder">
-                    <span title="Toggle Sub Action" class="icon"><i class="ph ph-arrow-right"></i></span>
-                    <span title="Raise Issue" class="icon"><i class="ph ph-warning"></i></span>
-                    <span title="See Followups" class="icon"><i class="ph ph-chat"></i></span>
-                    <span title="Change Dispatch Status" class="icon"><i class="ph ph-cube"></i></span>
-                    <span title="Add Remarks" class="icon"><i class="ph ph-file-plus"></i></span>
-                    <span title="Order Confirmation Message" class="icon"><i class="ph ph-whatsapp-logo"></i></span>
-                    <span title="Mark Resolved" class="icon"><i class="ph ph-thumbs-up"></i></span>
-                    <span title="Payment Confirmation Yes" class="icon"><i class="ph ph-check-circle"></i></span>
-                    <span title="Payment Confirmation No" class="icon"><i class="ph ph-x-circle"></i></span>
-                    <span title="Edit Row" class="icon"><i class="ph ph-pencil-simple-line"></i></span>
+                    <span title="Raise Issue" class="icon" onclick="raiseIssue(event)"><i class="ph ph-warning"></i></span>
+                    <span title="See Followups" class="icon" onclick="seeFollowups(event)"><i class="ph ph-chat"></i></span>
+                    <span title="Change Dispatch Status" class="icon" onclick="changeDispatchStatus(event)"><i class="ph ph-cube"></i></span>
+                    <span title="Add Remarks" class="icon" onclick="addRemarks(event)"><i class="ph ph-file-plus"></i></span>
+                    <span title="Order Confirmation Message" class="icon" onclick="orderConfirmationMessage(event)"><i class="ph ph-whatsapp-logo"></i></span>
+                    <span title="Mark Resolved" class="icon" onclick="markResolved(event)"><i class="ph ph-thumbs-up"></i></span>
+                    <span title="Payment Confirmation Yes" class="icon" onclick="paymentConfirmationYes(event)"><i class="ph ph-check-circle"></i></span>
+                    <span title="Payment Confirmation No" class="icon" onclick="paymentConfirmationNo(event)"><i class="ph ph-x-circle"></i></span>
+                    <span title="Edit Row" class="icon" onclick="editRow(event)"><i class="ph ph-pencil-simple-line"></i></span>
                   </div>
                 </div>
               </td>
@@ -2215,16 +2188,15 @@
                 <div class="tr-actions" actionname="Sub Action">
                   <span class="icon-span"><i class="ph ph-corners-out"></i></span>
                   <div class="sub-action-holder">
-                    <span title="Toggle Sub Action" class="icon"><i class="ph ph-arrow-right"></i></span>
-                    <span title="Raise Issue" class="icon"><i class="ph ph-warning"></i></span>
-                    <span title="See Followups" class="icon"><i class="ph ph-chat"></i></span>
-                    <span title="Change Dispatch Status" class="icon"><i class="ph ph-cube"></i></span>
-                    <span title="Add Remarks" class="icon"><i class="ph ph-file-plus"></i></span>
-                    <span title="Order Confirmation Message" class="icon"><i class="ph ph-whatsapp-logo"></i></span>
-                    <span title="Mark Resolved" class="icon"><i class="ph ph-thumbs-up"></i></span>
-                    <span title="Payment Confirmation Yes" class="icon"><i class="ph ph-check-circle"></i></span>
-                    <span title="Payment Confirmation No" class="icon"><i class="ph ph-x-circle"></i></span>
-                    <span title="Edit Row" class="icon"><i class="ph ph-pencil-simple-line"></i></span>
+                    <span title="Raise Issue" class="icon" onclick="raiseIssue(event)"><i class="ph ph-warning"></i></span>
+                    <span title="See Followups" class="icon" onclick="seeFollowups(event)"><i class="ph ph-chat"></i></span>
+                    <span title="Change Dispatch Status" class="icon" onclick="changeDispatchStatus(event)"><i class="ph ph-cube"></i></span>
+                    <span title="Add Remarks" class="icon" onclick="addRemarks(event)"><i class="ph ph-file-plus"></i></span>
+                    <span title="Order Confirmation Message" class="icon" onclick="orderConfirmationMessage(event)"><i class="ph ph-whatsapp-logo"></i></span>
+                    <span title="Mark Resolved" class="icon" onclick="markResolved(event)"><i class="ph ph-thumbs-up"></i></span>
+                    <span title="Payment Confirmation Yes" class="icon" onclick="paymentConfirmationYes(event)"><i class="ph ph-check-circle"></i></span>
+                    <span title="Payment Confirmation No" class="icon" onclick="paymentConfirmationNo(event)"><i class="ph ph-x-circle"></i></span>
+                    <span title="Edit Row" class="icon" onclick="editRow(event)"><i class="ph ph-pencil-simple-line"></i></span>
                   </div>
                 </div>
               </td>
@@ -2293,16 +2265,15 @@
                 <div class="tr-actions" actionname="Sub Action">
                   <span class="icon-span"><i class="ph ph-corners-out"></i></span>
                   <div class="sub-action-holder">
-                    <span title="Toggle Sub Action" class="icon"><i class="ph ph-arrow-right"></i></span>
-                    <span title="Raise Issue" class="icon"><i class="ph ph-warning"></i></span>
-                    <span title="See Followups" class="icon"><i class="ph ph-chat"></i></span>
-                    <span title="Change Dispatch Status" class="icon"><i class="ph ph-cube"></i></span>
-                    <span title="Add Remarks" class="icon"><i class="ph ph-file-plus"></i></span>
-                    <span title="Order Confirmation Message" class="icon"><i class="ph ph-whatsapp-logo"></i></span>
-                    <span title="Mark Resolved" class="icon"><i class="ph ph-thumbs-up"></i></span>
-                    <span title="Payment Confirmation Yes" class="icon"><i class="ph ph-check-circle"></i></span>
-                    <span title="Payment Confirmation No" class="icon"><i class="ph ph-x-circle"></i></span>
-                    <span title="Edit Row" class="icon"><i class="ph ph-pencil-simple-line"></i></span>
+                    <span title="Raise Issue" class="icon" onclick="raiseIssue(event)"><i class="ph ph-warning"></i></span>
+                    <span title="See Followups" class="icon" onclick="seeFollowups(event)"><i class="ph ph-chat"></i></span>
+                    <span title="Change Dispatch Status" class="icon" onclick="changeDispatchStatus(event)"><i class="ph ph-cube"></i></span>
+                    <span title="Add Remarks" class="icon" onclick="addRemarks(event)"><i class="ph ph-file-plus"></i></span>
+                    <span title="Order Confirmation Message" class="icon" onclick="orderConfirmationMessage(event)"><i class="ph ph-whatsapp-logo"></i></span>
+                    <span title="Mark Resolved" class="icon" onclick="markResolved(event)"><i class="ph ph-thumbs-up"></i></span>
+                    <span title="Payment Confirmation Yes" class="icon" onclick="paymentConfirmationYes(event)"><i class="ph ph-check-circle"></i></span>
+                    <span title="Payment Confirmation No" class="icon" onclick="paymentConfirmationNo(event)"><i class="ph ph-x-circle"></i></span>
+                    <span title="Edit Row" class="icon" onclick="editRow(event)"><i class="ph ph-pencil-simple-line"></i></span>
                   </div>
                 </div>
               </td>
@@ -2371,16 +2342,15 @@
                 <div class="tr-actions" actionname="Sub Action">
                   <span class="icon-span"><i class="ph ph-corners-out"></i></span>
                   <div class="sub-action-holder">
-                    <span title="Toggle Sub Action" class="icon"><i class="ph ph-arrow-right"></i></span>
-                    <span title="Raise Issue" class="icon"><i class="ph ph-warning"></i></span>
-                    <span title="See Followups" class="icon"><i class="ph ph-chat"></i></span>
-                    <span title="Change Dispatch Status" class="icon"><i class="ph ph-cube"></i></span>
-                    <span title="Add Remarks" class="icon"><i class="ph ph-file-plus"></i></span>
-                    <span title="Order Confirmation Message" class="icon"><i class="ph ph-whatsapp-logo"></i></span>
-                    <span title="Mark Resolved" class="icon"><i class="ph ph-thumbs-up"></i></span>
-                    <span title="Payment Confirmation Yes" class="icon"><i class="ph ph-check-circle"></i></span>
-                    <span title="Payment Confirmation No" class="icon"><i class="ph ph-x-circle"></i></span>
-                    <span title="Edit Row" class="icon"><i class="ph ph-pencil-simple-line"></i></span>
+                    <span title="Raise Issue" class="icon" onclick="raiseIssue(event)"><i class="ph ph-warning"></i></span>
+                    <span title="See Followups" class="icon" onclick="seeFollowups(event)"><i class="ph ph-chat"></i></span>
+                    <span title="Change Dispatch Status" class="icon" onclick="changeDispatchStatus(event)"><i class="ph ph-cube"></i></span>
+                    <span title="Add Remarks" class="icon" onclick="addRemarks(event)"><i class="ph ph-file-plus"></i></span>
+                    <span title="Order Confirmation Message" class="icon" onclick="orderConfirmationMessage(event)"><i class="ph ph-whatsapp-logo"></i></span>
+                    <span title="Mark Resolved" class="icon" onclick="markResolved(event)"><i class="ph ph-thumbs-up"></i></span>
+                    <span title="Payment Confirmation Yes" class="icon" onclick="paymentConfirmationYes(event)"><i class="ph ph-check-circle"></i></span>
+                    <span title="Payment Confirmation No" class="icon" onclick="paymentConfirmationNo(event)"><i class="ph ph-x-circle"></i></span>
+                    <span title="Edit Row" class="icon" onclick="editRow(event)"><i class="ph ph-pencil-simple-line"></i></span>
                   </div>
                 </div>
               </td>
@@ -2449,16 +2419,15 @@
                 <div class="tr-actions" actionname="Sub Action">
                   <span class="icon-span"><i class="ph ph-corners-out"></i></span>
                   <div class="sub-action-holder">
-                    <span title="Toggle Sub Action" class="icon"><i class="ph ph-arrow-right"></i></span>
-                    <span title="Raise Issue" class="icon"><i class="ph ph-warning"></i></span>
-                    <span title="See Followups" class="icon"><i class="ph ph-chat"></i></span>
-                    <span title="Change Dispatch Status" class="icon"><i class="ph ph-cube"></i></span>
-                    <span title="Add Remarks" class="icon"><i class="ph ph-file-plus"></i></span>
-                    <span title="Order Confirmation Message" class="icon"><i class="ph ph-whatsapp-logo"></i></span>
-                    <span title="Mark Resolved" class="icon"><i class="ph ph-thumbs-up"></i></span>
-                    <span title="Payment Confirmation Yes" class="icon"><i class="ph ph-check-circle"></i></span>
-                    <span title="Payment Confirmation No" class="icon"><i class="ph ph-x-circle"></i></span>
-                    <span title="Edit Row" class="icon"><i class="ph ph-pencil-simple-line"></i></span>
+                    <span title="Raise Issue" class="icon" onclick="raiseIssue(event)"><i class="ph ph-warning"></i></span>
+                    <span title="See Followups" class="icon" onclick="seeFollowups(event)"><i class="ph ph-chat"></i></span>
+                    <span title="Change Dispatch Status" class="icon" onclick="changeDispatchStatus(event)"><i class="ph ph-cube"></i></span>
+                    <span title="Add Remarks" class="icon" onclick="addRemarks(event)"><i class="ph ph-file-plus"></i></span>
+                    <span title="Order Confirmation Message" class="icon" onclick="orderConfirmationMessage(event)"><i class="ph ph-whatsapp-logo"></i></span>
+                    <span title="Mark Resolved" class="icon" onclick="markResolved(event)"><i class="ph ph-thumbs-up"></i></span>
+                    <span title="Payment Confirmation Yes" class="icon" onclick="paymentConfirmationYes(event)"><i class="ph ph-check-circle"></i></span>
+                    <span title="Payment Confirmation No" class="icon" onclick="paymentConfirmationNo(event)"><i class="ph ph-x-circle"></i></span>
+                    <span title="Edit Row" class="icon" onclick="editRow(event)"><i class="ph ph-pencil-simple-line"></i></span>
                   </div>
                 </div>
               </td>
@@ -2527,16 +2496,15 @@
                 <div class="tr-actions" actionname="Sub Action">
                   <span class="icon-span"><i class="ph ph-corners-out"></i></span>
                   <div class="sub-action-holder">
-                    <span title="Toggle Sub Action" class="icon"><i class="ph ph-arrow-right"></i></span>
-                    <span title="Raise Issue" class="icon"><i class="ph ph-warning"></i></span>
-                    <span title="See Followups" class="icon"><i class="ph ph-chat"></i></span>
-                    <span title="Change Dispatch Status" class="icon"><i class="ph ph-cube"></i></span>
-                    <span title="Add Remarks" class="icon"><i class="ph ph-file-plus"></i></span>
-                    <span title="Order Confirmation Message" class="icon"><i class="ph ph-whatsapp-logo"></i></span>
-                    <span title="Mark Resolved" class="icon"><i class="ph ph-thumbs-up"></i></span>
-                    <span title="Payment Confirmation Yes" class="icon"><i class="ph ph-check-circle"></i></span>
-                    <span title="Payment Confirmation No" class="icon"><i class="ph ph-x-circle"></i></span>
-                    <span title="Edit Row" class="icon"><i class="ph ph-pencil-simple-line"></i></span>
+                    <span title="Raise Issue" class="icon" onclick="raiseIssue(event)"><i class="ph ph-warning"></i></span>
+                    <span title="See Followups" class="icon" onclick="seeFollowups(event)"><i class="ph ph-chat"></i></span>
+                    <span title="Change Dispatch Status" class="icon" onclick="changeDispatchStatus(event)"><i class="ph ph-cube"></i></span>
+                    <span title="Add Remarks" class="icon" onclick="addRemarks(event)"><i class="ph ph-file-plus"></i></span>
+                    <span title="Order Confirmation Message" class="icon" onclick="orderConfirmationMessage(event)"><i class="ph ph-whatsapp-logo"></i></span>
+                    <span title="Mark Resolved" class="icon" onclick="markResolved(event)"><i class="ph ph-thumbs-up"></i></span>
+                    <span title="Payment Confirmation Yes" class="icon" onclick="paymentConfirmationYes(event)"><i class="ph ph-check-circle"></i></span>
+                    <span title="Payment Confirmation No" class="icon" onclick="paymentConfirmationNo(event)"><i class="ph ph-x-circle"></i></span>
+                    <span title="Edit Row" class="icon" onclick="editRow(event)"><i class="ph ph-pencil-simple-line"></i></span>
                   </div>
                 </div>
               </td>
@@ -2605,16 +2573,15 @@
                 <div class="tr-actions" actionname="Sub Action">
                   <span class="icon-span"><i class="ph ph-corners-out"></i></span>
                   <div class="sub-action-holder">
-                    <span title="Toggle Sub Action" class="icon"><i class="ph ph-arrow-right"></i></span>
-                    <span title="Raise Issue" class="icon"><i class="ph ph-warning"></i></span>
-                    <span title="See Followups" class="icon"><i class="ph ph-chat"></i></span>
-                    <span title="Change Dispatch Status" class="icon"><i class="ph ph-cube"></i></span>
-                    <span title="Add Remarks" class="icon"><i class="ph ph-file-plus"></i></span>
-                    <span title="Order Confirmation Message" class="icon"><i class="ph ph-whatsapp-logo"></i></span>
-                    <span title="Mark Resolved" class="icon"><i class="ph ph-thumbs-up"></i></span>
-                    <span title="Payment Confirmation Yes" class="icon"><i class="ph ph-check-circle"></i></span>
-                    <span title="Payment Confirmation No" class="icon"><i class="ph ph-x-circle"></i></span>
-                    <span title="Edit Row" class="icon"><i class="ph ph-pencil-simple-line"></i></span>
+                    <span title="Raise Issue" class="icon" onclick="raiseIssue(event)"><i class="ph ph-warning"></i></span>
+                    <span title="See Followups" class="icon" onclick="seeFollowups(event)"><i class="ph ph-chat"></i></span>
+                    <span title="Change Dispatch Status" class="icon" onclick="changeDispatchStatus(event)"><i class="ph ph-cube"></i></span>
+                    <span title="Add Remarks" class="icon" onclick="addRemarks(event)"><i class="ph ph-file-plus"></i></span>
+                    <span title="Order Confirmation Message" class="icon" onclick="orderConfirmationMessage(event)"><i class="ph ph-whatsapp-logo"></i></span>
+                    <span title="Mark Resolved" class="icon" onclick="markResolved(event)"><i class="ph ph-thumbs-up"></i></span>
+                    <span title="Payment Confirmation Yes" class="icon" onclick="paymentConfirmationYes(event)"><i class="ph ph-check-circle"></i></span>
+                    <span title="Payment Confirmation No" class="icon" onclick="paymentConfirmationNo(event)"><i class="ph ph-x-circle"></i></span>
+                    <span title="Edit Row" class="icon" onclick="editRow(event)"><i class="ph ph-pencil-simple-line"></i></span>
                   </div>
                 </div>
               </td>
@@ -2683,16 +2650,15 @@
                 <div class="tr-actions" actionname="Sub Action">
                   <span class="icon-span"><i class="ph ph-corners-out"></i></span>
                   <div class="sub-action-holder">
-                    <span title="Toggle Sub Action" class="icon"><i class="ph ph-arrow-right"></i></span>
-                    <span title="Raise Issue" class="icon"><i class="ph ph-warning"></i></span>
-                    <span title="See Followups" class="icon"><i class="ph ph-chat"></i></span>
-                    <span title="Change Dispatch Status" class="icon"><i class="ph ph-cube"></i></span>
-                    <span title="Add Remarks" class="icon"><i class="ph ph-file-plus"></i></span>
-                    <span title="Order Confirmation Message" class="icon"><i class="ph ph-whatsapp-logo"></i></span>
-                    <span title="Mark Resolved" class="icon"><i class="ph ph-thumbs-up"></i></span>
-                    <span title="Payment Confirmation Yes" class="icon"><i class="ph ph-check-circle"></i></span>
-                    <span title="Payment Confirmation No" class="icon"><i class="ph ph-x-circle"></i></span>
-                    <span title="Edit Row" class="icon"><i class="ph ph-pencil-simple-line"></i></span>
+                    <span title="Raise Issue" class="icon" onclick="raiseIssue(event)"><i class="ph ph-warning"></i></span>
+                    <span title="See Followups" class="icon" onclick="seeFollowups(event)"><i class="ph ph-chat"></i></span>
+                    <span title="Change Dispatch Status" class="icon" onclick="changeDispatchStatus(event)"><i class="ph ph-cube"></i></span>
+                    <span title="Add Remarks" class="icon" onclick="addRemarks(event)"><i class="ph ph-file-plus"></i></span>
+                    <span title="Order Confirmation Message" class="icon" onclick="orderConfirmationMessage(event)"><i class="ph ph-whatsapp-logo"></i></span>
+                    <span title="Mark Resolved" class="icon" onclick="markResolved(event)"><i class="ph ph-thumbs-up"></i></span>
+                    <span title="Payment Confirmation Yes" class="icon" onclick="paymentConfirmationYes(event)"><i class="ph ph-check-circle"></i></span>
+                    <span title="Payment Confirmation No" class="icon" onclick="paymentConfirmationNo(event)"><i class="ph ph-x-circle"></i></span>
+                    <span title="Edit Row" class="icon" onclick="editRow(event)"><i class="ph ph-pencil-simple-line"></i></span>
                   </div>
                 </div>
               </td>
@@ -2761,16 +2727,15 @@
                 <div class="tr-actions" actionname="Sub Action">
                   <span class="icon-span"><i class="ph ph-corners-out"></i></span>
                   <div class="sub-action-holder">
-                    <span title="Toggle Sub Action" class="icon"><i class="ph ph-arrow-right"></i></span>
-                    <span title="Raise Issue" class="icon"><i class="ph ph-warning"></i></span>
-                    <span title="See Followups" class="icon"><i class="ph ph-chat"></i></span>
-                    <span title="Change Dispatch Status" class="icon"><i class="ph ph-cube"></i></span>
-                    <span title="Add Remarks" class="icon"><i class="ph ph-file-plus"></i></span>
-                    <span title="Order Confirmation Message" class="icon"><i class="ph ph-whatsapp-logo"></i></span>
-                    <span title="Mark Resolved" class="icon"><i class="ph ph-thumbs-up"></i></span>
-                    <span title="Payment Confirmation Yes" class="icon"><i class="ph ph-check-circle"></i></span>
-                    <span title="Payment Confirmation No" class="icon"><i class="ph ph-x-circle"></i></span>
-                    <span title="Edit Row" class="icon"><i class="ph ph-pencil-simple-line"></i></span>
+                    <span title="Raise Issue" class="icon" onclick="raiseIssue(event)"><i class="ph ph-warning"></i></span>
+                    <span title="See Followups" class="icon" onclick="seeFollowups(event)"><i class="ph ph-chat"></i></span>
+                    <span title="Change Dispatch Status" class="icon" onclick="changeDispatchStatus(event)"><i class="ph ph-cube"></i></span>
+                    <span title="Add Remarks" class="icon" onclick="addRemarks(event)"><i class="ph ph-file-plus"></i></span>
+                    <span title="Order Confirmation Message" class="icon" onclick="orderConfirmationMessage(event)"><i class="ph ph-whatsapp-logo"></i></span>
+                    <span title="Mark Resolved" class="icon" onclick="markResolved(event)"><i class="ph ph-thumbs-up"></i></span>
+                    <span title="Payment Confirmation Yes" class="icon" onclick="paymentConfirmationYes(event)"><i class="ph ph-check-circle"></i></span>
+                    <span title="Payment Confirmation No" class="icon" onclick="paymentConfirmationNo(event)"><i class="ph ph-x-circle"></i></span>
+                    <span title="Edit Row" class="icon" onclick="editRow(event)"><i class="ph ph-pencil-simple-line"></i></span>
                   </div>
                 </div>
               </td>
@@ -2839,16 +2804,15 @@
                 <div class="tr-actions" actionname="Sub Action">
                   <span class="icon-span"><i class="ph ph-corners-out"></i></span>
                   <div class="sub-action-holder">
-                    <span title="Toggle Sub Action" class="icon"><i class="ph ph-arrow-right"></i></span>
-                    <span title="Raise Issue" class="icon"><i class="ph ph-warning"></i></span>
-                    <span title="See Followups" class="icon"><i class="ph ph-chat"></i></span>
-                    <span title="Change Dispatch Status" class="icon"><i class="ph ph-cube"></i></span>
-                    <span title="Add Remarks" class="icon"><i class="ph ph-file-plus"></i></span>
-                    <span title="Order Confirmation Message" class="icon"><i class="ph ph-whatsapp-logo"></i></span>
-                    <span title="Mark Resolved" class="icon"><i class="ph ph-thumbs-up"></i></span>
-                    <span title="Payment Confirmation Yes" class="icon"><i class="ph ph-check-circle"></i></span>
-                    <span title="Payment Confirmation No" class="icon"><i class="ph ph-x-circle"></i></span>
-                    <span title="Edit Row" class="icon"><i class="ph ph-pencil-simple-line"></i></span>
+                    <span title="Raise Issue" class="icon" onclick="raiseIssue(event)"><i class="ph ph-warning"></i></span>
+                    <span title="See Followups" class="icon" onclick="seeFollowups(event)"><i class="ph ph-chat"></i></span>
+                    <span title="Change Dispatch Status" class="icon" onclick="changeDispatchStatus(event)"><i class="ph ph-cube"></i></span>
+                    <span title="Add Remarks" class="icon" onclick="addRemarks(event)"><i class="ph ph-file-plus"></i></span>
+                    <span title="Order Confirmation Message" class="icon" onclick="orderConfirmationMessage(event)"><i class="ph ph-whatsapp-logo"></i></span>
+                    <span title="Mark Resolved" class="icon" onclick="markResolved(event)"><i class="ph ph-thumbs-up"></i></span>
+                    <span title="Payment Confirmation Yes" class="icon" onclick="paymentConfirmationYes(event)"><i class="ph ph-check-circle"></i></span>
+                    <span title="Payment Confirmation No" class="icon" onclick="paymentConfirmationNo(event)"><i class="ph ph-x-circle"></i></span>
+                    <span title="Edit Row" class="icon" onclick="editRow(event)"><i class="ph ph-pencil-simple-line"></i></span>
                   </div>
                 </div>
               </td>
@@ -2917,16 +2881,15 @@
                 <div class="tr-actions" actionname="Sub Action">
                   <span class="icon-span"><i class="ph ph-corners-out"></i></span>
                   <div class="sub-action-holder">
-                    <span title="Toggle Sub Action" class="icon"><i class="ph ph-arrow-right"></i></span>
-                    <span title="Raise Issue" class="icon"><i class="ph ph-warning"></i></span>
-                    <span title="See Followups" class="icon"><i class="ph ph-chat"></i></span>
-                    <span title="Change Dispatch Status" class="icon"><i class="ph ph-cube"></i></span>
-                    <span title="Add Remarks" class="icon"><i class="ph ph-file-plus"></i></span>
-                    <span title="Order Confirmation Message" class="icon"><i class="ph ph-whatsapp-logo"></i></span>
-                    <span title="Mark Resolved" class="icon"><i class="ph ph-thumbs-up"></i></span>
-                    <span title="Payment Confirmation Yes" class="icon"><i class="ph ph-check-circle"></i></span>
-                    <span title="Payment Confirmation No" class="icon"><i class="ph ph-x-circle"></i></span>
-                    <span title="Edit Row" class="icon"><i class="ph ph-pencil-simple-line"></i></span>
+                    <span title="Raise Issue" class="icon" onclick="raiseIssue(event)"><i class="ph ph-warning"></i></span>
+                    <span title="See Followups" class="icon" onclick="seeFollowups(event)"><i class="ph ph-chat"></i></span>
+                    <span title="Change Dispatch Status" class="icon" onclick="changeDispatchStatus(event)"><i class="ph ph-cube"></i></span>
+                    <span title="Add Remarks" class="icon" onclick="addRemarks(event)"><i class="ph ph-file-plus"></i></span>
+                    <span title="Order Confirmation Message" class="icon" onclick="orderConfirmationMessage(event)"><i class="ph ph-whatsapp-logo"></i></span>
+                    <span title="Mark Resolved" class="icon" onclick="markResolved(event)"><i class="ph ph-thumbs-up"></i></span>
+                    <span title="Payment Confirmation Yes" class="icon" onclick="paymentConfirmationYes(event)"><i class="ph ph-check-circle"></i></span>
+                    <span title="Payment Confirmation No" class="icon" onclick="paymentConfirmationNo(event)"><i class="ph ph-x-circle"></i></span>
+                    <span title="Edit Row" class="icon" onclick="editRow(event)"><i class="ph ph-pencil-simple-line"></i></span>
                   </div>
                 </div>
               </td>
@@ -2995,16 +2958,15 @@
                 <div class="tr-actions" actionname="Sub Action">
                   <span class="icon-span"><i class="ph ph-corners-out"></i></span>
                   <div class="sub-action-holder">
-                    <span title="Toggle Sub Action" class="icon"><i class="ph ph-arrow-right"></i></span>
-                    <span title="Raise Issue" class="icon"><i class="ph ph-warning"></i></span>
-                    <span title="See Followups" class="icon"><i class="ph ph-chat"></i></span>
-                    <span title="Change Dispatch Status" class="icon"><i class="ph ph-cube"></i></span>
-                    <span title="Add Remarks" class="icon"><i class="ph ph-file-plus"></i></span>
-                    <span title="Order Confirmation Message" class="icon"><i class="ph ph-whatsapp-logo"></i></span>
-                    <span title="Mark Resolved" class="icon"><i class="ph ph-thumbs-up"></i></span>
-                    <span title="Payment Confirmation Yes" class="icon"><i class="ph ph-check-circle"></i></span>
-                    <span title="Payment Confirmation No" class="icon"><i class="ph ph-x-circle"></i></span>
-                    <span title="Edit Row" class="icon"><i class="ph ph-pencil-simple-line"></i></span>
+                    <span title="Raise Issue" class="icon" onclick="raiseIssue(event)"><i class="ph ph-warning"></i></span>
+                    <span title="See Followups" class="icon" onclick="seeFollowups(event)"><i class="ph ph-chat"></i></span>
+                    <span title="Change Dispatch Status" class="icon" onclick="changeDispatchStatus(event)"><i class="ph ph-cube"></i></span>
+                    <span title="Add Remarks" class="icon" onclick="addRemarks(event)"><i class="ph ph-file-plus"></i></span>
+                    <span title="Order Confirmation Message" class="icon" onclick="orderConfirmationMessage(event)"><i class="ph ph-whatsapp-logo"></i></span>
+                    <span title="Mark Resolved" class="icon" onclick="markResolved(event)"><i class="ph ph-thumbs-up"></i></span>
+                    <span title="Payment Confirmation Yes" class="icon" onclick="paymentConfirmationYes(event)"><i class="ph ph-check-circle"></i></span>
+                    <span title="Payment Confirmation No" class="icon" onclick="paymentConfirmationNo(event)"><i class="ph ph-x-circle"></i></span>
+                    <span title="Edit Row" class="icon" onclick="editRow(event)"><i class="ph ph-pencil-simple-line"></i></span>
                   </div>
                 </div>
               </td>
@@ -3073,16 +3035,15 @@
                 <div class="tr-actions" actionname="Sub Action">
                   <span class="icon-span"><i class="ph ph-corners-out"></i></span>
                   <div class="sub-action-holder">
-                    <span title="Toggle Sub Action" class="icon"><i class="ph ph-arrow-right"></i></span>
-                    <span title="Raise Issue" class="icon"><i class="ph ph-warning"></i></span>
-                    <span title="See Followups" class="icon"><i class="ph ph-chat"></i></span>
-                    <span title="Change Dispatch Status" class="icon"><i class="ph ph-cube"></i></span>
-                    <span title="Add Remarks" class="icon"><i class="ph ph-file-plus"></i></span>
-                    <span title="Order Confirmation Message" class="icon"><i class="ph ph-whatsapp-logo"></i></span>
-                    <span title="Mark Resolved" class="icon"><i class="ph ph-thumbs-up"></i></span>
-                    <span title="Payment Confirmation Yes" class="icon"><i class="ph ph-check-circle"></i></span>
-                    <span title="Payment Confirmation No" class="icon"><i class="ph ph-x-circle"></i></span>
-                    <span title="Edit Row" class="icon"><i class="ph ph-pencil-simple-line"></i></span>
+                    <span title="Raise Issue" class="icon" onclick="raiseIssue(event)"><i class="ph ph-warning"></i></span>
+                    <span title="See Followups" class="icon" onclick="seeFollowups(event)"><i class="ph ph-chat"></i></span>
+                    <span title="Change Dispatch Status" class="icon" onclick="changeDispatchStatus(event)"><i class="ph ph-cube"></i></span>
+                    <span title="Add Remarks" class="icon" onclick="addRemarks(event)"><i class="ph ph-file-plus"></i></span>
+                    <span title="Order Confirmation Message" class="icon" onclick="orderConfirmationMessage(event)"><i class="ph ph-whatsapp-logo"></i></span>
+                    <span title="Mark Resolved" class="icon" onclick="markResolved(event)"><i class="ph ph-thumbs-up"></i></span>
+                    <span title="Payment Confirmation Yes" class="icon" onclick="paymentConfirmationYes(event)"><i class="ph ph-check-circle"></i></span>
+                    <span title="Payment Confirmation No" class="icon" onclick="paymentConfirmationNo(event)"><i class="ph ph-x-circle"></i></span>
+                    <span title="Edit Row" class="icon" onclick="editRow(event)"><i class="ph ph-pencil-simple-line"></i></span>
                   </div>
                 </div>
               </td>
@@ -3151,16 +3112,15 @@
                 <div class="tr-actions" actionname="Sub Action">
                   <span class="icon-span"><i class="ph ph-corners-out"></i></span>
                   <div class="sub-action-holder">
-                    <span title="Toggle Sub Action" class="icon"><i class="ph ph-arrow-right"></i></span>
-                    <span title="Raise Issue" class="icon"><i class="ph ph-warning"></i></span>
-                    <span title="See Followups" class="icon"><i class="ph ph-chat"></i></span>
-                    <span title="Change Dispatch Status" class="icon"><i class="ph ph-cube"></i></span>
-                    <span title="Add Remarks" class="icon"><i class="ph ph-file-plus"></i></span>
-                    <span title="Order Confirmation Message" class="icon"><i class="ph ph-whatsapp-logo"></i></span>
-                    <span title="Mark Resolved" class="icon"><i class="ph ph-thumbs-up"></i></span>
-                    <span title="Payment Confirmation Yes" class="icon"><i class="ph ph-check-circle"></i></span>
-                    <span title="Payment Confirmation No" class="icon"><i class="ph ph-x-circle"></i></span>
-                    <span title="Edit Row" class="icon"><i class="ph ph-pencil-simple-line"></i></span>
+                    <span title="Raise Issue" class="icon" onclick="raiseIssue(event)"><i class="ph ph-warning"></i></span>
+                    <span title="See Followups" class="icon" onclick="seeFollowups(event)"><i class="ph ph-chat"></i></span>
+                    <span title="Change Dispatch Status" class="icon" onclick="changeDispatchStatus(event)"><i class="ph ph-cube"></i></span>
+                    <span title="Add Remarks" class="icon" onclick="addRemarks(event)"><i class="ph ph-file-plus"></i></span>
+                    <span title="Order Confirmation Message" class="icon" onclick="orderConfirmationMessage(event)"><i class="ph ph-whatsapp-logo"></i></span>
+                    <span title="Mark Resolved" class="icon" onclick="markResolved(event)"><i class="ph ph-thumbs-up"></i></span>
+                    <span title="Payment Confirmation Yes" class="icon" onclick="paymentConfirmationYes(event)"><i class="ph ph-check-circle"></i></span>
+                    <span title="Payment Confirmation No" class="icon" onclick="paymentConfirmationNo(event)"><i class="ph ph-x-circle"></i></span>
+                    <span title="Edit Row" class="icon" onclick="editRow(event)"><i class="ph ph-pencil-simple-line"></i></span>
                   </div>
                 </div>
               </td>
@@ -3229,16 +3189,15 @@
                 <div class="tr-actions" actionname="Sub Action">
                   <span class="icon-span"><i class="ph ph-corners-out"></i></span>
                   <div class="sub-action-holder">
-                    <span title="Toggle Sub Action" class="icon"><i class="ph ph-arrow-right"></i></span>
-                    <span title="Raise Issue" class="icon"><i class="ph ph-warning"></i></span>
-                    <span title="See Followups" class="icon"><i class="ph ph-chat"></i></span>
-                    <span title="Change Dispatch Status" class="icon"><i class="ph ph-cube"></i></span>
-                    <span title="Add Remarks" class="icon"><i class="ph ph-file-plus"></i></span>
-                    <span title="Order Confirmation Message" class="icon"><i class="ph ph-whatsapp-logo"></i></span>
-                    <span title="Mark Resolved" class="icon"><i class="ph ph-thumbs-up"></i></span>
-                    <span title="Payment Confirmation Yes" class="icon"><i class="ph ph-check-circle"></i></span>
-                    <span title="Payment Confirmation No" class="icon"><i class="ph ph-x-circle"></i></span>
-                    <span title="Edit Row" class="icon"><i class="ph ph-pencil-simple-line"></i></span>
+                    <span title="Raise Issue" class="icon" onclick="raiseIssue(event)"><i class="ph ph-warning"></i></span>
+                    <span title="See Followups" class="icon" onclick="seeFollowups(event)"><i class="ph ph-chat"></i></span>
+                    <span title="Change Dispatch Status" class="icon" onclick="changeDispatchStatus(event)"><i class="ph ph-cube"></i></span>
+                    <span title="Add Remarks" class="icon" onclick="addRemarks(event)"><i class="ph ph-file-plus"></i></span>
+                    <span title="Order Confirmation Message" class="icon" onclick="orderConfirmationMessage(event)"><i class="ph ph-whatsapp-logo"></i></span>
+                    <span title="Mark Resolved" class="icon" onclick="markResolved(event)"><i class="ph ph-thumbs-up"></i></span>
+                    <span title="Payment Confirmation Yes" class="icon" onclick="paymentConfirmationYes(event)"><i class="ph ph-check-circle"></i></span>
+                    <span title="Payment Confirmation No" class="icon" onclick="paymentConfirmationNo(event)"><i class="ph ph-x-circle"></i></span>
+                    <span title="Edit Row" class="icon" onclick="editRow(event)"><i class="ph ph-pencil-simple-line"></i></span>
                   </div>
                 </div>
               </td>
@@ -3307,16 +3266,15 @@
                 <div class="tr-actions" actionname="Sub Action">
                   <span class="icon-span"><i class="ph ph-corners-out"></i></span>
                   <div class="sub-action-holder">
-                    <span title="Toggle Sub Action" class="icon"><i class="ph ph-arrow-right"></i></span>
-                    <span title="Raise Issue" class="icon"><i class="ph ph-warning"></i></span>
-                    <span title="See Followups" class="icon"><i class="ph ph-chat"></i></span>
-                    <span title="Change Dispatch Status" class="icon"><i class="ph ph-cube"></i></span>
-                    <span title="Add Remarks" class="icon"><i class="ph ph-file-plus"></i></span>
-                    <span title="Order Confirmation Message" class="icon"><i class="ph ph-whatsapp-logo"></i></span>
-                    <span title="Mark Resolved" class="icon"><i class="ph ph-thumbs-up"></i></span>
-                    <span title="Payment Confirmation Yes" class="icon"><i class="ph ph-check-circle"></i></span>
-                    <span title="Payment Confirmation No" class="icon"><i class="ph ph-x-circle"></i></span>
-                    <span title="Edit Row" class="icon"><i class="ph ph-pencil-simple-line"></i></span>
+                    <span title="Raise Issue" class="icon" onclick="raiseIssue(event)"><i class="ph ph-warning"></i></span>
+                    <span title="See Followups" class="icon" onclick="seeFollowups(event)"><i class="ph ph-chat"></i></span>
+                    <span title="Change Dispatch Status" class="icon" onclick="changeDispatchStatus(event)"><i class="ph ph-cube"></i></span>
+                    <span title="Add Remarks" class="icon" onclick="addRemarks(event)"><i class="ph ph-file-plus"></i></span>
+                    <span title="Order Confirmation Message" class="icon" onclick="orderConfirmationMessage(event)"><i class="ph ph-whatsapp-logo"></i></span>
+                    <span title="Mark Resolved" class="icon" onclick="markResolved(event)"><i class="ph ph-thumbs-up"></i></span>
+                    <span title="Payment Confirmation Yes" class="icon" onclick="paymentConfirmationYes(event)"><i class="ph ph-check-circle"></i></span>
+                    <span title="Payment Confirmation No" class="icon" onclick="paymentConfirmationNo(event)"><i class="ph ph-x-circle"></i></span>
+                    <span title="Edit Row" class="icon" onclick="editRow(event)"><i class="ph ph-pencil-simple-line"></i></span>
                   </div>
                 </div>
               </td>
@@ -3385,16 +3343,15 @@
                 <div class="tr-actions" actionname="Sub Action">
                   <span class="icon-span"><i class="ph ph-corners-out"></i></span>
                   <div class="sub-action-holder">
-                    <span title="Toggle Sub Action" class="icon"><i class="ph ph-arrow-right"></i></span>
-                    <span title="Raise Issue" class="icon"><i class="ph ph-warning"></i></span>
-                    <span title="See Followups" class="icon"><i class="ph ph-chat"></i></span>
-                    <span title="Change Dispatch Status" class="icon"><i class="ph ph-cube"></i></span>
-                    <span title="Add Remarks" class="icon"><i class="ph ph-file-plus"></i></span>
-                    <span title="Order Confirmation Message" class="icon"><i class="ph ph-whatsapp-logo"></i></span>
-                    <span title="Mark Resolved" class="icon"><i class="ph ph-thumbs-up"></i></span>
-                    <span title="Payment Confirmation Yes" class="icon"><i class="ph ph-check-circle"></i></span>
-                    <span title="Payment Confirmation No" class="icon"><i class="ph ph-x-circle"></i></span>
-                    <span title="Edit Row" class="icon"><i class="ph ph-pencil-simple-line"></i></span>
+                    <span title="Raise Issue" class="icon" onclick="raiseIssue(event)"><i class="ph ph-warning"></i></span>
+                    <span title="See Followups" class="icon" onclick="seeFollowups(event)"><i class="ph ph-chat"></i></span>
+                    <span title="Change Dispatch Status" class="icon" onclick="changeDispatchStatus(event)"><i class="ph ph-cube"></i></span>
+                    <span title="Add Remarks" class="icon" onclick="addRemarks(event)"><i class="ph ph-file-plus"></i></span>
+                    <span title="Order Confirmation Message" class="icon" onclick="orderConfirmationMessage(event)"><i class="ph ph-whatsapp-logo"></i></span>
+                    <span title="Mark Resolved" class="icon" onclick="markResolved(event)"><i class="ph ph-thumbs-up"></i></span>
+                    <span title="Payment Confirmation Yes" class="icon" onclick="paymentConfirmationYes(event)"><i class="ph ph-check-circle"></i></span>
+                    <span title="Payment Confirmation No" class="icon" onclick="paymentConfirmationNo(event)"><i class="ph ph-x-circle"></i></span>
+                    <span title="Edit Row" class="icon" onclick="editRow(event)"><i class="ph ph-pencil-simple-line"></i></span>
                   </div>
                 </div>
               </td>
@@ -3463,16 +3420,15 @@
                 <div class="tr-actions" actionname="Sub Action">
                   <span class="icon-span"><i class="ph ph-corners-out"></i></span>
                   <div class="sub-action-holder">
-                    <span title="Toggle Sub Action" class="icon"><i class="ph ph-arrow-right"></i></span>
-                    <span title="Raise Issue" class="icon"><i class="ph ph-warning"></i></span>
-                    <span title="See Followups" class="icon"><i class="ph ph-chat"></i></span>
-                    <span title="Change Dispatch Status" class="icon"><i class="ph ph-cube"></i></span>
-                    <span title="Add Remarks" class="icon"><i class="ph ph-file-plus"></i></span>
-                    <span title="Order Confirmation Message" class="icon"><i class="ph ph-whatsapp-logo"></i></span>
-                    <span title="Mark Resolved" class="icon"><i class="ph ph-thumbs-up"></i></span>
-                    <span title="Payment Confirmation Yes" class="icon"><i class="ph ph-check-circle"></i></span>
-                    <span title="Payment Confirmation No" class="icon"><i class="ph ph-x-circle"></i></span>
-                    <span title="Edit Row" class="icon"><i class="ph ph-pencil-simple-line"></i></span>
+                    <span title="Raise Issue" class="icon" onclick="raiseIssue(event)"><i class="ph ph-warning"></i></span>
+                    <span title="See Followups" class="icon" onclick="seeFollowups(event)"><i class="ph ph-chat"></i></span>
+                    <span title="Change Dispatch Status" class="icon" onclick="changeDispatchStatus(event)"><i class="ph ph-cube"></i></span>
+                    <span title="Add Remarks" class="icon" onclick="addRemarks(event)"><i class="ph ph-file-plus"></i></span>
+                    <span title="Order Confirmation Message" class="icon" onclick="orderConfirmationMessage(event)"><i class="ph ph-whatsapp-logo"></i></span>
+                    <span title="Mark Resolved" class="icon" onclick="markResolved(event)"><i class="ph ph-thumbs-up"></i></span>
+                    <span title="Payment Confirmation Yes" class="icon" onclick="paymentConfirmationYes(event)"><i class="ph ph-check-circle"></i></span>
+                    <span title="Payment Confirmation No" class="icon" onclick="paymentConfirmationNo(event)"><i class="ph ph-x-circle"></i></span>
+                    <span title="Edit Row" class="icon" onclick="editRow(event)"><i class="ph ph-pencil-simple-line"></i></span>
                   </div>
                 </div>
               </td>
@@ -3541,16 +3497,15 @@
                 <div class="tr-actions" actionname="Sub Action">
                   <span class="icon-span"><i class="ph ph-corners-out"></i></span>
                   <div class="sub-action-holder">
-                    <span title="Toggle Sub Action" class="icon"><i class="ph ph-arrow-right"></i></span>
-                    <span title="Raise Issue" class="icon"><i class="ph ph-warning"></i></span>
-                    <span title="See Followups" class="icon"><i class="ph ph-chat"></i></span>
-                    <span title="Change Dispatch Status" class="icon"><i class="ph ph-cube"></i></span>
-                    <span title="Add Remarks" class="icon"><i class="ph ph-file-plus"></i></span>
-                    <span title="Order Confirmation Message" class="icon"><i class="ph ph-whatsapp-logo"></i></span>
-                    <span title="Mark Resolved" class="icon"><i class="ph ph-thumbs-up"></i></span>
-                    <span title="Payment Confirmation Yes" class="icon"><i class="ph ph-check-circle"></i></span>
-                    <span title="Payment Confirmation No" class="icon"><i class="ph ph-x-circle"></i></span>
-                    <span title="Edit Row" class="icon"><i class="ph ph-pencil-simple-line"></i></span>
+                    <span title="Raise Issue" class="icon" onclick="raiseIssue(event)"><i class="ph ph-warning"></i></span>
+                    <span title="See Followups" class="icon" onclick="seeFollowups(event)"><i class="ph ph-chat"></i></span>
+                    <span title="Change Dispatch Status" class="icon" onclick="changeDispatchStatus(event)"><i class="ph ph-cube"></i></span>
+                    <span title="Add Remarks" class="icon" onclick="addRemarks(event)"><i class="ph ph-file-plus"></i></span>
+                    <span title="Order Confirmation Message" class="icon" onclick="orderConfirmationMessage(event)"><i class="ph ph-whatsapp-logo"></i></span>
+                    <span title="Mark Resolved" class="icon" onclick="markResolved(event)"><i class="ph ph-thumbs-up"></i></span>
+                    <span title="Payment Confirmation Yes" class="icon" onclick="paymentConfirmationYes(event)"><i class="ph ph-check-circle"></i></span>
+                    <span title="Payment Confirmation No" class="icon" onclick="paymentConfirmationNo(event)"><i class="ph ph-x-circle"></i></span>
+                    <span title="Edit Row" class="icon" onclick="editRow(event)"><i class="ph ph-pencil-simple-line"></i></span>
                   </div>
                 </div>
               </td>
@@ -3619,16 +3574,15 @@
                 <div class="tr-actions" actionname="Sub Action">
                   <span class="icon-span"><i class="ph ph-corners-out"></i></span>
                   <div class="sub-action-holder">
-                    <span title="Toggle Sub Action" class="icon"><i class="ph ph-arrow-right"></i></span>
-                    <span title="Raise Issue" class="icon"><i class="ph ph-warning"></i></span>
-                    <span title="See Followups" class="icon"><i class="ph ph-chat"></i></span>
-                    <span title="Change Dispatch Status" class="icon"><i class="ph ph-cube"></i></span>
-                    <span title="Add Remarks" class="icon"><i class="ph ph-file-plus"></i></span>
-                    <span title="Order Confirmation Message" class="icon"><i class="ph ph-whatsapp-logo"></i></span>
-                    <span title="Mark Resolved" class="icon"><i class="ph ph-thumbs-up"></i></span>
-                    <span title="Payment Confirmation Yes" class="icon"><i class="ph ph-check-circle"></i></span>
-                    <span title="Payment Confirmation No" class="icon"><i class="ph ph-x-circle"></i></span>
-                    <span title="Edit Row" class="icon"><i class="ph ph-pencil-simple-line"></i></span>
+                    <span title="Raise Issue" class="icon" onclick="raiseIssue(event)"><i class="ph ph-warning"></i></span>
+                    <span title="See Followups" class="icon" onclick="seeFollowups(event)"><i class="ph ph-chat"></i></span>
+                    <span title="Change Dispatch Status" class="icon" onclick="changeDispatchStatus(event)"><i class="ph ph-cube"></i></span>
+                    <span title="Add Remarks" class="icon" onclick="addRemarks(event)"><i class="ph ph-file-plus"></i></span>
+                    <span title="Order Confirmation Message" class="icon" onclick="orderConfirmationMessage(event)"><i class="ph ph-whatsapp-logo"></i></span>
+                    <span title="Mark Resolved" class="icon" onclick="markResolved(event)"><i class="ph ph-thumbs-up"></i></span>
+                    <span title="Payment Confirmation Yes" class="icon" onclick="paymentConfirmationYes(event)"><i class="ph ph-check-circle"></i></span>
+                    <span title="Payment Confirmation No" class="icon" onclick="paymentConfirmationNo(event)"><i class="ph ph-x-circle"></i></span>
+                    <span title="Edit Row" class="icon" onclick="editRow(event)"><i class="ph ph-pencil-simple-line"></i></span>
                   </div>
                 </div>
               </td>
@@ -3697,16 +3651,15 @@
                 <div class="tr-actions" actionname="Sub Action">
                   <span class="icon-span"><i class="ph ph-corners-out"></i></span>
                   <div class="sub-action-holder">
-                    <span title="Toggle Sub Action" class="icon"><i class="ph ph-arrow-right"></i></span>
-                    <span title="Raise Issue" class="icon"><i class="ph ph-warning"></i></span>
-                    <span title="See Followups" class="icon"><i class="ph ph-chat"></i></span>
-                    <span title="Change Dispatch Status" class="icon"><i class="ph ph-cube"></i></span>
-                    <span title="Add Remarks" class="icon"><i class="ph ph-file-plus"></i></span>
-                    <span title="Order Confirmation Message" class="icon"><i class="ph ph-whatsapp-logo"></i></span>
-                    <span title="Mark Resolved" class="icon"><i class="ph ph-thumbs-up"></i></span>
-                    <span title="Payment Confirmation Yes" class="icon"><i class="ph ph-check-circle"></i></span>
-                    <span title="Payment Confirmation No" class="icon"><i class="ph ph-x-circle"></i></span>
-                    <span title="Edit Row" class="icon"><i class="ph ph-pencil-simple-line"></i></span>
+                    <span title="Raise Issue" class="icon" onclick="raiseIssue(event)"><i class="ph ph-warning"></i></span>
+                    <span title="See Followups" class="icon" onclick="seeFollowups(event)"><i class="ph ph-chat"></i></span>
+                    <span title="Change Dispatch Status" class="icon" onclick="changeDispatchStatus(event)"><i class="ph ph-cube"></i></span>
+                    <span title="Add Remarks" class="icon" onclick="addRemarks(event)"><i class="ph ph-file-plus"></i></span>
+                    <span title="Order Confirmation Message" class="icon" onclick="orderConfirmationMessage(event)"><i class="ph ph-whatsapp-logo"></i></span>
+                    <span title="Mark Resolved" class="icon" onclick="markResolved(event)"><i class="ph ph-thumbs-up"></i></span>
+                    <span title="Payment Confirmation Yes" class="icon" onclick="paymentConfirmationYes(event)"><i class="ph ph-check-circle"></i></span>
+                    <span title="Payment Confirmation No" class="icon" onclick="paymentConfirmationNo(event)"><i class="ph ph-x-circle"></i></span>
+                    <span title="Edit Row" class="icon" onclick="editRow(event)"><i class="ph ph-pencil-simple-line"></i></span>
                   </div>
                 </div>
               </td>
@@ -3775,16 +3728,15 @@
                 <div class="tr-actions" actionname="Sub Action">
                   <span class="icon-span"><i class="ph ph-corners-out"></i></span>
                   <div class="sub-action-holder">
-                    <span title="Toggle Sub Action" class="icon"><i class="ph ph-arrow-right"></i></span>
-                    <span title="Raise Issue" class="icon"><i class="ph ph-warning"></i></span>
-                    <span title="See Followups" class="icon"><i class="ph ph-chat"></i></span>
-                    <span title="Change Dispatch Status" class="icon"><i class="ph ph-cube"></i></span>
-                    <span title="Add Remarks" class="icon"><i class="ph ph-file-plus"></i></span>
-                    <span title="Order Confirmation Message" class="icon"><i class="ph ph-whatsapp-logo"></i></span>
-                    <span title="Mark Resolved" class="icon"><i class="ph ph-thumbs-up"></i></span>
-                    <span title="Payment Confirmation Yes" class="icon"><i class="ph ph-check-circle"></i></span>
-                    <span title="Payment Confirmation No" class="icon"><i class="ph ph-x-circle"></i></span>
-                    <span title="Edit Row" class="icon"><i class="ph ph-pencil-simple-line"></i></span>
+                    <span title="Raise Issue" class="icon" onclick="raiseIssue(event)"><i class="ph ph-warning"></i></span>
+                    <span title="See Followups" class="icon" onclick="seeFollowups(event)"><i class="ph ph-chat"></i></span>
+                    <span title="Change Dispatch Status" class="icon" onclick="changeDispatchStatus(event)"><i class="ph ph-cube"></i></span>
+                    <span title="Add Remarks" class="icon" onclick="addRemarks(event)"><i class="ph ph-file-plus"></i></span>
+                    <span title="Order Confirmation Message" class="icon" onclick="orderConfirmationMessage(event)"><i class="ph ph-whatsapp-logo"></i></span>
+                    <span title="Mark Resolved" class="icon" onclick="markResolved(event)"><i class="ph ph-thumbs-up"></i></span>
+                    <span title="Payment Confirmation Yes" class="icon" onclick="paymentConfirmationYes(event)"><i class="ph ph-check-circle"></i></span>
+                    <span title="Payment Confirmation No" class="icon" onclick="paymentConfirmationNo(event)"><i class="ph ph-x-circle"></i></span>
+                    <span title="Edit Row" class="icon" onclick="editRow(event)"><i class="ph ph-pencil-simple-line"></i></span>
                   </div>
                 </div>
               </td>
@@ -3853,16 +3805,15 @@
                 <div class="tr-actions" actionname="Sub Action">
                   <span class="icon-span"><i class="ph ph-corners-out"></i></span>
                   <div class="sub-action-holder">
-                    <span title="Toggle Sub Action" class="icon"><i class="ph ph-arrow-right"></i></span>
-                    <span title="Raise Issue" class="icon"><i class="ph ph-warning"></i></span>
-                    <span title="See Followups" class="icon"><i class="ph ph-chat"></i></span>
-                    <span title="Change Dispatch Status" class="icon"><i class="ph ph-cube"></i></span>
-                    <span title="Add Remarks" class="icon"><i class="ph ph-file-plus"></i></span>
-                    <span title="Order Confirmation Message" class="icon"><i class="ph ph-whatsapp-logo"></i></span>
-                    <span title="Mark Resolved" class="icon"><i class="ph ph-thumbs-up"></i></span>
-                    <span title="Payment Confirmation Yes" class="icon"><i class="ph ph-check-circle"></i></span>
-                    <span title="Payment Confirmation No" class="icon"><i class="ph ph-x-circle"></i></span>
-                    <span title="Edit Row" class="icon"><i class="ph ph-pencil-simple-line"></i></span>
+                    <span title="Raise Issue" class="icon" onclick="raiseIssue(event)"><i class="ph ph-warning"></i></span>
+                    <span title="See Followups" class="icon" onclick="seeFollowups(event)"><i class="ph ph-chat"></i></span>
+                    <span title="Change Dispatch Status" class="icon" onclick="changeDispatchStatus(event)"><i class="ph ph-cube"></i></span>
+                    <span title="Add Remarks" class="icon" onclick="addRemarks(event)"><i class="ph ph-file-plus"></i></span>
+                    <span title="Order Confirmation Message" class="icon" onclick="orderConfirmationMessage(event)"><i class="ph ph-whatsapp-logo"></i></span>
+                    <span title="Mark Resolved" class="icon" onclick="markResolved(event)"><i class="ph ph-thumbs-up"></i></span>
+                    <span title="Payment Confirmation Yes" class="icon" onclick="paymentConfirmationYes(event)"><i class="ph ph-check-circle"></i></span>
+                    <span title="Payment Confirmation No" class="icon" onclick="paymentConfirmationNo(event)"><i class="ph ph-x-circle"></i></span>
+                    <span title="Edit Row" class="icon" onclick="editRow(event)"><i class="ph ph-pencil-simple-line"></i></span>
                   </div>
                 </div>
               </td>
@@ -3931,16 +3882,15 @@
                 <div class="tr-actions" actionname="Sub Action">
                   <span class="icon-span"><i class="ph ph-corners-out"></i></span>
                   <div class="sub-action-holder">
-                    <span title="Toggle Sub Action" class="icon"><i class="ph ph-arrow-right"></i></span>
-                    <span title="Raise Issue" class="icon"><i class="ph ph-warning"></i></span>
-                    <span title="See Followups" class="icon"><i class="ph ph-chat"></i></span>
-                    <span title="Change Dispatch Status" class="icon"><i class="ph ph-cube"></i></span>
-                    <span title="Add Remarks" class="icon"><i class="ph ph-file-plus"></i></span>
-                    <span title="Order Confirmation Message" class="icon"><i class="ph ph-whatsapp-logo"></i></span>
-                    <span title="Mark Resolved" class="icon"><i class="ph ph-thumbs-up"></i></span>
-                    <span title="Payment Confirmation Yes" class="icon"><i class="ph ph-check-circle"></i></span>
-                    <span title="Payment Confirmation No" class="icon"><i class="ph ph-x-circle"></i></span>
-                    <span title="Edit Row" class="icon"><i class="ph ph-pencil-simple-line"></i></span>
+                    <span title="Raise Issue" class="icon" onclick="raiseIssue(event)"><i class="ph ph-warning"></i></span>
+                    <span title="See Followups" class="icon" onclick="seeFollowups(event)"><i class="ph ph-chat"></i></span>
+                    <span title="Change Dispatch Status" class="icon" onclick="changeDispatchStatus(event)"><i class="ph ph-cube"></i></span>
+                    <span title="Add Remarks" class="icon" onclick="addRemarks(event)"><i class="ph ph-file-plus"></i></span>
+                    <span title="Order Confirmation Message" class="icon" onclick="orderConfirmationMessage(event)"><i class="ph ph-whatsapp-logo"></i></span>
+                    <span title="Mark Resolved" class="icon" onclick="markResolved(event)"><i class="ph ph-thumbs-up"></i></span>
+                    <span title="Payment Confirmation Yes" class="icon" onclick="paymentConfirmationYes(event)"><i class="ph ph-check-circle"></i></span>
+                    <span title="Payment Confirmation No" class="icon" onclick="paymentConfirmationNo(event)"><i class="ph ph-x-circle"></i></span>
+                    <span title="Edit Row" class="icon" onclick="editRow(event)"><i class="ph ph-pencil-simple-line"></i></span>
                   </div>
                 </div>
               </td>
@@ -4007,7 +3957,56 @@
           </tbody>
         </table>
       </section>
-      <section class="extra-views"></section>
+      <section class="extra-views">
+        <form class="add-new-order-form base-form" id="add-new-order-form">
+          <fieldset>
+            <legend class="form-title">Add New Order Form</legend>
+            <fieldset>
+              <legend>Order Details</legend>
+              <label>Order Date</label>
+              <input type="date" required="true" name="Order Date" />
+              <label>POC</label>
+              <input type="text" list="poc" required="true" name="POC" />
+            </fieldset>
+            <fieldset>
+              <legend>Customer Details</legend>
+              <label>Client Name</label>
+              <input type="text" required="true" name="Client Name" />
+              <label>Contact Number</label>
+              <input type="number" required="true" name="Contact Number" />
+              <label>Alternate Contact Number</label>
+              <input type="number" />
+            </fieldset>
+            <fieldset>
+              <legend>Financial Details</legend>
+              <label>Total Amount (₹)</label>
+              <input type="number" value="0" required="true" name="Total Amount (₹)" />
+              <label>Prepaid Amount (₹)</label>
+              <input type="number" value="0" required="true" name="Prepaid Amount (₹)" />
+              <label>Balance Amount (₹)</label>
+              <input type="number" value="0" required="true" name="Balance Amount (₹)" />
+              <label>Mode of Payment</label>
+              <input type="text" list="mode-of-payment" required="true" name="Mode of Payment" />
+            </fieldset>
+            <fieldset>
+              <legend>Shipping Details</legend>
+              <label>Address Line 1</label>
+              <textarea placeholder="Address Line 1...." name="Address Line 1"></textarea>
+              <label>Address Line 2</label>
+              <textarea placeholder="Address Line 2...." name="Address Line 2"></textarea>
+              <label>State</label>
+              <input type="text" required="true" list="state" placeholder="State" name="State" />
+              <label>Pincode</label>
+              <input type="number" placeholder="Pincode" required="true" name="Pincode" />
+            </fieldset>
+          </fieldset>
+          <div class="form-btn-holder">
+            <button class="submit-btn" type="submit"></button>
+            <button class="cancel-btn" type="button"></button>
+            <button class="reset-btn" type="reset"></button>
+          </div>
+        </form>
+      </section>
       <section id="dropdown" hidden="true" aria-hidden="true">
         <datalist class="dropdown" id="cx-issue">
           <option value="Address">Address</option>

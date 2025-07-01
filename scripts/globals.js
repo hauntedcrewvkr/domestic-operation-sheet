@@ -870,9 +870,9 @@ const app = {
         sub: [
           {
             tag: 'fieldset',
-            attr: { class: 'form-title' },
+            attr: {  },
             sub: [
-              { tag: 'legend', text: 'Add New Order Form', attr: {} },
+              { tag: 'legend', text: 'Add New Order Form', attr: {class: 'form-title'} },
               {
                 tag: 'fieldset',
                 sub: [
@@ -928,9 +928,9 @@ const app = {
           {
             tag: 'div', attr: { class: 'form-btn-holder' },
             sub: [
-              {tag: 'button', attr: {class: 'submit-btn', type: 'submit'}},
-              {tag: 'button', attr: {class: 'cancel-btn', type: 'button'}},
-              {tag: 'button', attr: {class: 'reset-btn', type: 'reset'}},
+              {tag: 'button', text: 'SUBMIT', attr: {class: 'submit-btn', type: 'submit'}},
+              {tag: 'button', text: 'CANCEL' , attr: {class: 'cancel-btn', type: 'button'}},
+              {tag: 'button', text: 'RESET' , attr: {class: 'reset-btn', type: 'reset'}},
             ]
           }
         ],
