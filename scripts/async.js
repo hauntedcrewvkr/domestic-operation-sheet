@@ -154,8 +154,9 @@ async function setActionAccess() {
 
     const type = row.type.value;
     const action = row.action.value;
+    const subType = row.sub_type.value;
 
-    const schema = { tag: 'span', attr: { title: action, class: 'icon' }, sub: [{ tag: 'i', attr: { class: app.icon[action] } }] };
+    const schema = { tag: 'span', attr: { title: action, class: 'icon', onclick: (subType = 'view') ? 'viewRouter(event)' : `${fx.camelCase(subType)}(event)` }, sub: [{ tag: 'i', attr: { class: app.icon[action] } }] };
 
     if (currentType !== type) {
       if (parentSchema && currentType) app.cta[currentType] ??= schema2el(parentSchema);

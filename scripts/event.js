@@ -1,3 +1,36 @@
+//-------------------------------------------<( view-router-event-function )>-
+function viewRouter(e) {
+  const clickedElement = e.currentTarget;
+  const title = clickedElement.getAttribute('title');
+
+  if (!title || title === undefined) return;
+
+  setTableRows(fx.$('.table-body'), { view: title, rpp: Number(fx.$('#entries-per-page').value) });
+}
+
+function addNewOrder(e) {
+  const extraViews = fx.$('.extra-views');
+
+  extraViews.append(schema2el(app.schema.forms.addNewOrderForm));
+}
+function createOrder(e) {}
+function download(e) {}
+function myOrders(e) {}
+function filter(e) {}
+function changeAccount(e) {}
+function changeAccount(e) {}
+function sync(e) {}
+function raiseIssue(e) {}
+function seeFollowups(e) {}
+function changeDispatchStatus(e) {}
+function addRemarks(e) {}
+function sendOrderConfirmationMessage(e) {}
+function markResolved(e) {}
+function paymentConfirmationYes() {}
+function paymentConfirmationNo() {}
+function editRow() {}
+
+//===================================================================================================================================
 //------------------------------------------------<( set-name-event-function()>-
 async function setName(e) {
   e.preventDefault();

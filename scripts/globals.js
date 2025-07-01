@@ -450,14 +450,84 @@ const app = {
         ],
       },
     },
-
+    //prettier-ignore
     forms: {
-      addNewOrderForm: {},
+      addNewOrderForm: {
+        tag: 'form',
+        attr: { class: 'add-new-order-form base-form', id: 'add-new-order-form' },
+        onsubmit: 'gsheetAppend(event)',
+        sub: [
+          {
+            tag: 'fieldset',
+            attr: { class: 'form-title' },
+            sub: [
+              { tag: 'legend', text: 'Add New Order Form', attr: {} },
+              {
+                tag: 'fieldset',
+                sub: [
+                  { tag: 'legend', text: 'Order Details' },
+                  { tag: 'label', text: 'Order Date', attr: {} },
+                  gsheet.columnProps['Order Date'],
+                  { tag: 'label', text: 'POC', attr: {} },
+                  gsheet.columnProps['POC']
+                ],
+              },
+              {
+                tag: 'fieldset',
+                sub: [
+                  { tag: 'legend', text: 'Customer Details' },
+                  { tag: 'label', text: 'Client Name', attr: {} },
+                  gsheet.columnProps['Client Name'],
+                  { tag: 'label', text: 'Contact Number', attr: {} },
+                  gsheet.columnProps['Contact Number'],
+                  { tag: 'label', text: 'Alternate Contact Number', attr: {} },
+                  gsheet.columnProps['Alternate Contact Number']
+                ],
+              },
+              {
+                tag: 'fieldset',
+                sub: [
+                  { tag: 'legend', text: 'Financial Details' },
+                  { tag: 'label', text: 'Total Amount (₹)', attr: {} },
+                  gsheet.columnProps['Total Amount (₹)'],
+                  { tag: 'label', text: 'Prepaid Amount (₹)', attr: {} },
+                  gsheet.columnProps['Prepaid Amount (₹)'],
+                  { tag: 'label', text: 'Balance Amount (₹)', attr: {} },
+                  gsheet.columnProps['Balance Amount (₹)'],
+                  { tag: 'label', text: 'Mode of Payment', attr: {} },
+                  gsheet.columnProps['Mode of Payment'],
+                ],
+              },
+              {
+                tag: 'fieldset',
+                sub: [
+                  { tag: 'legend', text: 'Shipping Details' },
+                  { tag: 'label', text: 'Address Line 1', attr: {} },
+                  gsheet.columnProps['Address Line 1'],
+                  { tag: 'label', text: 'Address Line 2', attr: {} },
+                  gsheet.columnProps['Address Line 2'],
+                  { tag: 'label', text: 'State', attr: {} },
+                  gsheet.columnProps['State'],
+                  { tag: 'label', text: 'Pincode', attr: {} },
+                  gsheet.columnProps['Pincode'],
+                ],
+              },
+            ],
+          },
+          {
+            tag: 'div', attr: { class: 'form-btn-holder' },
+            sub: [
+              {tag: 'button', attr: {class: 'submit-btn', type: 'submit'}},
+              {tag: 'button', attr: {class: 'cancel-btn', type: 'button'}},
+              {tag: 'button', attr: {class: 'reset-btn', type: 'reset'}},
+            ]
+          }
+        ],
+      },
       cxIssueForm: {},
       paymentConfirmationForm: {},
       changeDispatchStatusForm: {},
       addRemarksForm: {},
-      addNewOrderForm: {},
       addNameForm: {
         tag: 'form',
         attr: {
@@ -594,197 +664,197 @@ const gsheet = {
   columnProps: {
     'ID': {
       view: { access: false, schema: { tag: 'span', attr: { title: 'ID' } } },
-      edit: { access: false, schema: { tag: 'input', attr: { type: 'text', placeholder: 'ID' } } },
+      edit: { access: false, schema: { tag: 'input', attr: { type: 'text', name: 'ID', placeholder: 'ID' } } },
     },
 
     'Timestamp': {
       view: { access: false, schema: { tag: 'span', attr: { title: 'Timestamp' } } },
-      edit: { access: false, schema: { tag: 'input', attr: { type: 'datetime-local' } } },
+      edit: { access: false, schema: { tag: 'input', attr: { type: 'datetime-local', name: 'Timestamp' } } },
     },
 
     'Email': {
       view: { access: false, schema: { tag: 'a', attr: { title: 'Email' } } },
-      edit: { access: false, schema: { tag: 'input', attr: { type: 'email' } } },
+      edit: { access: false, schema: { tag: 'input', attr: { type: 'email', name: 'Email' } } },
     },
 
     'Month': {
       view: { access: false, schema: { tag: 'span', attr: { title: 'Month' } } },
-      edit: { access: false, schema: { tag: 'input', attr: { type: 'text' } } },
+      edit: { access: false, schema: { tag: 'input', attr: { type: 'text', name: 'Month' } } },
     },
 
     'Order Date': {
       view: { access: false, schema: { tag: 'span', attr: { title: 'Order Date' } } },
-      edit: { access: false, schema: { tag: 'input', attr: { type: 'date', required: true } } },
+      edit: { access: false, schema: { tag: 'input', attr: { type: 'date', required: true, name: 'Order Date' } } },
     },
 
     'Order ID': {
       view: { access: false, schema: { tag: 'span', attr: { title: 'Order ID' } } },
-      edit: { access: false, schema: { tag: 'input', attr: { type: 'text' } } },
+      edit: { access: false, schema: { tag: 'input', attr: { type: 'text', name: 'Order ID' } } },
     },
 
     'POC': {
       view: { access: false, schema: { tag: 'span', attr: { title: 'POC' } } },
-      edit: { access: false, schema: { tag: 'input', attr: { type: 'text', list: 'poc', required: true } } },
+      edit: { access: false, schema: { tag: 'input', attr: { type: 'text', list: 'poc', required: true, name: 'POC' } } },
     },
 
     'Client Name': {
       view: { access: false, schema: { tag: 'span', attr: { title: 'Client Name' } } },
-      edit: { access: false, schema: { tag: 'input', attr: { type: 'text', required: true } } },
+      edit: { access: false, schema: { tag: 'input', attr: { type: 'text', required: true, name: 'Client Name' } } },
     },
 
     'Contact Number': {
       view: { access: false, schema: { tag: 'span', attr: { title: 'Contact Number' } } },
-      edit: { access: false, schema: { tag: 'input', attr: { type: 'number', required: true } } },
+      edit: { access: false, schema: { tag: 'input', attr: { type: 'number', required: true, name: 'Contact Number' } } },
     },
 
     'Alternate Contact Number': {
-      view: { access: false, schema: { tag: 'span', attr: { title: 'Alternative Contact Number' } } },
+      view: { access: false, schema: { tag: 'span', attr: { title: 'Alternative Contact Number', name: 'Alternate Contact Number' } } },
       edit: { access: false, schema: { tag: 'input', attr: { type: 'number' } } },
     },
 
     'Requirement': {
       view: { access: false, schema: { tag: 'span', attr: { title: 'Requirement' } } },
-      edit: { access: false, schema: { tag: 'textarea', attr: { placeholder: 'Enter Requirement' } } },
+      edit: { access: false, schema: { tag: 'textarea', attr: { placeholder: 'Enter Requirement', name: 'Requirement' } } },
     },
 
     'Total Amount (₹)': {
       view: { access: false, schema: { tag: 'span', attr: { title: 'Total Amount (₹)' } } },
-      edit: { access: false, schema: { tag: 'input', attr: { type: 'number', value: 0, required: true } } },
+      edit: { access: false, schema: { tag: 'input', attr: { type: 'number', value: 0, required: true, name: 'Total Amount (₹)' } } },
     },
 
     'Prepaid Amount (₹)': {
       view: { access: false, schema: { tag: 'span', attr: { title: 'Prepaid Amount (₹)' } } },
-      edit: { access: false, schema: { tag: 'input', attr: { type: 'number', value: 0, required: true } } },
+      edit: { access: false, schema: { tag: 'input', attr: { type: 'number', value: 0, required: true, name: 'Prepaid Amount (₹)' } } },
     },
 
     'Balance Amount (₹)': {
       view: { access: false, schema: { tag: 'span', attr: { title: 'Balance Amount (₹)' } } },
-      edit: { access: false, schema: { tag: 'input', attr: { type: 'number', value: 0, required: true } } },
+      edit: { access: false, schema: { tag: 'input', attr: { type: 'number', value: 0, required: true, name: 'Balance Amount (₹)' } } },
     },
 
     'Remittance Amount (₹)': {
       view: { access: false, schema: { tag: 'span', attr: { title: 'Remittance Amount (₹)' } } },
-      edit: { access: false, schema: { tag: 'input', attr: { type: 'number', value: 0, required: true } } },
+      edit: { access: false, schema: { tag: 'input', attr: { type: 'number', value: 0, required: true, name: 'Remittance Amount (₹)' } } },
     },
 
     'Mode of Payment': {
       view: { access: false, schema: { tag: 'span', attr: { title: 'Mode of Payment' } } },
-      edit: { access: false, schema: { tag: 'input', attr: { type: 'text', list: 'mode-of-payment', required: true } } },
+      edit: { access: false, schema: { tag: 'input', attr: { type: 'text', list: 'mode-of-payment', required: true, name: 'Mode of Payment' } } },
     },
 
     'Sub Order Type': {
       view: { access: false, schema: { tag: 'span', attr: { title: 'Sub Order Type' } } },
-      edit: { access: false, schema: { tag: 'input', attr: { type: 'text', list: 'sub-order-type', required: true } } },
+      edit: { access: false, schema: { tag: 'input', attr: { type: 'text', list: 'sub-order-type', required: true, name: 'Sub Order Type' } } },
     },
 
     'Order Type': {
       view: { access: false, schema: { tag: 'span', attr: { title: 'Order Type' } } },
-      edit: { access: false, schema: { tag: 'input', attr: { type: 'text', list: 'order-type', required: true } } },
+      edit: { access: false, schema: { tag: 'input', attr: { type: 'text', list: 'order-type', required: true, name: 'Order Type' } } },
     },
 
     'Payment Status': {
       view: { access: false, schema: { tag: 'span', attr: { title: 'Payment Status' } } },
-      edit: { access: false, schema: { tag: 'input', attr: { type: 'text', list: 'payment-status', required: true } } },
+      edit: { access: false, schema: { tag: 'input', attr: { type: 'text', list: 'payment-status', required: true, name: 'Payment Status' } } },
     },
 
     'Payment Timestamp': {
       view: { access: false, schema: { tag: 'span', attr: { title: 'Payment Timestamp' } } },
-      edit: { access: false, schema: { tag: 'input', attr: { type: 'datetime-local', required: true } } },
+      edit: { access: false, schema: { tag: 'input', attr: { type: 'datetime-local', required: true, name: 'Payment Timestamp' } } },
     },
 
     'Address Line 1': {
       view: { access: false, schema: { tag: 'span', attr: { title: 'Address Line 1' } } },
-      edit: { access: false, schema: { tag: 'textarea', attr: { placeholder: 'Address Line 1....' } } },
+      edit: { access: false, schema: { tag: 'textarea', attr: { placeholder: 'Address Line 1....', name: 'Address Line 1' } } },
     },
 
     'Address Line 2': {
       view: { access: false, schema: { tag: 'span', attr: { title: 'Address Line 2' } } },
-      edit: { access: false, schema: { tag: 'textarea', attr: { placeholder: 'Address Line 2....' } } },
+      edit: { access: false, schema: { tag: 'textarea', attr: { placeholder: 'Address Line 2....', name: 'Address Line 2' } } },
     },
 
     'State': {
       view: { access: false, schema: { tag: 'span', attr: { title: 'State' } } },
-      edit: { access: false, schema: { tag: 'input', attr: { type: 'text', required: true, list: 'state', placeholder: 'State' } } },
+      edit: { access: false, schema: { tag: 'input', attr: { type: 'text', required: true, list: 'state', placeholder: 'State', name: 'State' } } },
     },
 
     'Pincode': {
       view: { access: false, schema: { tag: 'span', attr: { title: 'Pincode' } } },
-      edit: { access: false, schema: { tag: 'input', attr: { type: 'number', placeholder: 'Pincode', required: true } } },
+      edit: { access: false, schema: { tag: 'input', attr: { type: 'number', placeholder: 'Pincode', required: true, name: 'Pincode' } } },
     },
 
     'CX Issue': {
       view: { access: false, schema: { tag: 'span', attr: { title: 'CX Issue' } } },
-      edit: { access: false, schema: { tag: 'input', attr: { type: 'text', list: 'cx-issue', required: true, placeholder: 'CX Issue' } } },
+      edit: { access: false, schema: { tag: 'input', attr: { type: 'text', list: 'cx-issue', required: true, placeholder: 'CX Issue', name: 'CX Issue' } } },
     },
 
     'CX Issue Status': {
       view: { access: false, schema: { tag: 'span', attr: { title: 'CX Issue Status' } } },
-      edit: { access: false, schema: { tag: 'input', attr: { type: 'text', list: 'cx-issue-status', required: true, placeholder: 'CX Issue Status' } } },
+      edit: { access: false, schema: { tag: 'input', attr: { type: 'text', list: 'cx-issue-status', required: true, placeholder: 'CX Issue Status', name: 'CX Issue Status' } } },
     },
 
     'Order Confirmation Status': {
       view: { access: false, schema: { tag: 'span', attr: { title: 'Order Confirmation Status' } } },
-      edit: { access: false, schema: { tag: 'input', attr: { type: 'text', list: 'order-confirmation-status', required: true, placeholder: 'Order Confirmation Status' } } },
+      edit: { access: false, schema: { tag: 'input', attr: { type: 'text', list: 'order-confirmation-status', required: true, placeholder: 'Order Confirmation Status', name: 'Order Confirmation Status' } } },
     },
 
     'Delivery Type': {
       view: { access: false, schema: { tag: 'span', attr: { title: 'Delivery Type' } } },
-      edit: { access: false, schema: { tag: 'input', attr: { type: 'text', list: 'delivery-type', required: true, placeholder: 'Delivery Type' } } },
+      edit: { access: false, schema: { tag: 'input', attr: { type: 'text', list: 'delivery-type', required: true, placeholder: 'Delivery Type', name: 'Delivery Type' } } },
     },
 
     'Logistic Partner': {
       view: { access: false, schema: { tag: 'span', attr: { title: 'Logistic Partner' } } },
-      edit: { access: false, schema: { tag: 'input', attr: { type: 'text', list: 'logistic-partner', required: true, placeholder: 'Enter Logistic Partner' } } },
+      edit: { access: false, schema: { tag: 'input', attr: { type: 'text', list: 'logistic-partner', required: true, placeholder: 'Enter Logistic Partner', name: 'Logistic Partner' } } },
     },
 
     'Booking Company': {
       view: { access: false, schema: { tag: 'span', attr: { title: 'Booking Company' } } },
-      edit: { access: false, schema: { tag: 'input', attr: { type: 'text', list: 'booking-company', required: true, placeholder: 'Enter Booking Company' } } },
+      edit: { access: false, schema: { tag: 'input', attr: { type: 'text', list: 'booking-company', required: true, placeholder: 'Enter Booking Company', name: 'Booking Company' } } },
     },
 
     'ITL Error': {
       view: { access: false, schema: { tag: 'span', attr: { title: 'ITL Error' } } },
-      edit: { access: false, schema: { tag: 'input', attr: { type: 'text', placeholder: 'Enter ITL Error', required: true } } },
+      edit: { access: false, schema: { tag: 'input', attr: { type: 'text', placeholder: 'Enter ITL Error', required: true, name: 'ITL Error' } } },
     },
 
     'Tracking Number': {
       view: { access: false, schema: { tag: 'span', attr: { title: 'Tracking Number' } } },
-      edit: { access: false, schema: { tag: 'input', attr: { type: 'text', placeholder: 'Enter Tracking Number', required: true } } },
+      edit: { access: false, schema: { tag: 'input', attr: { type: 'text', placeholder: 'Enter Tracking Number', required: true, name: 'Tracking Number' } } },
     },
 
     'Tracking Status': {
       view: { access: false, schema: { tag: 'span', attr: { title: 'Tracking Status' } } },
-      edit: { access: false, schema: { tag: 'input', attr: { type: 'text', list: 'tracking-status', placeholder: 'Enter Tracking Status', required: true } } },
+      edit: { access: false, schema: { tag: 'input', attr: { type: 'text', list: 'tracking-status', placeholder: 'Enter Tracking Status', required: true, name: 'Tracking Status' } } },
     },
 
     'Tracking Url': {
       view: { access: false, schema: { tag: 'span', attr: { title: 'Tracking Url' } } },
-      edit: { access: false, schema: { tag: 'input', attr: { type: 'url', required: true, placeholder: `https://www.ithinklogistics.co.in/postship/tracking/...........` } } },
+      edit: { access: false, schema: { tag: 'input', attr: { type: 'url', required: true, placeholder: `https://www.ithinklogistics.co.in/postship/tracking/...........`, name: 'Tracking Url' } } },
     },
 
     'Dispatch Status': {
       view: { access: false, schema: { tag: 'span', attr: { title: 'Dispatch Status' } } },
-      edit: { access: false, schema: { tag: 'input', attr: { type: 'text', list: 'dispatch-status', placeholder: 'Enter Dispatch Status', required: true } } },
+      edit: { access: false, schema: { tag: 'input', attr: { type: 'text', list: 'dispatch-status', placeholder: 'Enter Dispatch Status', required: true, name: 'Dispatch Status' } } },
     },
 
     'Transaction ID': {
       view: { access: false, schema: { tag: 'span', attr: { title: 'Transaction ID' } } },
-      edit: { access: false, schema: { tag: 'input', attr: { type: 'text', placeholder: 'Enter Trasaction ID', required: true } } },
+      edit: { access: false, schema: { tag: 'input', attr: { type: 'text', placeholder: 'Enter Trasaction ID', required: true, name: 'Transaction ID' } } },
     },
 
     'Whatsapp  Status': {
       view: { access: false, schema: { tag: 'span', attr: { title: 'Whatsapp Status' } } },
-      edit: { access: false, schema: { tag: 'input', attr: { type: 'text', list: 'Whatsapp Status', required: true } } },
+      edit: { access: false, schema: { tag: 'input', attr: { type: 'text', list: 'Whatsapp Status', required: true, name: 'Whatsapp  Status' } } },
     },
 
     'Remarks': {
       view: { access: false, schema: { tag: 'span', attr: { title: 'Remarks' } } },
-      edit: { access: false, schema: { tag: 'input', attr: { type: 'text', placeholder: 'Your Remarks' } } },
+      edit: { access: false, schema: { tag: 'input', attr: { type: 'text', placeholder: 'Your Remarks', name: 'Remarks' } } },
     },
 
     'Month Number': {
       view: { access: false, schema: { tag: 'span', attr: { title: 'Month Number' } } },
-      edit: { access: false, schema: { tag: 'input', attr: { type: 'text', placeholder: 'Your Remarks' } } },
+      edit: { access: false, schema: { tag: 'input', attr: { type: 'number', placeholder: new Date().getMonth() + 1 } } },
     },
   },
 

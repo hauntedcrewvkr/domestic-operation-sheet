@@ -15,9 +15,6 @@ function filterCheck({ json, filter }) {
   return true;
 }
 
-//-------------------------------------------<( action-router-event-function )>-
-function actionRouter(e) {}
-
 //---------------------------------------------<( set-action-helper-function )>-
 function setAction(element) {
   const actionName = element.getAttribute('actionname');
@@ -171,13 +168,15 @@ function setTableHeaders(element) {
 }
 
 //-----------------------------------------<( set-table-rows-helper-function()>-
-function setTableRows(element, props = { page: 1, view: `Orders`, rpp: 50 }) {
+function setTableRows(element, props = { page: 1, view: 'Orders', rpp: 50 }) {
   const data = gsheet.domesticOperationSheet[props.view].data;
 
   if (data.length < 1) notify({ message: 'Nothing to show', type: 'warn' });
 
   let start = props.page > 0 ? props.rpp * (props.page - 1) : 0;
   let end = Math.min(start + props.rpp, data.length);
+
+  fx.removeInnerHTML(element);
 
   while (start < end) {
     const tr = schema2el({ tag: 'tr', attr: { class: 'table-row', onclick: 'seeDetails(event)', rowNum: start + 2 } });
