@@ -27,18 +27,27 @@
   --white4: #ffc9c4;
 
   --border-primary: 2px solid color-mix(in srgb, var(--primary) 20%, transparent);
+  --border-primary-dark: 2px solid color-mix(in srgb, var(--primary4) 20%, transparent);
   --border-complementary: 2px solid color-mix(in srgb, var(--complementary4) 20%, transparent);
-  --border-black: 2px solid color-mix(in srgb, var(--gray4) 20%, transparent);
+  --border-complementary-dark: 2px solid color-mix(in srgb, var(--complementary4) 10%, transparent);
+  --border-gray: 2px solid color-mix(in srgb, var(--gray4) 20%, transparent);
+  --border-gray-dark: 2px solid color-mix(in srgb, var(--gray4) 10%, transparent);
   --border-white: 2px solid color-mix(in srgb, var(--white4) 20%, transparent);
+  --border-white-dark: 2px solid color-mix(in srgb, var(--white4) 10%, transparent);
 
   --shadow-gray: 0px 1px 13px color-mix(in srgb, var(--gray4) 20%, transparent);
+  --shadow-gray-dark: 0px 1px 13px color-mix(in srgb, var(--gray4) 30%, transparent);
   --shadow-primary: 0px 1px 13px color-mix(in srgb, var(--primary4) 20%, transparent);
+  --shadow-primary-dark: 0px 1px 13px color-mix(in srgb, var(--primary4) 30%, transparent);
   --shadow-white: 0px 1px 13px color-mix(in srgb, var(--white4) 20%, transparent);
+  --shadow-white-dark: 0px 1px 13px color-mix(in srgb, var(--white4) 30%, transparent);
   --shadow-complementary: 0px 1px 13px color-mix(in srgb, var(--complementary4) 20%, transparent);
+  --shadow-complementary-dark: 0px 1px 13px color-mix(in srgb, var(--complementary4) 30%, transparent);
   /*.::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: animations */
   --transition: 0.25s ease-in-out;
 
   /*.:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: spacing */
+  --n-u: -6px;
   --u: 6px;
   --u2: 12px;
   --border-radius: var(--u2);

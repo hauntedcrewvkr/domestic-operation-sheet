@@ -34,22 +34,22 @@ ul {
   list-style: none;
 }
 
-/* input,
+input,
 select,
 textarea {
   padding: 0.75rem 1rem;
   border-radius: var(--border-radius);
-  border: var(--border);
+  border: var(--border-primary);
   transition: var(--transition);
-  background: white;
-} */
+  background: var(--white);
+}
 
-/* input:focus,
+input:focus,
 select:focus,
 textarea:focus {
   border-color: var(--primary);
-  box-shadow: var(--box-shadow);
-} */
+  box-shadow: var(--shadow-gray);
+}
 
 input[type='number']::-webkit-outer-spin-button,
 input[type='number']::-webkit-inner-spin-button {
