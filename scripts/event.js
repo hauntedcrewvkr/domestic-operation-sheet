@@ -42,55 +42,6 @@ async function setName(e) {
   }
 }
 
-//------------------------- add-new-order-event-listener
-function addNewOrder(e) {
-  e.stopPropagation();
-  const extraViews = fx.$('.extra-views');
-  const htmlViews = sheet.Database.domestic_html_views.jsonData.slice();
-  const addOrderView = htmlViews[0].add_new_order_form;
-  const addOrderHtml = fx.text2el(addOrderView);
-
-  const pocDropdowns = getPocDropdowns();
-  const mopDropdowns = getDropdowns('Mode of payment');
-  const stateDropdowns = getDropdowns('State');
-
-  const pocSelect = fx.$('#poc-select', addOrderHtml);
-  const mopSelect = fx.$('#payment-mode-select', addOrderHtml);
-  const stateSelect = fx.$('#state-select', addOrderHtml);
-
-  pocDropdowns.forEach(function (dropdown) {
-    pocSelect.append(dropdown);
-  });
-  mopDropdowns.forEach(function (dropdown) {
-    mopSelect.append(dropdown);
-  });
-  stateDropdowns.forEach(function (dropdown) {
-    stateSelect.append(dropdown);
-  });
-
-  extraViews.append(addOrderHtml);
-
-  addOrderHtml.addEventListener('submit', function (e) {
-    e.preventDefault();
-    const formData = new FormData(addOrderHtml);
-    const dataObject = Object.fromEntries(formData.entries());
-    dataObject.ID ??= `ORDR-${Date.now()}`;
-    dataObject.Timestamp ??= nowStr();
-    dataObject.Email ??= user.email;
-    dataObject[`Order ID`] ??= getOrderNo();
-    dataObject.MONTH ??= Date(dataObject.DATE).toLocaleString(`default`, {
-      month: `long`,
-    });
-    dataObject[`Order No`] ??= `MS${dataObject[`Order ID`] + 1}`;
-    dataObject[`Balance Amount (To be paid) (INR)`] ??= dataObject[`Total Amount  (INR)`] - dataObject[`Prepaid Amount (If any) (INR)`];
-
-    appendData(dataObject);
-  });
-
-  const cancelBtn = fx.$('.cancel', addOrderHtml);
-  cancelBtn.addEventListener('click', removeForm);
-}
-
 function executeFilterAndAction() {}
 
 //------------------------- change-company-event-listener
