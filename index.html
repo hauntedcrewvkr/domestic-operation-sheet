@@ -3969,7 +3969,7 @@
               </div>
               <div class="input-holder">
                 <label class="input-label">POC</label>
-                <input type="text" list="poc" required="true" name="POC" />
+                <input type="text" list="poc" required="true" name="POC" autocomplete="on" />
               </div>
             </fieldset>
             <fieldset>
@@ -3991,19 +3991,19 @@
               <legend>Financial Details</legend>
               <div class="input-holder">
                 <label class="input-label">Total Amount (₹)</label>
-                <input type="number" value="0" required="true" name="Total Amount (₹)" />
+                <input type="number" value="0" required="true" name="Total Amount (₹)" onchange="getBalanceAmount(event)" />
               </div>
               <div class="input-holder">
                 <label class="input-label">Prepaid Amount (₹)</label>
-                <input type="number" value="0" required="true" name="Prepaid Amount (₹)" />
+                <input type="number" value="0" required="true" name="Prepaid Amount (₹)" onchange="getBalanceAmount(event)" />
               </div>
               <div class="input-holder">
                 <label class="input-label">Balance Amount (₹)</label>
-                <input type="number" value="0" required="true" name="Balance Amount (₹)" />
+                <input type="number" value="0" required="true" name="Balance Amount (₹)" disabled="true" />
               </div>
               <div class="input-holder">
                 <label class="input-label">Mode of Payment</label>
-                <input type="text" list="mode-of-payment" required="true" name="Mode of Payment" />
+                <input type="text" list="mode-of-payment" required="true" name="Mode of Payment" autocomplete="on" />
               </div>
             </fieldset>
             <fieldset>
@@ -4015,7 +4015,7 @@
               <label>Address Line 2</label>
               <textarea placeholder="Address Line 2...." name="Address Line 2"></textarea>
               <label>State</label>
-              <input type="text" required="true" list="state" placeholder="State" name="State" />
+              <input type="text" required="true" list="state" placeholder="State" name="State" autocomplete="on" />
               <label>Pincode</label>
               <input type="number" placeholder="Pincode" required="true" name="Pincode" />
             </fieldset>

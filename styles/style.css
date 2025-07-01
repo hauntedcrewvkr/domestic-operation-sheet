@@ -281,6 +281,7 @@ td .sub-action-holder {
   box-shadow: var(--shadow-gray);
   border: var(--border-primary-dark);
   max-height: 90vh;
+  width: 100%;
   overflow-y: scroll;
   border-radius: var(--u2);
   max-width: clac(var(--u2) * 10);
@@ -300,7 +301,7 @@ td .sub-action-holder {
   padding: var(--u2);
 }
 
-.base-form fieldset > fieldset {
+.base-form fieldset fieldset {
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
@@ -308,9 +309,10 @@ td .sub-action-holder {
   gap: var(--u);
   padding: var(--u) var(--u2);
   margin-top: var(--u);
+  justify-content: space-between;
 
   .input-holder {
-    width: 100%;
+    width: 30%;
   }
 }
 

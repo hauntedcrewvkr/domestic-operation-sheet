@@ -872,20 +872,20 @@ const app = {
             tag: 'fieldset',
             attr: {  },
             sub: [
-              { tag: 'legend', text: 'Add New Order Form', attr: {class: 'form-title'} },
+              { tag: 'legend', text: 'Add New Order Form', attr: { class: 'form-title' } },
               {
                 tag: 'fieldset',
                 sub: [
                   { tag: 'legend', text: 'Order Details' },
                   {
                     tag: 'div', attr: { class: 'input-holder' }, sub: [
-                      { tag: 'label', text: 'Order Date', attr: {class: 'input-label'} },
+                      { tag: 'label', text: 'Order Date', attr: { class: 'input-label' } },
                       gsheet.columnProps['Order Date'].edit.schema,
                     ]
                   },
                   {
                     tag: 'div', attr: { class: 'input-holder' }, sub: [
-                      { tag: 'label', text: 'POC', attr: {class: 'input-label'} },
+                      { tag: 'label', text: 'POC', attr: { class: 'input-label' } },
                       gsheet.columnProps['POC'].edit.schema
                     ]
                   },
@@ -897,19 +897,19 @@ const app = {
                   { tag: 'legend', text: 'Customer Details' },
                   {
                     tag: 'div', attr: { class: 'input-holder' }, sub: [
-                      { tag: 'label', text: 'Client Name', attr: {class: 'input-label'} },
+                      { tag: 'label', text: 'Client Name', attr: { class: 'input-label' } },
                       gsheet.columnProps['Client Name'].edit.schema,
                     ]
                   },
                   {
                     tag: 'div', attr: { class: 'input-holder' }, sub: [
-                      { tag: 'label', text: 'Contact Number', attr: {class: 'input-label'} },
+                      { tag: 'label', text: 'Contact Number', attr: { class: 'input-label' } },
                       gsheet.columnProps['Contact Number'].edit.schema,
                     ]
                   },
                   {
                     tag: 'div', attr: { class: 'input-holder' }, sub: [
-                      { tag: 'label', text: 'Alternate Contact Number', attr: { class: 'input-label'} },
+                      { tag: 'label', text: 'Alternate Contact Number', attr: { class: 'input-label' } },
                       gsheet.columnProps['Alternate Contact Number'].edit.schema
                     ]
                   },
@@ -921,26 +921,26 @@ const app = {
                   { tag: 'legend', text: 'Financial Details' },
                   {
                     tag: 'div', attr: { class: 'input-holder' }, sub: [
-                      { tag: 'label', text: 'Total Amount (₹)', attr: { class: 'input-label'} },
+                      { tag: 'label', text: 'Total Amount (₹)', attr: { class: 'input-label' } },
                       gsheet.columnProps['Total Amount (₹)'].edit.schema,
                     
                     ]
                   },
                   {
                     tag: 'div', attr: { class: 'input-holder' }, sub: [
-                      { tag: 'label', text: 'Prepaid Amount (₹)', attr: { class: 'input-label'} },
+                      { tag: 'label', text: 'Prepaid Amount (₹)', attr: { class: 'input-label' } },
                       gsheet.columnProps['Prepaid Amount (₹)'].edit.schema,
                     ]
                   },
                   {
                     tag: 'div', attr: { class: 'input-holder' }, sub: [
-                      { tag: 'label', text: 'Balance Amount (₹)', attr: { class: 'input-label'} },
+                      { tag: 'label', text: 'Balance Amount (₹)', attr: { class: 'input-label' } },
                       gsheet.columnProps['Balance Amount (₹)'].edit.schema,
                     ]
                   },
                   {
                     tag: 'div', attr: { class: 'input-holder' }, sub: [
-                      { tag: 'label', text: 'Mode of Payment', attr: { class: 'input-label'} },
+                      { tag: 'label', text: 'Mode of Payment', attr: { class: 'input-label' } },
                       gsheet.columnProps['Mode of Payment'].edit.schema,
                     ]
                   },
@@ -952,15 +952,30 @@ const app = {
                   { tag: 'legend', text: 'Shipping Details' },
                   {
                     tag: 'div', attr: { class: 'input-holder' }, sub: [
-                      { tag: 'label', text: 'Address Line 1', attr: {class: 'input-label'} },
+                      { tag: 'label', text: 'Address Line 1', attr: { class: 'input-label' } },
                       gsheet.columnProps['Address Line 1'].edit.schema,
-                  ]},
-                  { tag: 'label', text: 'Address Line 2', attr: {} },
-                  gsheet.columnProps['Address Line 2'].edit.schema,
-                  { tag: 'label', text: 'State', attr: {} },
-                  gsheet.columnProps['State'].edit.schema,
-                  { tag: 'label', text: 'Pincode', attr: {} },
-                  gsheet.columnProps['Pincode'].edit.schema,
+                    ]
+                  },
+                  {
+                    tag: 'div', attr: { class: 'input-holder' }, sub: [
+                      { tag: 'label', text: 'Address Line 2', attr: { class: 'input-label' } },
+                      gsheet.columnProps['Address Line 2'].edit.schema,
+                    ]
+                  },
+                  {
+                    tag: 'div', attr: { class: 'input-holder' }, sub: [
+                      { tag: 'label', text: 'State', attr: { class: 'input-label' } },
+                      gsheet.columnProps['State'].edit.schema,
+                    ]
+                  },
+                  {
+                    tag: 'div', attr: { class: 'input-holder' }, sub: [
+                      { tag: 'label', text: 'Pincode', attr: { class: 'input-label' } },
+                      gsheet.columnProps['Pincode'].edit.schema,
+                    
+                    ]
+                  },
+                  
                 ],
               },
             ],
