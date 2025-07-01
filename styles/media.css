@@ -1,17 +1,14 @@
 @media (max-width: 768px) {
-  .primary-actions {
-    display: flex;
-    flex-direction: column;
+  .header-action-holder {
+    direction: rtl;
+
+    & .primary-action-holder,
+    & .secondary-action-holder {
+      direction: ltr;
+    }
   }
 
-  .logo::after {
-    word-wrap: normal;
-    white-space: normal;
-    overflow-wrap: break-word;
-    word-wrap: break-word;
-  }
-
-  .current-view::after {
+  .header .logo-holder a::after {
     content: '';
   }
 }

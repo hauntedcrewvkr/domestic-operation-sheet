@@ -3,18 +3,45 @@
 :root {
   /*.:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: theme */
   --primary: #e74c3c;
+  --primary1: #a81000;
+  --primary2: #730b00;
+  --primary3: #460903;
+  --primary4: #2a0400;
+
+  --complementary: #074f5d;
+  --complementary1: #047a90;
+  --complementary2: #096272;
+  --complementary3: #023741;
+  --complementary4: #012026;
+
+  --gray: #5e5857;
+  --gray1: #806b69;
+  --gray2: #504948;
+  --gray3: #423b3a;
+  --gray4: #302a29;
+
+  --white: #fff7f6;
+  --white1: #ffeeec;
+  --white2: #e9d5d3;
+  --white3: #ffddd9;
+  --white4: #ffc9c4;
+
+  --border-primary: 2px solid color-mix(in srgb, var(--primary) 20%, transparent);
+  --border-complementary: 2px solid color-mix(in srgb, var(--complementary4) 20%, transparent);
+  --border-black: 2px solid color-mix(in srgb, var(--gray4) 20%, transparent);
+  --border-white: 2px solid color-mix(in srgb, var(--white4) 20%, transparent);
+
+  --shadow-gray: 0px 1px 13px color-mix(in srgb, var(--gray4) 20%, transparent);
+  --shadow-primary: 0px 1px 13px color-mix(in srgb, var(--primary4) 20%, transparent);
+  --shadow-white: 0px 1px 13px color-mix(in srgb, var(--white4) 20%, transparent);
+  --shadow-complementary: 0px 1px 13px color-mix(in srgb, var(--complementary4) 20%, transparent);
+  /*.::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: animations */
   --transition: 0.25s ease-in-out;
 
   /*.:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: spacing */
-  --border: 2px solid rgba(0, 0, 0, 0.08);
-  --spacing-xs: 0.5rem;
-  --spacing-sm: 1rem;
-  --spacing-md: 1.5rem;
-  --spacing-lg: 2rem;
   --u: 6px;
   --u2: 12px;
   --border-radius: var(--u2);
-  --box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.35);
 }
 
 /*.::::::::::::::::::::::::::::::::::::::::::::::::::::::: gloabal properties */
