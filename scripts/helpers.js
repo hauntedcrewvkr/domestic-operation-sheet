@@ -184,8 +184,8 @@ function setTableRows(page = 1) {
 
   if (data.length < 1) notify({ message: 'Nothing to show', type: 'warn' });
 
-  let start = page > 0 ? app.pagination.rpp * (page - 1) : 0;
-  let end = Math.min(start + app.pagination.rpp, data.length);
+  let start = page > 0 ? app.table.pagination.rpp * (page - 1) : 0;
+  let end = Math.min(start + app.table.pagination.rpp, data.length);
 
   fx.removeInnerHTML(element);
 
