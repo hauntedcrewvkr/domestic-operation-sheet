@@ -11,7 +11,7 @@ function viewRouter(e) {
 
 function changeRPP(e) {
   app.table.pagination.rpp = fx.num(e.currentTarget.value);
-  setTableRows();
+  setTableRows(app.table.pagination.currentPage);
 }
 
 function prevPage(e) {
