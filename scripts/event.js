@@ -4,8 +4,9 @@ function viewRouter(e) {
   const title = clickedElement.getAttribute('title');
 
   if (!title || title === undefined) return;
+  app.currentView = title;
 
-  setTableRows(fx.$('.table-body'), { view: title, rpp: Number(fx.$('#entries-per-page').value) });
+  setTableRows(fx.$('.table-body'), { rpp: Number(fx.$('#entries-per-page').value) });
 }
 
 function addNewOrder(e) {

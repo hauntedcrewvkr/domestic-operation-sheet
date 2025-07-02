@@ -168,8 +168,19 @@ function setTableHeaders(element) {
 }
 
 //-----------------------------------------<( set-table-rows-helper-function()>-
-function setTableRows(element, props = { page: 1, view: 'Orders', rpp: 50 }) {
-  const data = gsheet.domesticOperationSheet[props.view].data;
+function setTableRows(page = 1) {
+  const data = gsheet.domesticOperationSheet[app.currentView].data;
+  const totalPages = Math.ceil(data.length / app.table.pagination.rpp);
+
+  const element = app.table.tbody || fx.$('.table-body');
+  const footer = fx.$('footer');
+  const totalPagesInput = fx.$('.total-pages', footer);
+  const currentPageInput = fx.$('.page-input', footer);
+  const currentView = fx.$('.currentView', footer);
+
+  totalPagesInput.value = totalPages;
+  currentPageInput.value = props.page;
+  currentView.title = props.view;
 
   if (data.length < 1) notify({ message: 'Nothing to show', type: 'warn' });
 

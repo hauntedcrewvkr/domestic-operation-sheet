@@ -616,6 +616,8 @@ const gsheet = {
 const app = {
   favicon: fx.$('favicon').innerHTML,
   title: document.title,
+  currentView: 'Orders',
+  table: { tbody: undefined, pagination: { rpp: 50 } },
   cta: {},
 
   icon: {
