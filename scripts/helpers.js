@@ -182,6 +182,7 @@ function setTableRows(page = 1) {
   currentPageInput.value = page;
   currentView.title = app.currentView;
   app.table.pagination.currentPage = page;
+  app.table.pagination.totalPages = totalPages;
 
   if (data.length < 1) notify({ message: 'Nothing to show', type: 'warn' });
 
