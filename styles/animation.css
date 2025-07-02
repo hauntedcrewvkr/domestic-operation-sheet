@@ -1,11 +1,11 @@
 @keyframes loading-wave-animation {
   0%,
   100% {
-    transform: scaleY(1);
+    height: 10px;
   }
 
   50% {
-    transform: scaleY(5);
+    height: 50px;
   }
 }
 
