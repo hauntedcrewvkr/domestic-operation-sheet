@@ -75,6 +75,7 @@ async function setColumnAccess() {
 async function setMasterData() {
   const data = await gviz.fetchGoogleSheetData(gviz.gvizUrl({ ssid: gsheet.domesticOperationSheet.ssid, sheet: 'Master' }));
 
+  gsheet.domesticOperationSheet.Master ??= {};
   gsheet.domesticOperationSheet.Master.headers ??= data.header;
   console.log(gsheet.domesticOperationSheet.Master.headers);
   await setFilterViews(data.data);
