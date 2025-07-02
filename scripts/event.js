@@ -50,7 +50,10 @@ function changeEmail(e) {}
 
 //------------------------- sync-data-event-listener
 function sync(e) {
-  location.replace(location.href);
+  const url = new URL(location.href);
+
+  url.searchParams.set('cacheBust', Date.now());
+  location.href = url.toString();
 }
 
 //------------------------- see-details-event-listener
