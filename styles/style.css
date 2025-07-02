@@ -570,8 +570,11 @@ form > fieldset {
 
 .bar-holder {
   width: 20px;
+  height: 50px; /* set this as max scaleY height */
   overflow: hidden;
   border-radius: 5px;
+  display: flex;
+  align-items: flex-end;
 }
 
 .loading-bar {
@@ -580,6 +583,8 @@ form > fieldset {
   background-color: var(--primary);
   will-change: transform;
   animation: loading-wave-animation 1s ease-in-out infinite;
+  transform-origin: bottom;
+  border-radius: 5px;
 }
 
 .loading-bar:nth-child(2) {

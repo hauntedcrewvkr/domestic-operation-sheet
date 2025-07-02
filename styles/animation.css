@@ -3,7 +3,6 @@
   100% {
     transform: scaleY(1);
   }
-
   50% {
     transform: scaleY(5);
   }
