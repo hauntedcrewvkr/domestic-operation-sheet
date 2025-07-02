@@ -50,7 +50,7 @@ function changeEmail(e) {}
 
 //------------------------- sync-data-event-listener
 function sync(e) {
-  location.replace('https://script.google.com/macros/s/AKfycbz4HmcdTYtgpvshfh89M6TOhj_EWeQYVbA1ZFFBZOA/dev');
+  location.replace('https://script.google.com/macros/s/AKfycbz_PMIFJc3Xe3XrfGdAC-9Alg9a5bZbV0uidvUOOQOGwbUGjJxTu3dKgHGEr9JMpHkx/exec');
 }
 
 //------------------------- see-details-event-listener
