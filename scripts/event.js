@@ -25,9 +25,7 @@ function changePage(e) {
 }
 
 function nextPage(e) {
-  const pagenum = fx.num(e.currentTarget.value);
-  console.log(pagenum);
-  if (pagenum > 0 && pagenum < app.table.pagination.totalPages) setTableRows(pagenum);
+  if (app.table.pagination.currentPage < app.table.pagination.totalPages) setTableRows(app.table.pagination.currentPage + 1);
 }
 
 function lastPage(e) {
