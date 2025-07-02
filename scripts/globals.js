@@ -413,13 +413,13 @@ const gsheet = {
   filters: {
     'Orders': {
       notEqual: {
-        ID: '',
+        ID: ' ',
       },
     },
 
     'Get Initial Confirmation': {
       equal: {
-        'Delivery Type': '',
+        'Delivery Type': ' ',
       },
       notEqual: {
         'Order Confirmation Status': 'To Check',
@@ -430,7 +430,7 @@ const gsheet = {
 
     'Confirm Payments': {
       equal: {
-        'Payment Status': '',
+        'Payment Status': ' ',
       },
       notEqual: {
         'Prepaid Amount (₹)': 0,
@@ -444,7 +444,7 @@ const gsheet = {
         'Order Confirmation Status': 'Good to Go',
         'Delivery Type': 'Regular Delivery',
         'Payment Status': 'Yes',
-        'Tracking Number': '',
+        'Tracking Number': ' ',
       },
       notEqual: {
         'Dispatch Status': 'Cancelled',
@@ -454,7 +454,7 @@ const gsheet = {
 
     'Raised Issues': {
       notEqual: {
-        'CX Issue': '',
+        'CX Issue': ' ',
         'CX Issue Status': 'Closed',
       },
     },
@@ -470,7 +470,7 @@ const gsheet = {
         'Dispatch Status': 'Yet to be Dispatched',
       },
       notEqual: {
-        'Tracking Number': '',
+        'Tracking Number': ' ',
       },
     },
 
@@ -551,7 +551,7 @@ const gsheet = {
         'Tracking Status': 'RTO Delivered',
       },
       notEqual: {
-        'Tracking Number': '',
+        'Tracking Number': ' ',
         'Dispatch Status': 'Returned',
       },
     },
