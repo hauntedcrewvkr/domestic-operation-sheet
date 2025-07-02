@@ -20,12 +20,14 @@ function prevPage(e) {
 
 function changePage(e) {
   const pagenum = fx.num(e.currentTarget.value);
+  console.log(pagenum);
   if (pagenum >= 1 && pagenum <= app.table.pagination.totalPages) setTableRows(pagenum);
 }
 
 function nextPage(e) {
   const pagenum = fx.num(e.currentTarget.value);
-  if (pagenum > 1 && pagenum < app.table.pagination.totalPages) setTableRows(pagenum);
+  console.log(pagenum);
+  if (pagenum > 0 && pagenum < app.table.pagination.totalPages) setTableRows(pagenum);
 }
 
 function lastPage(e) {
