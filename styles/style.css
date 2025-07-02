@@ -574,6 +574,8 @@ form > fieldset {
   background-color: var(--primary);
   border-radius: 5px;
   animation: loading-wave-animation 1s ease-in-out infinite;
+  transform-origin: bottom;
+  will-change: transform;
 }
 
 .loading-bar:nth-child(2) {
