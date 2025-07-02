@@ -3,10 +3,10 @@
 :root {
   /*.:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::: theme */
   --primary: #e74c3c;
-  --primary1: #a81000;
-  --primary2: #730b00;
-  --primary3: #460903;
-  --primary4: #2a0400;
+  --primary1: #c42b23;
+  --primary2: #a2000b;
+  --primary3: #810000;
+  --primary4: #620000;
 
   --complementary: #074f5d;
   --complementary1: #047a90;
@@ -14,10 +14,10 @@
   --complementary3: #023741;
   --complementary4: #012026;
 
-  --gray: #5e5857;
-  --gray1: #806b69;
-  --gray2: #504948;
-  --gray3: #423b3a;
+  --gray: #d7cfcd;
+  --gray1: #a9a2a0;
+  --gray2: #7e7776;
+  --gray3: #564f4e;
   --gray4: #302a29;
 
   --white: #fff7f6;

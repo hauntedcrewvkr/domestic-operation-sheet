@@ -278,15 +278,23 @@ td .sub-action-holder {
   transform: translate(-50%, -50%);
   z-index: 3;
   background: var(--white);
+  background: linear-gradient(to bottom, var(--white) 80%, var(--white1));
   box-shadow: var(--shadow-gray);
-  border: var(--border-primary-dark);
   max-height: 90vh;
-  width: 100%;
+  width: 98%;
+  width: clamp(360px, 690px, 98%);
   overflow-y: scroll;
   border-radius: var(--u2);
   max-width: clac(var(--u2) * 10);
   scrollbar-width: none;
   padding: 0 var(--u2);
+}
+
+form > fieldset {
+  height: 100%;
+  background: var(--white);
+  border-radius: var(--u2);
+  margin-bottom: var(--u2);
 }
 
 .form-title {
@@ -310,18 +318,30 @@ td .sub-action-holder {
   padding: var(--u) var(--u2);
   margin-top: var(--u);
   justify-content: space-between;
+  border-radius: var(--u2);
+
+  legend {
+    font-weight: 600;
+  }
 
   .input-holder {
-    width: 30%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    min-width: calc(var(--u2) * 25);
+    width: clamp(calc(var(--u2) * 25), 100%, 100%);
+    max-width: 40%;
+    padding: 0 calc(var(--u2) + var(--u));
   }
 }
 
-.base-form label::after {
+.input-label::after {
   content: ':';
 }
 
 .base-form input,
 .base-form textarea {
+  width: clamp(calc(var(--u2) * 25), 100%, 100%);
   width: 100%;
 }
 
@@ -331,32 +351,40 @@ td .sub-action-holder {
   justify-content: flex-end;
   gap: var(--u2);
   position: sticky;
-  bottom: 0;
+  bottom: var(--u2);
   width: 100%;
-  border-top: var(--border-primary);
-  background: var(--white);
   margin-top: var(--u);
   padding: var(--u) var(--u2);
+}
 
-  button {
-    padding: var(--u);
-    border-radius: var(--u2);
-    font-weight: 600;
-    color: var(--white);
-    box-shadow: var(--shadow-gray);
-  }
+.form-btn-holder .submit-btn {
+  background-image: linear-gradient(to right, var(--complementary) 49%, var(--complementary3) 51%);
+  box-shadow: var(--shadow-gray-dark);
+}
 
-  .submit-btn {
-    background: var(--complementary);
-    box-shadow: var(--shadow-complementary-dark);
-  }
-  .cancel-btn {
-    background: var(--primary);
-  }
-  .reset-btn {
-    background: var(--white);
-    color: var(--gray4);
-  }
+.form-btn-holder .cancel-btn {
+  background-image: linear-gradient(to right, var(--primary) 50%, var(--primary3) 50%);
+}
+
+.form-btn-holder .reset-btn {
+  background-image: linear-gradient(to right, var(--gray3) 50%, var(--gray4) 50%);
+}
+
+.form-btn-holder button {
+  padding: var(--u);
+  border-radius: var(--u2);
+  font-weight: 600;
+  color: var(--white);
+  box-shadow: var(--shadow-gray);
+  background-position: left center;
+  background-size: 200% 200%;
+  transition: background-position 0.3s ease;
+  cursor: pointer;
+}
+
+.form-btn-holder button:hover,
+.form-btn-holder button:focus {
+  background-position: right center;
 }
 
 .message-parent {
