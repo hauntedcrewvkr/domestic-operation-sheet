@@ -573,6 +573,7 @@ form > fieldset {
   margin: 0 5px;
   background-color: var(--primary);
   border-radius: 5px;
+  will-change: height;
   animation: loading-wave-animation 1s ease-in-out infinite;
 }
 
