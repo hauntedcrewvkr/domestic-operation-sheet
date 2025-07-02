@@ -584,7 +584,7 @@ form > fieldset {
   background: url('https://i.postimg.cc/wvcKYkJx/loading-bar.png');
   background-position: center bottom;
   background-repeat: no-repeat;
-  background-size: 20px 80%;
+  background-size: 100% 80%;
   animation: loading-wave-animation 1s ease-in-out infinite;
   transform-origin: bottom;
   will-change: transform;
