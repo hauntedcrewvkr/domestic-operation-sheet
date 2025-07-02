@@ -571,12 +571,10 @@ form > fieldset {
 .bar-holder {
   width: 20px;
   height: 50px;
-  overflow-y: scroll;
-  overflow-x: hidden;
+  overflow: hidden;
   border-radius: 5px;
   display: flex;
   align-items: flex-end;
-  /* background: var(--primary); */
 }
 
 .loading-bar {
