@@ -617,7 +617,7 @@ const app = {
   favicon: fx.$('favicon').innerHTML,
   title: document.title,
   currentView: 'Orders',
-  table: { tbody: undefined, pagination: { rpp: 50, totalPages: undefined } },
+  table: { tbody: undefined, pagination: { rpp: 50, totalPages: undefined, currentPage: 1 } },
   cta: {},
 
   icon: {
@@ -784,6 +784,7 @@ const app = {
                   id: 'entries-per-page',
                   name: 'entries-per-page',
                   title: 'Entries Per Page',
+                  onchange: 'changeRPP(event)',
                 },
                 sub: [
                   {
@@ -830,12 +831,14 @@ const app = {
                 tag: 'i',
                 attr: {
                   class: 'ph ph-caret-double-left',
+                  onclick: 'firstPage(event)',
                 },
               },
               {
                 tag: 'i',
                 attr: {
                   class: 'ph ph-caret-left',
+                  onclick: 'prevPage(event)',
                 },
               },
               {
@@ -848,6 +851,7 @@ const app = {
                       type: 'number',
                       class: 'page-input',
                       value: 1,
+                      onchange: 'changePage(event)',
                     },
                   },
                   {
@@ -865,12 +869,14 @@ const app = {
                 tag: 'i',
                 attr: {
                   class: 'ph ph-caret-right',
+                  onclick: 'nextPage(event)',
                 },
               },
               {
                 tag: 'i',
                 attr: {
                   class: 'ph ph-caret-double-right',
+                  onclick: 'lastPage(event)',
                 },
               },
             ],

@@ -9,6 +9,34 @@ function viewRouter(e) {
   setTableRows();
 }
 
+function changeRPP(e) {
+  app.table.pagination.rpp = fx.num(e.currentTarget.value);
+  getTableRows();
+}
+
+function prevPage(e) {
+  getTableRows(Math.max(app.table.pagination.currentPage - 1, 1));
+}
+
+function changePage(e) {
+  const pagenum = fx.num(e.currentTarget.value);
+  if (pagenum >= 1 && pagenum <= app.table.pagination.totalPages) getTableRows(pagenum);
+}
+
+function nextPage(e) {
+  const pagenum = fx.num(e.currentTarget.value);
+  if (pagenum > 1 && pagenum < app.table.pagination.totalPages) getTableRows(pagenum);
+}
+
+function lastPage(e) {
+  if (app.table.pagination.currentPage == app.table.pagination.totalPages) return;
+  getTableRows(app.table.pagination.totalPages);
+}
+
+function firstPage(e) {
+  getTableRows(1);
+}
+
 function addNewOrder(e) {
   const extraViews = fx.$('.extra-views');
 

@@ -181,6 +181,7 @@ function setTableRows(page = 1) {
   totalPagesInput.value = totalPages;
   currentPageInput.value = page;
   currentView.title = app.currentView;
+  app.table.pagination.currentPage = page;
 
   if (data.length < 1) notify({ message: 'Nothing to show', type: 'warn' });
 
@@ -191,7 +192,7 @@ function setTableRows(page = 1) {
 
   while (start < end) {
     const tr = schema2el({ tag: 'tr', attr: { class: 'table-row', onclick: 'seeDetails(event)', rowNum: start + 2 } });
-    tr.append(schema2el({ tag: 'td', attr: { class: 'sub-action-td' }, sub: [{ tag: 'div', attr: { class: 'tr-actions', actionname: 'Sub Action' }, sub: [{ tag: 'span', attr: { class: 'icon-span' }, sub: [{ tag: 'i', attr: { class: 'ph ph-corners-out' } }] }], func: [setAction] }] }));
+    tr.append(schema2el({ tag: 'td', attr: { class: 'sub-action-td' }, sub: [{ tag: 'div', attr: { class: 'tr-actions', actionname: 'Sub Action' }, sub: [{ tag: 'span', attr: { class: 'icon-span' }, sub: [{ tag: 'i', attr: { class: 'ph ph-corners-out' } }] }] }] }));
 
     for (const [group, columns] of Object.entries(gsheet.columnGroup)) {
       const td = schema2el({ tag: 'td', sub: [{ tag: 'div', attr: { headname: group } }] });
