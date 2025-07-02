@@ -117,6 +117,8 @@ async function addLoader(name = 'main') {
 //-------------------------------------------<( remove-loader-async-function()>-
 async function removeLoader() {
   const loaderDiv = fx.$('.loader-div');
+
+  fx.removeInnerHTML(loaderDiv);
   loaderDiv.remove();
 }
 
