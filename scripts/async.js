@@ -54,7 +54,7 @@ async function start() {
   }
 
   try {
-    // setTimeout(async () => await removeLoader(), 3000);
+    setTimeout(async () => await removeLoader(), 1000);
   } catch (error) {
     console.log(`Error Occurred: ${error}`);
   }
