@@ -435,29 +435,25 @@ function markResolved(e) {
 }
 
 function download() {
-  const currentView = fx.$(`.current-view`);
-  let csvString = ``;
-  let viewname = currentView.title.split(` (`)[0];
-
-  if (viewname == `Orders`) viewname = `Master`;
-
-  const data = sheet[tool.name][viewname].jsonData;
+  const data = gsheet.domesticOperationSheet[app.currentView].data;
   if (!Array.isArray(data) || data.length === 0) return ``;
 
-  const userEmail = user.email;
-  const accessList = sheet.Database.column_access.jsonData;
+  let csvString = ``;
+
+  const userEmail = app.user.props.email;
+  const accessList = gsheet.database['Column Access'].data;
   const accessibleColumns = new Set();
 
   for (const row of accessList) {
-    if (row.tool_name === tool.name && row.access?.includes(userEmail)) {
-      accessibleColumns.add(row.column_name);
+    if (row.viewers.value?.includes(userEmail)) {
+      accessibleColumns.add(row.column_name.value);
     }
   }
 
   const headers = Object.keys(data[0]).filter((col) => accessibleColumns.has(col));
   csvString += headers.join(',') + '\n';
 
-  const rows = data.map((row) => headers.map((h) => `"${(row[h] ?? '').toString().replace(/"/g, '""')}"`).join(','));
+  const rows = data.map((row) => headers.map((h) => `"${(row[h].value ?? '').toString().replace(/"/g, '""')}"`).join(','));
 
   csvString += rows.join('\n') + '\n';
 
@@ -465,7 +461,7 @@ function download() {
   const link = document.createElement(`a`);
 
   link.href = URL.createObjectURL(blob);
-  link.download = `${currentView.innerHTML}.csv`;
+  link.download = `${app.currentView}.csv`;
   link.click();
   link.remove();
 }
