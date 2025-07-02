@@ -163,11 +163,41 @@ const fx = {
       .replace(/^[a-z]/, (match) => match.toUpperCase());
   },
 
-  convertDate({ date, format = 'dd-mm-yyyy' }) {
-    const delimiters = format[format.indexOf('dd') + 1];
-    const options = { year: `numeric`, month: '2-digit', day: '2-digit' };
-    const formattedDate = new Intl.DateTimeFormat('en-US', options).format(new Date(date));
-    return formattedDate;
+  formatDate({ dateText, currentFormat, desiredFormat, isDefault = true, padding = true }) {
+    const pad = (n) => (padding ? `${n}`.padStart(2, '0') : `${n}`);
+    const map = {};
+
+    const dateObj = isDefault
+      ? new Date(dateText)
+      : (() => {
+          const parts = currentFormat.split(/[^A-Za-z]/);
+          const values = dateText.split(/[^0-9]/).map(Number);
+
+          for (let i = 0; i < parts.length; i++) {
+            if (parts[i] === 'DD') map.DD = values[i];
+            else if (parts[i] === 'MM') map.MM = values[i] - 1;
+            else if (parts[i] === 'YYYY') map.YYYY = values[i];
+          }
+
+          return new Date(map.YYYY, map.MM, map.DD);
+        })();
+
+    const finalMap = {
+      DD: pad(dateObj.getDate()),
+      MM: pad(dateObj.getMonth() + 1),
+      YYYY: dateObj.getFullYear(),
+    };
+
+    return desiredFormat.replace(/DD|MM|YYYY/g, (m) => finalMap[m]);
+  },
+
+  getDate({ prev = true, days }) {
+    if (typeof days !== 'number') days = fx.num(days) || 0;
+
+    let date = new Date();
+    date.setDate(prev ? date.getDate() - days : date.getDate() + days);
+
+    return date;
   },
 };
 
@@ -206,7 +236,7 @@ const gsheet = {
 
     'Order Date': {
       view: { access: false, schema: { tag: 'span', attr: { title: 'Order Date' } } },
-      edit: { access: false, schema: { tag: 'input', attr: { type: 'date', required: true, name: 'Order Date' } } },
+      edit: { access: false, schema: { tag: 'input', attr: { type: 'date', required: true, name: 'Order Date', value: fx.formatDate({ dateText: fx.getDate({ days: 1 }), desiredFormat: 'YYYY-MM-DD' }) } } },
     },
 
     'Order ID': {
