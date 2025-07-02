@@ -11,30 +11,30 @@ function viewRouter(e) {
 
 function changeRPP(e) {
   app.table.pagination.rpp = fx.num(e.currentTarget.value);
-  getTableRows();
+  setTableRows();
 }
 
 function prevPage(e) {
-  getTableRows(Math.max(app.table.pagination.currentPage - 1, 1));
+  setTableRows(Math.max(app.table.pagination.currentPage - 1, 1));
 }
 
 function changePage(e) {
   const pagenum = fx.num(e.currentTarget.value);
-  if (pagenum >= 1 && pagenum <= app.table.pagination.totalPages) getTableRows(pagenum);
+  if (pagenum >= 1 && pagenum <= app.table.pagination.totalPages) setTableRows(pagenum);
 }
 
 function nextPage(e) {
   const pagenum = fx.num(e.currentTarget.value);
-  if (pagenum > 1 && pagenum < app.table.pagination.totalPages) getTableRows(pagenum);
+  if (pagenum > 1 && pagenum < app.table.pagination.totalPages) setTableRows(pagenum);
 }
 
 function lastPage(e) {
   if (app.table.pagination.currentPage == app.table.pagination.totalPages) return;
-  getTableRows(app.table.pagination.totalPages);
+  setTableRows(app.table.pagination.totalPages);
 }
 
 function firstPage(e) {
-  getTableRows(1);
+  setTableRows(1);
 }
 
 function addNewOrder(e) {
