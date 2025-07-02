@@ -246,12 +246,12 @@ const gsheet = {
 
     'POC': {
       view: { access: false, schema: { tag: 'span', attr: { title: 'POC' } } },
-      edit: { access: false, schema: { tag: 'input', attr: { type: 'text', list: 'poc', required: true, name: 'POC', autocomplete: 'on' } } },
+      edit: { access: false, schema: { tag: 'input', attr: { type: 'text', list: 'poc', required: true, name: 'POC', autocomplete: 'on', placeholder: 'Select POC from Dropdown' } } },
     },
 
     'Client Name': {
       view: { access: false, schema: { tag: 'span', attr: { title: 'Client Name' } } },
-      edit: { access: false, schema: { tag: 'input', attr: { type: 'text', required: true, name: 'Client Name' } } },
+      edit: { access: false, schema: { tag: 'input', attr: { type: 'text', required: true, name: 'Client Name', placeholder: 'Type Client Name' } } },
     },
 
     'Contact Number': {
