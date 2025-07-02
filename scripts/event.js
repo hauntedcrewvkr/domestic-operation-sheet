@@ -15,12 +15,9 @@ function addNewOrder(e) {
   extraViews.append(schema2el(app.schema.forms.addNewOrderForm));
 }
 function createOrder(e) {}
-function download(e) {}
 function myOrders(e) {}
 function filter(e) {}
 function changeAccount(e) {}
-function changeAccount(e) {}
-function sync(e) {}
 function raiseIssue(e) {}
 function seeFollowups(e) {}
 function changeDispatchStatus(e) {}
@@ -52,7 +49,7 @@ function changeCompany(e) {}
 function changeEmail(e) {}
 
 //------------------------- sync-data-event-listener
-function syncData(e) {
+function sync(e) {
   location.reload();
 }
 
