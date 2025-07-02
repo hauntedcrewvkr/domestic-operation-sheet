@@ -1079,47 +1079,33 @@ const app = {
     loader: {
       main: {
         tag: 'div',
-        attr: {
-          class: 'loader-div',
-        },
+        attr: { class: 'loader-div' },
         sub: [
           {
             tag: 'div',
-            attr: {
-              class: 'loading-wave',
-            },
+            attr: { class: 'loading-wave' },
             sub: [
               {
                 tag: 'div',
-                attr: {
-                  class: 'loading-bar',
-                },
+                attr: { class: 'loading-bar' },
               },
               {
                 tag: 'div',
-                attr: {
-                  class: 'loading-bar',
-                },
+                attr: { class: 'loading-bar' },
               },
               {
                 tag: 'div',
-                attr: {
-                  class: 'loading-bar',
-                },
+                attr: { class: 'loading-bar' },
               },
               {
                 tag: 'div',
-                attr: {
-                  class: 'loading-bar',
-                },
+                attr: { class: 'loading-bar' },
               },
             ],
           },
           {
             tag: 'div',
-            attr: {
-              class: 'progress-bar',
-            },
+            attr: { class: 'progress-bar' },
           },
         ],
       },

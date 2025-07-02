@@ -51,6 +51,7 @@
   --u: 6px;
   --u2: 12px;
   --border-radius: var(--u2);
+  --progress-width: 1%;
 }
 
 /*.::::::::::::::::::::::::::::::::::::::::::::::::::::::: gloabal properties */
