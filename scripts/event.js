@@ -441,6 +441,7 @@ function download() {
   let csvString = ``;
 
   const userEmail = app.user.props.email;
+  console.log(gsheet);
   const accessList = gsheet.database.columnAccess.data;
   const accessibleColumns = new Set();
 
