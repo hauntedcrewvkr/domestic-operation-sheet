@@ -90,7 +90,6 @@ async function setFilterViews(data) {
       if (!gsheet.domesticOperationSheet[view]) gsheet.domesticOperationSheet[view] = {};
       if (!gsheet.domesticOperationSheet[view].data) gsheet.domesticOperationSheet[view].data = [];
 
-      if (json.ID.value == 'ORDR-1748112676') console.log([json, gsheet.filters[view], filterCheck({ json: json, filter: gsheet.filters[view] }), view]);
       if (filterCheck({ json: json, filter: gsheet.filters[view] })) {
         gsheet.domesticOperationSheet[view].data.push(json);
       }
