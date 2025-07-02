@@ -49,6 +49,12 @@ function addNewOrder(e) {
 
   extraViews.append(schema2el(app.schema.forms.addNewOrderForm));
 }
+
+//---------------------------------------------<( cancel-form-event-function()>-
+function cancelForm(e) {
+  e.currentTarget.closest('form').remove();
+}
+
 function createOrder(e) {}
 function myOrders(e) {}
 function filter(e) {}

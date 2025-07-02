@@ -1021,7 +1021,7 @@ const app = {
             tag: 'div', attr: { class: 'form-btn-holder' },
             sub: [
               {tag: 'button', text: 'SUBMIT', attr: {class: 'submit-btn', type: 'submit'}},
-              {tag: 'button', text: 'CANCEL' , attr: {class: 'cancel-btn', type: 'button'}},
+              {tag: 'button', text: 'CANCEL' , attr: {class: 'cancel-btn', type: 'button', onclick: 'cancelForm(event)'}},
               {tag: 'button', text: 'RESET' , attr: {class: 'reset-btn', type: 'reset'}},
             ]
           }
