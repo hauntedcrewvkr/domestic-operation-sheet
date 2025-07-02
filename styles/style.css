@@ -574,7 +574,7 @@ form > fieldset {
 .dot-2,
 .dot-3 {
   position: absolute;
-  background: #fff;
+  background: var(--white);
   border-radius: 50%;
   transform-origin: center center;
   will-change: transform, opacity;
@@ -620,7 +620,7 @@ form > fieldset {
   right: 0;
   bottom: 0;
   border-radius: 50%;
-  box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);
+  box-shadow: 10px 10px 15px var(--gray4);
   opacity: 0.2;
   pointer-events: none;
   z-index: -1;
