@@ -570,7 +570,7 @@ form > fieldset {
 
 .bar-holder {
   width: 20px;
-  max-height: 50px; /* set this as max scaleY height */
+  height: fit-content;
   overflow-x: hidden;
   border-radius: 5px;
   display: flex;
