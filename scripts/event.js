@@ -6,7 +6,7 @@ function viewRouter(e) {
   if (!title || title === undefined) return;
   app.currentView = title;
 
-  setTableRows(fx.$('.table-body'), { rpp: Number(fx.$('#entries-per-page').value) });
+  setTableRows();
 }
 
 function addNewOrder(e) {
