@@ -743,7 +743,6 @@ const app = {
                     attr: {
                       class: 'table-body',
                     },
-                    func: [setTableRows],
                   },
                 ],
               },

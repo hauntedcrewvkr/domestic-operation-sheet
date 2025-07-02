@@ -118,8 +118,10 @@ async function createDocument() {
     schema2el(app.schema.body.header),
     schema2el(app.schema.body.nav),
     schema2el(app.schema.body.main),
-    schema2el(app.schema.body.footer)
+    schema2el(app.schema.body.footer),
   );
+
+  setTableRows();
 }
 
 //-------------------------------------------------<( set-itl-async-function()>-
