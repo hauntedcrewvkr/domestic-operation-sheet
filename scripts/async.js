@@ -48,6 +48,7 @@ async function start() {
 
   try {
     setInterval(setMasterData, 300000);
+    changeLoaderProgress(100);
   } catch (error) {
     console.log(`Error Occurred: ${error}`);
   }
@@ -69,6 +70,8 @@ async function setColumnAccess() {
     json.viewers.value.includes(app.user.props.email) && (columnProps[json.column_name.value].view.access = true);
     json.editors.value.includes(app.user.props.email) && (columnProps[json.column_name.value].edit.access = true);
   }
+
+  changeLoaderProgress(62);
 }
 
 //-----------------------------------------<( set-master-data-async-function()>-
@@ -79,6 +82,7 @@ async function setMasterData() {
   gsheet.domesticOperationSheet.Master.headers ??= data.header;
 
   await setFilterViews(data.data.reverse());
+  changeLoaderProgress(75);
 }
 
 //-----------------------------------------<( set-filter-data-async-function()>-
@@ -122,6 +126,7 @@ async function createDocument() {
   );
 
   setTableRows();
+  changeLoaderProgress(87);
 }
 
 //-------------------------------------------------<( set-itl-async-function()>-
@@ -136,6 +141,8 @@ async function setItl() {
     itl.company[orderType].pickupAddressId ??= row.pickup_address_id.value;
     itl.company[orderType].returnAddressId ??= row.return_address_id.value;
   }
+
+  changeLoaderProgress(25);
 }
 
 //---------------------------------------<( set-action-access-async-function )>-
@@ -176,6 +183,8 @@ async function setActionAccess() {
   if (parentSchema && currentType) {
     app.cta[currentType] ??= schema2el(parentSchema);
   }
+
+  changeLoaderProgress(50);
 }
 
 //---------------------------------------<( set-spreadsheets-async-function()>-
@@ -190,6 +199,8 @@ async function setSpreadsheets() {
 
   gsheet.database.spreadsheets ??= {};
   gsheet.database.spreadsheets.data ??= data;
+
+  changeLoaderProgress(12);
 }
 
 //-----------------------------------------------<( set-props-async-function()>-
@@ -207,6 +218,8 @@ async function setProps() {
       }
     }
   }
+
+  changeLoaderProgress(37);
 }
 
 //----------------------------------------<( create-dropdown-helper-function()>-
