@@ -1089,27 +1089,16 @@ const app = {
         sub: [
           {
             tag: 'div',
-            attr: { class: 'loading-wave' },
+            attr: { class: 'frame' },
             sub: [
               {
                 tag: 'div',
-                attr: { class: 'bar-holder' },
-                sub: [{ tag: 'div', attr: { class: 'loading-bar' } }],
-              },
-              {
-                tag: 'div',
-                attr: { class: 'bar-holder' },
-                sub: [{ tag: 'div', attr: { class: 'loading-bar' } }],
-              },
-              {
-                tag: 'div',
-                attr: { class: 'bar-holder' },
-                sub: [{ tag: 'div', attr: { class: 'loading-bar' } }],
-              },
-              {
-                tag: 'div',
-                attr: { class: 'bar-holder' },
-                sub: [{ tag: 'div', attr: { class: 'loading-bar' } }],
+                attr: { class: 'center' },
+                sub: [
+                  { tag: 'div', attr: { class: 'dot-1' } },
+                  { tag: 'div', attr: { class: 'dot-2' } },
+                  { tag: 'div', attr: { class: 'dot-3' } },
+                ],
               },
             ],
           },

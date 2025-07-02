@@ -559,45 +559,100 @@ form > fieldset {
   gap: var(--u2);
 }
 
-.loading-wave {
-  width: 300px;
-  height: 100px;
-  display: flex;
-  justify-content: center;
-  align-items: flex-end;
-  gap: 5px;
+.frame {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 220px;
+  height: 220px;
+  transform: translate(-50%, -50%);
 }
 
-.bar-holder {
-  width: 20px;
-  height: 50px;
-  overflow: hidden;
-  border-radius: 5px;
-  display: flex;
-  align-items: flex-end;
-}
-
-.loading-bar {
+.center {
+  position: relative;
   width: 100%;
-  height: 10px;
-  background: url('https://i.postimg.cc/wvcKYkJx/loading-bar.png');
-  background-position: bottom center;
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
-  transform-origin: bottom;
-  will-change: transform, border-radius;
-  animation: loading-wave-animation 1s ease-in-out infinite;
+  height: 100%;
 }
 
-.bar-holder:nth-child(2) .loading-bar {
+.dot-1,
+.dot-2,
+.dot-3 {
+  position: absolute;
+  background: #fff;
+  border-radius: 50%;
+  transform-origin: center center;
+  will-change: transform, opacity;
+}
+
+.dot-1 {
+  width: 30px;
+  height: 30px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+  animation: jump-scale-1 2s cubic-bezier(0.21, 0.98, 0.6, 0.99) infinite alternate;
+}
+
+.dot-2 {
+  width: 60px;
+  height: 60px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  animation: jump-scale-2 2s cubic-bezier(0.21, 0.98, 0.6, 0.99) infinite alternate;
+}
+
+.dot-3 {
+  width: 90px;
+  height: 90px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  animation: jump-scale-3 2s cubic-bezier(0.21, 0.98, 0.6, 0.99) infinite alternate;
+}
+
+.dot-1::before,
+.dot-2::before,
+.dot-3::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 50%;
+  box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.3);
+  opacity: 0.2;
+  pointer-events: none;
+  z-index: -1;
+  will-change: opacity;
+  animation-timing-function: cubic-bezier(0.21, 0.98, 0.6, 0.99);
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+}
+
+.dot-1::before {
+  animation-name: shadow-fade-1;
+  animation-duration: 2s;
+  animation-delay: 0s;
+}
+
+.dot-2::before {
+  animation-name: shadow-fade-2;
+  animation-duration: 2s;
   animation-delay: 0.1s;
 }
-.bar-holder:nth-child(3) .loading-bar {
+
+.dot-3::before {
+  animation-name: shadow-fade-3;
+  animation-duration: 2s;
   animation-delay: 0.2s;
 }
-.bar-holder:nth-child(4) .loading-bar {
-  animation-delay: 0.3s;
-}
+
+/* -------------------------------------------------------------------------- */
 
 .progress-bar {
   width: 300px;

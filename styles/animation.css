@@ -1,34 +1,65 @@
-@keyframes loading-wave-animation {
+/*.:::::::::::::::::::::::::::::::::::::::::::::::::::::::: loader-animations */
+@keyframes jump-scale-1 {
   0%,
+  70% {
+    transform: translate(-50%, -50%) scale(0);
+  }
   100% {
-    transform: scaleY(1);
-    border-radius: 5px;
-  }
-  50% {
-    transform: scaleY(5);
-    border-radius: 5px;
+    transform: translate(-50%, -50%) scale(1);
   }
 }
 
-@keyframes loading {
-  0% {
-    top: -15px;
-    left: -15px;
+@keyframes jump-scale-2 {
+  0%,
+  40% {
+    transform: translate(-50%, -50%) scale(0);
   }
-  25% {
-    top: -15px;
-    left: 140px;
-  }
-  50% {
-    top: 30px;
-    left: 140px;
-  }
-  75% {
-    top: 30px;
-    left: -15px;
+  100% {
+    transform: translate(-50%, -50%) scale(1);
   }
 }
 
+@keyframes jump-scale-3 {
+  0%,
+  10% {
+    transform: translate(-50%, -50%) scale(0);
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+@keyframes shadow-fade-1 {
+  0%,
+  70% {
+    opacity: 0.2;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes shadow-fade-2 {
+  0%,
+  40% {
+    opacity: 0.2;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes shadow-fade-3 {
+  0%,
+  10% {
+    opacity: 0.2;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/*.:::::::::::::::::::::::::::::::::::::::::::::::::::::::: notify-animations */
 @keyframes show_slide {
   from {
     transform: translateX(100%);
@@ -51,6 +82,7 @@
   }
 }
 
+/*.:::::::::::::::::::::::::::::::::::::::::::::::: shimmer-effect-animations */
 @keyframes shimmer {
   0% {
     background-position: -200% 0;
