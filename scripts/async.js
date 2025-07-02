@@ -77,8 +77,8 @@ async function setMasterData() {
 
   gsheet.domesticOperationSheet.Master ??= {};
   gsheet.domesticOperationSheet.Master.headers ??= data.header;
-  console.log(gsheet.domesticOperationSheet.Master.headers);
-  await setFilterViews(data.data);
+
+  await setFilterViews(data.data.reverse());
 }
 
 //-----------------------------------------<( set-filter-data-async-function()>-
