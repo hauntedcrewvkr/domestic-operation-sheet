@@ -176,8 +176,7 @@ function setTableRows(page = 1) {
   const footer = fx.$('footer');
   const totalPagesInput = fx.$('.total-pages', footer);
   const currentPageInput = fx.$('.page-input', footer);
-  const currentView = fx.$('.currentView', footer);
-  console.log(currentView);
+  const currentView = fx.$('.current-view', footer);
 
   totalPagesInput.value = totalPages;
   currentPageInput.value = page;
