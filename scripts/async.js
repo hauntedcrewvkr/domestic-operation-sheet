@@ -92,7 +92,7 @@ async function setFilterViews(data) {
   for (const json of data) {
     for (const view of views) {
       if (!gsheet.domesticOperationSheet[view]) gsheet.domesticOperationSheet[view] = {};
-      if (!gsheet.domesticOperationSheet[view].data) gsheet.domesticOperationSheet[view].data = [];
+      gsheet.domesticOperationSheet[view].data = [];
 
       if (filterCheck({ json: json, filter: gsheet.filters[view] })) {
         gsheet.domesticOperationSheet[view].data.push(json);

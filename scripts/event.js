@@ -1,4 +1,4 @@
-//-------------------------------------------<( view-router-event-function )>-
+//---------------------------------------------<( view-router-event-function()>-
 function viewRouter(e) {
   const clickedElement = e.currentTarget;
   const title = clickedElement.getAttribute('title');
@@ -9,34 +9,41 @@ function viewRouter(e) {
   setTableRows();
 }
 
+//-------------------------------------<( change-row-per-page-event-function()>-
 function changeRPP(e) {
   app.table.pagination.rpp = fx.num(e.currentTarget.value);
   setTableRows(app.table.pagination.currentPage);
 }
 
+//-----------------------------------------------<( prev-page-event-function()>-
 function prevPage(e) {
   setTableRows(Math.max(app.table.pagination.currentPage - 1, 1));
 }
 
+//---------------------------------------------<( change-page-event-function()>-
 function changePage(e) {
   const pagenum = fx.num(e.currentTarget.value);
   console.log(pagenum);
   if (pagenum >= 1 && pagenum <= app.table.pagination.totalPages) setTableRows(pagenum);
 }
 
+//-----------------------------------------------<( next-page-event-function()>-
 function nextPage(e) {
   if (app.table.pagination.currentPage < app.table.pagination.totalPages) setTableRows(app.table.pagination.currentPage + 1);
 }
 
+//-----------------------------------------------<( last-page-event-function()>-
 function lastPage(e) {
   if (app.table.pagination.currentPage == app.table.pagination.totalPages) return;
   setTableRows(app.table.pagination.totalPages);
 }
 
+//----------------------------------------------<( first-page-event-function()>-
 function firstPage(e) {
   setTableRows(1);
 }
 
+//-------------------------------------------<( add-new-order-event-function()>-
 function addNewOrder(e) {
   const extraViews = fx.$('.extra-views');
 
