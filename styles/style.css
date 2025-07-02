@@ -571,20 +571,19 @@ form > fieldset {
 .bar-holder {
   width: 20px;
   height: 50px; /* set this as max scaleY height */
-  overflow-x: none;
+  overflow-x: hidden;
   border-radius: 5px;
   display: flex;
   align-items: flex-end;
 }
 
 .loading-bar {
-  width: 20px;
+  width: 50px;
   height: 10px;
   background-color: var(--primary);
   will-change: transform;
   animation: loading-wave-animation 1s ease-in-out infinite;
   transform-origin: bottom;
-  border-radius: 5px;
 }
 
 .loading-bar:nth-child(2) {
