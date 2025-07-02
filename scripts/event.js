@@ -50,7 +50,7 @@ function changeEmail(e) {}
 
 //------------------------- sync-data-event-listener
 function sync(e) {
-  location.reload(true);
+  location.replace(location.href);
 }
 
 //------------------------- see-details-event-listener
