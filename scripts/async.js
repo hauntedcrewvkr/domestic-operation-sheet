@@ -88,16 +88,21 @@ async function setMasterData() {
 //-----------------------------------------<( set-filter-data-async-function()>-
 async function setFilterViews(data) {
   const views = Object.keys(gsheet.filters);
+  const viewMap = {};
 
   for (const json of data) {
     for (const view of views) {
-      if (!gsheet.domesticOperationSheet[view]) gsheet.domesticOperationSheet[view] = {};
-      gsheet.domesticOperationSheet[view].data = [];
-
-      if (filterCheck({ json: json, filter: gsheet.filters[view] })) {
-        gsheet.domesticOperationSheet[view].data.push(json);
+      if (filterCheck({ json, filter: gsheet.filters[view] })) {
+        (viewMap[view] ??= []).push(json);
       }
     }
+  }
+
+  for (const view of views) {
+    gsheet.domesticOperationSheet[view] = {
+      ...(gsheet.domesticOperationSheet[view] || {}),
+      data: viewMap[view] || [],
+    };
   }
 }
 
