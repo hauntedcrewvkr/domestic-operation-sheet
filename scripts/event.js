@@ -52,6 +52,7 @@ function addNewOrder(e) {
 
 //---------------------------------------------<( cancel-form-event-function()>-
 function cancelForm(e) {
+  console.log(e.currentTarget.closest('form'));
   e.currentTarget.closest('form').remove();
 }
 
