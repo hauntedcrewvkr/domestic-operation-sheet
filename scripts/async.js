@@ -75,7 +75,6 @@ async function setColumnAccess() {
 async function setMasterData() {
   const data = await gviz.fetchGoogleSheetData(gviz.gvizUrl({ ssid: gsheet.domesticOperationSheet.ssid, sheet: 'Master' }));
 
-  console.log(data.data);
   gsheet.domesticOperationSheet.Master ??= {};
   gsheet.domesticOperationSheet.Master.headers ??= data.header;
 
@@ -91,6 +90,7 @@ async function setFilterViews(data) {
       if (!gsheet.domesticOperationSheet[view]) gsheet.domesticOperationSheet[view] = {};
       if (!gsheet.domesticOperationSheet[view].data) gsheet.domesticOperationSheet[view].data = [];
 
+      console.log([json, gsheet.filters[view], filterCheck({ json: json, filter: gsheet.filters[view] })]);
       if (filterCheck({ json: json, filter: gsheet.filters[view] })) {
         gsheet.domesticOperationSheet[view].data.push(json);
       }
