@@ -179,13 +179,13 @@ function setTableRows(page = 1) {
   const currentView = fx.$('.currentView', footer);
 
   totalPagesInput.value = totalPages;
-  currentPageInput.value = props.page;
-  currentView.title = props.view;
+  currentPageInput.value = page;
+  currentView.title = app.currentView;
 
   if (data.length < 1) notify({ message: 'Nothing to show', type: 'warn' });
 
-  let start = props.page > 0 ? props.rpp * (props.page - 1) : 0;
-  let end = Math.min(start + props.rpp, data.length);
+  let start = page > 0 ? app.pagination.rpp * (page - 1) : 0;
+  let end = Math.min(start + app.pagination.rpp, data.length);
 
   fx.removeInnerHTML(element);
 
