@@ -1198,7 +1198,7 @@ const gviz = {
       const columns = tableRows[r].cells;
 
       for (let c = 0; c < columns.length; c++) {
-        const value = columns[c].textContent;
+        const value = columns[c].textContent || '';
 
         if (isFirstRow) {
           if (!value) continue;
