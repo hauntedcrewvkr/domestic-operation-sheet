@@ -565,15 +565,20 @@ form > fieldset {
   display: flex;
   justify-content: center;
   align-items: flex-end;
+  gap: 5px;
+}
+
+.bar-holder {
+  width: 20px;
+  overflow: hidden;
+  border-radius: 5px;
 }
 
 .loading-bar {
   width: 20px;
   height: 10px;
-  margin: 0 5px;
   background-color: var(--primary);
-  border-radius: 5px;
-  will-change: height;
+  will-change: transform;
   animation: loading-wave-animation 1s ease-in-out infinite;
 }
 

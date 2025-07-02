@@ -1093,19 +1093,23 @@ const app = {
             sub: [
               {
                 tag: 'div',
-                attr: { class: 'loading-bar' },
+                attr: { class: 'bar-holder' },
+                sub: [{ tag: 'div', attr: { class: 'loading-bar' } }],
               },
               {
                 tag: 'div',
-                attr: { class: 'loading-bar' },
+                attr: { class: 'bar-holder' },
+                sub: [{ tag: 'div', attr: { class: 'loading-bar' } }],
               },
               {
                 tag: 'div',
-                attr: { class: 'loading-bar' },
+                attr: { class: 'bar-holder' },
+                sub: [{ tag: 'div', attr: { class: 'loading-bar' } }],
               },
               {
                 tag: 'div',
-                attr: { class: 'loading-bar' },
+                attr: { class: 'bar-holder' },
+                sub: [{ tag: 'div', attr: { class: 'loading-bar' } }],
               },
             ],
           },
