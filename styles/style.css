@@ -560,9 +560,9 @@ form > fieldset {
 }
 
 .frame {
-  position: absolute;
-  top: 50%;
-  left: 50%;
+  /* position: relative; */
+  /* top: 50%; */
+  /* left: 50%; */
   width: 220px;
   height: 220px;
   transform: translate(-50%, -50%);
