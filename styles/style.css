@@ -584,7 +584,6 @@ form > fieldset {
   background-position: bottom center;
   background-repeat: no-repeat;
   background-size: 100% 100%;
-  border-radius: 5px;
   transform-origin: bottom;
   will-change: transform, border-radius;
   animation: loading-wave-animation 1s ease-in-out infinite;
