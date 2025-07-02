@@ -440,15 +440,10 @@ function download() {
 
   let csvString = ``;
 
-  const userEmail = app.user.props.email;
-  console.log(gsheet);
-  const accessList = gsheet.database.columnAccess.data;
   const accessibleColumns = new Set();
 
-  for (const row of accessList) {
-    if (row.viewers.value?.includes(userEmail)) {
-      accessibleColumns.add(row.column_name.value);
-    }
+  for (const [column, prop] of Object.entries(gsheet.columnProps)) {
+    if (prop.view.access) accessibleColumns.add(column);
   }
 
   const headers = Object.keys(data[0]).filter((col) => accessibleColumns.has(col));
