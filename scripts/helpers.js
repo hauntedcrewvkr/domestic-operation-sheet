@@ -217,3 +217,19 @@ function setTableRows(page = 1) {
     }
   }
 }
+
+//---------------------------------------------<( input-auth-helper-function()>-
+function inputAuth(inputNodes) {}
+
+//--------------------------------------------<( refine-form-helper-function()>-
+function refineForm(input) {
+  const value = input.value;
+
+  switch (input.type) {
+    case 'number':
+      return fx.num(value);
+
+    default:
+      return fx.str(value);
+  }
+}

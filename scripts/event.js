@@ -12,9 +12,15 @@ function viewRouter(e) {
 //---------------------------------------------<( form-router-event-function()>-
 function formRouter(e) {
   e.preventDefault();
+  const form = e.currentTarget;
 
+  console.log(typeof new FormData(e.currentTarget));
   const formData = Object.fromEntries(new FormData(e.currentTarget).entries());
-  console.log(formData);
+  // const
+  let readyToGo = true;
+
+  for (const [name, value] of Object.entries(formData)) {
+  }
 }
 
 function getBalanceAmount(e) {
