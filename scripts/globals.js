@@ -271,7 +271,7 @@ const gsheet = {
 
     'Total Amount (₹)': {
       view: { access: false, schema: { tag: 'span', attr: { title: 'Total Amount (₹)' } } },
-      edit: { access: false, schema: { tag: 'input', attr: { type: 'number', value: 0, required: true, name: 'Total Amount (₹)', onchange: 'getBalanceAmount(event)' } } },
+      edit: { access: false, schema: { tag: 'input', attr: { type: 'number', min: '1', value: 0, required: true, name: 'Total Amount (₹)', onchange: 'getBalanceAmount(event)' } } },
     },
 
     'Prepaid Amount (₹)': {
@@ -281,7 +281,7 @@ const gsheet = {
 
     'Balance Amount (₹)': {
       view: { access: false, schema: { tag: 'span', attr: { title: 'Balance Amount (₹)' } } },
-      edit: { access: false, schema: { tag: 'input', attr: { type: 'number', value: 0, required: true, name: 'Balance Amount (₹)', disabled: true } } },
+      edit: { access: false, schema: { tag: 'input', attr: { type: 'number', min: 0, value: 0, required: true, name: 'Balance Amount (₹)', disabled: true } } },
     },
 
     'Remittance Amount (₹)': {
@@ -316,12 +316,12 @@ const gsheet = {
 
     'Address Line 1': {
       view: { access: false, schema: { tag: 'span', attr: { title: 'Address Line 1' } } },
-      edit: { access: false, schema: { tag: 'textarea', attr: { placeholder: 'Address Line 1....', name: 'Address Line 1' } } },
+      edit: { access: false, schema: { tag: 'textarea', attr: { placeholder: 'Address Line 1....', name: 'Address Line 1', maxlength: '100' } } },
     },
 
     'Address Line 2': {
       view: { access: false, schema: { tag: 'span', attr: { title: 'Address Line 2' } } },
-      edit: { access: false, schema: { tag: 'textarea', attr: { placeholder: 'Address Line 2....', name: 'Address Line 2' } } },
+      edit: { access: false, schema: { tag: 'textarea', attr: { placeholder: 'Address Line 2....', name: 'Address Line 2', maxlength: '100' } } },
     },
 
     'State': {
