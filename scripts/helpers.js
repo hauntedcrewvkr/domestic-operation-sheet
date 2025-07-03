@@ -156,7 +156,7 @@ function setTableHeaders(element) {
               tag: 'div',
               attr: { class: 'th-holder' },
               sub: [
-                { tag: 'span', attr: { class: 'icon-span' }, sub: [{ tag: 'i', attr: { class: 'ph ph-sort-ascending' } }] },
+                { tag: 'span', attr: { class: 'icon-span' }, sub: [{ tag: 'i', attr: { class: 'ph ph-arrows-in-line-horizontal' } }] },
                 { tag: 'span', text: group },
               ],
             },
