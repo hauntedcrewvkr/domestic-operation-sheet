@@ -186,6 +186,11 @@
   align-items: center;
   position: relative;
   gap: var(--u);
+
+  .span {
+    box-shadow: none;
+    font-weight: 600;
+  }
 }
 
 .th-holder input {
@@ -202,9 +207,6 @@
   left: 0;
   box-shadow: var(--box-shadow);
   margin-left: 12px;
-}
-
-tbody {
 }
 
 tbody tr {
