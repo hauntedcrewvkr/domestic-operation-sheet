@@ -13,13 +13,30 @@ function viewRouter(e) {
 function formRouter(e) {
   e.preventDefault();
   const form = e.currentTarget;
+  const formData = new FormData(form);
+  const dropdowns = fx.$$('[list]', form);
+  const options = [];
 
-  console.log(typeof new FormData(e.currentTarget));
-  const formData = Object.fromEntries(new FormData(e.currentTarget).entries());
-  // const
+  dropdowns.forEach(function (dropdown) {
+    let temp = {};
+    temp[dropdown.getAttribute('list')] = fx.$$(dropdown.id, form);
+
+    options.push(temp);
+  });
+  console.log(options);
   let readyToGo = true;
 
-  for (const [name, value] of Object.entries(formData)) {
+  for (const name in formData) {
+    if (gsheet.columnProps[name].edit.schema.attr.type == 'number') {
+      formData[name] = fx.num(formData[name]);
+    } else {
+      const value = formData[name];
+      const listId = gsheet.columnProps[name].edit.schema.attr.list;
+
+      // if(listId && )
+
+      formData[name] = value.trim();
+    }
   }
 }
 
