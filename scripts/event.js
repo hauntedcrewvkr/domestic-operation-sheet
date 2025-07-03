@@ -19,7 +19,7 @@ function formRouter(e) {
 
   dropdowns.forEach(function (dropdown) {
     let temp = {};
-    temp[dropdown.getAttribute('list')] = fx.$$(dropdown.id, form);
+    temp[dropdown.getAttribute('list')] = fx.$$(dropdown.id);
 
     options.push(temp);
   });
