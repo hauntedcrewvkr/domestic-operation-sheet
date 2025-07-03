@@ -188,10 +188,10 @@
   gap: var(--u);
 
   .icon-span {
-    position: absolute;
+    /* position: absolute; */
     box-shadow: none;
     font-weight: 600;
-    left: 0;
+    margin-left: 0;
   }
 }
 
