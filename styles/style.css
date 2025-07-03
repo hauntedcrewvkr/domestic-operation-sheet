@@ -95,7 +95,7 @@
   border: var(--border-gray);
   border-radius: calc(var(--u) * 3);
   padding: var(--u) var(--u2);
-  background: var(--gray4);
+  background: var(--white);
   box-shadow: var(--shadow-gray);
 }
 
@@ -104,6 +104,10 @@
   background-size: 200% 200%;
   background-position: left center;
   transition: background-position 0.3s ease-in-out, color 0.5s ease;
+
+  .ph {
+    background: var(--gray4);
+  }
 }
 
 .view-action-holder span:hover {
