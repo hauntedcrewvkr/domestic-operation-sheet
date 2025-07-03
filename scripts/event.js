@@ -14,18 +14,18 @@ function formRouter(e) {
   e.preventDefault();
   const form = e.currentTarget;
   const formData = new FormData(form);
-  const dropdowns = fx.$$('[list]', form);
-  const options = [];
+  // const dropdowns = fx.$$('[list]', form);
+  // const options = [];
 
-  dropdowns.forEach(function (dropdown) {
-    const id = dropdown.getAttribute('list');
-    let temp = {};
+  // dropdowns.forEach(function (dropdown) {
+  //   const id = dropdown.getAttribute('list');
+  //   let temp = {};
 
-    temp[id] = fx.$$(`#${id} option`).map((o) => o.value);
+  //   temp[id] = fx.$$(`#${id} option`).map((o) => o.value);
 
-    options.push(temp);
-  });
-  console.log(options);
+  //   options.push(temp);
+  // });
+  // console.log(options);
   let readyToGo = true;
 
   for (const name in formData) {
@@ -34,12 +34,14 @@ function formRouter(e) {
     } else {
       const value = formData[name];
       const listId = gsheet.columnProps[name].edit.schema.attr.list;
-
-      // if(listId && )
+      // prettier-ignore
+      if (!listId && fx.$$(`#${listId} option`).map((o) => o.value).includes(value)) readyToGo = false;
 
       formData[name] = value.trim();
     }
   }
+
+  console.log(readyToGo);
 }
 
 function getBalanceAmount(e) {
