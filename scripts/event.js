@@ -29,6 +29,7 @@ function formRouter(e) {
   let readyToGo = true;
 
   for (const name in formData) {
+    console.log(name);
     if (gsheet.columnProps[name].edit.schema.attr.type == 'number') {
       formData[name] = fx.num(formData[name]);
     } else {
