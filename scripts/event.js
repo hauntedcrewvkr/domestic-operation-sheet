@@ -13,7 +13,7 @@ function viewRouter(e) {
 function formRouter(e) {
   e.preventDefault();
   const form = e.currentTarget;
-  const formData = new FormData(form);
+  const formData = Object.fromEntries(new FormData(form).entries);
   // const dropdowns = fx.$$('[list]', form);
   // const options = [];
 
