@@ -13,7 +13,7 @@ function viewRouter(e) {
 function formRouter(e) {
   e.preventDefault();
 
-  const formData = Object.fromEntries(new FormData(e.currentTarget).entries);
+  const formData = Object.fromEntries(new FormData(e.currentTarget).entries());
   console.log(formData);
 }
 
