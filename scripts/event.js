@@ -449,7 +449,7 @@ function markResolved(e) {
   updateData(obj, rownum);
 }
 
-function download() {
+function download(e) {
   const data = gsheet.domesticOperationSheet[app.currentView].data;
   if (!Array.isArray(data) || data.length === 0) return ``;
 
