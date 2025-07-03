@@ -17,6 +17,18 @@ function formRouter(e) {
   console.log(formData);
 }
 
+function getBalanceAmount(e) {
+  const child = e.currentTarget;
+  const parent = child.closest('fieldset');
+  const childName = child.name;
+  const isTotalChild = childName == 'Total Amount (₹)';
+
+  const child2 = isTotalChild ? fx.$(`input[name="Prepaid Amount (₹)"]`, parent) : fx.$(`input[name="Total Amount (₹)"]`, parent);
+  const balanceChild = fx.$(`input[name="Balance Amount (₹)"]`, parent);
+
+  balanceChild.value = isTotalChild ? fx.num(child.value) - fx.num(child2.value) : fx.num(child2.value) - fx.num(child.value);
+}
+
 //-------------------------------------<( change-row-per-page-event-function()>-
 function changeRPP(e) {
   app.table.pagination.rpp = fx.num(e.currentTarget.value);
