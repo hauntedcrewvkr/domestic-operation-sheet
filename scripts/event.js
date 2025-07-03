@@ -128,8 +128,12 @@ function changeEmail(e) {}
 
 //------------------------- sync-data-event-listener
 function sync(e) {
-  fx.removeInnerHTML(document.body);
+  fx.$$('header, nav, main, footer').forEach(removeBody);
   start();
+
+  function removeBody(element) {
+    element.remove();
+  }
 }
 
 //------------------------- see-details-event-listener
