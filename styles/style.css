@@ -239,7 +239,7 @@ td div {
   display: inline-flex;
   flex-direction: column;
   max-height: calc(var(--u) * 20);
-  max-width: 768px;
+  max-width: 100px;
   min-width: calc(var(--u2) * 5);
   gap: var(--u);
   overflow-y: scroll;
