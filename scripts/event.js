@@ -21,7 +21,7 @@ function formRouter(e) {
     const id = dropdown.getAttribute('list');
     let temp = {};
 
-    temp[id] = fx.$$(`#${id}`);
+    temp[id] = fx.$$(`#${id} option`).map((o) => o.value);
 
     options.push(temp);
   });
