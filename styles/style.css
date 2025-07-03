@@ -188,25 +188,11 @@
   gap: var(--u);
 
   span {
+    position: absolute;
     box-shadow: none;
     font-weight: 600;
+    left: 0;
   }
-}
-
-.th-holder input {
-  display: none;
-  height: calc(var(--u) * 5);
-  padding-left: calc(var(--u) * 5);
-}
-
-.th-holder.th-search-holder span {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: absolute;
-  left: 0;
-  box-shadow: var(--box-shadow);
-  margin-left: 12px;
 }
 
 tbody tr {
