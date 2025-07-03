@@ -36,7 +36,7 @@ function formRouter(e) {
       const value = formData[name];
       const listId = gsheet.columnProps[name].edit.schema.attr.list;
       // prettier-ignore
-      if (!listId && Array.from(fx.$$(`#${listId} option`)).map((o) => o.value).includes(value)) readyToGo = false;
+      if (listId && !Array.from(fx.$$(`#${listId} option`)).map((o) => o.value).includes(value)) readyToGo = false;
 
       formData[name] = value.trim();
     }
