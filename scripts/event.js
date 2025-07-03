@@ -9,6 +9,14 @@ function viewRouter(e) {
   setTableRows();
 }
 
+//---------------------------------------------<( form-router-event-function()>-
+function formRouter(e) {
+  e.preventDefault();
+
+  const formData = Object.fromEntries(new FormData(e.currentTarget).entries);
+  console.log(formData);
+}
+
 //-------------------------------------<( change-row-per-page-event-function()>-
 function changeRPP(e) {
   app.table.pagination.rpp = fx.num(e.currentTarget.value);
@@ -54,6 +62,8 @@ function addNewOrder(e) {
 function cancelForm(e) {
   e.currentTarget.closest('form').remove();
 }
+
+//----------------------------------------<( newOrder )>-
 
 function createOrder(e) {}
 function myOrders(e) {}
