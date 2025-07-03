@@ -14,22 +14,9 @@ function formRouter(e) {
   e.preventDefault();
   const form = e.currentTarget;
   const formData = Object.fromEntries(new FormData(form));
-  // const dropdowns = fx.$$('[list]', form);
-  // const options = [];
-
-  // dropdowns.forEach(function (dropdown) {
-  //   const id = dropdown.getAttribute('list');
-  //   let temp = {};
-
-  //   temp[id] = fx.$$(`#${id} option`).map((o) => o.value);
-
-  //   options.push(temp);
-  // });
-  // console.log(options);
   let readyToGo = true;
 
   for (const name in formData) {
-    console.log(name);
     if (gsheet.columnProps[name].edit.schema.attr.type == 'number') {
       formData[name] = fx.num(formData[name]);
     } else {
@@ -141,7 +128,8 @@ function changeEmail(e) {}
 
 //------------------------- sync-data-event-listener
 function sync(e) {
-  location.replace('https://script.google.com/macros/s/AKfycbz_PMIFJc3Xe3XrfGdAC-9Alg9a5bZbV0uidvUOOQOGwbUGjJxTu3dKgHGEr9JMpHkx/exec');
+  fx.removeInnerHTML(document.body);
+  start();
 }
 
 //------------------------- see-details-event-listener
