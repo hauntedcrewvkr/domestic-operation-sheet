@@ -279,7 +279,6 @@ td .sub-action-holder {
   width: clamp(360px, 690px, 98%);
   overflow-y: scroll;
   border-radius: var(--u2);
-  max-width: calc(var(--u2) * 10);
   scrollbar-width: none;
   padding: 0 var(--u2);
 }
