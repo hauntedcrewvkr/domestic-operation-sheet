@@ -267,10 +267,10 @@ td .sub-action-holder {
 .base-form {
   gap: var(--u2);
   position: fixed;
-  top: -50%;
+  top: 50%;
   left: 50%;
-  transition: all 0.5s ease;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -150%);
+  transition: all 0.6s ease;
   z-index: 3;
   background: linear-gradient(to bottom, var(--white) 80%, var(--white1));
   box-shadow: var(--shadow-gray);
@@ -279,13 +279,13 @@ td .sub-action-holder {
   width: clamp(360px, 690px, 98%);
   overflow-y: scroll;
   border-radius: var(--u2);
-  max-width: clac(var(--u2) * 10);
+  max-width: calc(var(--u2) * 10);
   scrollbar-width: none;
   padding: 0 var(--u2);
 }
 
 .base-form.active {
-  top: 50%;
+  transform: translate(-50%, -50%);
 }
 
 form > fieldset {
