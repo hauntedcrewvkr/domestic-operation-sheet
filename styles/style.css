@@ -759,3 +759,9 @@ form > fieldset {
 .hidden {
   display: none !important;
 }
+
+.shimmer {
+  animation-name: shadow-fade-2 !important;
+  animation-duration: 2s !important;
+  animation-delay: 0.1s !important;
+}

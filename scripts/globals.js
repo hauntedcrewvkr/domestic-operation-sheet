@@ -741,7 +741,7 @@ const app = {
                   {
                     tag: 'tbody',
                     attr: {
-                      class: 'table-body',
+                      class: 'table-body shimmer',
                     },
                   },
                 ],

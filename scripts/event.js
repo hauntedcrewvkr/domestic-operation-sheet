@@ -41,6 +41,7 @@ function getBalanceAmount(e) {
   const child2 = isTotalChild ? fx.$(`input[name="Prepaid Amount (₹)"]`, parent) : fx.$(`input[name="Total Amount (₹)"]`, parent);
   const balanceChild = fx.$(`input[name="Balance Amount (₹)"]`, parent);
   const balanceValue = isTotalChild ? fx.num(child.value) - fx.num(child2.value) : fx.num(child2.value) - fx.num(child.value);
+
   balanceChild.value = balanceValue;
 }
 
