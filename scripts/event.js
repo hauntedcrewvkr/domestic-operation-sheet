@@ -82,8 +82,9 @@ function firstPage(e) {
 //-------------------------------------------<( add-new-order-event-function()>-
 function addNewOrder(e) {
   const extraViews = fx.$('.extra-views');
-
-  extraViews.append(schema2el(app.schema.forms.addNewOrderForm));
+  const addNewOrderForm = schema2el(app.schema.forms.addNewOrderForm);
+  extraViews.append(addNewOrderForm);
+  addNewOrderFrom.classList.add('active');
 }
 
 //---------------------------------------------<( cancel-form-event-function()>-
