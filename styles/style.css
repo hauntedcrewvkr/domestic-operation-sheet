@@ -332,6 +332,7 @@ form > fieldset {
 }
 
 .input-label {
+  flex: 0 0 100%;
   white-space: nowrap;
   text-overflow: ellipsis;
 }
