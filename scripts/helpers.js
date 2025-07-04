@@ -190,7 +190,7 @@ function setTableRows(page = 1) {
   let end = Math.min(start + app.table.pagination.rpp, data.length);
 
   fx.removeInnerHTML(element);
-  addShimmerEffect(element);
+  // addShimmerEffect(element);
 
   while (start < end) {
     const tr = schema2el({ tag: 'tr', attr: { class: 'table-row', onclick: 'seeDetails(event)', rowNum: start + 2 } });
@@ -218,5 +218,5 @@ function setTableRows(page = 1) {
     }
   }
 
-  removeShimmerEffect(element);
+  // removeShimmerEffect(element);
 }
