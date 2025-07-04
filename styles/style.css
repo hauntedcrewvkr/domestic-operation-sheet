@@ -339,7 +339,7 @@ form > fieldset {
 .base-form input,
 .base-form textarea {
   flex: 1 1 100%;
-  width: clamp(calc(var(--u2) * 25), 100%, 100%);
+  /* width: clamp(calc(var(--u2) * 25), 100%, 100%); */
   width: 100%;
 }
 
