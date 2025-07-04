@@ -95,8 +95,13 @@ function addNewOrder(e) {
 
 //---------------------------------------------<( cancel-form-event-function()>-
 function cancelForm(e) {
-  console.log(e.key);
-  e.key === 'Escape' || e.type === 'click' ? e.currentTarget.closest('form')?.remove() : null;
+  const target = e.currentTarget;
+  console.log({ 'TAG-NAME': target.tagname, 'KEY': e.key, 'TYPE': e.type });
+
+  if ((e.tagname == 'form' && e.key === 'Escape') || e.type === 'click') {
+    const form = document.getElementById('add-new-order-form');
+    form?.remove();
+  }
 }
 
 //----------------------------------------<( newOrder )>-
