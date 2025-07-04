@@ -99,11 +99,7 @@ function cancelForm(e) {
   const tagname = target.tagName.toLowerCase();
   const form = tagname == 'form' ? target : target.closest('form');
 
-  console.log({ 'TAG-NAME': target.tagName, 'KEY': e.key, 'TYPE': e.type });
-
-  if ((tagname == 'form' && e.key === 'Escape') || e.type === 'click') {
-    form?.remove();
-  }
+  if ((tagname == 'form' && e.key === 'Escape') || e.type === 'click') form?.remove();
 }
 
 //----------------------------------------<( newOrder )>-
