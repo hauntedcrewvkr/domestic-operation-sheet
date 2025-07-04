@@ -270,7 +270,7 @@ td .sub-action-holder {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -150%);
-  transition: all 3s ease;
+  transition: all 10s ease;
   z-index: 3;
   background: linear-gradient(to bottom, var(--white) 80%, var(--white1));
   box-shadow: var(--shadow-gray);
