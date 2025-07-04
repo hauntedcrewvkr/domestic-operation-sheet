@@ -83,8 +83,9 @@ function firstPage(e) {
 function addNewOrder(e) {
   const extraViews = fx.$('.extra-views');
   const addNewOrderForm = schema2el(app.schema.forms.addNewOrderForm);
+
   extraViews.append(addNewOrderForm);
-  addNewOrderFrom.classList.add('active');
+  addNewOrderForm.classList.add('active');
 }
 
 //---------------------------------------------<( cancel-form-event-function()>-
