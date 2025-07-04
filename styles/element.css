@@ -70,3 +70,8 @@ span:has(> i) {
   box-shadow: var(--shadow-gray);
   cursor: pointer;
 }
+
+button {
+  height: calc(var(--u) * 5);
+  width: calc(var(--u) * 5);
+}
