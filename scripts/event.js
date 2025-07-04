@@ -95,6 +95,7 @@ function addNewOrder(e) {
 
 //---------------------------------------------<( cancel-form-event-function()>-
 function cancelForm(e) {
+  console.log(e.key);
   e.key === 'Escape' || e.type === 'click' ? e.currentTarget.closest('form')?.remove() : null;
 }
 
