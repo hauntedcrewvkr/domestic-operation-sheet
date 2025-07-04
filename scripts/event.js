@@ -85,7 +85,12 @@ function addNewOrder(e) {
   const addNewOrderForm = schema2el(app.schema.forms.addNewOrderForm);
 
   extraViews.append(addNewOrderForm);
-  addNewOrderForm.classList.add('active');
+  setTimeout(addActive, 500);
+
+  function addActive() {
+    const classes = addNewOrderForm.classList;
+    !classes.includes('active') && addNewOrderForm.classList.add('active');
+  }
 }
 
 //---------------------------------------------<( cancel-form-event-function()>-
