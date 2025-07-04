@@ -96,7 +96,7 @@ function addNewOrder(e) {
 //---------------------------------------------<( cancel-form-event-function()>-
 function cancelForm(e) {
   const target = e.currentTarget;
-  const tagname = currentTarget.tagName.toLowerCase();
+  const tagname = target.tagName.toLowerCase();
   const form = tagname == 'form' ? target : target.closest('form');
 
   console.log({ 'TAG-NAME': target.tagName, 'KEY': e.key, 'TYPE': e.type });
