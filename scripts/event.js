@@ -89,7 +89,7 @@ function addNewOrder(e) {
 
   function addActive() {
     const classes = addNewOrderForm.classList;
-    !classes.includes('active') && addNewOrderForm.classList.add('active');
+    !classes.contains('active') && addNewOrderForm.classList.add('active');
   }
 }
 
