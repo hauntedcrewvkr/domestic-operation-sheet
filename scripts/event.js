@@ -96,10 +96,12 @@ function addNewOrder(e) {
 //---------------------------------------------<( cancel-form-event-function()>-
 function cancelForm(e) {
   const target = e.currentTarget;
+  const tagname = e.tagName.toLowerCase();
+  const form = tagname == 'form' ? target : target.closest('form');
+
   console.log({ 'TAG-NAME': target.tagName, 'KEY': e.key, 'TYPE': e.type });
 
-  if ((e.tagName == 'form' && e.key === 'Escape') || e.type === 'click') {
-    const form = document.getElementById('add-new-order-form');
+  if ((tagname == 'form' && e.key === 'Escape') || e.type === 'click') {
     form?.remove();
   }
 }
