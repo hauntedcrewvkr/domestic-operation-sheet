@@ -190,6 +190,7 @@ function setTableRows(page = 1) {
   let end = Math.min(start + app.table.pagination.rpp, data.length);
 
   fx.removeInnerHTML(element);
+  addShimmerEffect(element);
 
   while (start < end) {
     const tr = schema2el({ tag: 'tr', attr: { class: 'table-row', onclick: 'seeDetails(event)', rowNum: start + 2 } });
@@ -216,20 +217,6 @@ function setTableRows(page = 1) {
       end++;
     }
   }
-}
 
-//---------------------------------------------<( input-auth-helper-function()>-
-function inputAuth(inputNodes) {}
-
-//--------------------------------------------<( refine-form-helper-function()>-
-function refineForm(input) {
-  const value = input.value;
-
-  switch (input.type) {
-    case 'number':
-      return fx.num(value);
-
-    default:
-      return fx.str(value);
-  }
+  removeShimmerEffect(element);
 }
