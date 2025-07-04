@@ -325,9 +325,8 @@ form > fieldset {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    min-width: calc(var(--u2) * 25);
     width: clamp(calc(var(--u2) * 25), 100%, 100%);
-    max-width: 40%;
+    /* max-width: 40%; */
     padding: 0 calc(var(--u2) + var(--u));
   }
 }
@@ -338,8 +337,7 @@ form > fieldset {
 
 .base-form input,
 .base-form textarea {
-  flex: 1 1 100%;
-  /* width: clamp(calc(var(--u2) * 25), 100%, 100%); */
+  flex: 100% 40% 40%;
   width: 100%;
 }
 
