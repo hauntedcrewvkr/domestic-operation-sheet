@@ -324,7 +324,6 @@ form > fieldset {
   .input-holder {
     flex: 1 40% 40%;
     display: flex;
-    flex-direction: row;
     width: clamp(calc(var(--u2) * 25), 100%, 100%);
     padding: 0 calc(var(--u2) + var(--u));
   }
