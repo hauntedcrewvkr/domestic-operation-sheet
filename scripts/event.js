@@ -84,8 +84,8 @@ function addNewOrder(e) {
   const extraViews = fx.$('.extra-views');
   const addNewOrderForm = schema2el(app.schema.forms.addNewOrderForm);
 
-  extraViews.append(addNewOrderForm).then(() => setTimeout(addActive, 500));
-  // setTimeout(addActive, 500);
+  extraViews.append(addNewOrderForm);
+  requestAnimationFrame(addActive);
 
   function addActive() {
     const classes = addNewOrderForm.classList;
