@@ -902,7 +902,7 @@ const app = {
     forms: {
       addNewOrderForm: {
         tag: 'form',
-        attr: { class: 'add-new-order-form base-form', id: 'add-new-order-form', onsubmit: 'formRouter(event)', onkeydown: 'cancelForm(event)' },
+        attr: { class: 'add-new-order-form base-form', id: 'add-new-order-form', onsubmit: 'formRouter(event)', onkeydown: 'cancelForm(event)', tabindex: '0' },
         onsubmit: 'gsheetAppend(event)',
         sub: [
           {
