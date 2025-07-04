@@ -902,7 +902,7 @@ const app = {
     forms: {
       addNewOrderForm: {
         tag: 'form',
-        attr: { class: 'add-new-order-form base-form', id: 'add-new-order-form', onsubmit: 'formRouter(event)' },
+        attr: { class: 'add-new-order-form base-form', id: 'add-new-order-form', onsubmit: 'formRouter(event)', onkeydown: 'cancelForm(event)' },
         onsubmit: 'gsheetAppend(event)',
         sub: [
           {
@@ -1021,7 +1021,7 @@ const app = {
             tag: 'div', attr: { class: 'form-btn-holder' },
             sub: [
               {tag: 'button', text: 'SUBMIT', attr: {class: 'submit-btn', type: 'submit'}},
-              {tag: 'button', text: 'CANCEL' , attr: {class: 'cancel-btn', type: 'button', onclick: 'cancelForm(event)', onkeydown: 'cancelForm(event)'}},
+              {tag: 'button', text: 'CANCEL' , attr: {class: 'cancel-btn', type: 'button', onclick: 'cancelForm(event)'}},
               {tag: 'button', text: 'RESET' , attr: {class: 'reset-btn', type: 'reset'}},
             ]
           }
