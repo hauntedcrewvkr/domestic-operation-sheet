@@ -267,9 +267,9 @@ td .sub-action-holder {
 .base-form {
   gap: var(--u2);
   position: fixed;
-  top: 0;
-  left: 0%;
-  transform: translate(50%, 150%);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -170%);
   transition: all 0.6s ease;
   z-index: 3;
   background: linear-gradient(to bottom, var(--white) 80%, var(--white1));
@@ -284,7 +284,7 @@ td .sub-action-holder {
 }
 
 .base-form.active {
-  transform: translateY(50%);
+  transform: translate(-50%, -50%);
 }
 
 form > fieldset {
