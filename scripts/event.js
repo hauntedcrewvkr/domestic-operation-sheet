@@ -158,12 +158,19 @@ function seeDetails(e) {
   const mainSchema = {
     tag: 'div',
     attr: { class: 'detail-view' },
-    sub: [{ tag: 'legend', text: 'DETAILS', attr: { class: 'details-heading' } }],
+    sub: [
+      { tag: 'button', attr: { class: 'detail-close-btn', onclick: 'removeDetailView(event)' } },
+      { tag: 'div', attr: { class: 'sub-action-div' } },
+      { tag: 'legend', text: 'DETAILS', attr: { class: 'details-heading' } },
+    ],
   };
 
   for (const div of td) {
     const colHead = div.getAttribute('headname');
-    const fieldsetSchema = { tag: 'fieldset', sub: [{ tag: 'legend', text: colHead }] };
+    const fieldsetSchema = {
+      tag: 'fieldset',
+      sub: [{ tag: 'legend', text: colHead }],
+    };
     const spans = fx.$$('span', div);
     console.log(spans);
 
@@ -181,9 +188,12 @@ function seeDetails(e) {
     mainSchema.sub.push(fieldsetSchema);
   }
 
-  mainSchema.sub.push({ tag: 'button', attr: { class: 'detail-close-btn', onclick: 'removeDetailView(event)' } });
+  mainSchema.sub.push();
 
   fx.removeInnerHTML(extraViews);
+  const mainEl = schema2el(mainSchema);
+  console.log(app.cta);
+  fx.$('.sub-action-div', mainEl).append(app.cta);
   console.log(mainSchema);
   extraViews.append(schema2el(mainSchema));
 }
