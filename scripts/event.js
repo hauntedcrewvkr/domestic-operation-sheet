@@ -159,9 +159,9 @@ function seeDetails(e) {
     tag: 'div',
     attr: { class: 'detail-view' },
     sub: [
+      { tag: 'legend', text: 'DETAILS', attr: { class: 'details-heading' } },
       { tag: 'button', attr: { class: 'detail-close-btn', onclick: 'removeDetailView(event)' } },
       { tag: 'div', attr: { class: 'sub-action-div' } },
-      { tag: 'legend', text: 'DETAILS', attr: { class: 'details-heading' } },
     ],
   };
 
