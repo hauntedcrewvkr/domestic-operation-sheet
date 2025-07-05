@@ -275,9 +275,8 @@ td .sub-action-holder {
   background: linear-gradient(to bottom, var(--white) 80%, var(--white1));
   box-shadow: var(--shadow-gray);
   max-height: 90vh;
-  width: 98%;
   width: clamp(360px, 690px, 98%);
-  overflow-y: scroll;
+  overflow-y: auto;
   border-radius: var(--u2);
   scrollbar-width: none;
   padding: 0 var(--u2);
@@ -287,7 +286,7 @@ td .sub-action-holder {
   transform: translate(-50%, -50%);
 }
 
-form > fieldset {
+.base-form > fieldset {
   height: 100%;
   background: var(--white);
   border-radius: var(--u2);
@@ -308,7 +307,6 @@ form > fieldset {
 
 .base-form fieldset fieldset {
   display: flex;
-  flex-direction: row;
   flex-wrap: wrap;
   gap: var(--u);
   justify-content: space-between;
@@ -316,34 +314,45 @@ form > fieldset {
   padding: var(--u) var(--u2);
   margin-top: var(--u);
   border-radius: var(--u2);
+}
 
-  legend {
-    font-weight: 600;
-  }
+.base-form fieldset fieldset > legend {
+  flex: 0 0 100%;
+  width: 100%;
+  display: block;
+  font-weight: 600;
+}
 
-  .input-holder {
-    flex: 1 40% 40%;
-    display: flex;
-    justify-content: space-between;
-    gap: var(--u2);
-    width: clamp(calc(var(--u2) * 25), 100%, 100%);
-    padding: 0 calc(var(--u2) + var(--u));
-  }
+.input-holder {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  align-items: center;
+  flex: 1 1 50%;
+  max-width: 40%;
+  min-width: 300px;
+  gap: var(--u2);
+  box-sizing: border-box;
 }
 
 .input-label {
-  flex: 100% 100% 100%;
+  flex: 0 0 auto;
   white-space: nowrap;
+  display: inline-block;
   text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 .input-label::after {
   content: ':';
 }
 
-.base-form input,
-.base-form textarea {
+.input-holder input,
+.input-holder textarea,
+.input-holder select {
+  flex: 1 1 auto;
   width: 100%;
+  min-width: 60%;
 }
 
 .form-btn-holder {
@@ -356,19 +365,6 @@ form > fieldset {
   width: 100%;
   margin-top: var(--u);
   padding: var(--u) var(--u2);
-}
-
-.form-btn-holder .submit-btn {
-  background-image: linear-gradient(to right, var(--complementary) 49%, var(--complementary3) 51%);
-  box-shadow: var(--shadow-gray-dark);
-}
-
-.form-btn-holder .cancel-btn {
-  background-image: linear-gradient(to right, var(--primary) 50%, var(--primary3) 50%);
-}
-
-.form-btn-holder .reset-btn {
-  background-image: linear-gradient(to right, var(--gray3) 50%, var(--gray4) 50%);
 }
 
 .form-btn-holder button {
@@ -386,6 +382,38 @@ form > fieldset {
 .form-btn-holder button:hover,
 .form-btn-holder button:focus {
   background-position: right center;
+}
+
+.form-btn-holder .submit-btn {
+  background-image: linear-gradient(to right, var(--complementary) 49%, var(--complementary3) 51%);
+  box-shadow: var(--shadow-gray-dark);
+}
+
+.form-btn-holder .cancel-btn {
+  background-image: linear-gradient(to right, var(--primary) 50%, var(--primary3) 50%);
+}
+
+.form-btn-holder .reset-btn {
+  background-image: linear-gradient(to right, var(--gray3) 50%, var(--gray4) 50%);
+}
+
+@media (max-width: 700px) {
+  .input-holder {
+    flex-direction: column;
+    max-width: 100%;
+    align-items: flex-start;
+  }
+
+  .input-holder input,
+  .input-holder textarea,
+  .input-holder select {
+    width: 100%;
+  }
+
+  .input-label {
+    width: 100%;
+    text-align: left;
+  }
 }
 
 .message-parent {

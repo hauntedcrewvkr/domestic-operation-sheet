@@ -3958,25 +3958,25 @@
         </table>
       </section>
       <section class="extra-views">
-        <form class="add-new-order-form base-form" id="add-new-order-form">
+        <form class="add-new-order-form base-form active" id="add-new-order-form" onsubmit="formRouter(event)" onkeydown="cancelForm(event)" tabindex="0">
           <fieldset>
             <legend class="form-title">Add New Order Form</legend>
             <fieldset>
               <legend>Order Details</legend>
               <div class="input-holder">
                 <label class="input-label">Order Date</label>
-                <input type="date" required="true" name="Order Date" />
+                <input type="date" required="true" name="Order Date" value="2025-07-04" />
               </div>
               <div class="input-holder">
                 <label class="input-label">POC</label>
-                <input type="text" list="poc" required="true" name="POC" autocomplete="on" />
+                <input type="text" list="poc" required="true" name="POC" autocomplete="on" placeholder="Select POC from Dropdown" />
               </div>
             </fieldset>
             <fieldset>
               <legend>Customer Details</legend>
               <div class="input-holder">
                 <label class="input-label">Client Name</label>
-                <input type="text" required="true" name="Client Name" />
+                <input type="text" required="true" name="Client Name" placeholder="Type Client Name" />
               </div>
               <div class="input-holder">
                 <label class="input-label">Contact Number</label>
@@ -3991,7 +3991,7 @@
               <legend>Financial Details</legend>
               <div class="input-holder">
                 <label class="input-label">Total Amount (₹)</label>
-                <input type="number" value="0" required="true" name="Total Amount (₹)" onchange="getBalanceAmount(event)" />
+                <input type="number" min="1" value="0" required="true" name="Total Amount (₹)" onchange="getBalanceAmount(event)" />
               </div>
               <div class="input-holder">
                 <label class="input-label">Prepaid Amount (₹)</label>
@@ -3999,7 +3999,7 @@
               </div>
               <div class="input-holder">
                 <label class="input-label">Balance Amount (₹)</label>
-                <input type="number" value="0" required="true" name="Balance Amount (₹)" disabled="true" />
+                <input type="number" min="0" value="0" required="true" name="Balance Amount (₹)" disabled="true" />
               </div>
               <div class="input-holder">
                 <label class="input-label">Mode of Payment</label>
@@ -4010,11 +4010,11 @@
               <legend>Shipping Details</legend>
               <div class="input-holder">
                 <label class="input-label">Address Line 1</label>
-                <textarea placeholder="Address Line 1...." name="Address Line 1"></textarea>
+                <textarea placeholder="Address Line 1...." name="Address Line 1" maxlength="100"></textarea>
               </div>
               <div class="input-holder">
                 <label class="input-label">Address Line 2</label>
-                <textarea placeholder="Address Line 2...." name="Address Line 2"></textarea>
+                <textarea placeholder="Address Line 2...." name="Address Line 2" maxlength="100"></textarea>
               </div>
               <div class="input-holder">
                 <label class="input-label">State</label>
@@ -4028,7 +4028,7 @@
           </fieldset>
           <div class="form-btn-holder">
             <button class="submit-btn" type="submit">SUBMIT</button>
-            <button class="cancel-btn" type="button">CANCEL</button>
+            <button class="cancel-btn" type="button" onclick="cancelForm(event)">CANCEL</button>
             <button class="reset-btn" type="reset">RESET</button>
           </div>
         </form>
