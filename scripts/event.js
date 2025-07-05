@@ -152,10 +152,9 @@ function sync(e) {
 function seeDetails(e) {
   e.preventDefault();
   const row = e.currentTarget.cloneNode(true);
-  const td = fx.$$('td div[hedname]', row);
+  const td = fx.$$('td div[headname]', row);
   const extraViews = fx.$('main .extra-views');
 
-  console.log(row.innerHTML);
   const mainSchema = {
     tag: 'div',
     attr: { class: 'detail-view' },
