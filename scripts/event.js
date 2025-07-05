@@ -150,48 +150,39 @@ function sync(e) {
 
 //------------------------- see-details-event-listener
 function seeDetails(e) {
-  const target = e.target.closest(`tr`);
-  const extraViews = fx.$(`.extra-views`);
-  const tableDatas = fx.$$(`td`, target);
-  const detailsForm = document.createElement(`form`);
-  const formHeader = document.createElement(`h2`);
+  e.preventDefault();
+  const row = e.currentTarget.cloneNode(true);
+  const td = fx.$$('td div[hedname]', row);
+  const extraViews = fx.$('main .extra-views');
 
-  detailsForm.id = `details-form`;
-  detailsForm.classList.add(`details-form`, `form-base`);
-  formHeader.innerText = `Details`;
-  detailsForm.append(formHeader);
+  const mainSchema = {
+    tag: 'div',
+    attr: { class: 'detail-view' },
+    sub: [{ tag: 'legend', text: 'DETAILS', attr: { class: 'details-heading' } }],
+  };
 
-  tableDatas.forEach(function (td, index) {
-    if (index == 0) return;
-    const label = document.createElement(`label`);
-    const textfield = document.createElement(`textfield`);
-    let _class = td.classList[0];
-    let _name = _class.replaceAll(`-dt`, ``).toUpperCase();
-    let _li = fx.$$(`li`, td);
+  for (const div of td) {
+    const colHead = div.getAttribute('headname');
+    const fieldsetSchema = { tag: 'fieldset', sub: [{ tag: 'legend', text: colHead }] };
+    const spans = fx.$$('span', div);
 
-    label.textContent = _name;
+    for (const span of spans) {
+      const spanSchema = {
+        tag: 'div',
+        attr: { class: 'column-holder', text: span.title },
+        sub: [{ tag: 'span', text: span.textContent, attr: { class: 'column-value' } }],
+      };
 
-    _li.forEach(function (li) {
-      const label = document.createElement(`label`);
-      const span = document.createElement(`span`);
-      let labelname = li.title;
-      let value = li.innerHTML;
+      fieldsetSchema.sub.push(spanSchema);
+    }
 
-      label.textContent = labelname;
-      span.innerHTML = value;
-      textfield.append(label, span);
-    });
-    detailsForm.append(label, textfield);
-  });
+    mainSchema.sub.push[fieldsetSchema];
+  }
 
-  const cancelBtn = fx.text2el(`<i class="ph-fill ph-x-circle"></i>`);
-  cancelBtn.classList.add(`detail-cancel-btn`);
-  cancelBtn.addEventListener(`click`, function (e) {
-    detailsForm.remove();
-  });
+  mainSchema.sub.push({ tag: 'button', attr: { class: 'detail-close-btn', onclick: 'removeElement({element: fx.$(.detail-view)})' } });
 
-  detailsForm.append(cancelBtn);
-  extraViews.append(detailsForm);
+  fx.removeInnerHTML(extraViews);
+  extraViews.append(schema2el(mainSchema));
 }
 
 //------------------------- raise-issue-event-listener
