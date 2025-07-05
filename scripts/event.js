@@ -183,6 +183,7 @@ function seeDetails(e) {
   mainSchema.sub.push({ tag: 'button', attr: { class: 'detail-close-btn', onclick: 'removeElement({element: fx.$(.detail-view)})' } });
 
   fx.removeInnerHTML(extraViews);
+  console.log(mainSchema);
   extraViews.append(schema2el(mainSchema));
 }
 
