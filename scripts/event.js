@@ -155,7 +155,6 @@ function seeDetails(e) {
   const td = fx.$$('td div[headname]', row);
   const extraViews = fx.$('main .extra-views');
 
-  console.log(td);
   const mainSchema = {
     tag: 'div',
     attr: { class: 'detail-view' },
@@ -166,6 +165,7 @@ function seeDetails(e) {
     const colHead = div.getAttribute('headname');
     const fieldsetSchema = { tag: 'fieldset', sub: [{ tag: 'legend', text: colHead }] };
     const spans = fx.$$('span', div);
+    console.log(spans);
 
     for (const span of spans) {
       const spanSchema = {
