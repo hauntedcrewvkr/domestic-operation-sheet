@@ -181,11 +181,17 @@ function seeDetails(e) {
     mainSchema.sub.push(fieldsetSchema);
   }
 
-  mainSchema.sub.push({ tag: 'button', attr: { class: 'detail-close-btn', onclick: 'removeElement({element: fx.$(.detail-view)})' } });
+  mainSchema.sub.push({ tag: 'button', attr: { class: 'detail-close-btn', onclick: 'removeDetailView(event)' } });
 
   fx.removeInnerHTML(extraViews);
   console.log(mainSchema);
   extraViews.append(schema2el(mainSchema));
+}
+
+//--------------------------------------<( remove-detail-view-event-function()>-
+function removeDetailView(e) {
+  const parent = e.currentTarget.closest('.detail-view');
+  parent.remove();
 }
 
 //------------------------- raise-issue-event-listener
