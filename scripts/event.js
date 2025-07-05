@@ -177,7 +177,7 @@ function seeDetails(e) {
       fieldsetSchema.sub.push(spanSchema);
     }
 
-    mainSchema.sub.push[fieldsetSchema];
+    mainSchema.sub.push(fieldsetSchema);
   }
 
   mainSchema.sub.push({ tag: 'button', attr: { class: 'detail-close-btn', onclick: 'removeElement({element: fx.$(.detail-view)})' } });
