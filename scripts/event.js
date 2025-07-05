@@ -162,6 +162,7 @@ function seeDetails(e) {
   };
 
   for (const div of td) {
+    console.log(div);
     const colHead = div.getAttribute('headname');
     const fieldsetSchema = { tag: 'fieldset', sub: [{ tag: 'legend', text: colHead }] };
     const spans = fx.$$('span', div);
