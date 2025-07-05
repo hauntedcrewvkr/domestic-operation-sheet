@@ -277,7 +277,7 @@ td .sub-action-holder {
   max-height: 90vh;
   width: clamp(360px, 690px, 98%);
   overflow-y: auto;
-  border-radius: var(--u2);
+  border-radius: var(--border-radius);
   scrollbar-width: none;
   padding: 0 var(--u2);
 }
@@ -289,14 +289,14 @@ td .sub-action-holder {
 .base-form > fieldset {
   height: 100%;
   background: var(--white);
-  border-radius: var(--u2);
+  border-radius: var(--border-radius);
   margin-bottom: var(--u2);
 }
 
 .form-title {
   text-align: center;
   font-weight: 600;
-  font-size: 1.2rem;
+  font-size: clamp(1rem, 2.5vw, 1.2rem);
   text-transform: uppercase;
   position: sticky;
   top: 0;
@@ -310,37 +310,46 @@ td .sub-action-holder {
   flex-wrap: wrap;
   gap: var(--u);
   justify-content: space-between;
+  align-items: center;
   width: 100%;
   padding: var(--u) var(--u2);
   margin-top: var(--u);
-  border-radius: var(--u2);
+  border-radius: var(--border-radius);
 }
 
 .base-form fieldset fieldset > legend {
-  flex: 0 0 100%;
+  flex: 1 1 100%;
   width: 100%;
   display: block;
   font-weight: 600;
+  margin-bottom: var(--u);
 }
 
 .input-holder {
   display: flex;
-  flex-wrap: nowrap;
-  justify-content: space-between;
-  align-items: center;
-  flex: 1 1 50%;
-  max-width: 40%;
-  min-width: 300px;
-  gap: var(--u2);
+  flex-direction: column;
+  gap: clamp(4px, 1vw, var(--u));
+  flex: 1 1 clamp(280px, calc(50% - var(--u)), 100%);
+  min-width: clamp(280px, 45%, 100%);
+  max-width: 100%;
   box-sizing: border-box;
+}
+
+.input-holder {
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--u2);
 }
 
 .input-label {
   flex: 0 0 auto;
   white-space: nowrap;
-  display: inline-block;
+  min-width: max-content;
+  max-width: clamp(120px, 40%, 200px);
   text-overflow: ellipsis;
   overflow: hidden;
+  font-size: clamp(0.875rem, 2vw, 1rem);
 }
 
 .input-label::after {
@@ -351,14 +360,49 @@ td .sub-action-holder {
 .input-holder textarea,
 .input-holder select {
   flex: 1 1 auto;
+  min-width: clamp(120px, 60%, 300px);
   width: 100%;
-  min-width: 60%;
+  padding: clamp(4px, 1vw, 8px);
+  border: var(--border-gray);
+  border-radius: var(--border-radius);
+  font-size: clamp(0.875rem, 2vw, 1rem);
+  box-sizing: border-box;
+  transition: var(--transition);
+}
+
+.input-holder input:focus,
+.input-holder textarea:focus,
+.input-holder select:focus {
+  outline: none;
+  border: var(--border-complementary);
+  box-shadow: var(--shadow-complementary);
+}
+
+.input-holder textarea {
+  resize: vertical;
+  min-height: 3em;
+  font-family: inherit;
+}
+
+.input-holder {
+  flex-wrap: wrap;
+}
+
+.input-holder .input-label {
+  flex-basis: clamp(100px, 35%, 180px);
+}
+
+.input-holder input,
+.input-holder textarea,
+.input-holder select {
+  flex-basis: clamp(150px, 60%, 400px);
 }
 
 .form-btn-holder {
   display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
   gap: var(--u2);
   position: sticky;
   bottom: var(--u2);
@@ -368,52 +412,99 @@ td .sub-action-holder {
 }
 
 .form-btn-holder button {
-  padding: var(--u);
-  border-radius: var(--u2);
+  padding: clamp(6px, 2vw, var(--u2));
+  border-radius: var(--border-radius);
   font-weight: 600;
   color: var(--white);
   box-shadow: var(--shadow-gray);
   background-position: left center;
   background-size: 200% 200%;
-  transition: background-position 0.3s ease;
+  transition: all var(--transition);
   cursor: pointer;
+  border: none;
+  font-size: clamp(0.875rem, 2vw, 1rem);
+  min-width: max-content;
+  flex: 0 1 auto;
+  white-space: nowrap;
 }
 
 .form-btn-holder button:hover,
 .form-btn-holder button:focus {
   background-position: right center;
+  box-shadow: var(--shadow-gray-dark);
 }
 
 .form-btn-holder .submit-btn {
   background-image: linear-gradient(to right, var(--complementary) 49%, var(--complementary3) 51%);
-  box-shadow: var(--shadow-gray-dark);
+  box-shadow: var(--shadow-complementary);
+}
+
+.form-btn-holder .submit-btn:hover,
+.form-btn-holder .submit-btn:focus {
+  box-shadow: var(--shadow-complementary-dark);
 }
 
 .form-btn-holder .cancel-btn {
   background-image: linear-gradient(to right, var(--primary) 50%, var(--primary3) 50%);
+  box-shadow: var(--shadow-primary);
+}
+
+.form-btn-holder .cancel-btn:hover,
+.form-btn-holder .cancel-btn:focus {
+  box-shadow: var(--shadow-primary-dark);
 }
 
 .form-btn-holder .reset-btn {
   background-image: linear-gradient(to right, var(--gray3) 50%, var(--gray4) 50%);
+  box-shadow: var(--shadow-gray);
 }
 
-@media (max-width: 700px) {
-  .input-holder {
-    flex-direction: column;
-    max-width: 100%;
-    align-items: flex-start;
-  }
+.form-btn-holder .reset-btn:hover,
+.form-btn-holder .reset-btn:focus {
+  box-shadow: var(--shadow-gray-dark);
+}
 
-  .input-holder input,
-  .input-holder textarea,
-  .input-holder select {
-    width: 100%;
-  }
+.input-holder {
+  display: flex;
+  flex-basis: clamp(280px, calc((100% - var(--u)) / 2), 100%);
+  flex-grow: 1;
+  flex-shrink: 1;
+}
 
-  .input-label {
-    width: 100%;
-    text-align: left;
-  }
+.base-form fieldset fieldset {
+  align-content: flex-start;
+  align-items: stretch;
+}
+
+.input-holder {
+  margin-block-end: clamp(4px, 1vw, var(--u));
+}
+
+.form-title {
+  padding-block: var(--u2);
+  padding-inline: var(--u2);
+}
+
+.input-holder,
+.form-btn-holder button {
+  transition: all var(--transition);
+}
+
+.input-holder {
+  width: fit-content;
+  min-width: clamp(280px, 45%, 100%);
+  max-width: 100%;
+}
+
+.form-btn-holder {
+  justify-content: flex-end;
+}
+
+.form-btn-holder button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
 }
 
 .message-parent {
