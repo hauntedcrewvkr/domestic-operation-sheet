@@ -3958,80 +3958,63 @@
         </table>
       </section>
       <section class="extra-views">
-        <form class="add-new-order-form base-form active" id="add-new-order-form" onsubmit="formRouter(event)" onkeydown="cancelForm(event)" tabindex="0">
+        <div class="detail-view">
+          <legend class="details-heading">DETAILS</legend>
           <fieldset>
-            <legend class="form-title">Add New Order Form</legend>
-            <fieldset>
-              <legend>Order Details</legend>
-              <div class="input-holder">
-                <label class="input-label">Order Date</label>
-                <input type="date" required="true" name="Order Date" value="2025-07-04" />
-              </div>
-              <div class="input-holder">
-                <label class="input-label">POC</label>
-                <input type="text" list="poc" required="true" name="POC" autocomplete="on" placeholder="Select POC from Dropdown" />
-              </div>
-            </fieldset>
-            <fieldset>
-              <legend>Customer Details</legend>
-              <div class="input-holder">
-                <label class="input-label">Client Name</label>
-                <input type="text" required="true" name="Client Name" placeholder="Type Client Name" />
-              </div>
-              <div class="input-holder">
-                <label class="input-label">Contact Number</label>
-                <input type="number" required="true" name="Contact Number" />
-              </div>
-              <div class="input-holder">
-                <label class="input-label">Alternate Contact Number</label>
-                <input type="number" />
-              </div>
-            </fieldset>
-            <fieldset>
-              <legend>Financial Details</legend>
-              <div class="input-holder">
-                <label class="input-label">Total Amount (₹)</label>
-                <input type="number" min="1" value="0" required="true" name="Total Amount (₹)" onchange="getBalanceAmount(event)" />
-              </div>
-              <div class="input-holder">
-                <label class="input-label">Prepaid Amount (₹)</label>
-                <input type="number" value="0" required="true" name="Prepaid Amount (₹)" onchange="getBalanceAmount(event)" />
-              </div>
-              <div class="input-holder">
-                <label class="input-label">Balance Amount (₹)</label>
-                <input type="number" min="0" value="0" required="true" name="Balance Amount (₹)" disabled="true" />
-              </div>
-              <div class="input-holder">
-                <label class="input-label">Mode of Payment</label>
-                <input type="text" list="mode-of-payment" required="true" name="Mode of Payment" autocomplete="on" />
-              </div>
-            </fieldset>
-            <fieldset>
-              <legend>Shipping Details</legend>
-              <div class="input-holder">
-                <label class="input-label">Address Line 1</label>
-                <textarea placeholder="Address Line 1...." name="Address Line 1" maxlength="100"></textarea>
-              </div>
-              <div class="input-holder">
-                <label class="input-label">Address Line 2</label>
-                <textarea placeholder="Address Line 2...." name="Address Line 2" maxlength="100"></textarea>
-              </div>
-              <div class="input-holder">
-                <label class="input-label">State</label>
-                <input type="text" required="true" list="state" placeholder="State" name="State" autocomplete="on" />
-              </div>
-              <div class="input-holder">
-                <label class="input-label">Pincode</label>
-                <input type="number" placeholder="Pincode" required="true" name="Pincode" />
-              </div>
-            </fieldset>
+            <legend>ORDER DETAILS</legend>
+            <div class="column-holder" text="ID"><span class="column-value">ORDR-1750878310</span></div>
+            <div class="column-holder" text="Timestamp"><span class="column-value">6/25/2025 19:05:10</span></div>
+            <div class="column-holder" text="Email"><span class="column-value">medisellercares@gmail.com</span></div>
+            <div class="column-holder" text="Month"><span class="column-value">June</span></div>
+            <div class="column-holder" text="Order Date"><span class="column-value">6/24/2025</span></div>
+            <div class="column-holder" text="Order ID"><span class="column-value">MS48</span></div>
+            <div class="column-holder" text="POC"><span class="column-value">SURAJ</span></div>
           </fieldset>
-          <div class="form-btn-holder">
-            <button class="submit-btn" type="submit">SUBMIT</button>
-            <button class="cancel-btn" type="button" onclick="cancelForm(event)">CANCEL</button>
-            <button class="reset-btn" type="reset">RESET</button>
-          </div>
-        </form>
+          <fieldset>
+            <legend>CUSTOMER DETAILS</legend>
+            <div class="column-holder" text="Client Name"><span class="column-value">M Ranjith Kumar</span></div>
+            <div class="column-holder" text="Contact Number"><span class="column-value">8940187319</span></div>
+            <div class="column-holder" text="Alternate Contact Number"><span class="column-value">8527550979</span></div>
+          </fieldset>
+          <fieldset>
+            <legend>REQUIREMENTS</legend>
+            <div class="column-holder" text="Requirement"><span class="column-value">4 Strip Vigore 100 @640 Shipping @150 Total @790 Paid @200 Cod @590</span></div>
+            <div class="column-holder" text="CX Issue"><span class="column-value"></span></div>
+            <div class="column-holder" text="CX Issue Status"><span class="column-value"></span></div>
+          </fieldset>
+          <fieldset>
+            <legend>AMOUNT</legend>
+            <div class="column-holder" text="Total Amount (₹)"><span class="column-value">790</span></div>
+            <div class="column-holder" text="Prepaid Amount (₹)"><span class="column-value">200</span></div>
+            <div class="column-holder" text="Balance Amount (₹)"><span class="column-value">590</span></div>
+            <div class="column-holder" text="Remittance Amount (₹)"><span class="column-value"></span></div>
+            <div class="column-holder" text="Mode of Payment"><span class="column-value">OTHERS</span></div>
+            <div class="column-holder" text="Sub Order Type"><span class="column-value">Partial Payment</span></div>
+            <div class="column-holder" text="Order Type"><span class="column-value">COD</span></div>
+            <div class="column-holder" text="Payment Status"><span class="column-value"></span></div>
+            <div class="column-holder" text="Payment Timestamp"><span class="column-value"></span></div>
+          </fieldset>
+          <fieldset>
+            <legend>SHIPPING DETAILS</legend>
+            <div class="column-holder" text="Address Line 1"><span class="column-value">Hno 108 crescent court bulding 2nd floor egmore chennai Tamilnadu Pincode : 600084</span></div>
+            <div class="column-holder" text="Address Line 2"><span class="column-value"></span></div>
+            <div class="column-holder" text="State"><span class="column-value">TAMIL NADU</span></div>
+            <div class="column-holder" text="Pincode"><span class="column-value">600084</span></div>
+          </fieldset>
+          <fieldset>
+            <legend>LOGISTIC DETAILS</legend>
+            <div class="column-holder" text="Order Confirmation Status"><span class="column-value"></span></div>
+            <div class="column-holder" text="Delivery Type"><span class="column-value"></span></div>
+            <div class="column-holder" text="Logistic Partner"><span class="column-value"></span></div>
+            <div class="column-holder" text="Booking Company"><span class="column-value"></span></div>
+            <div class="column-holder" text="ITL Error"><span class="column-value"></span></div>
+            <div class="column-holder" text="Tracking Number"><span class="column-value"></span></div>
+            <div class="column-holder" text="Tracking Status"><span class="column-value"></span></div>
+            <div class="column-holder" text="Tracking Url"><span class="column-value"></span></div>
+            <div class="column-holder" text="Dispatch Status"><span class="column-value"></span></div>
+          </fieldset>
+          <button class="detail-close-btn" onclick="removeElement({element: fx.$(.detail-view)})"></button>
+        </div>
       </section>
       <section id="dropdown" hidden="true" aria-hidden="true">
         <datalist class="dropdown" id="cx-issue">

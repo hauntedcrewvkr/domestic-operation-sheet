@@ -507,6 +507,36 @@ td .sub-action-holder {
   text-align: center;
 }
 
+/*.:::::::::::::::::::::::::::::::::::::::::::::::::::::::: detail-view-props */
+.detail-view {
+  display: flex;
+  flex-direction: column;
+  gap: var(--u2);
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 80%;
+  max-height: 95%;
+  z-index: 3;
+  border: var(--border-primary-dark);
+  background: var(--white);
+  padding: var(--u) var(--u2);
+  border-radius: var(--u2);
+  justify-content: center;
+}
+
+.details-heading {
+  text-align: center;
+  font-weight: bolder;
+}
+
+.column-holder {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .message-parent {
   display: flex;
   flex-direction: column;

@@ -170,7 +170,8 @@ function seeDetails(e) {
     for (const span of spans) {
       const spanSchema = {
         tag: 'div',
-        attr: { class: 'column-holder', text: span.title },
+        text: span.title,
+        attr: { class: 'column-holder' },
         sub: [{ tag: 'span', text: span.textContent, attr: { class: 'column-value' } }],
       };
 
