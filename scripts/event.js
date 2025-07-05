@@ -191,11 +191,11 @@ function seeDetails(e) {
   mainSchema.sub.push();
 
   fx.removeInnerHTML(extraViews);
+
   const mainEl = schema2el(mainSchema);
-  console.log(app.cta);
-  fx.$('.sub-action-div', mainEl).append(app.cta);
-  console.log(mainSchema);
-  extraViews.append(schema2el(mainSchema));
+
+  fx.$('.sub-action-div', mainEl).append(app.cta['Sub Action']);
+  extraViews.append(mainEl);
 }
 
 //--------------------------------------<( remove-detail-view-event-function()>-
