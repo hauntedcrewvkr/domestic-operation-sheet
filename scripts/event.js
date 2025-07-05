@@ -155,6 +155,7 @@ function seeDetails(e) {
   const td = fx.$$('td div[headname]', row);
   const extraViews = fx.$('main .extra-views');
 
+  console.log(td);
   const mainSchema = {
     tag: 'div',
     attr: { class: 'detail-view' },
