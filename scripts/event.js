@@ -88,7 +88,7 @@ function addNewOrder(e) {
   const addNewOrderForm = schema2el(app.schema.forms.addNewOrderForm);
 
   extraViews.append(addNewOrderForm);
-  requestAnimationFrame(addActive(addNewOrderForm));
+  requestAnimationFrame(addActive(() => addNewOrderForm));
 }
 
 //---------------------------------------------<( cancel-form-event-function()>-
@@ -118,7 +118,7 @@ function raiseIssue(e) {
   const cxIssueForm = schema2el(formSchema);
 
   extraViews.append(cxIssueForm);
-  requestAnimationFrame(addActive(cxIssueForm));
+  requestAnimationFrame(() => addActive(cxIssueForm));
 }
 function seeFollowups(e) {}
 function changeDispatchStatus(e) {}
