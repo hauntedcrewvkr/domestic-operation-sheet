@@ -88,7 +88,7 @@ function addNewOrder(e) {
   const addNewOrderForm = schema2el(app.schema.forms.addNewOrderForm);
 
   extraViews.append(addNewOrderForm);
-  requestAnimationFrame(addActive(() => addNewOrderForm));
+  requestAnimationFrame(() => addActive(addNewOrderForm));
 }
 
 //---------------------------------------------<( cancel-form-event-function()>-
