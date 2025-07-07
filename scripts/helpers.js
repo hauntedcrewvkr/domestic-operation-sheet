@@ -220,3 +220,9 @@ function setTableRows(page = 1) {
 
   removeShimmerEffect(element);
 }
+
+//----------------------------------------<( add-active-helper-function )>-
+function addActive(element) {
+  const classes = element.classList;
+  !classes.contains('active') && element.classList.add('active');
+}

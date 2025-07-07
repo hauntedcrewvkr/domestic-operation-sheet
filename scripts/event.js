@@ -88,12 +88,7 @@ function addNewOrder(e) {
   const addNewOrderForm = schema2el(app.schema.forms.addNewOrderForm);
 
   extraViews.append(addNewOrderForm);
-  requestAnimationFrame(addActive);
-
-  function addActive() {
-    const classes = addNewOrderForm.classList;
-    !classes.contains('active') && addNewOrderForm.classList.add('active');
-  }
+  requestAnimationFrame(addActive(addNewOrderForm));
 }
 
 //---------------------------------------------<( cancel-form-event-function()>-
@@ -120,7 +115,10 @@ function raiseIssue(e) {
 
   formSchema.attr.rownum ??= rowNum;
 
-  extraViews.append(schema2el(formSchema));
+  const cxIssueForm = schema2el(formSchema);
+
+  extraViews.append(cxIssueForm);
+  requestAnimationFrame(addActive(cxIssueForm));
 }
 function seeFollowups(e) {}
 function changeDispatchStatus(e) {}
