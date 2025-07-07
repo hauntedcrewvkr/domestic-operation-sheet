@@ -62,7 +62,6 @@ function prevPage(e) {
 //---------------------------------------------<( change-page-event-function()>-
 function changePage(e) {
   const pagenum = fx.num(e.currentTarget.value);
-  console.log(pagenum);
   if (pagenum >= 1 && pagenum <= app.table.pagination.totalPages) setTableRows(pagenum);
 }
 
@@ -185,7 +184,6 @@ function seeDetails(e) {
       sub: [{ tag: 'legend', text: colHead }],
     };
     const spans = fx.$$('span', div);
-    console.log(spans);
 
     for (const span of spans) {
       const spanSchema = {

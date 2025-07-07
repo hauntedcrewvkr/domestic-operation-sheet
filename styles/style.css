@@ -278,6 +278,15 @@ td div {
   padding: 0 var(--u2);
 }
 
+.base-form::after {
+  content: '';
+  position: fixed;
+  height: 100vh;
+  width: 100vw;
+  background: var(--gray4);
+  opacity: 0.5;
+}
+
 .base-form.active {
   transform: translate(-50%, -50%);
 }
