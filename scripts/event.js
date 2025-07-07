@@ -155,7 +155,7 @@ function seeDetails(e) {
   const td = fx.$$('td div[headname]', row);
   const extraViews = fx.$('main .extra-views');
 
-  const rownum = td.getAttribute('rownum');
+  const rownum = row.getAttribute('rownum');
 
   const mainSchema = {
     tag: 'div',
