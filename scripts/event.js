@@ -16,6 +16,8 @@ function formRouter(e) {
   const formData = Object.fromEntries(new FormData(form));
   let readyToGo = true;
 
+  if (form.hasAttribute('rownnum')) formData.rownum ??= fx.num(form.getAttribute('rownum'));
+
   for (const name in formData) {
     if (gsheet.columnProps[name].edit.schema.attr.type == 'number') {
       formData[name] = fx.num(formData[name]);
@@ -32,6 +34,7 @@ function formRouter(e) {
   console.log(readyToGo);
 }
 
+//--------------------------------------<( get-balance-amount-event-function )>-
 function getBalanceAmount(e) {
   const child = e.currentTarget;
   const parent = child.closest('fieldset');
@@ -108,7 +111,17 @@ function createOrder(e) {}
 function myOrders(e) {}
 function filter(e) {}
 function changeAccount(e) {}
-function raiseIssue(e) {}
+function raiseIssue(e) {
+  e.preventDefault();
+  const extraViews = fx.$('main .extra-views');
+  const holderEl = e.currentTarget.closest('.sub-action-div');
+  const rowNum = holderEl.getAttribute('rownum');
+  const formSchema = app.schema.forms.cxIssueForm;
+
+  formSchema.attr.rownum ??= rowNum;
+
+  extraViews.append(schema2el(formSchema));
+}
 function seeFollowups(e) {}
 function changeDispatchStatus(e) {}
 function addRemarks(e) {}
@@ -204,36 +217,6 @@ function seeDetails(e) {
 function removeDetailView(e) {
   const parent = e.currentTarget.closest('.detail-view');
   parent.remove();
-}
-
-//------------------------- raise-issue-event-listener
-function raiseIssue(e) {
-  e.stopPropagation();
-  const row = e.target.closest(`tr`);
-  const rownum = fx.num(row.getAttribute(`row-num`));
-  const extraViews = fx.$(`.extra-views`);
-  const htmlViews = sheet.Database.domestic_html_views.jsonData.slice();
-  const cxIssueView = htmlViews[0].cx_issue_form;
-  const cxIssueHtml = fx.text2el(cxIssueView);
-  const cxDropdowns = getDropdowns(`CX Issue`);
-
-  cxDropdowns.forEach(function (option) {
-    const select = fx.$(`#cx-issue-select`, cxIssueHtml);
-    select.appendChild(option);
-  });
-
-  extraViews.append(cxIssueHtml);
-
-  cxIssueHtml.addEventListener(`submit`, function (e) {
-    e.preventDefault();
-    const formData = new FormData(cxIssueHtml);
-    const dataObject = Object.fromEntries(formData.entries());
-
-    updateData(dataObject, rownum);
-  });
-
-  const cancelBtn = fx.$(`.cancel`, cxIssueHtml);
-  cancelBtn.addEventListener(`click`, removeForm);
 }
 
 //------------------------- change-dispatch-status-event-listener

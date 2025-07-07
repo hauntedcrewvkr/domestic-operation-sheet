@@ -903,7 +903,6 @@ const app = {
       addNewOrderForm: {
         tag: 'form',
         attr: { class: 'add-new-order-form base-form', id: 'add-new-order-form', onsubmit: 'formRouter(event)', onkeydown: 'cancelForm(event)', tabindex: '0' },
-        onsubmit: 'gsheetAppend(event)',
         sub: [
           {
             tag: 'fieldset',
@@ -1027,7 +1026,46 @@ const app = {
           }
         ],
       },
-      cxIssueForm: {},
+      
+      cxIssueForm: {
+        tag: 'form',
+        attr: { class: 'cx-issue-form base-form', id: 'cx-issue-form', onsubmit: 'formRouter(event)', onkeydown: 'cancelForm(event)', tabindex: '0' },
+        sub: [
+          {
+            tag: 'fieldset',
+            attr: {  },
+            sub: [
+              { tag: 'legend', text: 'CX ISSUE FORM', attr: { class: 'form-title' } },
+              {
+                tag: 'fieldset',
+                sub: [
+                  { tag: 'legend', text: 'CX Issue' },
+                  {
+                    tag: 'div', attr: { class: 'input-holder' }, sub: [
+                      { tag: 'label', text: 'CX Issue', attr: { class: 'input-label' } },
+                      gsheet.columnProps['CX Issue'].edit.schema,
+                    ]
+                  },
+                  {
+                    tag: 'div', attr: { class: 'input-holder' }, sub: [
+                      { tag: 'label', text: 'Remarks', attr: { class: 'input-label' } },
+                      gsheet.columnProps['Remarks'].edit.schema
+                    ]
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            tag: 'div', attr: { class: 'form-btn-holder' },
+            sub: [
+              {tag: 'button', text: 'SUBMIT', attr: {class: 'submit-btn', type: 'submit'}},
+              {tag: 'button', text: 'CANCEL' , attr: {class: 'cancel-btn', type: 'button', onclick: 'cancelForm(event)'}},
+              {tag: 'button', text: 'RESET' , attr: {class: 'reset-btn', type: 'reset'}},
+            ]
+          }
+        ],
+      },
       paymentConfirmationForm: {},
       changeDispatchStatusForm: {},
       addRemarksForm: {},
