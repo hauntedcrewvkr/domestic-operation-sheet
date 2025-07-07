@@ -247,10 +247,6 @@ td div {
   background: transparent;
 }
 
-td .sub-action-holder {
-  display: none;
-}
-
 .tr-actions {
   height: 100%;
   display: flex;
@@ -537,6 +533,15 @@ td .sub-action-holder {
   margin-bottom: var(--u);
   padding-bottom: var(--u);
   border-bottom: 1px solid var(--gray1);
+}
+
+.sub-action-holder {
+  display: flex;
+  gap: var(--u2);
+  justify-self: center;
+  padding: var(--u) var(--u2);
+  border: var(--border-primary-dark);
+  border-radius: var(--border-radius);
 }
 
 .detail-view fieldset {
